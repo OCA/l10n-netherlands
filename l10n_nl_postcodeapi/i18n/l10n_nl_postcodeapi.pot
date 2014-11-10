@@ -1,0 +1,42 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* l10n_nl_postcodeapi
+#
+msgid ""
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:addons/l10n_nl_postcodeapi/model/res_partner.py:46
+#, python-format
+msgid ""
+"Could not verify the connection with the address lookup service (if you want "
+"to get rid of this message, please rename or delete the system parameter "
+"'l10n_nl_postcodeapi.apikey')."
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:_description:0
+#: model:ir.model,name:l10n_nl_postcodeapi.model_res_country_state
+#, python-format
+msgid "Country state"
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:addons/l10n_nl_postcodeapi/model/res_partner.py:45
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:_description:0
+#: model:ir.model,name:l10n_nl_postcodeapi.model_res_partner
+#, python-format
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:_description:0
+#: model:ir.model,name:l10n_nl_postcodeapi.model_ir_config_parameter
+#, python-format
+msgid "ir.config_parameter"
+msgstr ""
