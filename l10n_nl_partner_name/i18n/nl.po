@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* partner_name_dutch
+#	* l10n_nl_partner_name
 #
 msgid ""
 msgstr ""
@@ -15,52 +15,52 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: partner_name_dutch
-#: model:ir.model,name:partner_name_dutch.model_res_partner
+#. module: l10n_nl_partner_name
+#: model:ir.model,name:l10n_nl_partner_name.model_res_partner
 msgid "Partner"
 msgstr "Relatie"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: field:res.partner,infix:0
 msgid "Infix"
 msgstr "Tussenvoegsel"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: field:res.partner.title,salutation:0
 msgid "Salutation"
 msgstr "Aanhef"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: field:res.partner,initials:0
 msgid "Initials"
 msgstr "Voorletters"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: model:res.partner.title,salutation:base.res_partner_title_prof
 msgid "Prof."
 msgstr "prof."
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: model:res.partner.title,salutation:base.res_partner_title_doctor
 msgid "Dr."
 msgstr "dr."
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: model:res.partner.title,salutation:base.res_partner_title_mister
 msgid "Mister"
 msgstr "heer"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: model:res.partner.title,salutation:base.res_partner_title_miss
 msgid "Miss"
 msgstr "mejuffrouw"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: model:res.partner.title,salutation:base.res_partner_title_madam
 msgid "Madam"
 msgstr "mevrouw"
 
-#. module: partner_name_dutch
+#. module: l10n_nl_partner_name
 #: model:res.partner.title,salutation:base.res_partner_title_sir
 msgid "Sir"
 msgstr "heer"
