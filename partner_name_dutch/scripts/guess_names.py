@@ -10,16 +10,18 @@ parser.add_argument('additional_search', nargs='?')
 args = parser.parse_args()
 
 import xmlrpclib
-openerp_socket = xmlrpclib.ServerProxy('http://%s/xmlrpc/common' %
-        args.openerp_host)
-openerp_uid = openerp_socket.login(args.openerp_db, args.openerp_user,
-        args.openerp_passwd)
-openerp_socket = xmlrpclib.ServerProxy('http://%s/xmlrpc/object' %
-        args.openerp_host, allow_none=True)
+openerp_socket = xmlrpclib.ServerProxy(
+    'http://%s/xmlrpc/common' % args.openerp_host)
+openerp_uid = openerp_socket.login(
+    args.openerp_db, args.openerp_user, args.openerp_passwd)
+openerp_socket = xmlrpclib.ServerProxy(
+    'http://%s/xmlrpc/object' % args.openerp_host, allow_none=True)
+
 
 def openerp_execute(model, method, *pargs, **kwargs):
-    return openerp_socket.execute(args.openerp_db, openerp_uid, 
-            args.openerp_passwd, model, method, *pargs, **kwargs)
+    return openerp_socket.execute(
+        args.openerp_db, openerp_uid,
+        args.openerp_passwd, model, method, *pargs, **kwargs)
 
 import re
 infixes = ['van', 'der', 'ter', 'de', 'v/d']
@@ -28,23 +30,24 @@ initial = re.compile(r'^([A-Z]{1,3}\.{0,1}){1,4}$')
 limit = 100000
 offset = 0
 
+
 def add_token(values, key, token, delimiter=' '):
     values[key] = (values[key] + ' ' if values[key] else '') + token
 
 while True:
     ids = openerp_execute(
-            'res.partner', 'search',
-            [
-                ('lastname', '!=', False),
-                ('lastname', '!=', ''),
-                ('firstname', '=', False),
-                ('initials', '=', False),
-                ('infix', '=', False),
-                ('is_company', '=', False),
-            ] +
-            eval(args.additional_search or '[]'),
-            offset,
-            limit)
+        'res.partner', 'search',
+        [
+            ('lastname', '!=', False),
+            ('lastname', '!=', ''),
+            ('firstname', '=', False),
+            ('initials', '=', False),
+            ('infix', '=', False),
+            ('is_company', '=', False),
+        ] +
+        eval(args.additional_search or '[]'),
+        offset,
+        limit)
     if not ids:
         break
 

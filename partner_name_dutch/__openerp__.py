@@ -19,9 +19,9 @@
 #
 ##############################################################################
 {
-    "name" : "Dutch partner names",
-    "version" : "1.0",
-    "author" : "Therp BV",
+    "name": "Dutch partner names",
+    "version": "1.0",
+    "author": "Therp BV",
     "complexity": "normal",
     "description": """Use Dutch conventions for partner names:
     - have infixes
@@ -30,11 +30,11 @@
     - use a different title for address and salutation ('aan de heer'/'geachte
       heer')
     """,
-    "category" : "Generic Modules",
-    "depends" : [
+    "category": "Generic Modules",
+    "depends": [
         'partner_firstname',
     ],
-    "data" : [
+    "data": [
         "data/res_partner_title.xml",
         "view/res_partner_title.xml",
         'view/res_partner.xml',
@@ -47,7 +47,7 @@
     ],
     "auto_install": False,
     "installable": True,
-    "external_dependencies" : {
-        'python' : ['mako'],
+    "external_dependencies": {
+        'python': ['mako'],
     },
 }

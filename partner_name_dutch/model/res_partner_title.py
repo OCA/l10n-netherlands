@@ -21,6 +21,7 @@
 from openerp.osv.orm import Model
 from openerp.osv import fields
 
+
 class ResPartnerTitle(Model):
     _inherit = 'res.partner.title'
 
