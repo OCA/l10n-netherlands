@@ -1,0 +1,83 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<p:auditfile xmlns:p="http://www.auditfiles.nl/XAF/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.auditfiles.nl/XAF/3.1 AuditfileFinancieelVersie3.1.xsd.xsd ">
+  <p:header>
+    <p:fiscalYear text-eval="fiscal_year"></p:fiscalYear>
+    <p:startDate text-eval="periods[0].date_start"></p:startDate>
+    <p:endDate text-eval="periods[-1].date_stop"></p:endDate>
+    <p:currencyCode text-eval="company.currency_id.name"></p:currencyCode>
+    <p:dateCreated text-eval="date_created"></p:dateCreated>
+    <p:productID text-eval="software_desc"></p:productID>
+    <p:productVersion text-eval="software_version"></p:productVersion>
+    <p:companyName text-eval="company.name"></p:companyName>
+    <p:taxRegistration text-eval="company.vat"></p:taxRegistration>
+    <p:companyAddress text-eval="company.street"></p:companyAddress>
+    <p:companyCity text-eval="company.city"></p:companyCity>
+    <p:companyPostalCode text-eval="company.zip"></p:companyPostalCode>
+  </p:header>
+  <p:customersSuppliers>
+    <p:customerSupplier seq-eval="partners" var="partner">
+      <p:custSupID text-eval="partner.id"></p:custSupID>
+      <p:companyName text-eval="partner.name"></p:companyName>
+      <p:contact text-eval="partner.name"></p:contact>
+      <p:telephone text-eval="text(partner.phone)"></p:telephone>
+      <p:fax text-eval="text(partner.phone)"></p:fax>
+      <p:eMail text-eval="text(partner.email)"></p:eMail>
+      <p:website text-eval="text(partner.website)"></p:website>
+      <p:taxRegistrationCountry text-eval="partner.country_id.code"></p:taxRegistrationCountry>
+      <p:taxRegIdent text-eval="text(partner.vat)"></p:taxRegIdent>
+      <p:custSupTp text-eval="custSupTp(partner.supplier,partner.customer)"></p:custSupTp>
+      <p:streetAddress>
+        <p:streetname text-eval="text(partner.street)"></p:streetname>
+        <p:city text-eval="text(partner.city)"></p:city>
+        <p:postalCode text-eval="text(partner.zip)"></p:postalCode>
+        <p:region text-eval="text(partner.state_id.name)"></p:region>
+        <p:country text-eval="partner.country_id.code"></p:country>
+      </p:streetAddress>partner
+      <p:bankAccount seq-eval="partner.bank_ids" var="bank">
+        <p:bankAccNr text-eval="bank.acc_number"></p:bankAccNr>
+        <p:bankIdCd text-eval="text(bank.bank_bic)"></p:bankIdCd>
+      </p:bankAccount>
+    </p:customerSupplier>
+  </p:customersSuppliers>
+  <p:generalLedger>
+    <p:taxonomy text-eval="chartOfAccount.name"></p:taxonomy>
+    <p:ledgerAccount seq-eval="accounts" var="account">
+      <p:accountID text-eval="account.code"></p:accountID>
+      <p:accountDesc text-eval="account.name"></p:accountDesc>
+      <p:accountType text-eval="accTp(account.user_type.report_type)"></p:accountType>
+      <p:leadCode text-eval="accTp(account.user_type.report_type)"></p:leadCode>
+    </p:ledgerAccount>
+  </p:generalLedger>
+  <p:transactions>
+    <p:numberEntries text-eval="linesCount()"></p:numberEntries>
+    <p:totalDebit text-eval="totalDebit()"></p:totalDebit>
+    <p:totalCredit text-eval="totalCredit()"></p:totalCredit>
+    <p:journal seq-eval="journals" var="journal">
+      <p:journalID text-eval="journal.code"></p:journalID>
+      <p:description text-eval="journal.name"></p:description>
+      <p:transaction seq-eval="journal.moves" var="move">
+        <p:transactionID text-eval="move.name"></p:transactionID>
+        <p:period text-eval="periodNumber(move.period_id)"></p:period>
+        <p:transactionDate text-eval="move.date"></p:transactionDate>
+        <p:line seq-eval="move.line_id" var="line">
+          <p:recordID text-eval="line.move_id.name"></p:recordID>
+          <p:accountID text-eval="line.account_id.code"></p:accountID>
+          <p:docRef text-eval="line.ref"></p:docRef>
+          <p:description text-eval="line.ref"></p:description>
+          <p:debitAmount text-eval="line.debit"></p:debitAmount>
+          <p:creditAmount text-eval="line.credit"></p:creditAmount>
+          <p:vat loop-eval="vat(line.tax_code_id)" var="void" omit_on_empty="True">
+          	<p:vatCode text-eval="line.name[:14]"></p:vatCode>
+            <p:vatPercentage text-eval="vatPerc(line.tax_amount)"></p:vatPercentage>
+            <p:vatAmount text-eval="vatAmnt(line.tax_amount)"></p:vatAmount>
+          </p:vat>
+          <p:currency loop-eval="currency(line.currency_id.name)" var="void" omit_on_empty="True">
+            <p:currencyCode text-eval="line.currency_id.name"></p:currencyCode>
+            <p:currencyDebitAmount text-eval="curAmntDeb(line.credit, line.debit, line.amount_currency)"></p:currencyDebitAmount>
+            <p:currencyCreditAmount text-eval="curAmntCred(line.credit, line.debit, line.amount_currency)"></p:currencyCreditAmount>
+          </p:currency>
+        </p:line>
+      </p:transaction>
+    </p:journal>
+  </p:transactions>
+</p:auditfile>
