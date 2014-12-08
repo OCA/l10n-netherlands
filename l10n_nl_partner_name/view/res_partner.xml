@@ -6,7 +6,7 @@
       <field name="inherit_id" ref="partner_firstname.view_partner_simple_form_firstname"/>
       <field name="arch" type="xml">
           <data>
-              <field name="lastname" position="before">
+              <field name="lastname" position="after">
                   <field name="initials" />
                   <field name="infix" />
               </field>
@@ -20,11 +20,11 @@
       <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname"/>
       <field name="arch" type="xml">
           <data>
-              <field name="lastname" position="before">
+              <field name="lastname" position="after">
                   <field name="initials" />
                   <field name="infix" />
               </field>
-              <xpath expr="//form[@string='Contact']/sheet//group/field[@name='lastname']" position="before">
+              <xpath expr="//form[@string='Contact']/sheet//group/field[@name='lastname']" position="after">
                   <field name="initials"/>
                   <field name="infix"/>
               </xpath>
