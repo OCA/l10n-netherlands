@@ -75,7 +75,7 @@ class auditfile_generate(osv.osv):
         self._logger.info('search for build-in xml_template')
 
         _file = get_module_resource(
-            'xaf_auditfile_export', 'data', 'auditfile_template.xml')
+            'l10n_nl_xaf_auditfile_export', 'data', 'auditfile_template.xml')
         if not _file:
             raise osv.except_osv(_('Data Error'),
                 _('Invalid build-in template'))
@@ -254,7 +254,7 @@ class auditfile_generate(osv.osv):
             # validates given xml file
             self._logger.info('validate xml')
             _file = get_module_resource(
-                'xaf_auditfile_export', 'data', 'auditfile_schema.xsd')
+                'l10n_nl_xaf_auditfile_export', 'data', 'auditfile_schema.xsd')
             if not _file:
                 raise osv.except_osv(_('Data Error'), _('Invalid XML schema'))
             _schema_doc = etree.parse(open(_file))
