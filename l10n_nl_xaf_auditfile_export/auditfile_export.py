@@ -23,7 +23,6 @@
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
 from lxml import etree
-import xml.etree.ElementTree as ET
 import sys
 from openerp import release
 import datetime
@@ -45,8 +44,9 @@ class auditfile_generate(osv.osv):
     def _check_state(self, cr, uid, ids, state, args, context={}):
         res = {}
         for id in ids:
-            exists_attachment = self.pool.get('ir.attachment').search(cr,
-                uid, ['&', ('res_id', '=', id), ('res_model', '=', 'auditfile.generate')])
+            exists_attachment = self.pool.get('ir.attachment').search(
+                cr, uid, ['&', ('res_id', '=', id), ('res_model', '=', 'auditfile.generate')]
+            )
             if exists_attachment:
                 res[id] = 'done'
             else:
@@ -58,8 +58,11 @@ class auditfile_generate(osv.osv):
         'template_content': fields.text('Template', required=True),
         'period_start': fields.many2one('account.period', 'Start Period', required=True),
         'period_stop': fields.many2one('account.period', 'Stop Period', required=True),
-        'state': fields.function(_check_state, string="Status", type='selection', selection=[('ready','Ready'),('done','Printed')], readonly=True, store=False), #TODO
-        'date_printed': fields.datetime("Date Printed", readyonly=True, select="0"),#TODO
+        'state': fields.function(
+            _check_state, string="Status", type='selection',
+            selection=[('ready', 'Ready'), ('done', 'Printed')], readonly=True, store=False
+        ),
+        'date_printed': fields.datetime("Date Printed", readyonly=True, select="0"),
         'notes': fields.text('Notes'),
     }
 
@@ -77,8 +80,7 @@ class auditfile_generate(osv.osv):
         _file = get_module_resource(
             'l10n_nl_xaf_auditfile_export', 'data', 'auditfile_template.xml')
         if not _file:
-            raise osv.except_osv(_('Data Error'),
-                _('Invalid build-in template'))
+            raise osv.except_osv(_('Data Error'), _('Invalid build-in template'))
 
         return open(_file).read()
 
@@ -96,8 +98,6 @@ class auditfile_generate(osv.osv):
     def create_auditfile(self, cr, uid, ids, id):
         self._logger.info('create auditfile')
 
-        messages = []
-
         _date_format = '%Y-%m-%d'
         _output_file = '.xaf'
 
@@ -105,14 +105,13 @@ class auditfile_generate(osv.osv):
 
         # partners search
         partners_obj = self.pool.get("res.partner")
-        partners_obj_ids = partners_obj.search(cr, uid, ['|',
-            ('supplier', '=', 'True'),
-            ('customer', '=', 'True')])
+        partners_obj_ids = partners_obj.search(
+            cr, uid, ['|', ('supplier', '=', 'True'), ('customer', '=', 'True')]
+        )
         partners = partners_obj.browse(cr, uid, partners_obj_ids)
 
         if not partners:
-            raise osv.except_osv(_('Data Error'),
-                _('There are no partners to export'))
+            raise osv.except_osv(_('Data Error'), _('There are no partners to export'))
 
         def _validate_country_ids(partners):
             names = []
@@ -123,17 +122,18 @@ class auditfile_generate(osv.osv):
                     names.append(partner.name)
                     break
             if names:
-                raise osv.except_osv(_('Data Error'),
-                    _('Following companies have no country code: %s') \
-                    % (', '.join(names)))
+                raise osv.except_osv(
+                    _('Data Error'), _('Following companies have no country code: %s')
+                    % (', '.join(names))
+                )
             return True
         _validate_country_ids(partners)
 
         # periods search
         period_obj = self.pool.get("account.period")
-        period_ids = period_obj.search(cr, uid, ['&',
-            ('id', '>=', data.period_start.id),
-            ('id', '<=', data.period_stop.id)])
+        period_ids = period_obj.search(
+            cr, uid, ['&', ('id', '>=', data.period_start.id), ('id', '<=', data.period_stop.id)]
+        )
         periods = period_obj.browse(cr, uid, period_ids)
 
         # journal search
@@ -145,7 +145,7 @@ class auditfile_generate(osv.osv):
         account_obj = self.pool.get("account.account")
         account_ids = account_obj.search(cr, uid, [])
         accounts = account_obj.browse(cr, uid, account_ids)
-        coa_ids = account_obj.search(cr, uid, ['&',('user_type', '=', 1), ('parent_id', '=', False)])
+        coa_ids = account_obj.search(cr, uid, ['&', ('user_type', '=', 1), ('parent_id', '=', False)])
         coa = account_obj.browse(cr, uid, coa_ids[0])
 
         # tax code search
@@ -157,8 +157,7 @@ class auditfile_generate(osv.osv):
         tax_obj = self.pool.get("account.tax")
         tax_ids = tax_obj.search(cr, uid, [
             ('tax_code_id', 'in', tax_code_ids)])
-        tax_codes = set(t.tax_code_id for t
-            in tax_obj.browse(cr, uid, tax_ids))
+        tax_codes = set(t.tax_code_id for t in tax_obj.browse(cr, uid, tax_ids))
 
         def _validate_tax_code_ids(tax_codes):
             names = []
@@ -166,9 +165,10 @@ class auditfile_generate(osv.osv):
                 if not tax_code.code:
                     names.append(tax_code.name)
             if names:
-                raise osv.except_osv(_('Data Error'),
-                    _('Following taxes have no tax code: %s') \
-                        % (', '.join(names)))
+                raise osv.except_osv(
+                    _('Data Error'), _('Following taxes have no tax code: %s')
+                    % (', '.join(names))
+                )
             return True
 
         _validate_tax_code_ids(tax_codes)
@@ -178,15 +178,13 @@ class auditfile_generate(osv.osv):
 
         journals_moves = {}
         for journal in journals:
-            move_ids = move_obj.search(cr, uid, ['&',
-                ("journal_id", "=", journal.id),
-                ("period_id", "in", period_ids)])
+            move_ids = move_obj.search(
+                cr, uid, ['&', ("journal_id", "=", journal.id), ("period_id", "in", period_ids)]
+            )
             journals_moves[journal.id] = move_obj.browse(cr, uid, move_ids)
 
-
         # define fiscal year by start period
-        fiscal_year = datetime.datetime.strptime(periods[0].date_start,
-            _date_format).year
+        fiscal_year = datetime.datetime.strptime(periods[0].date_start, _date_format).year
 
         # lambda functions
         custSupTp = lambda s, c: 'B' if s and c \
@@ -195,14 +193,16 @@ class auditfile_generate(osv.osv):
             else 'P' if t == 'asset' or t == 'liability' else 'M'
         amntTp = lambda c, d: 'C' if c > d else 'D' if d > c else 'C'
         amnt = lambda c, d: '{0:.02f}'.format(abs(d - c))
-        totalDebit = lambda: '{0:.02f}'.format(sum(l.debit for j \
-            in journals for m in journals_moves[j.id] for l in m.line_id))
-        totalCredit = lambda: '{0:.02f}'.format(sum(l.credit for j \
-            in journals for m in journals_moves[j.id] for l in m.line_id))
-        periodNumber = lambda p: '{0:03d}'.format(datetime.datetime.strptime(
-            p.date_start, _date_format).month)
-        linesCount = lambda: sum(len(m.line_id) for j \
-            in journals for m in journals_moves[j.id])
+        totalDebit = lambda: '{0:.02f}'.format(
+            sum(l.debit for j in journals for m in journals_moves[j.id] for l in m.line_id)
+        )
+        totalCredit = lambda: '{0:.02f}'.format(
+            sum(l.credit for j in journals for m in journals_moves[j.id] for l in m.line_id)
+        )
+        periodNumber = lambda p: '{0:03d}'.format(
+            datetime.datetime.strptime(p.date_start, _date_format).month
+        )
+        linesCount = lambda: sum(len(m.line_id) for j in journals for m in journals_moves[j.id])
         text = lambda t: '' if not t else t
         vat = lambda t: [] if not t or t not in tax_codes else [t]
         currency = lambda c: [] if not c else [c]
@@ -215,11 +215,11 @@ class auditfile_generate(osv.osv):
         template = self.pool.get("xml.template")
 
         self._logger.info('create xml_template')
-        template_id = template.create(cr, uid,
-                {'name': data.name, 'content': data.template_content})
+        template_id = template.create(cr, uid, {'name': data.name, 'content': data.template_content})
         try:
 
-            xml = template.generate_xml(cr, uid, template_id,
+            xml = template.generate_xml(
+                cr, uid, template_id,
                 partners=partners,
                 fiscal_year=fiscal_year,
                 date_created=datetime.date.today().strftime(_date_format),
@@ -262,8 +262,7 @@ class auditfile_generate(osv.osv):
             if not _schema.validate(xml):
                 for line in _schema.error_log:
                     self._logger.error('%s\n' % line.message)
-                raise osv.except_osv(_('Data Error'),
-                    _('Invalid Data. Please, see logs for details.'))
+                raise osv.except_osv(_('Data Error'), _('Invalid Data. Please, see logs for details.'))
 
             # remove 'nso:' from file
             [xml_string] = etree.tostringlist(xml)
@@ -271,20 +270,18 @@ class auditfile_generate(osv.osv):
             xml_new = etree.fromstring(xml_string, parser=None, base_url=None)
 
             # attaches xml to module
-            template.attach_xml(cr, uid, template_id,
-                attach_to=data,
-                xml=xml_new,
-                name=data.name + _output_file,
+            template.attach_xml(
+                cr, uid, template_id, attach_to=data, xml=xml_new, name=data.name + _output_file,
                 fname=data.name + _output_file,
                 description='XML file representing this partner',
             )
             self._logger.info('auditfile_export created succesfully')
-            self.write(cr, uid, ids[0],{'state': 'done', 'date_printed': time.strftime('%Y-%m-%d %H:%M:%S')}, context=id)
+            self.write(cr, uid, ids[0],
+                       {'state': 'done', 'date_printed': time.strftime('%Y-%m-%d %H:%M:%S')}, context=id)
 
         except Exception, e:
             self._logger.error(sys.exc_info())
-            raise osv.except_osv(_('Data Error'),
-                _('Invalid Data.\n%s\nPlease, see logs for details.') % e)
+            raise osv.except_osv(_('Data Error'), _('Invalid Data.\n%s\nPlease, see logs for details.') % e)
 
         self._logger.info('unlink xml_template')
         template.unlink(cr, uid, template_id)

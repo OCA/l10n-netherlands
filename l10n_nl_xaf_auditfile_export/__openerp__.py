@@ -32,7 +32,9 @@ XAF Auditfile Export
 
 This module allows to export the financial (accounting) information
 from your Odoo system to a .XAF file according to the model provided by
-the `Dutch tax  authorities <http://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/aangifte_betalen_en_toezicht/toezicht/handhaving_en_controle/belastingcontrole_met_de_auditfile>`_
+the `Dutch tax  authorities <http://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/\
+belastingdienst/zakelijk/aangifte_betalen_en_toezicht/toezicht/handhaving_en_controle/\
+belastingcontrole_met_de_auditfile>`_
 
 --\n
 This modules is based on the module `nbs_xml_auditfile_financieel <http://www.neobis.nl/>`_
