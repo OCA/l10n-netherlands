@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-16 11:54+0000\n"
-"PO-Revision-Date: 2014-12-16 11:54+0000\n"
+"POT-Creation-Date: 2014-12-16 11:50+0000\n"
+"PO-Revision-Date: 2014-12-16 11:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,51 +21,49 @@ msgstr ""
 msgid "Invalid Data.\n"
 "%s\n"
 "Please, see logs for details."
-msgstr "Invalid Data.\n"
-"%s\n"
-"Please, see logs for details."
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:123
 #, python-format
 msgid "Following companies have no country code: %s"
-msgstr "Following companies have no country code: %s"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:247
 #, python-format
 msgid "Invalid XML schema"
-msgstr "Invalid XML schema"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:92
 #: constraint:auditfile.generate:0
 #, python-format
 msgid "Please, check periods"
-msgstr "Please, check periods"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:81
 #, python-format
 msgid "Invalid build-in template"
-msgstr "Invalid build-in template"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:163
 #, python-format
 msgid "Following taxes have no tax code: %s"
-msgstr "Following taxes have no tax code: %s"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.auditfile_menu_mainforms
 msgid "XAF Audit Exports"
-msgstr "XAF Audit Exports"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:253
 #, python-format
 msgid "Invalid Data. Please, see logs for details."
-msgstr "Invalid Data. Please, see logs for details."
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:81
@@ -77,42 +75,42 @@ msgstr "Invalid Data. Please, see logs for details."
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:275
 #, python-format
 msgid "Data Error"
-msgstr "Data Error"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_auditfile_generate
 msgid "Auditfile_export generation"
-msgstr "Auditfile_export generation"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: view:auditfile.generate:0
 msgid "Notes..."
-msgstr "Notes..."
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/auditfile_export.py:111
 #, python-format
 msgid "There are no partners to export"
-msgstr "There are no partners to export"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: view:auditfile.generate:0
 msgid "Create Auditfile"
-msgstr "Create Auditfile"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: view:auditfile.generate:0
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfile_tree
 msgid "Financial audit exports"
-msgstr "Financial audit exports"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: view:auditfile.generate:0
 msgid "Financial audit export"
-msgstr "Financial audit export"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: view:auditfile.generate:0
 msgid "Notes"
-msgstr "Notes"
+msgstr ""
 
