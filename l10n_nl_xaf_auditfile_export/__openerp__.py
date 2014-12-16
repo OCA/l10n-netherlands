@@ -39,8 +39,8 @@ belastingcontrole_met_de_auditfile>`_
 --\n
 This modules is based on the module `nbs_xml_auditfile_financieel <http://www.neobis.nl/>`_
 developed by `Neobis ICT Dienstverlening B.V. <http://www.neobis.nl/>`_ and uses
-the module `xml_template <https://www.odoo.com/apps/7.0/xml_template/>`_ created by
-Swing Entwicklung betrieblicher Informationssysteme GmbH.
+the module xml_template created by Swing Entwicklung betrieblicher Informationssysteme GmbH
+and migrated to Odoo V8 by ONESTEiN BV.
 """,
     'author': 'ONESTEiN BV',
     'website': 'http://www.onestein.nl',
