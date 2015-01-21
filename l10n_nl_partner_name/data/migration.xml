@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <function name="_migrate_partner_name_dutch_name_change" model="res.partner">
+            <value>partner_name_dutch</value>
+        </function>
+    </data>
+</openerp>

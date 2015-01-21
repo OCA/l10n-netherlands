@@ -35,6 +35,7 @@
         'partner_firstname',
     ],
     "data": [
+        'data/migration.xml',
         "data/res_partner_title.xml",
         "view/res_partner_title.xml",
         'view/res_partner.xml',
