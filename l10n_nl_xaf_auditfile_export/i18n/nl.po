@@ -66,8 +66,8 @@ msgstr "Audit exports financieel"
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:127
 #, python-format
-msgid "Following companies have no country code: %s"
-msgstr "De volgende bedrijven hebben geen landcode: %s"
+msgid "Following partners have no country code: %s"
+msgstr "De volgende partners hebben geen landcode: %s"
 
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:170
@@ -88,7 +88,7 @@ msgid ""
 "%s\n"
 "Please, see logs for details."
 msgstr ""
-"Data ongeldit.\n"
+"Data ongeldig.\n"
 "%s\n"
 "Zie logbestand voor meer informatie."
 
@@ -107,7 +107,7 @@ msgstr "XML schema ongeldig."
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:81
 #, python-format
-msgid "Invalid build-in template"
+msgid "Invalid built-in template"
 msgstr "Geïntegreerd template ongeldig."
 
 #. module: xaf_auditfile_export

@@ -66,7 +66,7 @@ msgstr ""
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:127
 #, python-format
-msgid "Following companies have no country code: %s"
+msgid "Following partners have no country code: %s"
 msgstr ""
 
 #. module: xaf_auditfile_export
@@ -103,7 +103,7 @@ msgstr ""
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:81
 #, python-format
-msgid "Invalid build-in template"
+msgid "Invalid built-in template"
 msgstr ""
 
 #. module: xaf_auditfile_export

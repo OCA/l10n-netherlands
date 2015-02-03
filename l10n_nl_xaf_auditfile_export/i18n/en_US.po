@@ -66,8 +66,8 @@ msgstr "Financial audit exports"
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:127
 #, python-format
-msgid "Following companies have no country code: %s"
-msgstr "Following companies have no country code: %s"
+msgid "Following partners have no country code: %s"
+msgstr "Following partners have no country code: %s"
 
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:170
@@ -105,8 +105,8 @@ msgstr "Invalid XML schema"
 #. module: xaf_auditfile_export
 #: code:addons/xaf_auditfile_export/auditfile_export.py:81
 #, python-format
-msgid "Invalid build-in template"
-msgstr "Invalid build-in template"
+msgid "Invalid built-in template"
+msgstr "Invalid built-in template"
 
 #. module: xaf_auditfile_export
 #: field:auditfile.generate,write_uid:0

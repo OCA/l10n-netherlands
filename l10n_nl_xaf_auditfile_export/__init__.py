@@ -3,6 +3,8 @@
 #
 #    XAF Auditfile export
 #    Copyright (C) 2014 ONESTEiN BV (<http://www.onestein.nl>).
+#    Copyright (C) 2012-2013 Neobis ICT Dienstverlening BV
+#    <http://www.neobis.nl>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
