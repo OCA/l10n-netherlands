@@ -137,7 +137,7 @@ class auditfile_generate(orm.Model):
         # periods search
         period_obj = self.pool.get("account.period")
         period_ids = period_obj.search(
-            cr, uid, ['&', ('id', '>=', data.period_start.id), ('id', '<=', data.period_stop.id)], context=context
+            cr, uid, ['&', ('date_start', '>=', data.period_start.date_start), ('date_stop', '<=', data.period_stop.date_stop)], context=context
         )
         periods = period_obj.browse(cr, uid, period_ids, context=context)
 
