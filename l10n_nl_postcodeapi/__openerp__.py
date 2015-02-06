@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013-2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,8 @@
 ##############################################################################
 
 {
-    'name': 'Autocomplete Dutch addresses using PostcodeApi.nu',
+    'name': 'Integration with PostcodeApi.nu',
+    'summary': 'Autocomplete Dutch addresses using PostcodeApi.nu',
     'description': '''
 
 Auto-completion for Dutch addresses
