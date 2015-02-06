@@ -99,21 +99,30 @@ class ResPartner(orm.Model):
     def fields_view_get(
             self, cr, user, view_id=None, view_type='form',
             context=None, toolbar=False, submenu=False):
-        """
-        Address fields can be all over the place due to
-        module interaction. For improved compatibility,
-        add the onchange method here, not in a view.
-        """
+        """ Address fields can be all over the place due to module
+        interaction. For improved compatibility add the onchange method here,
+        not in a view."""
         res = super(ResPartner, self).fields_view_get(
             cr, user, view_id=view_id, view_type=view_type,
             context=context, toolbar=toolbar, submenu=submenu)
         if view_type != 'form':
             return res
-        arch = etree.fromstring(res['arch'])
-        for field in ['zip', 'street_number']:
-            for node in arch.xpath('//field[@name="%s"]' % field):
-                node.attrib['on_change'] = (
-                    "on_change_zip_street_number"
-                    "(zip, street_number, country_id, context)")
-        res['arch'] = etree.tostring(arch, encoding='utf-8')
+
+        def inject_onchange(arch):
+            arch = etree.fromstring(arch)
+            for field in ['zip', 'street_number']:
+                count = 0
+                for node in arch.xpath('//field[@name="%s"]' % field):
+                    count += 1
+                    node.attrib['on_change'] = (
+                        "on_change_zip_street_number"
+                        "(zip, street_number, country_id, context)")
+            return etree.tostring(arch, encoding='utf-8')
+
+        res['arch'] = inject_onchange(res['arch'])
+        # Inject in the embedded contacts view as well
+        if res['fields'].get('child_ids', {}).get('views', {}).get('form'):
+            res['fields']['child_ids']['views']['form']['arch'] = \
+                inject_onchange(
+                    res['fields']['child_ids']['views']['form']['arch'])
         return res
