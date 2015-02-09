@@ -33,10 +33,6 @@
         <p:region text-eval="text(partner.state_id.name)"></p:region>
         <p:country text-eval="partner.country_id.code"></p:country>
       </p:streetAddress>partner
-      <p:bankAccount seq-eval="partner.bank_ids" var="bank">
-        <p:bankAccNr text-eval="bank.acc_number"></p:bankAccNr>
-        <p:bankIdCd text-eval="text(bank.bank_bic)"></p:bankIdCd>
-      </p:bankAccount>
     </p:customerSupplier>
   </p:customersSuppliers>
   <p:generalLedger>
