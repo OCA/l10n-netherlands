@@ -31,4 +31,7 @@
     'data': [
         'data/ir_config_parameter.xml',
         ],
+    "external_dependencies": {
+        'python': ['pyPostcode'],
+    }
 }
