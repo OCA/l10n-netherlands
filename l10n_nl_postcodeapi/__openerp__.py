@@ -58,8 +58,8 @@ This module is compatible with OpenERP 7.0.
 ''',
     'version': '0.1',
     'author': 'Therp BV',
-    'category': 'Usability',
-    'website': 'https://therp.nl',
+    'category': 'Localization',
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'license': 'AGPL-3',
     'depends': ['partner_street_number'],
     'data': [
