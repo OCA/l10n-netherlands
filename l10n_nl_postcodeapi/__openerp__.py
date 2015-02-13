@@ -27,8 +27,7 @@
 Auto-completion for Dutch addresses
 ===================================
 This module contains integration of the excellent and free address completion
-service 'PostcodeAPI', using the Python API library by Stefan Jansen (included
-in this module). The service allows lookups by zip code and house number,
+service 'PostcodeAPI'. The service allows lookups by zip code and house number,
 providing street name and city. The lookups will be triggered in the partner
 form views when a zip code or house number is entered or modified. Only
 Dutch addresses (which is assumed to include addresses with no country) are
@@ -36,12 +35,16 @@ auto-completed.
 
 More info about the lookup service here: http://www.postcodeapi.nu/
 
-Home of the Python API library: https://github.com/steffex/pyPostcode
-
 Dependencies
 ============
 This module depends on the module partner_street_number, which will split
 up the street field into separate fields for street name and number.
+
+You also need to have the 'pyPostcode' Python library by Stefan Jansen
+installed (https://github.com/steffex/pyPostcode). Install in the following way
+for now, until this lib is available on Pypi::
+
+    pip install git+https://github.com/stefanrijnhart/pyPostcode.git@pypi
 
 Configuration
 =============
@@ -65,4 +68,7 @@ This module is compatible with OpenERP 7.0.
     'data': [
         'data/ir_config_parameter.xml',
         ],
+    "external_dependencies": {
+        'python': ['pyPostcode'],
+    }
 }
