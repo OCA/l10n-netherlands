@@ -25,7 +25,6 @@ from lxml import etree
 from openerp.osv import orm
 from openerp.tools import ormcache
 from openerp.tools.translate import _
-from ..extra_packages.pyPostcode import Api as pyPostcodeApi
 
 
 class ResPartner(orm.Model):
@@ -38,7 +37,8 @@ class ResPartner(orm.Model):
                 WHERE key = %s""", ('l10n_nl_postcodeapi.apikey',))
         row = cr.fetchone()
         if row and row[0] != 'Your API key' and row[0].strip():
-            provider = pyPostcodeApi(row[0].strip())
+            from pyPostcode import Api
+            provider = Api(row[0].strip())
             test = provider.getaddress('1053NJ', '334T')
             if not test or not test._data:
                 raise orm.except_orm(
