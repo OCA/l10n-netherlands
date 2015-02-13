@@ -14,6 +14,12 @@ Dependencies
 This module depends on the module partner_street_number, which will split
 up the street field into separate fields for street name and number.
 
+You also need to have the 'pyPostcode' Python library by Stefan Jansen
+installed (https://github.com/steffex/pyPostcode). Install in the following way
+for now, until this lib is available on Pypi::
+
+    pip install git+https://github.com/stefanrijnhart/pyPostcode.git@pypi
+
 Configuration
 =============
 Please enter the API key that you request from PostcodeAPI into the system
@@ -34,9 +40,6 @@ Contributors
 ------------
 
 * Stefan Rijnhart (Therp BV) <stefan@therp.nl>
-
-Includes the Python API library for Postcodeapi.nu by Stefan Jansen
-(https://github.com/steffex/pyPostcode)
 
 Maintainer
 ----------
