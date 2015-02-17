@@ -24,6 +24,11 @@ from datetime import datetime
 from openerp import _, models, fields, api, exceptions, release
 
 
+MAX_RECORDS = 10000
+'''For possibly huge lists, only read chunks from the database in order to
+avoid oom exceptions'''
+
+
 class XafAuditfileExport(models.Model):
     _name = 'xaf.auditfile.export'
     _description = 'XAF auditfile export'
@@ -94,4 +99,19 @@ class XafAuditfileExport(models.Model):
 
     @api.multi
     def get_odoo_version(self):
+        '''return odoo version'''
         return release.version
+
+    @api.multi
+    def get_partners(self):
+        '''return a generator over partners and suppliers'''
+        offset = 0
+        while True:
+            results = self.env['res.partner'].search(
+                ['|', ('customer', '=', True), ('supplier', '=', True)],
+                offset=offset, limit=MAX_RECORDS)
+            if not results:
+                break
+            offset += MAX_RECORDS
+            for result in results:
+                yield result
