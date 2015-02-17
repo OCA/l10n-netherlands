@@ -13,6 +13,65 @@
         <softwareVersion><t t-esc="self.get_odoo_version()" /></softwareVersion>
     </header>
     <company>
+        <companyIdent><t t-esc="self.company_id.company_registry" /></companyIdent>
+        <companyName><t t-esc="self.company_id.name" /></companyName>
+        <taxRegistrationCountry><t t-esc="self.company_id.country_id.code" /></taxRegistrationCountry>
+        <taxRegIdent><t t-esc="self.company_id.vat" /></taxRegIdent>
+        <streetAddress>
+            <streetname><t t-esc="self.company_id.street" /></streetname>
+            <number />
+            <numberExtension />
+            <property />
+            <city><t t-esc="self.company_id.city" /></city>
+            <postalCode><t t-esc="self.company_id.zip" /></postalCode>
+            <region><t t-esc="self.company_id.state_id.name" /></region>
+            <country><t t-esc="self.company_id.country_id.code" /></country>
+        </streetAddress>
+        <!-- we might look at self.company_id.address_get(adr_pref)
+             but that doesn't really seem worth the effort
+        <postalAddress/> /-->
+        <customersSuppliers>
+            <customerSupplier t-foreach="self.get_partners()" t-as="p">
+                <custSupID><t t-esc="p.id" /></custSupID>
+                <custSupName><t t-esc="p.name" /></custSupName>
+                <contact t-if="p.is_company and p.child_ids"><t t-esc="p.child_ids[0].name" /></contact>
+                <telephone><t t-esc="p.phone" /></telephone>
+                <fax><t t-esc="p.fax" /></fax>
+                <eMail><t t-esc="p.email" /></eMail>
+                <website><t t-esc="p.website" /></website>
+                <!-- not in standard data model
+                <commerceNr /> /-->
+                <taxRegistrationCountry><t t-esc="p.country_id.code" /></taxRegistrationCountry>
+                <taxRegIdent><t t-esc="p.vat" /></taxRegIdent>
+                <custSupTp><t t-esc="'B' if p.customer and p.supplier else 'C' if p.customer else 'S' if p.supplier else 'O'" /></custSupTp>
+                <!-- those need to be defined in <basics/> and are not required
+                     labels might be used here
+                <relationshipID>String</relationshipID>
+                <custSupGrpID>String</custSupGrpID> -->
+                <custCreditLimit t-if="p.customer and p.credit_limit"><t t-esc="p.credit_limit" /></custCreditLimit>
+                <supplierLimit t-if="p.supplier and p.credit_limit"><t t-esc="p.credit_limit" /></supplierLimit>
+                <streetAddress>
+                    <streetname><t t-esc="p.street" /></streetname>
+                    <number />
+                    <numberExtension />
+                    <property />
+                    <city><t t-esc="p.city" /></city>
+                    <postalCode><t t-esc="p.zip" /></postalCode>
+                    <region><t t-esc="p.state_id.name" /></region>
+                    <country><t t-esc="p.country_id.code" /></country>
+                </streetAddress>
+                <bankAccount t-foreach="p.bank_ids" t-as="bank">
+                    <bankAccNr><t t-esc="bank.acc_number" /></bankAccNr>
+                    <bankIdCd><t t-esc="bank.bank_bic or bank.bank.bic" /></bankIdCd>
+                </bankAccount>
+                <changeInfo t-if="p.write_uid">
+                    <userID><t t-esc="p.write_uid.login" /></userID>
+                    <changeDateTime><t t-esc="p.write_date[:10]" />T<t t-esc="p.write_date[-8:]" /></changeDateTime>
+                    <changeDescription>Last write</changeDescription>
+                </changeInfo>
+                <customerSupplierHistory/>
+            </customerSupplier>
+        </customersSuppliers>
     </company>
 </auditfile>
         </template>
