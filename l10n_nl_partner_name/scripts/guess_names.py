@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 import argparse
+import xmlrpclib
+import re
 parser = argparse.ArgumentParser()
 parser.add_argument('openerp_host')
 parser.add_argument('openerp_db')
@@ -9,7 +11,6 @@ parser.add_argument('openerp_passwd')
 parser.add_argument('additional_search', nargs='?')
 args = parser.parse_args()
 
-import xmlrpclib
 openerp_socket = xmlrpclib.ServerProxy(
     'http://%s/xmlrpc/common' % args.openerp_host)
 openerp_uid = openerp_socket.login(
@@ -23,7 +24,6 @@ def openerp_execute(model, method, *pargs, **kwargs):
         args.openerp_db, openerp_uid,
         args.openerp_passwd, model, method, *pargs, **kwargs)
 
-import re
 infixes = ['van', 'der', 'ter', 'de', 'v/d']
 initial = re.compile(r'^([A-Z]{1,3}\.{0,1}){1,4}$')
 
