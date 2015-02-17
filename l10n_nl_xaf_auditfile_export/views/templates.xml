@@ -72,6 +72,35 @@
                 <customerSupplierHistory/>
             </customerSupplier>
         </customersSuppliers>
+        <generalLedger>
+            <ledgerAccount t-foreach="self.get_accounts()" t-as="a">
+                <accID><t t-esc="a.code" /></accID>
+                <accDesc><t t-esc="a.name" /></accDesc>
+                <accTp><t t-esc="'P' if a.user_type.report_type in ['income', 'expense'] else 'B' if a.user_type.report_type in ['asset', 'liability'] else 'M'" /></accTp>
+                <!-- don't export the following for now
+                <leadCode>String</leadCode>
+                <leadDescription>String</leadDescription>
+                <leadReference>String</leadReference>
+                <leadCrossRef>String</leadCrossRef>
+                <taxonomy>
+                    <taxoRef>String</taxoRef>
+                    <entryPoint>
+                        <entryPointRef>String</entryPointRef>
+                        <conceptRef>String</conceptRef>
+                        <domainMember>
+                            <domainMemberRef>String</domainMemberRef>
+                        </domainMember>
+                    </entryPoint>
+                </taxonomy>
+                /-->
+                <changeInfo t-if="a.write_uid">
+                    <userID><t t-esc="a.write_uid.login" /></userID>
+                    <changeDateTime><t t-esc="a.write_date[:10]" />T<t t-esc="a.write_date[-8:]" /></changeDateTime>
+                    <changeDescription>Last write</changeDescription>
+                </changeInfo>
+                <glAccountHistory />
+            </ledgerAccount>
+        </generalLedger>
     </company>
 </auditfile>
         </template>
