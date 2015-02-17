@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="auditfile_template">
+<auditfile>
+    <header>
+        <fiscalYear><t t-esc="self.period_start.fiscalyear_id.name" /></fiscalYear>
+        <startDate><t t-esc="self.period_start.date_start" /></startDate>
+        <endDate><t t-esc="self.period_end.date_stop" /></endDate>
+        <curCode><t t-esc="self.company_id.currency_id.name" /></curCode>
+        <dateCreated><t t-esc="self.date_generated[:10]" /></dateCreated>
+        <softwareDesc>Odoo</softwareDesc>
+        <softwareVersion><t t-esc="self.get_odoo_version()" /></softwareVersion>
+    </header>
+    <company>
+    </company>
+</auditfile>
+        </template>
+    </data>
+</openerp>
