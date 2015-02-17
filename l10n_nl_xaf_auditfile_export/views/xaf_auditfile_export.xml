@@ -16,7 +16,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button type="object" name="button_generate" string="Generate auditfile" class="oe_highlight" attrs="{'invisible': [('auditfile', '=', True)]}" />
+                        <button type="object" name="button_generate" string="Generate auditfile" class="oe_highlight" attrs="{'invisible': [('auditfile', '!=', False)]}" />
                     </header>
                     <sheet>
                         <group name="input_data">
