@@ -115,3 +115,8 @@ class XafAuditfileExport(models.Model):
             offset += MAX_RECORDS
             for result in results:
                 yield result
+
+    @api.multi
+    def get_accounts(self):
+        '''return browse record list of accounts'''
+        return self.env['account.account'].search([])
