@@ -1,0 +1,56 @@
+XAF auditfile export
+====================
+
+This module allows you to export XAF audit files for the Dutch tax authorities (Belastingdienst).
+
+The currently exported version is 3.2
+
+Usage
+=====
+
+To use this module, you need to:
+
+* go to `Invoicing`/`Reporting`/`Legal Reports`/`Auditfile export`
+* create a new record, adjust values if the defaults are not appropriate
+* click `Generate auditfile`
+* click `Download` on the field `Auditfile`
+
+For further information, please visit:
+
+* https://www.odoo.com/forum/help-1
+
+Known issues / Roadmap
+======================
+
+* encrypted and compressed files would be nice
+
+Credits
+=======
+
+Contributors
+------------
+
+* Holger Brunn <hbrunn@therp.nl>
+
+Icon
+----
+
+https://openclipart.org/detail/180891
+
+Documentation
+-------------
+
+http://www.softwarepakket.nl/swpakketten/auditfiles/auditfile_financieel.php?bronw=6
+
+Maintainer
+----------
+
+.. image:: http://odoo-community.org/logo.png
+    :alt: Odoo Community Association
+    :target: http://odoo-community.org
+
+This module is maintained by the OCA.
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose mission is to support the collaborative development of Odoo features and promote its widespread use.
+
+To contribute to this module, please visit http://odoo-community.org.
