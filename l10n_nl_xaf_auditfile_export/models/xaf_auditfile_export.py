@@ -26,7 +26,9 @@ from openerp import _, models, fields, api, exceptions, release
 
 MAX_RECORDS = 10000
 '''For possibly huge lists, only read chunks from the database in order to
-avoid oom exceptions'''
+avoid oom exceptions.
+This is the default for ir.config_parameter
+"l10n_nl_xaf_auditfile_export.max_records"'''
 
 
 class XafAuditfileExport(models.Model):
@@ -115,7 +117,10 @@ class XafAuditfileExport(models.Model):
                     ('company_id', '=', False),
                     ('company_id', '=', self.company_id.id),
                 ],
-                offset=offset, limit=MAX_RECORDS)
+                offset=offset,
+                limit=self.env['ir.config_parameter'].get_param(
+                    'l10n_nl_xaf_auditfile_export.max_records',
+                    default=MAX_RECORDS))
             if not results:
                 break
             offset += MAX_RECORDS
