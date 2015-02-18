@@ -19,9 +19,10 @@
 #
 ##############################################################################
 import base64
+from StringIO import StringIO
 from lxml import etree
 from datetime import datetime
-from openerp import _, models, fields, api, exceptions, release
+from openerp import _, models, fields, api, exceptions, release, modules
 
 
 MAX_RECORDS = 10000
@@ -95,14 +96,37 @@ class XafAuditfileExport(models.Model):
             .render(values={
                 'self': self,
             })
-        from_template = etree.fromstring(xml)
+        # the following is dealing with the fact that qweb templates don't like
+        # namespaces, but we need the correct namespaces for validation
+        # we inject them at parse time in order not to traverse the document
+        # multiple times
+        default_namespace = 'http://www.auditfiles.nl/XAF/3.2'
+        iterparse = etree.iterparse(
+            StringIO(xml),
+            remove_blank_text=True, remove_comments=True)
+        for action, element in iterparse:
+            element.tag = '{%s}%s' % (default_namespace, element.tag)
+        del xml
         xmldoc = etree.Element(
-            from_template.tag,
+            iterparse.root.tag,
             nsmap = {
-                None: 'http://www.auditfiles.nl/XAF/3.2',
+                None: default_namespace,
                 'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             })
-        xmldoc[:] = from_template[:]
+        for element in iterparse.root:
+            xmldoc.append(element)
+        del iterparse
+
+        xsd = etree.XMLSchema(
+            etree.parse(
+                file(
+                    modules.get_module_resource(
+                        'l10n_nl_xaf_auditfile_export', 'data',
+                        'XmlAuditfileFinancieel3.2.xsd'))))
+        if not xsd.validate(xmldoc):
+            self.message_post('\n'.join(map(str, xsd.error_log)))
+            return
+
         self.auditfile = base64.b64encode(etree.tostring(
             xmldoc, xml_declaration=True, encoding='utf8'))
 
