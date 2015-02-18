@@ -107,7 +107,14 @@ class XafAuditfileExport(models.Model):
         offset = 0
         while True:
             results = self.env['res.partner'].search(
-                ['|', ('customer', '=', True), ('supplier', '=', True)],
+                [
+                    '|',
+                    ('customer', '=', True),
+                    ('supplier', '=', True),
+                    '|',
+                    ('company_id', '=', False),
+                    ('company_id', '=', self.company_id.id),
+                ],
                 offset=offset, limit=MAX_RECORDS)
             if not results:
                 break
