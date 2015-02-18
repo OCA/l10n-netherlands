@@ -19,3 +19,4 @@
 #
 ##############################################################################
 from . import xaf_auditfile_export
+from . import ir_qweb
