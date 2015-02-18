@@ -61,12 +61,20 @@ class XafAuditfileExport(models.Model):
                 object=self._model._name)])
         fiscalyear = self.env['account.fiscalyear'].browse([
             self.env['account.fiscalyear'].find(exception=False)])
+        if fiscalyear and self.env['account.fiscalyear'].search(
+                [('date_start', '<', fiscalyear.date_start)],
+                limit=1):
+            fiscalyear = self.env['account.fiscalyear'].search(
+                [('date_start', '<', fiscalyear.date_start)], limit=1,
+                order='date_stop desc')
         if 'company_id' in fields:
             defaults.setdefault('company_id', company.id)
         if 'name' in fields:
             defaults.setdefault(
                 'name', _('Auditfile %s %s') % (
-                    company.name, datetime.now().strftime('%Y')))
+                    company.name,
+                    fiscalyear.name if fiscalyear
+                    else datetime.now().strftime('%Y')))
         if 'period_start' in fields and fiscalyear:
             defaults.setdefault('period_start', fiscalyear.period_ids[0].id)
         if 'period_end' in fields and fiscalyear:
