@@ -49,8 +49,7 @@ class XafAuditfileExport(models.Model):
         'Auditfile filename', compute=_auditfile_name_get)
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
-    company_id = fields.Many2one('res.company', 'Company', required=True,
-                                 readonly=True)
+    company_id = fields.Many2one('res.company', 'Company', required=True)
 
     @api.model
     def default_get(self, fields):

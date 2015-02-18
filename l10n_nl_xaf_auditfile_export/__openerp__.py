@@ -26,6 +26,7 @@
     "category": "Accounting & Finance",
     "summary": "Export XAF auditfiles for Dutch tax authorities",
     "depends": [
+        'base',
         'account',
     ],
     "data": [
