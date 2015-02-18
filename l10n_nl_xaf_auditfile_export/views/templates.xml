@@ -25,7 +25,7 @@
             <city><t t-esc="self.company_id.city" /></city>
             <postalCode><t t-esc="self.company_id.zip" /></postalCode>
             <region><t t-esc="self.company_id.state_id.name" /></region>
-            <country><t t-esc="self.company_id.country_id.code" /></country>
+            <country t-if="self.company_id.country_id"><t t-esc="self.company_id.country_id.code" /></country>
         </streetAddress>
         <!-- we might look at self.company_id.address_get(adr_pref)
              but that doesn't really seem worth the effort
@@ -41,7 +41,7 @@
                 <website><t t-esc="p.website" /></website>
                 <!-- not in standard data model
                 <commerceNr /> /-->
-                <taxRegistrationCountry><t t-esc="p.country_id.code" /></taxRegistrationCountry>
+                <taxRegistrationCountry t-if="p.country_id"><t t-esc="p.country_id.code" /></taxRegistrationCountry>
                 <taxRegIdent><t t-esc="p.vat" /></taxRegIdent>
                 <custSupTp><t t-esc="'B' if p.customer and p.supplier else 'C' if p.customer else 'S' if p.supplier else 'O'" /></custSupTp>
                 <!-- those need to be defined in <basics/> and are not required
@@ -58,7 +58,7 @@
                     <city><t t-esc="p.city" /></city>
                     <postalCode><t t-esc="p.zip" /></postalCode>
                     <region><t t-esc="p.state_id.name" /></region>
-                    <country><t t-esc="p.country_id.code" /></country>
+                    <country t-if="p.country_id"><t t-esc="p.country_id.code" /></country>
                 </streetAddress>
                 <bankAccount t-foreach="p.bank_ids" t-as="bank">
                     <bankAccNr><t t-esc="bank.acc_number" /></bankAccNr>
