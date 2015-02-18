@@ -109,7 +109,7 @@ class XafAuditfileExport(models.Model):
         del xml
         xmldoc = etree.Element(
             iterparse.root.tag,
-            nsmap = {
+            nsmap={
                 None: default_namespace,
                 'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             })
