@@ -30,30 +30,36 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
         return self.pool['ir.qweb']\
             .eval_str(inner, qwebcontext)[:self._max_length]
 
+
 class IrQwebAuditfileStringWidget9(models.AbstractModel):
     _name = 'ir.qweb.widget.auditfile.string9'
     _inherit = 'ir.qweb.widget.auditfile.string999'
     _max_length = 9
+
 
 class IrQwebAuditfileStringWidget10(models.AbstractModel):
     _name = 'ir.qweb.widget.auditfile.string10'
     _inherit = 'ir.qweb.widget.auditfile.string999'
     _max_length = 10
 
+
 class IrQwebAuditfileStringWidget15(models.AbstractModel):
     _name = 'ir.qweb.widget.auditfile.string15'
     _inherit = 'ir.qweb.widget.auditfile.string999'
     _max_length = 15
+
 
 class IrQwebAuditfileStringWidget20(models.AbstractModel):
     _name = 'ir.qweb.widget.auditfile.string20'
     _inherit = 'ir.qweb.widget.auditfile.string999'
     _max_length = 20
 
+
 class IrQwebAuditfileStringWidget30(models.AbstractModel):
     _name = 'ir.qweb.widget.auditfile.string30'
     _inherit = 'ir.qweb.widget.auditfile.string999'
     _max_length = 30
+
 
 class IrQwebAuditfileStringWidget50(models.AbstractModel):
     _name = 'ir.qweb.widget.auditfile.string50'
