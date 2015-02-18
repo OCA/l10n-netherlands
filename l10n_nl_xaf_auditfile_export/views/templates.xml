@@ -101,6 +101,82 @@
                 <glAccountHistory />
             </ledgerAccount>
         </generalLedger>
+        <!-- we might fill in those later
+        <openingBalance />
+        /-->
+        <vatCodes>
+            <vatCode t-foreach="self.get_taxes()" t-as="t">
+                <vatID><t t-esc="t.id" /></vatID>
+                <vatDesc><t t-esc="t.name" /></vatDesc>
+                <vatToPayAccID><t t-esc="t.account_paid_id.code" /></vatToPayAccID>
+                <vatToClaimAccID><t t-esc="t.account_collected_id.code" /></vatToClaimAccID>
+            </vatCode>
+        </vatCodes>
+        <periods>
+            <period t-foreach="self.get_periods()" t-as="p">
+                <periodNumber><t t-esc="p.id" /></periodNumber>
+                <periodDesc><t t-esc="p.name" /></periodDesc>
+                <startDatePeriod><t t-esc="p.date_start" /></startDatePeriod>
+                <endDatePeriod><t t-esc="p.date_stop" /></endDatePeriod>
+            </period>
+        </periods>
+        <transactions>
+            <linesCount><t t-esc="self.get_move_line_count()" /></linesCount>
+            <totalDebit><t t-esc="self.get_move_line_total_debit()" /></totalDebit>
+            <totalCredit><t t-esc="self.get_move_line_total_credit()" /></totalCredit>
+            <journal t-foreach="self.get_journals()" t-as="j">
+                <jrnID><t t-esc="j.code" /></jrnID>
+                <desc><t t-esc="j.name" /></desc>
+                <jrnTp><t t-esc="'B' if j.type == 'bank' else 'C' if j.type == 'cash' else 'O' if j.type == 'situation' else 'S' if j.type in ['sale', 'sale_refund'] else 'P' if j.type in ['purchase', 'purchase_refund'] else 'Z'" /></jrnTp>
+                <!-- thouse would probably be added by appropriate modules
+                <offsetAccID />
+                <bankAccNr />
+                /-->
+                <transaction t-foreach="self.get_moves(j)" t-as="m">
+                    <nr><t t-esc="m.id" /></nr>
+                    <desc><t t-esc="m.name" /></desc>
+                    <periodNumber><t t-esc="m.period_id.id" /></periodNumber>
+                    <trDt><t t-esc="m.date" /></trDt>
+                    <amnt><t t-esc="m.amount" /></amnt>
+                    <!-- left to inheriting modules
+                    <sourceID />
+                    <userID />
+                    /-->
+                    <trLine t-foreach="m.line_id" t-as="l">
+                        <nr><t t-esc="l.id" /></nr>
+                        <accID><t t-esc="l.account_id.code" /></accID>
+                        <docRef><t t-esc="l.ref" /></docRef>
+                        <effDate><t t-esc="l.date" /></effDate>
+                        <desc><t t-esc="l.name" /></desc>
+                        <amnt><t t-esc="l.credit or l.debit" /></amnt>
+                        <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
+                        <recRef t-if="l.reconcile_id"><t t-esc="l.reconcile_id.name" /></recRef>
+                        <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
+                        <invRef t-if="l.invoice"><t t-esc="l.invoice.number" /></invRef>
+                        <!-- future extensions
+                        <matchKeyID />
+                        <orderRef />
+                        <receivingDocRef />
+                        <shipDocRef />
+                        <costID />
+                        <prodID />
+                        <projID />
+                        <artGrpID />
+                        <workCostArrRef />
+                        <qntityID />
+                        <qntity />
+                        <bankAccNr />
+                        <bankIdCd />
+                        <vat />
+                        /-->
+                        <currency t-if="l.currency_id and l.amount_currency">
+                            <curCode><t t-esc="l.currency_id.name" /></curCode>
+                            <curAmnt><t t-esc="l.amount_currency" /></curAmnt>
+                        </currency>
+                    </trLine>
+                </transaction>
+            </journal>
+        </transactions>
     </company>
 </auditfile>
         </template>
