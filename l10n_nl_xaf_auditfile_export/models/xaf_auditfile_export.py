@@ -158,6 +158,8 @@ class XafAuditfileExport(models.Model):
             offset += MAX_RECORDS
             for result in results:
                 yield result
+            results.env.invalidate_all()
+            del results
 
     @api.multi
     def get_accounts(self):
@@ -247,3 +249,5 @@ class XafAuditfileExport(models.Model):
             offset += MAX_RECORDS
             for result in results:
                 yield result
+            results.env.invalidate_all()
+            del results
