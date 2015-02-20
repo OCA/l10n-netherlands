@@ -165,8 +165,6 @@ class XafAuditfileExport(models.Model):
     def get_accounts(self):
         '''return browse record list of accounts'''
         return self.env['account.account'].search([
-            '|',
-            ('company_id', '=', False),
             ('company_id', '=', self.company_id.id),
         ])
 
@@ -176,8 +174,6 @@ class XafAuditfileExport(models.Model):
         return self.env['account.period'].search([
             ('date_start', '<=', self.period_end.date_stop),
             ('date_stop', '>=', self.period_start.date_start),
-            '|',
-            ('company_id', '=', False),
             ('company_id', '=', self.company_id.id),
         ])
 
@@ -185,8 +181,6 @@ class XafAuditfileExport(models.Model):
     def get_taxes(self):
         '''return taxes'''
         return self.env['account.tax'].search([
-            '|',
-            ('company_id', '=', False),
             ('company_id', '=', self.company_id.id),
         ])
 
@@ -221,8 +215,6 @@ class XafAuditfileExport(models.Model):
     def get_journals(self):
         '''return journals'''
         return self.env['account.journal'].search([
-            '|',
-            ('company_id', '=', False),
             ('company_id', '=', self.company_id.id),
         ])
 
@@ -236,9 +228,6 @@ class XafAuditfileExport(models.Model):
                 [
                     ('period_id', 'in', period_ids),
                     ('journal_id', '=', journal.id),
-                    '|',
-                    ('company_id', '=', False),
-                    ('company_id', '=', self.company_id.id),
                 ],
                 offset=offset,
                 limit=self.env['ir.config_parameter'].get_param(
