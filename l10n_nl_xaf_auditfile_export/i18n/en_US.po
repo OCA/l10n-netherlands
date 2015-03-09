@@ -1,0 +1,184 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* xaf_auditfile_export
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-08 08:44+0000\n"
+"PO-Revision-Date: 2014-12-08 08:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: xaf_auditfile_export
+#: model:ir.model,name:xaf_auditfile_export.model_auditfile_generate
+msgid "Auditfile_export generation"
+msgstr "Auditfile_export generation"
+
+#. module: xaf_auditfile_export
+#: view:auditfile.generate:xaf_auditfile_export.auditfile_form_view
+msgid "Create Auditfile"
+msgstr "Create Auditfile"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:80
+#: code:addons/xaf_auditfile_export/auditfile_export.py:114
+#: code:addons/xaf_auditfile_export/auditfile_export.py:126
+#: code:addons/xaf_auditfile_export/auditfile_export.py:169
+#: code:addons/xaf_auditfile_export/auditfile_export.py:259
+#: code:addons/xaf_auditfile_export/auditfile_export.py:265
+#: code:addons/xaf_auditfile_export/auditfile_export.py:286
+#, python-format
+msgid "Data Error"
+msgstr "Data Error"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,date_printed:0
+msgid "Date Printed"
+msgstr "Date Printed"
+
+#. module: xaf_auditfile_export
+#: view:auditfile.generate:xaf_auditfile_export.auditfile_form_view
+msgid "Financial audit export"
+msgstr "Financial audit export"
+
+#. module: xaf_auditfile_export
+#: view:auditfile.generate:xaf_auditfile_export.auditfile_tree_view
+#: model:ir.actions.act_window,name:xaf_auditfile_export.action_auditfile_tree
+msgid "Financial audit exports"
+msgstr "Financial audit exports"
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:127
+#, python-format
+msgid "Following partners have no country code: %s"
+msgstr "Following partners have no country code: %s"
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:170
+#, python-format
+msgid "Following taxes have no tax code: %s"
+msgstr "Following taxes have no tax code: %s"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:287
+#, python-format
+msgid "Invalid Data.\n"
+"%s\n"
+"Please, see logs for details."
+msgstr "Invalid Data.\n"
+"%s\n"
+"Please, see logs for details."
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:266
+#, python-format
+msgid "Invalid Data. Please, see logs for details."
+msgstr "Invalid Data. Please, see logs for details."
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:259
+#, python-format
+msgid "Invalid XML schema"
+msgstr "Invalid XML schema"
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:81
+#, python-format
+msgid "Invalid built-in template"
+msgstr "Invalid built-in template"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: xaf_auditfile_export
+#: view:auditfile.generate:xaf_auditfile_export.auditfile_form_view
+#: field:auditfile.generate,notes:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: xaf_auditfile_export
+#: view:auditfile.generate:xaf_auditfile_export.auditfile_form_view
+msgid "Notes..."
+msgstr "Notes..."
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:92
+#: constraint:auditfile.generate:0
+#, python-format
+msgid "Please, check periods"
+msgstr "Please, check periods"
+
+#. module: xaf_auditfile_export
+#: selection:auditfile.generate,state:0
+msgid "Printed"
+msgstr "Printed"
+
+#. module: xaf_auditfile_export
+#: selection:auditfile.generate,state:0
+msgid "Ready"
+msgstr "Ready"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,period_start:0
+msgid "Start Period"
+msgstr "Start Period"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,state:0
+msgid "Status"
+msgstr "Status"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,period_stop:0
+msgid "Stop Period"
+msgstr "Stop Period"
+
+#. module: xaf_auditfile_export
+#: field:auditfile.generate,template_content:0
+msgid "Template"
+msgstr "Template"
+
+#. module: xaf_auditfile_export
+#: code:addons/xaf_auditfile_export/auditfile_export.py:115
+#, python-format
+msgid "There are no partners to export"
+msgstr "There are no partners to export"
+
+#. module: xaf_auditfile_export
+#: model:ir.ui.menu,name:xaf_auditfile_export.auditfile_menu_mainforms
+msgid "XAF Audit Exports"
+msgstr "XAF Audit Exports"
+
