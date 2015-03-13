@@ -54,7 +54,6 @@ class ResPartner(models.Model):
         """ Return the province or empty recordset """
         if not province:
             return self.env['res.country.state']
-        print "Search for {}".format(province)
         res = self.env['res.country.state'].search([('name', '=', province)])
         return res[0] if res else res
 
