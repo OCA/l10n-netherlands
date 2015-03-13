@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013-2015 Therp BV (<http://therp.nl>).
 #
 #    @autors: Stefan Rijnhart, Ronald Portier
 #
@@ -22,26 +22,25 @@
 ##############################################################################
 
 from lxml import etree
-from openerp.osv import orm
+from openerp import models, api, exceptions, _
 from openerp.tools import ormcache
-from openerp.tools.translate import _
 
 
-class ResPartner(orm.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @ormcache(skiparg=2)
-    def get_provider_obj(self, cr):
-        cr.execute("""
+    def get_provider_obj(self):
+        self._cr.execute("""
                 SELECT value FROM ir_config_parameter
                 WHERE key = %s""", ('l10n_nl_postcodeapi.apikey',))
-        row = cr.fetchone()
+        row = self._cr.fetchone()
         if row and row[0] != 'Your API key' and row[0].strip():
             from pyPostcode import Api
             provider = Api(row[0].strip())
             test = provider.getaddress('1053NJ', '334T')
             if not test or not test._data:
-                raise orm.except_orm(
+                raise exceptions.Warning(
                     _('Error'),
                     _('Could not verify the connection with the address '
                       'lookup service (if you want to get rid of this '
@@ -50,25 +49,17 @@ class ResPartner(orm.Model):
             return provider
         return False
 
-    @ormcache(skiparg=3)
-    def get_country_nl(self, cr, uid):
-        data_obj = self.pool.get('ir.model.data')
-        try:
-            return data_obj.get_object_reference(cr, uid, 'base', 'nl')[1]
-        except ValueError:
-            return False
-
-    @ormcache(skiparg=3)
-    def get_province(self, cr, uid, province):
+    @ormcache(skiparg=1)
+    def get_province(self, province):
+        """ Return the province or empty recordset """
         if not province:
-            return False
-        res = self.pool.get('res.country.state').search(
-            cr, uid, [('name', '=', province)])
-        return res[0] if res else False
+            return self.env['res.country.state']
+        print "Search for {}".format(province)
+        res = self.env['res.country.state'].search([('name', '=', province)])
+        return res[0] if res else res
 
-    def on_change_zip_street_number(
-            self, cr, uid, ids, postal_code,
-            street_number, country_id, context=None):
+    @api.onchange('zip', 'street_number', 'country_id')
+    def on_change_zip_street_number(self):
         """
         Normalize the zip code, check on the partner's country and
         if all is well, request address autocompletion data.
@@ -76,47 +67,40 @@ class ResPartner(orm.Model):
         NB. postal_code is named 'zip' in OpenERP, but is this a reserved
         keyword in Python
         """
-        postal_code = postal_code and postal_code.replace(' ', '')
-        if not (postal_code and street_number):
+        postal_code = self.zip and self.zip.replace(' ', '')
+        if (not (postal_code and self.street_number)
+                or (self.country_id and
+                    self.country_id != self.env.ref('base.nl'))):
             return {}
 
-        if country_id:
-            if country_id != self.get_country_nl(cr, uid):
-                return {}
-        provider_obj = self.get_provider_obj(cr)
+        provider_obj = self.get_provider_obj()
         if not provider_obj:
             return {}
-        pc_info = provider_obj.getaddress(
-            postal_code, street_number)
+        pc_info = provider_obj.getaddress(postal_code, self.street_number)
         if not pc_info or not pc_info._data:
             return {}
-        return {'value': {
-                'street_name': pc_info._data['street'],
-                'city': pc_info._data['town'],
-                'state_id': self.get_province(cr, uid, pc_info._province),
-                }}
+        self.street_name = pc_info._data['street']
+        self.city = pc_info._data['town']
+        self.state_id = self.get_province(pc_info._province)
 
+    @api.model
     def fields_view_get(
-            self, cr, user, view_id=None, view_type='form',
-            context=None, toolbar=False, submenu=False):
+            self, view_id=None, view_type='form',
+            toolbar=False, submenu=False):
         """ Address fields can be all over the place due to module
         interaction. For improved compatibility add the onchange method here,
         not in a view."""
         res = super(ResPartner, self).fields_view_get(
-            cr, user, view_id=view_id, view_type=view_type,
-            context=context, toolbar=toolbar, submenu=submenu)
+            view_id=view_id, view_type=view_type,
+            toolbar=toolbar, submenu=submenu)
         if view_type != 'form':
             return res
 
         def inject_onchange(arch):
             arch = etree.fromstring(arch)
             for field in ['zip', 'street_number']:
-                count = 0
                 for node in arch.xpath('//field[@name="%s"]' % field):
-                    count += 1
-                    node.attrib['on_change'] = (
-                        "on_change_zip_street_number"
-                        "(zip, street_number, country_id, context)")
+                    node.attrib['on_change'] = "1"
             return etree.tostring(arch, encoding='utf-8')
 
         res['arch'] = inject_onchange(res['arch'])

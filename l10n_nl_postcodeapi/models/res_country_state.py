@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013-2015 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,28 +19,38 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp import models, api
 
 
-class ResCountryState(orm.Model):
+class ResCountryState(models.Model):
     _inherit = 'res.country.state'
 
-    def write(self, cr, uid, ids, vals, context=None):
+    @api.multi
+    def write(self, vals):
         """
         Clear the postcode provider cache when the state
         table is altered.
         """
-        partner_obj = self.pool.get('res.partner')
-        partner_obj.get_province.clear_cache(partner_obj)
-        return super(ResCountryState, self).write(
-            cr, uid, ids, vals, context=context)
+        self.env['res.partner'].get_province.clear_cache(
+            self.env['res.partner'])
+        return super(ResCountryState, self).write(vals)
 
-    def create(self, cr, uid, vals, context=None):
+    @api.model
+    def create(self, vals):
         """
         Clear the postcode provider cache when the state
         table is altered.
         """
-        partner_obj = self.pool.get('res.partner')
-        partner_obj.get_province.clear_cache(partner_obj)
-        return super(ResCountryState, self).create(
-            cr, uid, vals, context=context)
+        self.env['res.partner'].get_province.clear_cache(
+            self.env['res.partner'])
+        return super(ResCountryState, self).create(vals)
+
+    @api.multi
+    def unlink(self):
+        """
+        Clear the postcode provider cache when the state
+        table is altered.
+        """
+        self.env['res.partner'].get_province.clear_cache(
+            self.env['res.partner'])
+        return super(ResCountryState, self).unlink()
