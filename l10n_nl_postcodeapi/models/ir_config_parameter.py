@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013-2015 Therp BV (<http://therp.nl>).
 #
 #    @autors: Stefan Rijnhart, Ronald Portier
 #
@@ -21,41 +21,32 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp import models, api
 
 
-class IrConfigParameter(orm.Model):
+class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
 
-    def create(self, cr, uid, vals, context=None):
+    @api.model
+    def create(self, vals):
         """
         Clear the postcode provider cache when the API
         key is created
         """
         if vals.get('key') == 'l10n_nl_postcodeapi.apikey':
-            partner_obj = self.pool.get('res.partner')
+            partner_obj = self.env['res.partner']
             partner_obj.get_provider_obj.clear_cache(partner_obj)
-        return super(IrConfigParameter, self).create(
-            cr, uid, vals, context=context)
+        return super(IrConfigParameter, self).create(vals)
 
-    def write(self, cr, uid, ids, vals, context=None):
+    @api.multi
+    def write(self, vals):
         """
         Clear the postcode provider cache when the API
         key is modified
         """
         key = 'l10n_nl_postcodeapi.apikey'
-        clear = False
-        if vals.get('key') == key:
-            clear = True
-        else:
-            if ids and isinstance(ids, (int, long)):
-                ids = [ids]
-            if self.search(
-                    cr, uid, [('id', 'in', ids), ('key', '=', key)],
-                    context=context):
-                clear = True
-        if clear:
-            partner_obj = self.pool.get('res.partner')
+        if (vals.get('key') == key or
+                self.search([('id', 'in', self.ids), ('key', '=', key)])):
+            partner_obj = self.env['res.partner']
             partner_obj.get_provider_obj.clear_cache(partner_obj)
-        return super(IrConfigParameter, self).write(
-            cr, uid, ids, vals, context=context)
+        return super(IrConfigParameter, self).write(vals)
