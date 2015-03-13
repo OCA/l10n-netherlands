@@ -40,6 +40,7 @@ msgstr "Fout"
 #, python-format
 msgid "Partner"
 msgstr "Relatie"
+
 #. module: l10n_nl_postcodeapi
 #: code:_description:0
 #: model:ir.model,name:l10n_nl_postcodeapi.model_ir_config_parameter
