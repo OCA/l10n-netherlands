@@ -18,7 +18,7 @@ You also need to have the 'pyPostcode' Python library by Stefan Jansen
 installed (https://github.com/steffex/pyPostcode). Install in the following way
 for now, until this lib is available on Pypi::
 
-    pip install git+https://github.com/stefanrijnhart/pyPostcode.git@pypi
+    pip install git+https://github.com/steffex/pyPostcode.git
 
 Configuration
 =============
