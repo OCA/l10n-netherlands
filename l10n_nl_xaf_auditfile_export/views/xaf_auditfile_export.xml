@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="tree_xaf_auditfile_export" model="ir.ui.view">
+            <field name="model">xaf.auditfile.export</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="period_start" />
+                    <field name="period_end" />
+                </tree>
+            </field>
+        </record>
+         <record id="form_xaf_auditfile_export" model="ir.ui.view">
+            <field name="model">xaf.auditfile.export</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="button_generate" string="Generate auditfile" class="oe_highlight" attrs="{'invisible': [('auditfile', '!=', False)]}" />
+                    </header>
+                    <sheet>
+                        <group name="input_data">
+                            <field name="name" attrs="{'readonly': [('auditfile', '!=', False)]}" />
+                            <field name="period_start" attrs="{'readonly': [('auditfile', '!=', False)]}" />
+                            <field name="period_end" attrs="{'readonly': [('auditfile', '!=', False)]}" />
+                            <field name="company_id" attrs="{'readonly': [('auditfile', '!=', False)]}" groups="base.group_multi_company" />
+                        </group>
+                        <group name="output_data" attrs="{'invisible': [('auditfile', '=', False)]}">
+                            <field name="date_generated" />
+                            <field name="auditfile" filename="auditfile_name" />
+                            <field name="auditfile_name" invisible="1" />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

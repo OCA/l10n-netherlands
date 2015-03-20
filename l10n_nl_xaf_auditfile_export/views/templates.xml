@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="auditfile_template">
+<auditfile>
+    <header>
+        <fiscalYear><t t-esc="self.period_start.fiscalyear_id.name" t-esc-options='{"widget": "auditfile.string9"}' /></fiscalYear>
+        <startDate><t t-esc="self.period_start.date_start" /></startDate>
+        <endDate><t t-esc="self.period_end.date_stop" /></endDate>
+        <curCode><t t-esc="self.company_id.currency_id.name" /></curCode>
+        <dateCreated><t t-esc="self.date_generated[:10]" /></dateCreated>
+        <softwareDesc>Odoo</softwareDesc>
+        <softwareVersion><t t-esc="self.get_odoo_version()" t-esc-options='{"widget": "auditfile.string20"}' /></softwareVersion>
+    </header>
+    <company>
+        <companyIdent><t t-esc="self.company_id.company_registry" t-esc-options='{"widget": "auditfile.string35"}' /></companyIdent>
+        <companyName><t t-esc="self.company_id.name" t-esc-options='{"widget": "auditfile.string999"}' /></companyName>
+        <taxRegistrationCountry><t t-esc="self.company_id.country_id.code" /></taxRegistrationCountry>
+        <taxRegIdent><t t-esc="self.company_id.vat" t-esc-options='{"widget": "auditfile.string30"}' /></taxRegIdent>
+        <streetAddress>
+            <streetname><t t-esc="self.company_id.street" t-esc-options='{"widget": "auditfile.string999"}' /></streetname>
+            <number />
+            <numberExtension />
+            <property />
+            <city><t t-esc="self.company_id.city" t-esc-options='{"widget": "auditfile.string50"}' /></city>
+            <postalCode><t t-esc="self.company_id.zip" t-esc-options='{"widget": "auditfile.string15"}' /></postalCode>
+            <region><t t-esc="self.company_id.state_id.name" t-esc-options='{"widget": "auditfile.string50"}' /></region>
+            <country t-if="self.company_id.country_id"><t t-esc="self.company_id.country_id.code" /></country>
+        </streetAddress>
+        <!-- we might look at self.company_id.address_get(adr_pref)
+             but that doesn't really seem worth the effort
+        <postalAddress/> /-->
+        <customersSuppliers>
+            <customerSupplier t-foreach="self.get_partners()" t-as="p">
+                <custSupID><t t-esc="p.id" /></custSupID>
+                <custSupName><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></custSupName>
+                <contact t-if="p.is_company and p.child_ids"><t t-esc="p.child_ids[0].name" t-esc-options='{"widget": "auditfile.string50"}' /></contact>
+                <telephone><t t-esc="p.phone" t-esc-options='{"widget": "auditfile.string30"}' /></telephone>
+                <fax><t t-esc="p.fax" t-esc-options='{"widget": "auditfile.string30"}' /></fax>
+                <eMail><t t-esc="p.email" /></eMail>
+                <website><t t-esc="p.website" /></website>
+                <!-- not in standard data model
+                <commerceNr /> /-->
+                <taxRegistrationCountry t-if="p.country_id"><t t-esc="p.country_id.code" /></taxRegistrationCountry>
+                <taxRegIdent><t t-esc="p.vat" t-esc-options='{"widget": "auditfile.string30"}' /></taxRegIdent>
+                <custSupTp><t t-esc="'B' if p.customer and p.supplier else 'C' if p.customer else 'S' if p.supplier else 'O'" /></custSupTp>
+                <!-- those need to be defined in <basics/> and are not required
+                     labels might be used here
+                <relationshipID>String</relationshipID>
+                <custSupGrpID>String</custSupGrpID> -->
+                <custCreditLimit t-if="p.customer and p.credit_limit"><t t-esc="p.credit_limit" /></custCreditLimit>
+                <supplierLimit t-if="p.supplier and p.credit_limit"><t t-esc="p.credit_limit" /></supplierLimit>
+                <streetAddress>
+                    <streetname><t t-esc="p.street" t-esc-options='{"widget": "auditfile.string999"}' /></streetname>
+                    <number />
+                    <numberExtension />
+                    <property />
+                    <city><t t-esc="p.city" t-esc-options='{"widget": "auditfile.string50"}' /></city>
+                    <postalCode><t t-esc="p.zip" t-esc-options='{"widget": "auditfile.string10"}' /></postalCode>
+                    <region><t t-esc="p.state_id.name" t-esc-options='{"widget": "auditfile.string50"}' /></region>
+                    <country t-if="p.country_id"><t t-esc="p.country_id.code" /></country>
+                </streetAddress>
+                <bankAccount t-foreach="p.bank_ids" t-as="bank">
+                    <bankAccNr><t t-esc="bank.acc_number" /></bankAccNr>
+                    <bankIdCd><t t-esc="bank.bank_bic or bank.bank.bic" /></bankIdCd>
+                </bankAccount>
+                <changeInfo t-if="p.write_uid">
+                    <userID><t t-esc="p.write_uid.login" /></userID>
+                    <changeDateTime><t t-esc="p.write_date[:10]" />T<t t-esc="p.write_date[-8:]" /></changeDateTime>
+                    <changeDescription>Last write</changeDescription>
+                </changeInfo>
+                <customerSupplierHistory/>
+            </customerSupplier>
+        </customersSuppliers>
+        <generalLedger>
+            <ledgerAccount t-foreach="self.get_accounts()" t-as="a">
+                <accID><t t-esc="a.code" /></accID>
+                <accDesc><t t-esc="a.name" t-esc-options='{"widget": "auditfile.string999"}' /></accDesc>
+                <accTp><t t-esc="'P' if a.user_type.report_type in ['income', 'expense'] else 'B' if a.user_type.report_type in ['asset', 'liability'] else 'M'" /></accTp>
+                <!-- don't export the following for now
+                <leadCode>String</leadCode>
+                <leadDescription>String</leadDescription>
+                <leadReference>String</leadReference>
+                <leadCrossRef>String</leadCrossRef>
+                <taxonomy>
+                    <taxoRef>String</taxoRef>
+                    <entryPoint>
+                        <entryPointRef>String</entryPointRef>
+                        <conceptRef>String</conceptRef>
+                        <domainMember>
+                            <domainMemberRef>String</domainMemberRef>
+                        </domainMember>
+                    </entryPoint>
+                </taxonomy>
+                /-->
+                <changeInfo t-if="a.write_uid">
+                    <userID><t t-esc="a.write_uid.login" /></userID>
+                    <changeDateTime><t t-esc="a.write_date[:10]" />T<t t-esc="a.write_date[-8:]" /></changeDateTime>
+                    <changeDescription>Last write</changeDescription>
+                </changeInfo>
+                <glAccountHistory />
+            </ledgerAccount>
+        </generalLedger>
+        <!-- we might fill in those later
+        <openingBalance />
+        /-->
+        <vatCodes>
+            <vatCode t-foreach="self.get_taxes()" t-as="t">
+                <vatID><t t-esc="t.id" /></vatID>
+                <vatDesc><t t-esc="t.name" t-esc-options='{"widget": "auditfile.string999"}' /></vatDesc>
+                <vatToPayAccID><t t-esc="t.account_paid_id.code" /></vatToPayAccID>
+                <vatToClaimAccID><t t-esc="t.account_collected_id.code" /></vatToClaimAccID>
+            </vatCode>
+        </vatCodes>
+        <periods>
+            <period t-foreach="self.get_periods()" t-as="p">
+                <periodNumber><t t-esc="p.id" /></periodNumber>
+                <periodDesc><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></periodDesc>
+                <startDatePeriod><t t-esc="p.date_start" /></startDatePeriod>
+                <endDatePeriod><t t-esc="p.date_stop" /></endDatePeriod>
+            </period>
+        </periods>
+        <transactions>
+            <linesCount><t t-esc="self.get_move_line_count()" /></linesCount>
+            <totalDebit><t t-esc="self.get_move_line_total_debit()" /></totalDebit>
+            <totalCredit><t t-esc="self.get_move_line_total_credit()" /></totalCredit>
+            <journal t-foreach="self.get_journals()" t-as="j">
+                <jrnID><t t-esc="j.code" /></jrnID>
+                <desc><t t-esc="j.name" /></desc>
+                <jrnTp><t t-esc="'B' if j.type == 'bank' else 'C' if j.type == 'cash' else 'O' if j.type == 'situation' else 'S' if j.type in ['sale', 'sale_refund'] else 'P' if j.type in ['purchase', 'purchase_refund'] else 'Z'" /></jrnTp>
+                <!-- thouse would probably be added by appropriate modules
+                <offsetAccID />
+                <bankAccNr />
+                /-->
+                <transaction t-foreach="self.get_moves(j)" t-as="m">
+                    <nr><t t-esc="m.id" /></nr>
+                    <desc><t t-esc="m.name" /></desc>
+                    <periodNumber><t t-esc="m.period_id.id" /></periodNumber>
+                    <trDt><t t-esc="m.date" /></trDt>
+                    <amnt><t t-esc="m.amount" /></amnt>
+                    <!-- left to inheriting modules
+                    <sourceID />
+                    <userID />
+                    /-->
+                    <trLine t-foreach="m.line_id" t-as="l">
+                        <nr><t t-esc="l.id" /></nr>
+                        <accID><t t-esc="l.account_id.code" /></accID>
+                        <docRef><t t-esc="l.ref" t-esc-options='{"widget": "auditfile.string999"}' /></docRef>
+                        <effDate><t t-esc="l.date" /></effDate>
+                        <desc><t t-esc="l.name" /></desc>
+                        <amnt><t t-esc="l.credit or l.debit" /></amnt>
+                        <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
+                        <recRef t-if="l.reconcile_id"><t t-esc="l.reconcile_id.name" /></recRef>
+                        <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
+                        <invRef t-if="l.invoice"><t t-esc="l.invoice.number" t-esc-options='{"widget": "auditfile.string999"}' /></invRef>
+                        <!-- future extensions
+                        <matchKeyID />
+                        <orderRef />
+                        <receivingDocRef />
+                        <shipDocRef />
+                        <costID />
+                        <prodID />
+                        <projID />
+                        <artGrpID />
+                        <workCostArrRef />
+                        <qntityID />
+                        <qntity />
+                        <bankAccNr />
+                        <bankIdCd />
+                        <vat />
+                        /-->
+                        <currency t-if="l.currency_id and l.amount_currency">
+                            <curCode><t t-esc="l.currency_id.name" /></curCode>
+                            <curAmnt><t t-esc="l.amount_currency" /></curAmnt>
+                        </currency>
+                    </trLine>
+                </transaction>
+            </journal>
+        </transactions>
+    </company>
+</auditfile>
+        </template>
+    </data>
+</openerp>
