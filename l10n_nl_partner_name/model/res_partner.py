@@ -40,24 +40,4 @@ class ResPartner(models.Model):
         name = name_template.render(p=partner)
         return (name[0] + name[1:]) if name else ''
 
-    def _migrate_partner_name_dutch_name_change(
-            self, cr, uid, old_name, context=None):
-        new_name = __name__.split('.')[-3]
-        cr.execute(
-            "select id from ir_module_module "
-            "where name=%s and state<>'uninstalled'",
-            (old_name,))
-        old_name_installed = cr.fetchall()
-        if not old_name_installed:
-            return
-        cr.execute(
-            "delete from ir_model_data where module=%s", (new_name,))
-        cr.execute(
-            "update ir_model_data set module=%s "
-            "where module=%s",
-            (new_name, old_name))
-        cr.execute(
-            "update ir_module_module set state='to remove' where "
-            "name=%s and state not in "
-            "('uninstalled', 'to remove')",
-            (old_name,))
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
