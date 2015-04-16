@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Extentions for models."""
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution

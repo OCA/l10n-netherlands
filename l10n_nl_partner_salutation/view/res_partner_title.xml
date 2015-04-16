@@ -6,7 +6,7 @@
             <field name="model">res.partner.title</field>
             <field
                 name="inherit_id"
-                ref="partner_name_dutch.view_partner_title_tree"
+                ref="l10n_nl_partner_name.view_partner_title_tree"
             />
             <field name="arch" type="xml">
                 <field name="salutation" position="after">
@@ -19,7 +19,7 @@
             <field name="model">res.partner.title</field>
             <field
                 name="inherit_id"
-                ref="partner_name_dutch.view_partner_title_form"
+                ref="l10n_nl_partner_name.view_partner_title_form"
             />
             <field name="arch" type="xml">
                 <field name="name" position="after">

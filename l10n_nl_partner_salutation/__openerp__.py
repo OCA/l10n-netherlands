@@ -23,7 +23,9 @@
     'version': '1.0',
     'author': 'Therp BV',
     'category': 'Contact management',
-    'depends': ['partner_name_dutch'],
+    'depends': [
+        'l10n_nl_partner_name',
+    ],
     'data': [
         'view/res_partner_title.xml',
         'view/res_partner.xml',

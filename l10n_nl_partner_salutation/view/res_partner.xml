@@ -8,17 +8,16 @@
             <field name="priority" eval="100" />
             <field name="arch" type="xml">
                 <xpath expr='//group/field[@name="title"]' position="before">
-                    <field name="gender"
-                           attrs="{'invisible': [('is_company', '=', True)]}" />
+                    <field
+                        name="gender"
+                        attrs="{'invisible': [('is_company', '=', True)]}"
+                    />
                 </xpath>
                 <page string="Contacts" position="after">
                     <page string="Salutation">
                         <group>
                             <group name="salutations">
-                                <field
-                                    name="use_manual_salutations"
-                                    on_change="on_change_use_manual_salutations(use_manual_salutations, salutation, salutation_address)"
-                                />
+                                <field name="use_manual_salutations"/>
                                 <field
                                     name="salutation"
                                     attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
