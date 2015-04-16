@@ -1,44 +1,54 @@
-from openerp.osv import orm, fields
+# -*- coding: utf-8 -*-
 
 GENDERS = [('male', 'Male'), ('female', 'Female'), ('unknown', 'Unknown')]
 
 
-class Partner(orm.Model):
+class ResPartner(orm.Model):
     _inherit = 'res.partner'
 
-    def get_salutation_name_format(self, cr, uid, context=None):
-        """
-        Return the desired name format for use in the salutation
-        """
+    def on_change_use_manual_salutations(
+            self, cr, uid, ids, use_salutation_manual,
+            salutation, salutation_address, context=None):
+        if not use_salutation_manual:
+            return {}
+        return {
+            'value': {
+                'salutation_manual': salutation,
+                'salutation_address_manual': salutation_address,
+            }
+        }
+
+    def get_salutation_name_format(self):
+        """Return the desired name format for use in the salutation."""
         return (
             "${p.firstname or p.initials or ''}"
             "${' ' if (p.firstname or p.initials) else ''}"
             "${p.infix or ''}"
             "${' ' if p.infix else ''}"
             "${p.lastname or ''}"
-            )
+        )
 
-    def _get_salutation(self, cr, uid, ids, field_name, args, context=None):
-        """
-        Return the salutation fields
-        """
-        result = {}
-        context = dict(
-            context, name_format=self.get_salutation_name_format(
-                cr, uid, context=context))
-
-        default_prefix = {
-            'shortcut': {
-                'male': 'De heer',
-                'female': 'Mevrouw',
-                'unknown': 'De heer of mevrouw',
-                },
-            'salutation': {
-                'male': 'Geachte heer',
-                'female': 'Geachte mevrouw',
-                'unknown': 'Geachte heer of mevrouw',
-                }
+    def on_change_use_manual_salutations(
+            self, cr, uid, ids, use_salutation_manual,
+            salutation, salutation_address, context=None):
+        if not use_salutation_manual:
+            return {}
+        return {
+            'value': {
+                'salutation_manual': salutation,
+                'salutation_address_manual': salutation_address,
             }
+        }
+
+    @api.depends(
+        'gender',
+        'title',
+        'use_manual_salutations',
+        'salutation',
+        'salutation_address'
+    )
+    def _get_salutation(self):
+        """Return the salutation fields."""
 
         def get_prefix(field, partner):
             """
@@ -54,56 +64,51 @@ class Partner(orm.Model):
                     field][partner.gender or 'unknown']
             return val + ' '
 
-        for partner in self.browse(cr, uid, ids, context=context):
+        default_prefix = {
+            'shortcut': {
+                'male': 'De heer',
+                'female': 'Mevrouw',
+                'unknown': 'De heer of mevrouw',
+            },
+            'salutation': {
+                'male': 'Geachte heer',
+                'female': 'Geachte mevrouw',
+                'unknown': 'Geachte heer of mevrouw',
+            }
+        }
+        name_format = self.get_salutation_name_format(),
+
+        for rec in self:
             """
             Compose salutation for letters and addresses by applying
             generized prefixes and optional suffix to the display name.
             """
-            if partner.use_manual_salutations:
-                result[partner.id] = {
-                    'salutation': partner.salutation_manual,
-                    'salutation_address': partner.salutation_address_manual,
-                    }
+            if rec.use_manual_salutations:
+                rec.salutation = rec.salutation_manual
+                rec.salutation_address = rec.salutation_address_manual
                 continue
 
             # Use API from partner_firstname
-            name = self._prepare_name_custom(
-                cr, uid, partner, context=context) or ''
+            name = self.with_context(
+                name_format=name_format)._prepare_name_custom(rec) or ''
             # Apply prefix/or and suffix
-            salutation = get_prefix('salutation', partner) + name
-            salutation_address = get_prefix('shortcut', partner) + name
-            if partner.title.postnominal:
-                salutation += ' ' + partner.title.postnominal
-                salutation_address += ' ' + partner.title.postnominal
-            result[partner.id] = {
-                'salutation': salutation,
-                'salutation_address': salutation_address}
-        return result
+            rec.salutation = get_prefix('salutation', rec) + name
+            rec.salutation_address = get_prefix('shortcut', rec) + name
+            if rec.title.postnominal:
+                rec.salutation += ' ' + rec.title.postnominal
+                rec.salutation_address += ' ' + rec.title.postnominal
 
-    def on_change_use_manual_salutations(
-            self, cr, uid, ids, use_salutation_manual,
-            salutation, salutation_address, context=None):
-        if not use_salutation_manual:
-            return {}
-        return {
-            'value': {
-                'salutation_manual': salutation,
-                'salutation_address_manual': salutation_address,
-                }}
+    gender = fields.Selection(GENDERS, required=True, default='unknown')
+    salutation = fields.Char(
+        compute='_get_salutation',
+        string='Salutation (letter)'
+    )
+    salutation_address = fields.Char(
+        compute='_get_salutation',
+        string='Salutation (address)'
+    )
+    use_manual_salutations = fields.Boolean('Enter salutations manually')
+    salutation_manual = fields.Char('Manual salutation (letter)')
+    salutation_address_manual = fields.Char('Manual salutation (address)')
 
-    _columns = {
-        'gender': fields.selection(GENDERS, 'Gender', required=True),
-        'salutation': fields.function(
-            _get_salutation, multi='salutations',
-            type='char', string='Salutation (letter)'),
-        'salutation_address': fields.function(
-            _get_salutation, multi='salutations',
-            type='char', string='Salutation (address)'),
-        'use_manual_salutations': fields.boolean(
-            'Enter salutations manually'),
-        'salutation_manual': fields.char('Manual salutation (letter)'),
-        'salutation_address_manual': fields.char(
-            'Manual salutation (address)'),
-        }
-
-    _defaults = {'gender': 'unknown'}
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

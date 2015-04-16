@@ -15,23 +15,28 @@
                     <page string="Salutation">
                         <group>
                             <group name="salutations">
-                                <field name="use_manual_salutations"
-                                       on_change="on_change_use_manual_salutations(use_manual_salutations, salutation, salutation_address)" 
-                                       />
-                                <field name="salutation"
-                                       attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
-                                       />
-                                <field name="salutation_address"
-                                       attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
-                                       />
-                                <field name="salutation_manual"
-                                       attrs="{'invisible': [('use_manual_salutations', '=', False)]}"
-                                       string="Salutation (letter)"
-                                       />
-                                <field name="salutation_address_manual"
-                                       attrs="{'invisible': [('use_manual_salutations', '=', False)]}"
-                                       string="Salutation (address)"
-                                       />
+                                <field
+                                    name="use_manual_salutations"
+                                    on_change="on_change_use_manual_salutations(use_manual_salutations, salutation, salutation_address)"
+                                />
+                                <field
+                                    name="salutation"
+                                    attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
+                                />
+                                <field
+                                    name="salutation_address"
+                                    attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
+                                />
+                                <field
+                                    name="salutation_manual"
+                                    attrs="{'invisible': [('use_manual_salutations', '=', False)]}"
+                                    string="Salutation (letter)"
+                                />
+                                <field
+                                    name="salutation_address_manual"
+                                    attrs="{'invisible': [('use_manual_salutations', '=', False)]}"
+                                    string="Salutation (address)"
+                                />
                             </group>
                             <group name="salutation_filler" />
                         </group>
