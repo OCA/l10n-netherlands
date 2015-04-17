@@ -8,8 +8,6 @@ Module Dutch Partner Name
     - have infixes
     - have initials
     - split first and last name (provided by partner_firstname)
-    - use a different title for address and salutation
-        ('aan de heer'/'geachte heer')
 
 Contributors
 ------------

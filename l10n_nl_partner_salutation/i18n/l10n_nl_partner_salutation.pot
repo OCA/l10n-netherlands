@@ -1,13 +1,13 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* l10n_nl_partner_salutation
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 14:52+0000\n"
-"PO-Revision-Date: 2014-09-02 14:52+0000\n"
+"POT-Creation-Date: 2015-04-17 10:40+0000\n"
+"PO-Revision-Date: 2015-04-17 10:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,133 +16,87 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_nl_partner_salutation
-#: view:res.partner:0
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
 msgid "Contacts"
-msgstr "Contactpersonen"
-
-#. module: l10n_nl_partner_salutation
-#: field:res.partner.title,salutation:0
-msgid "Salutation"
-msgstr "Aanhef"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner,use_manual_salutations:0
 msgid "Enter salutations manually"
-msgstr "Aanhef handmatig invoeren"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: selection:res.partner,gender:0
 msgid "Female"
-msgstr "Vrouw"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner,gender:0
 msgid "Gender"
-msgstr "Geslacht"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: selection:res.partner,gender:0
 msgid "Male"
-msgstr "Man"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner,salutation_address_manual:0
 msgid "Manual salutation (address)"
-msgstr "Aanhef handmatig (op adres)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner,salutation_manual:0
 msgid "Manual salutation (letter)"
-msgstr "Manual salutation (letter)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
-#: code:_description:0
 #: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner
-#, python-format
 msgid "Partner"
-msgstr "Relatie"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner.title,postnominal:0
 msgid "Postnominal"
-msgstr "Achtervoegsel"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
-#: view:res.partner:0
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation"
-msgstr "Aanhef"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
-#: view:res.partner:0
-#: field:res.partner,salutation_address:0
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation (address)"
-msgstr "Aanhef (op adres)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
-#: view:res.partner:0
-#: field:res.partner,salutation:0
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation (letter)"
-msgstr "Aanhef (brief)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner.title,salutation_female:0
 msgid "Salutation female"
-msgstr "Aanhef (v)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner.title,salutation_male:0
 msgid "Salutation male"
-msgstr "Aanhef (m)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner.title,shortcut_female:0
 msgid "Shortcut female"
-msgstr "Afkorting (v)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: field:res.partner.title,shortcut_male:0
 msgid "Shortcut male"
-msgstr "Afkorting (m)"
+msgstr ""
 
 #. module: l10n_nl_partner_salutation
 #: selection:res.partner,gender:0
 msgid "Unknown"
-msgstr "Onbekend"
-
-#. module: l10n_nl_partner_salutation
-#: code:_description:0
-#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner_title
-#, python-format
-msgid "res.partner.title"
-msgstr "res.partner.title"
-
-#. module: l10n_nl_partner_salutation
-#: model:res.partner.title,salutation:base.res_partner_title_prof
-msgid "Prof."
-msgstr "prof."
-
-#. module: l10n_nl_partner_salutation
-#: model:res.partner.title,salutation:base.res_partner_title_doctor
-msgid "Dr."
-msgstr "dr."
-
-#. module: l10n_nl_partner_salutation
-#: model:res.partner.title,salutation:base.res_partner_title_mister
-msgid "Mister"
-msgstr "heer"
-
-#. module: l10n_nl_partner_salutation
-#: model:res.partner.title,salutation:base.res_partner_title_miss
-msgid "Miss"
-msgstr "mejuffrouw"
-
-#. module: l10n_nl_partner_salutation
-#: model:res.partner.title,salutation:base.res_partner_title_madam
-msgid "Madam"
-msgstr "mevrouw"
-
-#. module: l10n_nl_partner_salutation
-#: model:res.partner.title,salutation:base.res_partner_title_sir
-msgid "Sir"
-msgstr "heer"
+msgstr ""
 

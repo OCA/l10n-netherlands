@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo, a suite of open source business applications
-#    This module copyright (C) 2014 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,12 +21,13 @@
 {
     'name': 'Full salutation for partners, Dutch style',
     'version': '1.0',
-    'author': 'Therp BV',
+    'author': 'Therp BV, Odoo Community Association (OCA)',
     'category': 'Contact management',
     'depends': [
         'l10n_nl_partner_name',
     ],
     'data': [
+        'data/res_partner_title.xml',
         'view/res_partner_title.xml',
         'view/res_partner.xml',
         ],

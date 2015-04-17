@@ -37,15 +37,3 @@ msgstr ""
 msgid "Partner"
 msgstr ""
 
-#. module: l10n_nl_partner_name
-#: field:res.partner.title,salutation:0
-msgid "Salutation"
-msgstr ""
-
-#. module: l10n_nl_partner_name
-#: code:_description:0
-#: model:ir.model,name:l10n_nl_partner_name.model_res_partner_title
-#, python-format
-msgid "res.partner.title"
-msgstr ""
-

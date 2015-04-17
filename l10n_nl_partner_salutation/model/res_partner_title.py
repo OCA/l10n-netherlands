@@ -26,6 +26,7 @@ class ResPartnerTitle(models.Model):
     """Extend res.partner.title model."""
     _inherit = 'res.partner.title'
 
+    salutation = fields.Char(size=64, translate=True)
     salutation_male = fields.Char(string='Salutation male')
     salutation_female = fields.Char(string='Salutation female')
     shortcut_male = fields.Char(string='Shortcut male')

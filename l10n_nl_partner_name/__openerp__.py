@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
+#    This module copyright (C) 2013-2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,13 +22,11 @@
     'name': 'Dutch partner names',
     'version': '1.0',
     'author': 'Therp BV, Odoo Community Association (OCA)',
-    'category': 'Generic Modules',
+    'category': 'Contact management',
     'depends': [
         'partner_firstname',
     ],
     'data': [
-        'data/res_partner_title.xml',
-        'view/res_partner_title.xml',
         'view/res_partner.xml',
     ],
     'js': [],
