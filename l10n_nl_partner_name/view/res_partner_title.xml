@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_title_tree" model="ir.ui.view">
+            <field name="model">res.partner.title</field>
+            <field name="inherit_id" ref="base.view_partner_title_tree" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="salutation" />
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="view_partner_title_form" model="ir.ui.view">
+            <field name="model">res.partner.title</field>
+            <field name="inherit_id" ref="base.view_partner_title_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="salutation" />
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
