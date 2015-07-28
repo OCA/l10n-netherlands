@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_nl_partner_salutation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-17 10:40+0000\n"
+"PO-Revision-Date: 2015-04-17 10:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_partner_salutation
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
+msgid "Contacts"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner,use_manual_salutations:0
+msgid "Enter salutations manually"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: selection:res.partner,gender:0
+msgid "Female"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner,gender:0
+msgid "Gender"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: selection:res.partner,gender:0
+msgid "Male"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner,salutation_address_manual:0
+msgid "Manual salutation (address)"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner,salutation_manual:0
+msgid "Manual salutation (letter)"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner.title,postnominal:0
+msgid "Postnominal"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
+msgid "Salutation"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
+msgid "Salutation (address)"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: view:res.partner:l10n_nl_partner_salutation.view_partner_form
+msgid "Salutation (letter)"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner.title,salutation_female:0
+msgid "Salutation female"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner.title,salutation_male:0
+msgid "Salutation male"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner.title,shortcut_female:0
+msgid "Shortcut female"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: field:res.partner.title,shortcut_male:0
+msgid "Shortcut male"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
+#: selection:res.partner,gender:0
+msgid "Unknown"
+msgstr ""
+
