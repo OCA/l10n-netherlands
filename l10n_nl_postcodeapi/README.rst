@@ -20,10 +20,7 @@ up the street field into separate fields for street name and number.
 This module can be gotten from https://github.com/oca/partner-contact/tree/8.0
 
 You also need to have the 'pyPostcode' Python library by Stefan Jansen
-installed (https://github.com/steffex/pyPostcode). Install in the following way
-for now, until this lib is available on Pypi::
-
-    pip install git+https://github.com/steffex/pyPostcode.git
+installed (https://pypi.python.org/pypi/pyPostcode).
 
 Configuration
 =============
