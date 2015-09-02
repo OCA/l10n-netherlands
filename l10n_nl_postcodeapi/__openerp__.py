@@ -23,7 +23,7 @@
     'name': 'Integration with PostcodeApi.nu',
     'summary': 'Autocomplete Dutch addresses using PostcodeApi.nu',
     'version': '0.1',
-    'author': 'Therp BV',
+    'author': 'Therp BV,Odoo Community Association (OCA)',
     'category': 'Localization',
     'website': 'https://github.com/OCA/l10n-netherlands',
     'license': 'AGPL-3',
