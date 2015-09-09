@@ -36,6 +36,7 @@ class ResCountryState(models.Model):
         return super(ResCountryState, self).write(vals)
 
     @api.model
+    @api.returns('self', lambda value: value.id)
     def create(self, vals):
         """
         Clear the postcode provider cache when the state
