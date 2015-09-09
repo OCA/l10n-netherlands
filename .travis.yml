@@ -24,6 +24,7 @@ install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+  - pip install pypostcode
 # example: dependency
 # - git clone https://github.com/OCA/webkit-tools -b ${VERSION} $HOME/webkit-tools
 

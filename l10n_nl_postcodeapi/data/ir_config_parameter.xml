@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="parameter_apikey" model="ir.config_parameter">
+            <field name="key">l10n_nl_postcodeapi.apikey</field>
+            <field name="value">Your API key</field>
+        </record>
+
+    </data>
+</openerp>
