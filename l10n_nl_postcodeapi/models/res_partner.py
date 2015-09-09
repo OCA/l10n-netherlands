@@ -97,7 +97,7 @@ class ResPartner(models.Model):
 
         def inject_onchange(arch):
             arch = etree.fromstring(arch)
-            for field in ['zip', 'street_number']:
+            for field in ['zip', 'street_number', 'country_id']:
                 for node in arch.xpath('//field[@name="%s"]' % field):
                     node.attrib['on_change'] = "1"
             return etree.tostring(arch, encoding='utf-8')
