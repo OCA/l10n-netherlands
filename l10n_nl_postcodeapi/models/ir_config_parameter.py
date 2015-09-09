@@ -28,6 +28,7 @@ class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
 
     @api.model
+    @api.returns('self', lambda value: value.id)
     def create(self, vals):
         """
         Clear the postcode provider cache when the API
