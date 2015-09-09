@@ -31,23 +31,21 @@ class ResPartner(models.Model):
 
     @ormcache(skiparg=2)
     def get_provider_obj(self):
-        self._cr.execute("""
-                SELECT value FROM ir_config_parameter
-                WHERE key = %s""", ('l10n_nl_postcodeapi.apikey',))
-        row = self._cr.fetchone()
-        if row and row[0] != 'Your API key' and row[0].strip():
-            from pyPostcode import Api
-            provider = Api(row[0].strip())
-            test = provider.getaddress('1053NJ', '334T')
-            if not test or not test._data:
-                raise exceptions.Warning(
-                    _('Error'),
-                    _('Could not verify the connection with the address '
-                      'lookup service (if you want to get rid of this '
-                      'message, please rename or delete the system parameter '
-                      '\'l10n_nl_postcodeapi.apikey\').'))
-            return provider
-        return False
+        apikey = self.env['ir.config_parameter'].get_param(
+            'l10n_nl_postcodeapi.apikey', '').strip()
+        if not apikey or apikey == 'Your API key':
+            return False
+        from pyPostcode import Api
+        provider = Api(apikey)
+        test = provider.getaddress('1053NJ', '334T')
+        if not test or not test._data:
+            raise exceptions.Warning(
+                _('Error'),
+                _('Could not verify the connection with the address '
+                  'lookup service (if you want to get rid of this '
+                  'message, please rename or delete the system parameter '
+                  '\'l10n_nl_postcodeapi.apikey\').'))
+        return provider
 
     @ormcache(skiparg=1)
     def get_province(self, province):
