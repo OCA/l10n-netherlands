@@ -34,4 +34,5 @@
     "external_dependencies": {
         'python': ['pyPostcode'],
     }
+    'installable': False,
 }
