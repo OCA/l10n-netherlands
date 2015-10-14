@@ -9,11 +9,4 @@ For more info check the issues sections and the wikipages in this GitHub project
 Deze repository bevat alle modules welke ontwikkeld zijn om Odoo v7 aan te laten sluiten bij de Nederlandse behoeftes. Voor meer informatie kunt u de issues sectie en wiki pagina's in deze GitHub bekijken, of de hoofdpagina bezoeken van dit project op de officiele OCA website (http://odoo-community.org/project/62). 
 
 [//]: # (addons)
-Available addons
-----------------
-addon | version | summary
---- | --- | ---
-[l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 8.0.0.1.0 | Autocomplete Dutch addresses using PostcodeApi.nu
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 8.0.1.0.0 | Export XAF auditfiles for Dutch tax authorities
-
 [//]: # (end addons)
