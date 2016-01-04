@@ -49,7 +49,7 @@ class ResPartner(models.Model):
                 'name_format',
                 "${firstname or initials or ''}"
                 "${(firstname or initials) and ' ' or ''}"
-                "${infix or ''}${infix and ' ' or ''}${lastname}"))
+                "${infix or ''}${infix and ' ' or ''}${lastname or ''}"))
         name = name_template.render(**{
             'firstname': firstname,
             'lastname': lastname,
