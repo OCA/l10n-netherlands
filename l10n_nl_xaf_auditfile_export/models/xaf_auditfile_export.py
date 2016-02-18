@@ -128,7 +128,7 @@ class XafAuditfileExport(models.Model):
             return
 
         self.auditfile = base64.b64encode(etree.tostring(
-            xmldoc, xml_declaration=True, encoding='utf8'))
+            xmldoc, xml_declaration=True, encoding='UTF-8'))
 
     @api.multi
     def get_odoo_version(self):
