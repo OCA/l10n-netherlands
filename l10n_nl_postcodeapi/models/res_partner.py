@@ -68,8 +68,8 @@ class ResPartner(models.Model):
         """
         postal_code = self.zip and self.zip.replace(' ', '')
         country = self.country_id
-        if (not (postal_code and self.street_number) or
-            (country and country != self.env.ref('base.nl'))):
+        if not (postal_code and self.street_number) or \
+                country and country != self.env.ref('base.nl'):
             return {}
 
         provider_obj = self.get_provider_obj()
