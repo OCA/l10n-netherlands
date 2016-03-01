@@ -78,9 +78,9 @@ class ResPartner(models.Model):
         pc_info = provider_obj.getaddress(postal_code, self.street_number)
         if not pc_info or not pc_info._data:
             return {}
-        self.street_name = pc_info._data['street']
-        self.city = pc_info._data['town']
-        self.state_id = self.get_province(pc_info._province)
+        self.street_name = pc_info.street
+        self.city = pc_info.town
+        self.state_id = self.get_province(pc_info.province)
 
     @api.model
     def fields_view_get(
