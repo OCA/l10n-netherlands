@@ -2,9 +2,16 @@
 # © 2016 ONESTEiN BV (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import logging
+
 from openerp import fields, models, api
 from openerp.tools.translate import _
-from stdnum.nl import bsn
+
+_logger = logging.getLogger(__name__)
+try:
+    from stdnum.nl import bsn
+except ImportError:
+    _logger.debug('Cannot `import stdnum.nl.bsn`.')
 
 
 class ResPartner(models.Model):
