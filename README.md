@@ -13,6 +13,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[l10n_nl_bsn](l10n_nl_bsn/) | 8.0.0.1.0 | Burgerservicenummer (BSN) for Partners
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 1.0 | Dutch partner names
 [l10n_nl_partner_salutation](l10n_nl_partner_salutation/) | 1.0 | Full salutation for partners, Dutch style
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 8.0.0.1.0 | Autocomplete Dutch addresses using PostcodeApi.nu
