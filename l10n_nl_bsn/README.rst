@@ -15,6 +15,15 @@ A double check on the BSN is done when inserting/modifying its value:
  - check if another partner with the same BSN already exists.
 In both cases, a non-blocking alert is shown.
 
+### Warning
+
+It is forbidden to use the BSN if this is not required by a legal context.
+Please check if you comply with all the legal and privacy aspects regarding the use of BSN in Odoo:
+
+[link1](https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/identificatie/burgerservicenummer-bsn)
+[link2](https://www.rijksoverheid.nl/onderwerpen/persoonsgegevens/inhoud/burgerservicenummer-bsn)
+
+
 
 Installation
 ============
