@@ -32,8 +32,13 @@ Configuration
 
 This module depends on the tax codes (e.g. 1a, 1b, 1c, 1d, 2a...) as prescribed
 by the Dutch tax laws.
-When using the default Dutch chart of account, the module l10n_nl will be
-installed, which will add these codes automatically.
+
+To use this module, the user should have installed the default Dutch chart of accounts
+and not changed the tax code names. Alternatively be sure that a similar structure
+for the the tax code names is recreated.
+
+When using the default Dutch chart of account, the module l10n_nl will be installed,
+which will add these codes automatically.
 
 Usage
 =====

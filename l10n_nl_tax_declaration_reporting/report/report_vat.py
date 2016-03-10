@@ -52,6 +52,7 @@ class VatReport(models.AbstractModel):
             )
 
         tax_report_lines = self._get_lines(data['form']['based_on'],
+                                           data['form']['fiscalyear_id'],
                                            data['form']['company_id'])
 
         self.tax_code_error = ''
@@ -120,7 +121,7 @@ class VatReport(models.AbstractModel):
             return filter(lambda x: x[0] == code,
                           filter(lambda x: x[1] == code_type,
                                  tax_report_lines))[0][2]
-        except:
+        except IndexError:
             if not self.tax_code_error:
                 self.tax_code_error = \
                     "Please add (BTW) or (omzet) to tax code: " + code
@@ -128,23 +129,15 @@ class VatReport(models.AbstractModel):
                 self.tax_code_error += " and " + code
             return 0
 
-    def _get_lines(self, based_on, company_id=False,
+    def _get_lines(self, based_on, fiscalyear_id, company_id=False,
                    parent=False, level=0, context=None):
         period_list = self.period_ids
         res = self._get_codes(based_on, company_id, parent, level,
                               period_list, context=context)
-        if period_list:
-            res = self._add_codes(based_on, res, period_list, context=context)
-        else:
-            self.cr.execute("select id from account_fiscalyear")
-            fy = self.cr.fetchall()
-            self.cr.execute(
-                "select id from account_period where fiscalyear_id = %s",
-                (fy[0][0],))
-            periods = self.cr.fetchall()
-            for p in periods:
-                period_list.append(p[0])
-            res = self._add_codes(based_on, res, period_list, context=context)
+        if not period_list:
+            f_year = self.env['account.fiscalyear'].browse(fiscalyear_id)
+            period_list = f_year.period_ids.ids
+        res = self._add_codes(based_on, res, period_list, context=context)
 
         tax_report_lines = list(map(lambda x: (x[1].code, 'omzet'
                                     if '(omzet)' in x[1].name

@@ -10,13 +10,12 @@
     'license': 'AGPL-3',
     'author': 'ONESTEiN BV, Odoo Community Association (OCA), Odoo SA',
     'website': 'http://www.onestein.nl',
-    'depends': ['account',
-                'account_chart',
-                ],
-    'data': [
-              "views/account_tax_report.xml",
-              "wizard/account_vat_view_nl.xml",
+    'depends': [
+        'account',
+        'account_chart',
     ],
-    'demo': [],
-    'installable': True,
+    'data': [
+        'views/account_tax_report.xml',
+        'wizard/account_vat_view_nl.xml',
+    ],
 }
