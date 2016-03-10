@@ -135,8 +135,11 @@ class VatReport(models.AbstractModel):
         res = self._get_codes(based_on, company_id, parent, level,
                               period_list, context=context)
         if not period_list:
-            f_year = self.env['account.fiscalyear'].browse(fiscalyear_id)
-            period_list = f_year.period_ids.ids
+            if fiscalyear_id:
+                f_year = self.env['account.fiscalyear'].browse(fiscalyear_id)
+                period_list = f_year.period_ids.ids
+            else:
+                period_list = self.env['account.period'].search([]).ids
         res = self._add_codes(based_on, res, period_list, context=context)
 
         tax_report_lines = list(map(lambda x: (x[1].code, 'omzet'
