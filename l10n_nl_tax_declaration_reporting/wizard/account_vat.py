@@ -7,15 +7,13 @@ from openerp import fields, models, api
 
 class AccountVatDeclaration(models.TransientModel):
     _name = 'account.vat.declaration.nl'
-    _description = 'Account Vat Declaration'
     _inherit = "account.common.report"
 
     @api.model
     def _get_tax(self):
-        user = self.env['res.users'].browse(self.env.uid)
         taxes = self.env['account.tax.code'].search(
             [('parent_id', '=', False),
-             ('company_id', '=', user.company_id.id)],
+             ('company_id', '=', self.env.user.company_id.id)],
             limit=1).ids
         return taxes and taxes[0] or False
 
@@ -34,20 +32,23 @@ class AccountVatDeclaration(models.TransientModel):
 
     @api.multi
     def create_vat(self):
-        datas = {'ids': self.env.context.get('active_ids', [])}
-        datas['model'] = 'account.tax.code'
-        datas['form'] = self.read()[0]
+        datas = {
+            'ids': self.env.context.get('active_ids', []),
+            'model': 'account.tax.code',
+            'form': self.read()[0],
+        }
         for field in datas['form'].keys():
             if isinstance(datas['form'][field], tuple):
                 datas['form'][field] = datas['form'][field][0]
 
         datas['form']['company_id'] = self.env['account.tax.code'].browse(
-            [datas['form']['chart_tax_id']],
-        )[0].company_id.id
+            datas['form']['chart_tax_id']
+        ).company_id.id
+
+        report_name = 'l10n_nl_tax_declaration_reporting.tax_report_template'
 
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'l10n_nl_tax_declaration_report' +
-                           'ing.tax_report_template',
+            'report_name': report_name,
             'datas': datas,
         }

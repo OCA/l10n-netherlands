@@ -39,7 +39,6 @@
                                         <td><centre><strong>Rekening</strong></centre></td>
                                         <td><strong>Fiscaal jaar</strong></td>
                                         <td colspan="2"><strong>Periodes</strong></td>
-                                        <!-- <td><strong>End period</strong></td> -->
                                         <td><strong>Gebaseerd op</strong></td>
                                     </tr>
                                     <tr>
@@ -51,8 +50,8 @@
                                         <td>Facturen</td>
                                     </tr>
                                   </table>
-                                <div></div>
-                                <div></div>
+                                <div/>
+                                <div/>
 
                                 <t t-if='tax_code_error'>
                                   <div> </div>

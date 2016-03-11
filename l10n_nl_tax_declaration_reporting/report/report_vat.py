@@ -10,46 +10,34 @@ class VatReport(models.AbstractModel):
 
     @api.multi
     def render_html(self, data=None):
-        self.cr = self._cr
-        self.uid = self._uid
-        report_obj = self.env['report']
-        report = report_obj._get_report_from_name(
-            'l10n_nl_tax_declaration_reporting.tax_report_template')
+        report_model = self.env['report']._get_report_from_name(
+            'l10n_nl_tax_declaration_reporting.tax_report_template').model
 
-        res = {}
         self.period_ids = []
-        self.display_detail = data['form']['display_detail']
         _chart_tax_id = data['form']['chart_tax_id']
         _chart_tax_name = self.env['account.tax.code'].browse(
             _chart_tax_id).name
 
-        _fiscalyear_id = data['form']['fiscalyear_id']
         _fiscalyear_name = self.env['account.fiscalyear'].browse(
-            _fiscalyear_id).name
+            data['form']['fiscalyear_id']).name
 
         _period_from_id = data['form']['period_from']
+        _period_from_name = 'Begin fy'
         if _period_from_id:
             _period_from_name = self.env['account.period'].browse(
                 _period_from_id).name
-        else:
-            _period_from_name = 'Begin fy'
 
         _period_to_id = data['form']['period_to']
+        _period_to_name = 'End fy'
         if _period_to_id:
             _period_to_name = self.env['account.period'].browse(
                 _period_to_id).name
-        else:
-            _period_to_name = 'End fy'
 
-        res['periods'] = ''
-        if data['form'].get('period_from', False) and\
+        if data['form'].get('period_from', False) and \
                 data['form'].get('period_to', False):
             self.period_ids = self.env['account.period'].build_ctx_periods(
                 data['form']['period_from'],
                 data['form']['period_to'])
-            res['periods'] = ', '.join(self.env['account.period'].browse(
-                self.period_ids).mapped('name')
-            )
 
         tax_report_lines = self._get_lines(data['form']['based_on'],
                                            data['form']['fiscalyear_id'],
@@ -81,14 +69,13 @@ class VatReport(models.AbstractModel):
 
         docargs = {
             'doc_ids': self._ids,
-            'doc_model': report.model,
+            'doc_model': report_model,
             'docs': self,
             'time_now': fields.Datetime.now(),
             'chart': _chart_tax_name,
             'fiscalyear': _fiscalyear_name,
             'start_period': _period_from_name,
             'end_period': _period_to_name,
-            'basedon': data['form']['based_on'],
             '_1AO': _1AO,
             '_1AB': _1AB,
             '_1BO': _1BO,
@@ -113,7 +100,7 @@ class VatReport(models.AbstractModel):
             'tax_code_error': self.tax_code_error,
         }
 
-        return report_obj.render(
+        return self.env['report'].render(
             'l10n_nl_tax_declaration_reporting.tax_report_template', docargs)
 
     def _get_line_value(self, code, code_type, tax_report_lines):
@@ -130,17 +117,16 @@ class VatReport(models.AbstractModel):
             return 0
 
     def _get_lines(self, based_on, fiscalyear_id, company_id=False,
-                   parent=False, level=0, context=None):
+                   parent=False, level=0):
         period_list = self.period_ids
-        res = self._get_codes(based_on, company_id, parent, level,
-                              period_list, context=context)
+        account_list = self._get_codes(based_on, company_id, parent, level)
         if not period_list:
             if fiscalyear_id:
                 f_year = self.env['account.fiscalyear'].browse(fiscalyear_id)
                 period_list = f_year.period_ids.ids
             else:
                 period_list = self.env['account.period'].search([]).ids
-        res = self._add_codes(based_on, res, period_list, context=context)
+        res = self._add_codes(based_on, account_list, period_list)
 
         tax_report_lines = list(map(lambda x: (x[1].code, 'omzet'
                                     if '(omzet)' in x[1].name
@@ -149,12 +135,9 @@ class VatReport(models.AbstractModel):
 
         return tax_report_lines
 
-    def _get_codes(self, based_on, company_id,
-                   parent=False, level=0, period_list=None, context=None):
-        self.cr = self._cr
-        self.uid = self._uid
-        obj_tc = self.env['account.tax.code']
-        tax_codes = obj_tc.with_context(based_on=based_on).search([
+    def _get_codes(self, based_on, company_id, parent=False, level=0):
+        tax_code_obj = self.env['account.tax.code']
+        tax_codes = tax_code_obj.with_context(based_on=based_on).search([
             ('parent_id', '=', parent),
             ('company_id', '=', company_id)
         ], order='sequence')
@@ -163,14 +146,10 @@ class VatReport(models.AbstractModel):
         for code in tax_codes:
             res.append(('.' * 2 * level, code))
 
-            res += self._get_codes(based_on, company_id,
-                                   code.id, level + 1, context=context)
+            res += self._get_codes(based_on, company_id, code.id, level + 1)
         return res
 
-    def _add_codes(self, based_on, account_list=None,
-                   period_list=None, context=None):
-        if context is None:
-            context = {}
+    def _add_codes(self, based_on, account_list=None, period_list=None):
         if account_list is None:
             account_list = []
         if period_list is None:
@@ -181,9 +160,9 @@ class VatReport(models.AbstractModel):
             for period_ind in period_list:
                 for code in self.env['account.tax.code'].with_context(
                     period_id=period_ind,
-                    based_on=based_on).browse(account[1].id
-                                              ):
-                    sum_tax_add = sum_tax_add + code.sum_period
+                    based_on=based_on
+                ).browse(account[1].id):
+                    sum_tax_add += code.sum_period
 
             code.sum_period = sum_tax_add
 
