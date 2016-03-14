@@ -43,7 +43,7 @@ class ResPartner(models.Model):
                 if partner.company_id:
                     args += [('company_id', '=', partner.company_id.id)]
                 other_partner = self.search(args, limit=1)
-                # is another partner exists, display a warning
+                # if another partner exists, display a warning
                 if other_partner:
                     msg = _('Another person (%s) has the same BSN (%s).')
                     warning = {
