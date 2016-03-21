@@ -37,7 +37,7 @@ class ResPartner(models.Model):
         if not apikey or apikey == 'Your API key':
             return False
         from pyPostcode import Api
-        provider = Api(apikey)
+        provider = Api(apikey, (2, 0, 0))
         test = provider.getaddress('1053NJ', '334T')
         if not test or not test._data:
             raise exceptions.Warning(

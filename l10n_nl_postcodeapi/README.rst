@@ -27,6 +27,9 @@ Configuration
 Please enter the API key that you request from PostcodeAPI into the system
 parameter 'l10n_nl_postcodeapi.apikey'
 
+Module version 8.0.0.2.0 and higher use a version 2 API key from PostcodeAPI.
+The old version 1 API key is not compatible with the new API key.
+
 Provinces are autocompleted if a country state with the exact name is found in
 the system. A CSV file with the Dutch provinces is included in the data
 directory, but not loaded by default. You can import the file manually.
