@@ -17,7 +17,9 @@ except ImportError:
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    bsn_number = fields.Char("BSN")
+    bsn_number = fields.Char(
+        string="BSN",
+        groups="base.group_hr_user")
 
     @api.multi
     @api.onchange('bsn_number')

@@ -12,6 +12,7 @@
     'license': 'AGPL-3',
     'depends': [
         'base',
+        'hr',
     ],
     'data': [
         'views/res_partner.xml',
