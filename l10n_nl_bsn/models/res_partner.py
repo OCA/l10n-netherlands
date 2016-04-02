@@ -39,16 +39,18 @@ class ResPartner(models.Model):
                     }
 
                 # search for another partner with the same BSN
-                args = [('bsn_number', '=', partner.bsn_number)]
+                args = [('bsn_number', '=', partner.bsn_number),
+                        ('name', '!=', partner.name)]
                 # refine search in case of multicompany setting
                 if partner.company_id:
                     args += [('company_id', '=', partner.company_id.id)]
-                partners = self.search(args, limit=1)
-                # is another partner exists, display a warning
-                if partners:
+                other_partner = self.search(args, limit=1)
+                # if another partner exists, display a warning
+                if other_partner:
                     msg = _('Another person (%s) has the same BSN (%s).')
                     warning = {
                         'title': _('Warning!'),
-                        'message': msg % (partner.name, partner.bsn_number)
+                        'message': msg % (other_partner.name,
+                                          other_partner.bsn_number)
                     }
         return {'warning': warning, }
