@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+            id="report_account_vat_declaration_nl"
+            model="account.vat.declaration.nl"
+            string="New VAT Report NL"
+            report_type="qweb-pdf"
+            name="l10n_nl_tax_declaration_reporting.tax_report_template"
+            file="tax_report_file"
+        />
+
+        <template id="l10n_nl_tax_declaration_reporting.tax_report_template">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <style type="text/css">
+                              table.border td, table.border th {
+                                border: 1px solid black;
+                                vertical-align: bottom;
+                              }
+                              thead tr {
+                                height: 10em;
+                              }
+                              th {
+                                word-break: keep-all;
+                              }
+                              th, td {
+                                padding: 1px;
+                              }
+                            </style>
+
+                            <div class="oe_structure" />
+
+                            <div class="row">
+                                <table class="table table-condensed header" style="text-align:center">
+                                    <tr>
+                                        <td><centre><strong>Datum</strong></centre></td>
+                                        <td><centre><strong>Rekening</strong></centre></td>
+                                        <td><strong>Fiscaal jaar</strong></td>
+                                        <td colspan="2"><strong>Periodes</strong></td>
+                                        <td><strong>Gebaseerd op</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><t t-esc="time_now"/></td>
+                                        <td><t t-esc="chart"/></td>
+                                        <td><t t-esc="fiscalyear"/></td>
+                                        <td><t t-esc="start_period"/></td>
+                                        <td><t t-esc="end_period"/></td>
+                                        <td>Facturen</td>
+                                    </tr>
+                                  </table>
+                                <div/>
+                                <div/>
+
+                                <t t-if='tax_code_error'>
+                                  <div> </div>
+                                  <div>
+                                    <strong>Error in tax code:</strong> <t t-esc='tax_code_error'/>
+                                  </div>
+                                  <div> </div>
+                                </t> 
+
+                                <t t-if='not tax_code_error'>
+                                    <table class="table table-condensed main">
+                                          <tr>
+                                            <td><strong>Leveringen en/of diensten binnenland</strong></td>
+                                            <td style="text-align:right"><strong>Omzet</strong></td>
+                                            <td style="text-align:right"><strong>BTW</strong></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 1a Leveringen/diensten belast met 21%</td>
+                                            <td style="text-align:right"> € <t t-esc="_1AO"/></td>
+                                            <td style="text-align:right"> € <t t-esc="_1AB"/></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 1b Leveringen/diensten belast met 6%</td>
+                                            <td style="text-align:right"> € <t t-esc="_1BO"/></td>
+                                            <td style="text-align:right"> € <t t-esc="_1BB"/></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 1c Leveringen/diensten belast met overige tarieven behalve 0%</td>
+                                            <td style="text-align:right"> € <t t-esc="_1CO"/></td>
+                                            <td style="text-align:right"> € <t t-esc="_1CB"/></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 1d Prive-gebruik</td>
+                                            <td style="text-align:right"> € <t t-esc="_1DO"/></td>
+                                            <td style="text-align:right"> € <t t-esc="_1DB"/></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 1e Leveringen/diensten belast met 0%</td>
+                                            <td style="text-align:right"> € <t t-esc="_1EO"/></td>
+                                            <td> </td>
+                                          </tr>
+                                          <tr>
+                                            <td><strong>Verleggingsregelingen: BTW naar u verlegd</strong></td>
+                                            <td style="text-align:right"><strong>Omzet</strong></td>
+                                            <td style="text-align:right"><strong>BTW</strong></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 2a Heffing van omzetbelasting is naar u verlegd</td>
+                                            <td style="text-align:right"> € <t t-esc="_2AO"/></td>
+                                            <td style="text-align:right"> € <t t-esc="_2AB"/></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td><strong>Leveringen naar het buitenland</strong></td>
+                                            <td style="text-align:right"><strong>Omzet</strong></td>
+                                            <td>  </td>
+                                          </tr>
+                                          <tr>
+                                            <td> 3a Leveringen naar landen buiten de EU</td>
+                                            <td style="text-align:right"> € <t t-esc="_3AO"/></td>
+                                            <td>  </td>
+                                          </tr>
+                                          <tr>
+                                            <td> 3b Leveringen naar landen binnen de EU</td>
+                                            <td style="text-align:right"> € <t t-esc="_3BO"/></td>
+                                            <td>  </td>
+                                          </tr>
+                                          <tr>
+                                            <td> 3c Installatie/afstandsverkopen binnen de EU</td>
+                                            <td style="text-align:right"> € <t t-esc="_3CO"/></td>
+                                            <td>  </td>
+                                          </tr>
+
+                                          <tr>
+                                            <td><strong>Leveringen vanuit het buitenland</strong></td>
+                                            <td style="text-align:right"><strong>Omzet</strong></td>
+                                            <td style="text-align:right"><strong>BTW</strong></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 4a Verwerving uit landen buiten de EU</td>
+                                            <td style="text-align:right"> €  <t t-esc="_4AO"/></td>
+                                            <td style="text-align:right"> €  <t t-esc="_4AB"/></td>
+                                          </tr>
+                                          <tr>
+                                            <td> 4b Verwerving van goederen uit landen binnen de EU</td>
+                                            <td style="text-align:right"> € <t t-esc="_4BO"/> </td>
+                                            <td style="text-align:right"> € <t t-esc="_4BB"/> </td>
+                                          </tr>
+
+                                          <tr>
+                                            <td><strong>Voorbelasting</strong></td>
+                                            <td></td>
+                                            <td style="text-align:right"><strong>BTW</strong></td>
+                                          </tr>
+                                          <tr>
+                                            <td>5a Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)</td>
+                                            <td>  </td>
+                                            <td style="text-align:right"> € <t t-esc="_5AB"/></td>
+                                          </tr>
+                                          <tr>
+                                            <td>5b Voorbelasting</td>
+                                            <td>  </td>
+                                            <td style="text-align:right"> € <t t-esc="_5BB"/> </td>
+                                          </tr>
+                                          <tr>
+                                            <td><strong>5c Subtotaal (rubriek 5a min 5b)</strong> </td>
+                                            <td> </td>
+                                            <td style="text-align:right"><strong>€ <t t-esc="_5CB"/></strong></td>
+                                          </tr>
+
+                                    </table>
+                                </t>
+                            </div>
+
+                        </div>
+                    </t>
+        </template>
+
+    </data>
+</openerp>
