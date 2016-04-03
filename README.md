@@ -9,6 +9,12 @@ For more info check the issues sections and the wikipages in this GitHub project
 Deze repository bevat alle modules welke ontwikkeld zijn om Odoo v7 aan te laten sluiten bij de Nederlandse behoeftes. Voor meer informatie kunt u de issues sectie en wiki pagina's in deze GitHub bekijken, of de hoofdpagina bezoeken van dit project op de officiele OCA website (http://odoo-community.org/project/62). 
 
 [//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[l10n_nl_bsn](l10n_nl_bsn/) | 9.0.0.1.0 | Burgerservicenummer (BSN) for Partners
+
 Unported addons
 ---------------
 addon | version | summary
