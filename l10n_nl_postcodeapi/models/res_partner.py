@@ -91,9 +91,9 @@ class ResPartner(orm.Model):
         if not pc_info or not pc_info._data:
             return {}
         return {'value': {
-                'street_name': pc_info._data['street'],
-                'city': pc_info._data['town'],
-                'state_id': self.get_province(cr, uid, pc_info._province),
+                'street_name': pc_info.street,
+                'city': pc_info.town,
+                'state_id': self.get_province(cr, uid, pc_info.province),
                 }}
 
     def fields_view_get(
