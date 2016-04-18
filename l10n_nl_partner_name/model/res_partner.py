@@ -58,4 +58,12 @@ class ResPartner(models.Model):
         })
         return name if name else ''
 
+    @api.model
+    def _get_inverse_name(self, name, is_company=False):
+        result = super(ResPartner, self)._get_inverse_name(
+                name, is_company=is_company)
+        # super assumes $lastname $firstname, we want it the other way araound
+        return dict(
+            result, lastname=result['firstname'], firstname=result['lastname'])
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
