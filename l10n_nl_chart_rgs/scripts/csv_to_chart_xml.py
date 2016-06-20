@@ -46,23 +46,26 @@ def get_type(row):
     - other (not any of the above)
     """
     account_type = 'view'
-    row_type = row[0][0]  # first letter of first column - B or W
-    row_subtype = row[0][0:4]  # first four letters
-    row_subsubtype = row[0][0:7]  # first seven letters
+    code = row[0]
+    code_type = code[0]  # first letter of first column - B or W
+    code_subtype = code[0:4]  # first four letters
+    code_subsubtype = code[0:7]  # first seven letters
     level = int(row[4].strip())
-    if ((row_type == 'B' and level == 5) or
+    if ((code_type == 'B' and level == 5) or
             # TODO: Some subtypes have both level 4 and 5:
-            (row_subtype == 'BLas' and level == 4) or  # Financial lease
-            (row_subtype == 'BLim' and level == 4) or  # Liquidity
-            (row_subtype == 'BVor' and level == 4) or  # Receivable
-            (row_subtype == 'BVrd' and level == 4) or  # Stock ('voorraad')
-            (row_subtype == 'BSch' and level == 4) or  # Debt
-            (row_type == 'W' and level == 4)):
-        if row_subtype == 'BLim':
+            (code_subtype == 'BLas' and level == 4) or  # Financial lease
+            (code_subtype == 'BLim' and level == 4) or  # Liquidity
+            (code_subtype == 'BVor' and level == 4) or  # Receivable
+            (code_subtype == 'BVrd' and level == 4) or  # Stock ('voorraad')
+            (code_subtype == 'BSch' and level == 4) or  # Debt
+            (code_type == 'W' and level == 4)):
+        if code_subtype == 'BLim':
             account_type = 'liquidity'
-        elif row_subsubtype == 'BVorDeb' and level == 4:
+        elif (code_subsubtype == 'BVorDeb' and level == 4 and
+               code != 'BVorDebVdd'):
             account_type = 'receivable'  # 'vorderingen'
-        elif row_subsubtype == 'BSchCre' and level == 4:
+        elif (code_subsubtype == 'BSchCre' and level == 4 and
+              code != 'BSchCreVbk'):
             account_type = 'payable'  # 'schulden'
         else:
             account_type = 'other'
@@ -72,11 +75,11 @@ def get_type(row):
 def get_user_type(row, account_type):
     """Link record to account_account_type."""
     xml_id = 'data_account_type_view'
-    row_type = row[0][0]  # first letter of first column - B or W
-    row_subtype = row[0][0:4]  # first four letters
+    code_type = row[0][0]  # first letter of first column - B or W
+    code_subtype = row[0][0:4]  # first four letters
     debit_credit = row[3]
     # Handle income and expense accounts:
-    if row_type == 'W':
+    if code_type == 'W':
         if debit_credit == 'C' and account_type == 'other':
             xml_id = 'data_account_type_income'
         elif debit_credit == 'C' and account_type == 'view':
@@ -85,7 +88,7 @@ def get_user_type(row, account_type):
             xml_id = 'data_account_type_expense'
         else:  # must be account_type 'view'
             xml_id = 'account_type_expense_view1'
-    else:  # must be row_type 'B'
+    else:  # must be code_type 'B'
         asset_subtypes = [
             'BIva',  # IMMATERIËLE VASTE ACTIVA
             'BMva',  # MATERIËLE VASTE ACTIVA
@@ -108,17 +111,17 @@ def get_user_type(row, account_type):
             xml_id = 'data_account_type_payable'
         elif account_type == 'receivable':
             xml_id = 'data_account_type_receivable'
-        elif row_subtype in asset_subtypes and account_type == 'other':
+        elif code_subtype in asset_subtypes and account_type == 'other':
             xml_id = 'data_account_type_asset'
-        elif row_subtype in asset_subtypes and account_type == 'view':
+        elif code_subtype in asset_subtypes and account_type == 'view':
             xml_id = 'account_type_asset_view1'
-        elif row_subtype in equity_subtypes:
+        elif code_subtype in equity_subtypes:
             xml_id = 'conf_account_type_equity'
-        elif row_subtype in liability_subtypes and account_type == 'other':
+        elif code_subtype in liability_subtypes and account_type == 'other':
             xml_id = 'data_account_type_liability'
-        elif row_subtype in liability_subtypes and account_type == 'view':
+        elif code_subtype in liability_subtypes and account_type == 'view':
             xml_id = 'account_type_liability_view1'
-        elif row_subtype == 'BLim':  # liquidity
+        elif code_subtype == 'BLim':  # liquidity
             if account_type == 'other':
                 xml_id = 'data_account_type_view'
             elif 'Kas' in row[0]:

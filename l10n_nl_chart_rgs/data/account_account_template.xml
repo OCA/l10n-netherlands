@@ -13584,10 +13584,10 @@
     <record id="bvordebvdd" model="account.account.template">
         <field name="name">Voorziening dubieuze debiteuren</field>
         <field name="code">1101030</field>
-        <field name="type">receivable</field>
-        <field name="user_type" ref="account.data_account_type_receivable"/>
+        <field name="type">other</field>
+        <field name="user_type" ref="account.data_account_type_view"/>
         <field name="parent_id" ref="bvordeb"/>
-        <field name="reconcile" eval="True"/>
+        <field name="reconcile" eval="False"/>
     </record>
 
     <record id="bvordebhdb" model="account.account.template">
@@ -14160,10 +14160,10 @@
     <record id="bschcrevbk" model="account.account.template">
         <field name="name">Vooruitontvangen op bestellingen</field>
         <field name="code">1203030</field>
-        <field name="type">payable</field>
-        <field name="user_type" ref="account.data_account_type_payable"/>
+        <field name="type">other</field>
+        <field name="user_type" ref="account.data_account_type_liability"/>
         <field name="parent_id" ref="bschcre"/>
-        <field name="reconcile" eval="True"/>
+        <field name="reconcile" eval="False"/>
     </record>
 
     <record id="bschcrekcr" model="account.account.template">
