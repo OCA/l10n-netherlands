@@ -62,7 +62,7 @@ def get_type(row):
         if code_subtype == 'BLim':
             account_type = 'liquidity'
         elif (code_subsubtype == 'BVorDeb' and level == 4 and
-               code != 'BVorDebVdd'):
+              code != 'BVorDebVdd'):
             account_type = 'receivable'  # 'vorderingen'
         elif (code_subsubtype == 'BSchCre' and level == 4 and
               code != 'BSchCreVbk'):
