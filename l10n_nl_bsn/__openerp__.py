@@ -19,5 +19,7 @@
     ],
     'external_dependencies': {
         'python': ['stdnum'],
-    },
+    'installable': False,
+},
+    'installable': False,
 }
