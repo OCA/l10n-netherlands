@@ -9,7 +9,8 @@ def _format_zipcode(zipcode):
     if not zipcode:
         return zipcode
     normalized = ''.join(zipcode.split())
-    if len(normalized) == 6:
+    if len(normalized) == 6 and normalized[:4].isdigit() and\
+       normalized[-2:].isalpha():
         return normalized[:4] + ' ' + normalized[-2:].upper()
     return zipcode
 
