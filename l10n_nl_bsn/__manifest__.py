@@ -5,7 +5,7 @@
 {
     'name': 'Burgerservicenummer (BSN) for Partners',
     'images': [],
-    'version': '9.0.0.1.0',
+    'version': '10.0.0.1.0',
     'category': 'Localization',
     'author': 'ONESTEiN BV,Odoo Community Association (OCA)',
     'website': 'http://www.onestein.eu',
@@ -19,7 +19,5 @@
     ],
     'external_dependencies': {
         'python': ['stdnum'],
-    'installable': False,
-},
-    'installable': False,
+    },
 }
