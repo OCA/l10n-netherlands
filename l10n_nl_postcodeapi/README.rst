@@ -1,8 +1,11 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-    :alt: License: AGPL-3
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
 
+===================================
 Auto-completion for Dutch addresses
 ===================================
+
 This module contains integration of the excellent and free address completion
 service 'PostcodeAPI'. The service allows lookups by zip code and house number,
 providing street name and city. The lookups will be triggered in the partner
