@@ -4,8 +4,8 @@
 
 import logging
 
-from openerp import fields, models, api
-from openerp.tools.translate import _
+from odoo import fields, models, api
+from odoo.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 try:
@@ -19,7 +19,7 @@ class ResPartner(models.Model):
 
     bsn_number = fields.Char(
         string='BSN',
-        groups='base.group_hr_user')
+        groups='hr.group_hr_user')
 
     @api.multi
     @api.onchange('bsn_number')
