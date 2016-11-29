@@ -37,6 +37,7 @@ class ReportIntrastat(models.Model):
     _description = "Declaration of intracommunautary transactions (ICP)"
     _order = "period_id desc"
     _rec_name = 'period_id'
+    _inherit = ['intrastat.common']
 
     def _default_period_id(self):
         """
@@ -130,8 +131,8 @@ class ReportIntrastat(models.Model):
 
         total_amount = 0.0
         partner_amounts_map = {}
-        # Check wether all configuration done to generate report
-        self.env['report.intrastat.common']._check_generate_lines(self)
+        # Check whether all configuration done to generate report
+        self._check_generate_lines()
 
         # Remove existing lines
         for line_obj in self.line_ids:
