@@ -106,19 +106,21 @@ class ReportIntrastat(models.Model):
         readonly=True,
     )
 
-    @api.one
+    @api.multi
     def set_draft(self):
         """
         Reset report state to draft.
         """
-        return self.write({'state': 'draft'})
+        self.ensure_one()
+        self.state = 'draft'
 
-    @api.one
+    @api.multi
     def generate_lines(self):
         """
         Collect the data lines for the given report.
         Unlink any existing lines first.
         """
+        self.ensure_one()
         # Generating lines is only allowed for report in draft state:
         if self.state != 'draft':
             raise Warning(_(
