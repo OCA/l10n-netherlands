@@ -52,7 +52,7 @@ included in the reported amounts.
     'website': 'https://launchpad.net/new-report-intrastat',
     'depends': ['intrastat_base'],
     'data': [
-        'view/l10n_nl_intrastat.xml',
+        'views/l10n_nl_intrastat.xml',
         'security/ir.model.access.csv',
     ],
 }
