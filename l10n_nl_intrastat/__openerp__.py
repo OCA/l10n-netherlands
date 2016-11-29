@@ -26,7 +26,7 @@
 
 {
     'name': 'Intrastat reporting (ICP) for the Netherlands',
-    'version': '1.0',
+    'version': '8.0.1.0.0',
     'category': 'Localisation/Report Intrastat',
     'license': 'AGPL-3',
     'description': """
