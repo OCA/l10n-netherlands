@@ -13,7 +13,9 @@ class TestIntrastatNL(TransactionCase):
         super(TestIntrastatNL, self).setUp()
         self.intrastat_report = self.env['l10n_nl.report.intrastat']
         self.account_receivable = self.env['account.account'].search(
-            [('user_type_id', '=', self.env.ref('account.data_account_type_receivable').id)], limit=1)
+            [('user_type_id', '=',
+            self.env.ref('account.data_account_type_receivable').id)],
+            limit=1)
         self.fiscal_position_model = self.env['account.fiscal.position']
 
     def test_generate_report(self):
@@ -54,7 +56,8 @@ class TestIntrastatNL(TransactionCase):
         product = self.env.ref('product.product_product_1')
         a_date_in_last_month = datetime.today() \
             + relativedelta(day=1, months=-1)
-        fp = self.fiscal_position_model.create(dict(name="fiscal position", sequence=1))
+        fp = self.fiscal_position_model.create(dict(name="fiscal position",
+            sequence=1))
         invoice = self.env['account.invoice'].create({
             'reference_type': 'none',
             'name': 'invoice to client',
@@ -66,7 +69,8 @@ class TestIntrastatNL(TransactionCase):
             'invoice_line_ids': [
                 (0, False, {
                     'name': 'Test sale',
-                    'account_id': self.env.ref('account.demo_sale_of_land_account').id,
+                    'account_id':
+                        self.env.ref('account.demo_sale_of_land_account').id,
                     'price_unit': 50.0,
                     'product_id': product.id,
                     'quantity': 5.0,
@@ -84,4 +88,3 @@ class TestIntrastatNL(TransactionCase):
 
         # Test if the difference between the previous and current amount is 250
         self.assertEquals(report.total_amount - total, 250.0)
-

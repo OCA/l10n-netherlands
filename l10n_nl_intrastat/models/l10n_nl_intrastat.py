@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
-from openerp.exceptions import Warning, UserError
+from openerp.exceptions import Warning
 from openerp.addons.decimal_precision import decimal_precision as dp
 
 
@@ -21,7 +21,8 @@ class ReportIntrastat(models.Model):
         string='Date range'
     )
     date_from = fields.Date(related='date_range_id.date_start', readonly=True)
-    date_to = fields.Date(related='date_range_id.date_end', readonly=True, store=True)
+    date_to = fields.Date(related='date_range_id.date_end', readonly=True,
+        store=True)
     company_id = fields.Many2one(
         comodel_name='res.company',
         default=lambda self: self.env.user.company_id,
@@ -73,7 +74,6 @@ class ReportIntrastat(models.Model):
         """
         self.ensure_one()
         # Other models:
-        currency_model = self.env['res.currency']
         invoice_model = self.env['account.invoice']
         invoice_line_model = self.env['account.invoice.line']
 
@@ -99,7 +99,6 @@ class ReportIntrastat(models.Model):
             domain=invoice_domain + [('partner_id.country_id', '=', False)],
             fields=['partner_id']
         )
-        #return
         if invalid_invoices:
             raise Warning(
                 _(
@@ -124,9 +123,8 @@ class ReportIntrastat(models.Model):
         partner_amounts_map = {}
         for line in invoice_line_records:
             # Ignore invoiceline if taxes should not be included in intrastat:
-            if any(
-                    tax.exclude_from_intrastat_if_present
-                        for tax in line.invoice_line_tax_ids):
+            if any(tax.exclude_from_intrastat_if_present for tax in
+                    line.invoice_line_tax_ids):
                 continue
             # Report is per commercial partner:
             commercial_partner_id = (
@@ -138,10 +136,9 @@ class ReportIntrastat(models.Model):
                 }
             amounts = partner_amounts_map[commercial_partner_id]
             # Determine product or service:
-            if (line.product_id
-                and (
-                    line.product_id.type == 'service'
-                        or line.product_id.is_accessory_cost)):
+            if (line.product_id and (
+                    line.product_id.type == 'service' or
+                    line.product_id.is_accessory_cost)):
                 amount_type = 'amount_service'
             else:
                 amount_type = 'amount_product'
@@ -150,8 +147,8 @@ class ReportIntrastat(models.Model):
             # Convert currency amount if necessary:
             line_currency_obj = line.invoice_id.currency_id  # simplify
             invoice_date = line.invoice_id.date_invoice
-            if (line_currency_obj
-            and line_currency_obj.id != company_obj.currency_id.id):
+            if (line_currency_obj and
+                    line_currency_obj.id != company_obj.currency_id.id):
                 amount = (
                     line_currency_obj.with_context(date=invoice_date).compute(
                         amount, company_obj.currency_id, round=True)

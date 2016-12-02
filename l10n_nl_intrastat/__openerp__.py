@@ -1,10 +1,11 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Intrastat report for the Netherlands (ICP)
 #
-#    Based on lp:new-report-intrastat, 
-#    Copyright (C) 2010-2011 Akretion (http://www.akretion.com). All Rights Reserved
+#    Based on lp:new-report-intrastat,
+#    Copyright (C) 2010-2011 Akretion (http://www.akretion.com).
+#    All Rights Reserved
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    Modifications Copyright (C) 2012 Therp BV <http://therp.nl>
@@ -48,7 +49,7 @@ To exclude specific lines from the report, you can mark specific taxes
 as such. If such a tax is applied to the line, the line will not be
 included in the reported amounts.
 """,
-    'author': 'Therp BV',
+    'author': 'Therp BV, Odoo Community Association (OCA)',
     'website': 'https://launchpad.net/new-report-intrastat',
     'depends': [
         'intrastat_base',
@@ -59,4 +60,3 @@ included in the reported amounts.
         'views/l10n_nl_intrastat.xml',
     ],
 }
-
