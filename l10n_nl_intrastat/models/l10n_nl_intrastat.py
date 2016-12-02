@@ -125,7 +125,6 @@ class ReportIntrastat(models.Model):
                 'Cannot generate reports lines in a non-draft state'))
         # Other models:
         report_line_model = self.env['l10n_nl.report.intrastat.line']
-        currency_model = self.env['res.currency']
         invoice_model = self.env['account.invoice']
         invoice_line_model = self.env['account.invoice.line']
 
@@ -187,10 +186,9 @@ class ReportIntrastat(models.Model):
                 }
             amounts = partner_amounts_map[commercial_partner_id]
             # Determine product or service:
-            if (line.product_id
-                    and (
-                        line.product_id.type == 'service'
-                        or line.product_id.is_accessory_cost)):
+            if (line.product_id and
+                (line.product_id.type == 'service' or
+                    line.product_id.is_accessory_cost)):
                 amount_type = 'amount_service'
             else:
                 amount_type = 'amount_product'

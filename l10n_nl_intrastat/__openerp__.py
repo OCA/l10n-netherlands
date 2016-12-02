@@ -3,8 +3,9 @@
 #
 #    Intrastat report for the Netherlands (ICP)
 #
-#    Based on lp:new-report-intrastat, 
-#    Copyright (C) 2010-2011 Akretion (http://www.akretion.com). All Rights Reserved
+#    Based on lp:new-report-intrastat,
+#    Copyright (C) 2010-2011 Akretion (http://www.akretion.com).
+#    All Rights Reserved
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    Modifications Copyright (C) 2012 Therp BV <http://therp.nl>
@@ -56,4 +57,3 @@ included in the reported amounts.
         'security/ir.model.access.csv',
     ],
 }
-
