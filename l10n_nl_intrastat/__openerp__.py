@@ -50,10 +50,13 @@ included in the reported amounts.
 """,
     'author': 'Therp BV',
     'website': 'https://launchpad.net/new-report-intrastat',
-    'depends': ['intrastat_base'],
+    'depends': [
+        'intrastat_base',
+        'date_range'
+    ],
     'data': [
-        'views/l10n_nl_intrastat.xml',
         'security/ir.model.access.csv',
+        'views/l10n_nl_intrastat.xml',
     ],
 }
 
