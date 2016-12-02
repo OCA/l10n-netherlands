@@ -22,7 +22,7 @@ class ReportIntrastat(models.Model):
     )
     date_from = fields.Date(related='date_range_id.date_start', readonly=True)
     date_to = fields.Date(related='date_range_id.date_end', readonly=True,
-        store=True)
+            store=True)
     company_id = fields.Many2one(
         comodel_name='res.company',
         default=lambda self: self.env.user.company_id,
@@ -218,5 +218,3 @@ class ReportIntrastatLine(models.Model):
         readonly=True,
         digits=dp.get_precision('Account'),
     )
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
