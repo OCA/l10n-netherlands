@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """Define intrastat report (ICP) for dutch tax authorities."""
 ##############################################################################
 #
@@ -225,23 +225,14 @@ class ReportIntrastat(models.Model):
             'state': 'done',
         })
 
-    def unlink(self, cr, uid, ids, context=None):
+    @api.multi
+    def unlink(self):
         """
         Do not allow unlinking of confirmed reports
         """
-        if not ids:
-            return True
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        non_draft_ids = self.search(
-            cr, uid,
-            [('id', 'in', ids), ('state', '!=', 'draft')],
-            context=context
-        )
-        if non_draft_ids:
+        if self.search([('state', '!=', 'draft')]):
             raise Warning(_('Cannot remove IPC reports in a non-draft state'))
-        return super(ReportIntrastat, self).unlink(
-            cr, uid, ids, context=context)
+        return super(ReportIntrastat, self).unlink()
 
 
 class ReportIntrastatLine(models.Model):
@@ -286,5 +277,3 @@ class ReportIntrastatLine(models.Model):
         readonly=True,
         digits=dp.get_precision('Account'),
     )
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

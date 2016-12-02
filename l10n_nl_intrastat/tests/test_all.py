@@ -56,4 +56,3 @@ class TestIntrastatNL(TransactionCase):
         report.generate_lines()
         # Test if the difference between the previous and current amount is 250
         self.assertEquals(report.total_amount - total, 250.0)
-

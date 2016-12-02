@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Intrastat report for the Netherlands (ICP)
@@ -32,7 +32,7 @@
     'description': """
 Opgaaf IntraCommunautaire Prestaties (ICP)
 
-Based on Akretion's Intrastat framework, this module provides an
+Based on the OCA Intrastat framework, this module provides an
 intrastat report for the Netherlands. Only generating the required data
 for a manual declaration is supported. Message communication with the
 tax authority has not yet been implemented.
@@ -48,7 +48,7 @@ To exclude specific lines from the report, you can mark specific taxes
 as such. If such a tax is applied to the line, the line will not be
 included in the reported amounts.
 """,
-    'author': 'Therp BV',
+    'author': 'Therp BV, Odoo Community Association (OCA)',
     'website': 'https://launchpad.net/new-report-intrastat',
     'depends': ['intrastat_base'],
     'data': [
