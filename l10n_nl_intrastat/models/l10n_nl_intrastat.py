@@ -197,8 +197,8 @@ class ReportIntrastat(models.Model):
             # Convert currency amount if necessary:
             line_currency_obj = line.invoice_id.currency_id  # simplify
             invoice_date = line.invoice_id.date_invoice
-            if (line_currency_obj
-                    and line_currency_obj.id != company_obj.currency_id.id):
+            if (line_currency_obj and
+                    line_currency_obj.id != company_obj.currency_id.id):
                 amount = (
                     line_currency_obj.with_context(date=invoice_date).compute(
                         amount, company_obj.currency_id, round=True)
