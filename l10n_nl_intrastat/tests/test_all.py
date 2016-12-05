@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from openerp.tests.common import TransactionCase
 
+
 class TestIntrastatNL(TransactionCase):
     """Tests for this module"""
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 from openerp.addons.decimal_precision import decimal_precision as dp
 
 
@@ -103,7 +103,8 @@ class ReportIntrastat(models.Model):
             # Ignore invoiceline if taxes should not be included in intrastat
             '|',
             ('invoice_line_tax_ids', '=', False),
-            ('invoice_line_tax_ids.exclude_from_intrastat_if_present', '!=', 'True')
+            ('invoice_line_tax_ids.exclude_from_intrastat_if_present',
+                '!=', 'True')
         ])
 
         # Gather amounts from invoice lines
