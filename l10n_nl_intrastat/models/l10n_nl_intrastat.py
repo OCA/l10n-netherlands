@@ -128,12 +128,10 @@ class ReportIntrastat(models.Model):
         for line in invoice_line_records:
             commercial_partner_id = (
                 line.invoice_id.partner_id.commercial_partner_id.id)
-            if commercial_partner_id not in partner_amounts_map:
-                partner_amounts_map[commercial_partner_id] = {
-                    'amount_product': 0.0,
-                    'amount_service': 0.0,
-                }
-            amounts = partner_amounts_map[commercial_partner_id]
+            amounts = partner_amounts_map.setdefault(commercial_partner_id, {
+                'amount_product': 0.0,
+                'amount_service': 0.0,
+            })
             # Determine product or service:
             if (line.product_id and (
                     line.product_id.type == 'service' or
@@ -144,31 +142,25 @@ class ReportIntrastat(models.Model):
             sign = line.invoice_id.type == 'out_refund' and -1 or 1
             amount = sign * line.price_subtotal
             # Convert currency amount if necessary:
-            line_currency_obj = line.invoice_id.currency_id  # simplify
+            currency = line.invoice_id.currency_id
             invoice_date = line.invoice_id.date_invoice
-            if (line_currency_obj and
-                    line_currency_obj.id != company_obj.currency_id.id):
-                amount = (
-                    line_currency_obj.with_context(date=invoice_date).compute(
-                        amount, company_obj.currency_id, round=True)
-                )
+            if (currency and currency != company_obj.currency_id):
+                amount = currency.with_context(date=invoice_date).compute(
+                    amount, company_obj.currency_id, round=True)
             # Accumulate totals:
             amounts[amount_type] += amount  # per partner and type
             total_amount += amount  # grand total
 
         # Determine new report lines
         new_lines = []
-        for (partner_id, vals) in partner_amounts_map.items():
+        for (partner_id, vals) in partner_amounts_map.iteritems():
             if not (vals['amount_service'] or vals['amount_product']):
                 continue
             vals.update({'partner_id': partner_id})
             new_lines.append(vals)
 
-        # Remove existing lines
-        for line_obj in self.line_ids:
-            line_obj.unlink()
-
-        # Set values and add new lines
+        # Set values and replace existing lines by new lines
+        self.line_ids.unlink()
         self.write({
             'last_updated': fields.Datetime.now(),
             'line_ids': [(0, False, line) for line in new_lines],
