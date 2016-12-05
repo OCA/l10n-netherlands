@@ -133,9 +133,8 @@ class ReportIntrastat(models.Model):
                 'amount_service': 0.0,
             })
             # Determine product or service:
-            if (line.product_id and (
-                    line.product_id.type == 'service' or
-                    line.product_id.is_accessory_cost)):
+            if line.product_id.type == 'service' \
+                    or line.product_id.is_accessory_cost:
                 amount_type = 'amount_service'
             else:
                 amount_type = 'amount_product'
