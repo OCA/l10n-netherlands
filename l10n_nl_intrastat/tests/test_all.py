@@ -5,7 +5,6 @@ from dateutil.relativedelta import relativedelta
 
 from openerp.tests.common import TransactionCase
 
-
 class TestIntrastatNL(TransactionCase):
     """Tests for this module"""
 
@@ -93,14 +92,14 @@ class TestIntrastatNL(TransactionCase):
             relativedelta(day=1, months=-1)
         fp = self.fiscal_position_model.create(dict(name="fiscal position",
                                                     sequence=1))
-        invoice = self.env['account.invoice'].create({
+        invoice1 = self.env['account.invoice'].create({
             'reference_type': 'none',
             'name': 'invoice to client',
             'account_id': self.account_receivable.id,
             'type': 'out_invoice',
             'fiscal_position_id': fp.id,
             'date_invoice': a_date_in_last_month,
-            'partner_id': ghoststep.id, #self.env.ref('base.res_partner_12').id,
+            'partner_id': ghoststep.id,
             'invoice_line_ids': [
                 (0, False, {
                     'name': 'Sale of service',
@@ -136,7 +135,7 @@ class TestIntrastatNL(TransactionCase):
         })
 
         # validate the invoice
-        invoice.signal_workflow('invoice_open')
+        invoice1.signal_workflow('invoice_open')
 
         # generate lines again
         report.set_draft()
@@ -159,3 +158,37 @@ class TestIntrastatNL(TransactionCase):
         self.assertEquals(line.amount_service, 250.0)
         self.assertEquals(line.amount_product, 35.0)
 
+        # Create a new invoice to GhostStep, dated last month, in swiss francs
+        invoice2 = self.env['account.invoice'].create({
+            'reference_type': 'none',
+            'name': 'foreign currency invoice to client',
+            'currency_id': self.env.ref('base.CHF').id,
+            'account_id': self.account_receivable.id,
+            'type': 'out_invoice',
+            'fiscal_position_id': fp.id,
+            'date_invoice': a_date_in_last_month,
+            'partner_id': ghoststep.id,
+            'invoice_line_ids': [
+                (0, False, {
+                    'name': 'Sale of service',
+                    'invoice_line_tax_ids': [(6, 0, [tax1.id])],
+                    'account_id':
+                        self.env.ref('account.demo_sale_of_land_account').id,
+                    'price_unit': 100.0,
+                    'product_id': service.id,
+                    'quantity': 1.0,
+                    'uos_id': self.env.ref('product.product_uom_unit').id
+                }),
+            ]
+        })
+
+        # validate the invoice
+        invoice2.signal_workflow('invoice_open')
+
+        # And update the report
+        report.set_draft()
+        report.generate_lines()
+
+        # Test if the total amount has increased by the invoice value
+        # New total should be 285.0 + round(100.00 / 1.3086, 2) = 361.42
+        self.assertTrue(abs(report.total_amount - total - 361.42) <= 0.01)
