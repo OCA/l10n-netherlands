@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
-from openerp.exceptions import UserError
 from openerp.addons.decimal_precision import decimal_precision as dp
 
 
@@ -33,7 +32,6 @@ class ReportIntrastat(models.Model):
         readonly=True,
         help="Total amount in company currency of the declaration.",
         digits=dp.get_precision('Account'),
-        # compute='_compute_lines_and_total'
     )
     state = fields.Selection(
         string='State',
@@ -93,20 +91,6 @@ class ReportIntrastat(models.Model):
             ('state', 'in', ('open', 'paid')),
             ('company_id', '=', self.company_id.id),
         ]
-        # Signal invoices without a country
-        # (Should not happen, as country_id on parter is set to required)
-        invalid_invoices = invoice_model.search_read(
-            domain=invoice_domain + [('partner_id.country_id', '=', False)],
-            fields=['partner_id']
-        )
-        if invalid_invoices:
-            raise UserError(
-                _(
-                    "Missing country on the invoice addresses of the"
-                    " following partners:\n%s"
-                ) % "\n".join(
-                    inv['partner_id'][1] for inv in invalid_invoices)
-            )
         # Search invoices that need intrastat reporting:
         invoice_records = invoice_model.search(
             invoice_domain + [
@@ -126,15 +110,14 @@ class ReportIntrastat(models.Model):
         total_amount = 0.0
         partner_amounts_map = {}
         for line in invoice_line_records:
-            commercial_partner_id = (
-                line.invoice_id.partner_id.commercial_partner_id.id)
-            amounts = partner_amounts_map.setdefault(commercial_partner_id, {
+            commercial_partner = \
+                line.invoice_id.partner_id.commercial_partner_id
+            amounts = partner_amounts_map.setdefault(commercial_partner, {
                 'amount_product': 0.0,
                 'amount_service': 0.0,
             })
-            # Determine product or service:
-            if line.product_id.type == 'service' \
-                    or line.product_id.is_accessory_cost:
+            # Determine product or service, don't look at is_accessory_cost
+            if line.product_id.type == 'service':
                 amount_type = 'amount_service'
             else:
                 amount_type = 'amount_product'
@@ -152,10 +135,10 @@ class ReportIntrastat(models.Model):
 
         # Determine new report lines
         new_lines = []
-        for (partner_id, vals) in partner_amounts_map.iteritems():
+        for (partner, vals) in partner_amounts_map.iteritems():
             if not (vals['amount_service'] or vals['amount_product']):
                 continue
-            vals.update({'partner_id': partner_id})
+            vals.update({'partner_id': partner.id})
             new_lines.append(vals)
 
         # Set values and replace existing lines by new lines

@@ -12,6 +12,7 @@ class TestIntrastatNL(TransactionCase):
     def setUp(self):
         super(TestIntrastatNL, self).setUp()
         self.tax = self.env['account.tax']
+        self.partner = self.env['res.partner']
         self.intrastat_report = self.env['l10n_nl.report.intrastat']
         self.account_receivable = self.env['account.account'].search(
             [('user_type_id', '=',
@@ -69,9 +70,25 @@ class TestIntrastatNL(TransactionCase):
             'exclude_from_intrastat_if_present': True,
         })
 
-        # Create a new invoice to Camptocamp (FR), dated last month, price: 250
-        # Product: On site Monitoring, a service
-        product = self.env.ref('product.product_product_1')
+        # Create a new partner GhostStep
+        # Country is omitted initially
+        ghoststep = self.partner.create({
+            'name': 'GhostStep',
+            'is_company': True,
+            'street': 'Main Street, 10',
+            'phone': '123456789',
+            'email': 'info@ghoststep.com',
+            'vat': 'FR32123456789',
+            'type': 'contact'
+        })
+
+        # Get Products
+        # On site Monitoring, a service
+        service = self.env.ref('product.product_product_1')
+        # Optical mouse, a consumable
+        consumable = self.env.ref('product.product_product_10')
+
+        # Create a new invoice to GhostStep, dated last month, price: 250
         a_date_in_last_month = datetime.today() + \
             relativedelta(day=1, months=-1)
         fp = self.fiscal_position_model.create(dict(name="fiscal position",
@@ -83,16 +100,26 @@ class TestIntrastatNL(TransactionCase):
             'type': 'out_invoice',
             'fiscal_position_id': fp.id,
             'date_invoice': a_date_in_last_month,
-            'partner_id': self.env.ref('base.res_partner_12').id,
+            'partner_id': ghoststep.id, #self.env.ref('base.res_partner_12').id,
             'invoice_line_ids': [
                 (0, False, {
-                    'name': 'Test sale',
+                    'name': 'Sale of service',
                     'invoice_line_tax_ids': [(6, 0, [tax1.id])],
                     'account_id':
                         self.env.ref('account.demo_sale_of_land_account').id,
                     'price_unit': 50.0,
-                    'product_id': product.id,
+                    'product_id': service.id,
                     'quantity': 5.0,
+                    'uos_id': self.env.ref('product.product_uom_unit').id
+                }),
+                (0, False, {
+                    'name': 'Sale of consumable',
+                    'invoice_line_tax_ids': [(6, 0, [tax1.id])],
+                    'account_id':
+                        self.env.ref('account.demo_sale_of_land_account').id,
+                    'price_unit': 35.0,
+                    'product_id': consumable.id,
+                    'quantity': 1.0,
                     'uos_id': self.env.ref('product.product_uom_unit').id
                 }),
                 (0, False, {
@@ -101,7 +128,7 @@ class TestIntrastatNL(TransactionCase):
                     'account_id':
                         self.env.ref('account.demo_sale_of_land_account').id,
                     'price_unit': 20.0,
-                    'product_id': product.id,
+                    'product_id': service.id,
                     'quantity': 2.0,
                     'uos_id': self.env.ref('product.product_uom_unit').id
                 }),
@@ -115,5 +142,20 @@ class TestIntrastatNL(TransactionCase):
         report.set_draft()
         report.generate_lines()
 
-        # Test if the difference between the previous and current amount is 250
-        self.assertEquals(report.total_amount - total, 250.0)
+        # The invoice should not be included because it has no country,
+        # and so is assumed to have the same country as the main company
+        self.assertEquals(report.total_amount, total)
+
+        # Now the report is updated with Ghoststep being in France
+        ghoststep.write({'country_id': self.env.ref('base.fr').id})
+        report.set_draft()
+        report.generate_lines()
+
+        # Test if the total amount has increased by the invoice value
+        self.assertEquals(report.total_amount - total, 285.0)
+
+        # Test that the reported totals for 'GhostStep' match
+        line = report.line_ids.search([('partner_id', '=', ghoststep.id)])
+        self.assertEquals(line.amount_service, 250.0)
+        self.assertEquals(line.amount_product, 35.0)
+
