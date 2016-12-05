@@ -11,11 +11,12 @@ class TestIntrastatNL(TransactionCase):
 
     def setUp(self):
         super(TestIntrastatNL, self).setUp()
+        self.tax = self.env['account.tax']
         self.intrastat_report = self.env['l10n_nl.report.intrastat']
         self.account_receivable = self.env['account.account'].search(
-                [('user_type_id', '=',
-                self.env.ref('account.data_account_type_receivable').id)],
-                limit=1)
+            [('user_type_id', '=',
+              self.env.ref('account.data_account_type_receivable').id)],
+            limit=1)
         self.fiscal_position_model = self.env['account.fiscal.position']
 
     def test_generate_report(self):
@@ -51,13 +52,30 @@ class TestIntrastatNL(TransactionCase):
         report.generate_lines()
         total = report.total_amount
 
+        # Create a regular fixed tax
+        tax1 = self.tax.create({
+            'name': "Fixed tax",
+            'amount_type': 'fixed',
+            'amount': 10,
+            'sequence': 1,
+        })
+        # Create another fixed tax that, when added to an invoice line,
+        # removes the line from the intrastat calculation.
+        tax2 = self.tax.create({
+            'name': "Fixed tax 2",
+            'amount_type': 'fixed',
+            'amount': 10,
+            'sequence': 1,
+            'exclude_from_intrastat_if_present': True,
+        })
+
         # Create a new invoice to Camptocamp (FR), dated last month, price: 250
         # Product: On site Monitoring, a service
         product = self.env.ref('product.product_product_1')
         a_date_in_last_month = datetime.today() + \
-                relativedelta(day=1, months=-1)
+            relativedelta(day=1, months=-1)
         fp = self.fiscal_position_model.create(dict(name="fiscal position",
-                sequence=1))
+                                                    sequence=1))
         invoice = self.env['account.invoice'].create({
             'reference_type': 'none',
             'name': 'invoice to client',
@@ -69,13 +87,24 @@ class TestIntrastatNL(TransactionCase):
             'invoice_line_ids': [
                 (0, False, {
                     'name': 'Test sale',
+                    'invoice_line_tax_ids': [(6, 0, [tax1.id])],
                     'account_id':
                         self.env.ref('account.demo_sale_of_land_account').id,
                     'price_unit': 50.0,
                     'product_id': product.id,
                     'quantity': 5.0,
                     'uos_id': self.env.ref('product.product_uom_unit').id
-                })
+                }),
+                (0, False, {
+                    'name': 'Sale to be excluded from intrastat report',
+                    'invoice_line_tax_ids': [(6, 0, [tax2.id])],
+                    'account_id':
+                        self.env.ref('account.demo_sale_of_land_account').id,
+                    'price_unit': 20.0,
+                    'product_id': product.id,
+                    'quantity': 2.0,
+                    'uos_id': self.env.ref('product.product_uom_unit').id
+                }),
             ]
         })
 
