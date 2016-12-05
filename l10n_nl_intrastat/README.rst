@@ -11,6 +11,17 @@ intrastat report for the Netherlands. Only generating the required data
 for a manual declaration is supported. Message communication with the
 tax authority has not yet been implemented.
 
+The intrastat base module requires the country field required on
+partner addresses. Selected countries are marked for inclusion in this report.
+
+Amounts for products and services are reported separately. All services
+are reported, regardless of the 'Accessory cost setting' which is used in
+the French version of this report.
+
+To exclude specific lines from the report, you can mark specific taxes
+as such. If such a tax is applied to the line, the line will not be
+included in the reported amounts.
+
 Installation
 ============
 
@@ -28,10 +39,10 @@ Usage
 
 To use this module, you need to:
 
-#. Invoice some companies in other EU countries
+#. Have invoices to some partners in other EU countries
 #. Go to Invoicing - Financial Reports - Intrastat - ICP report
 #. Create a report, define a date range, press Update
-#. View the values for the date range
+#. Watch the ICP report values for this date range appear
 #. Manually copy the values into your ICP tax entry
 
 Known issues / Roadmap
@@ -43,7 +54,7 @@ Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/{project_repo}/issues>`_. In case of trouble, please
+<https://github.com/OCA/l10n-netherlands/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smashing it by providing a detailed and welcomed feedback.
 
@@ -59,6 +70,7 @@ Contributors
 ------------
 
 * Therp BV
+* Sunflower IT
 
 Maintainer
 ----------
