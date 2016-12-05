@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
-from openerp.exceptions import Warning
+from openerp.exceptions import UserError
 from openerp.addons.decimal_precision import decimal_precision as dp
 
 
@@ -22,7 +22,7 @@ class ReportIntrastat(models.Model):
     )
     date_from = fields.Date(related='date_range_id.date_start', readonly=True)
     date_to = fields.Date(related='date_range_id.date_end', readonly=True,
-            store=True)
+                          store=True)
     company_id = fields.Many2one(
         comodel_name='res.company',
         default=lambda self: self.env.user.company_id,
@@ -100,7 +100,7 @@ class ReportIntrastat(models.Model):
             fields=['partner_id']
         )
         if invalid_invoices:
-            raise Warning(
+            raise UserError(
                 _(
                     "Missing country on the invoice addresses of the"
                     " following partners:\n%s"
@@ -114,19 +114,18 @@ class ReportIntrastat(models.Model):
                 ('partner_id.country_id.id', '!=', company_obj.country_id.id),
             ]
         )
-        invoice_ids = [inv['id'] for inv in invoice_records]
-        invoice_line_records = invoice_line_model.search(
-            [('invoice_id', 'in', invoice_ids)])
+        invoice_line_records = invoice_line_model.search([
+            ('invoice_id', 'in', invoice_records.ids),
+            # Ignore invoiceline if taxes should not be included in intrastat
+            '|',
+            ('invoice_line_tax_ids', '=', False),
+            ('invoice_line_tax_ids.exclude_from_intrastat_if_present', '!=', 'True')
+        ])
 
         # Gather amounts from invoice lines
         total_amount = 0.0
         partner_amounts_map = {}
         for line in invoice_line_records:
-            # Ignore invoiceline if taxes should not be included in intrastat:
-            if any(tax.exclude_from_intrastat_if_present for tax in
-                    line.invoice_line_tax_ids):
-                continue
-            # Report is per commercial partner:
             commercial_partner_id = (
                 line.invoice_id.partner_id.commercial_partner_id.id)
             if commercial_partner_id not in partner_amounts_map:
