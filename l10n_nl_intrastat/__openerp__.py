@@ -1,54 +1,13 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Intrastat report for the Netherlands (ICP)
-#
-#    Based on lp:new-report-intrastat,
-#    Copyright (C) 2010-2011 Akretion (http://www.akretion.com).
-#    All Rights Reserved
-#    @author Alexis de Lattre <alexis.delattre@akretion.com>
-#
-#    Modifications Copyright (C) 2012 Therp BV <http://therp.nl>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# Copyright 2010-2011 Akretion (http://www.akretion.com).
+# Modifications Copyright 2012-2016 Therp BV <http://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Intrastat reporting (ICP) for the Netherlands',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.0.1',
     'category': 'Localisation/Report Intrastat',
     'license': 'AGPL-3',
-    'description': """
-Opgaaf IntraCommunautaire Prestaties (ICP)
-
-Based on the OCA Intrastat framework, this module provides an
-intrastat report for the Netherlands. Only generating the required data
-for a manual declaration is supported. Message communication with the
-tax authority has not yet been implemented.
-
-The intrastat base module requires the country field required on
-partner addresses. Selected countries are marked for inclusion in this report.
-
-Amounts for products and services are reported separately. All services
-are reported, regardless of the 'Accessory cost setting' which is used in
-the French version of this report.
-
-To exclude specific lines from the report, you can mark specific taxes
-as such. If such a tax is applied to the line, the line will not be
-included in the reported amounts.
-""",
+    'summary': """Intrastat report for the Netherlands""",
     'author': 'Therp BV, Odoo Community Association (OCA)',
     'website': 'https://launchpad.net/new-report-intrastat',
     'depends': ['intrastat_base'],
