@@ -1,1 +1,2 @@
 partner-contact https://github.com/OCA/partner-contact 8.0
+server-tools
