@@ -1,1 +1,2 @@
 partner-contact https://github.com/OCA/partner-contact 8.0
+intrastat https://github.com/sunflowerit/intrastat 8.0-intrastat_base-tests
