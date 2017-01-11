@@ -24,6 +24,7 @@ def openerp_execute(model, method, *pargs, **kwargs):
         args.openerp_db, openerp_uid,
         args.openerp_passwd, model, method, *pargs, **kwargs)
 
+
 infixes = ['van', 'der', 'ter', 'de', 'v/d']
 initial = re.compile(r'^([A-Z]{1,3}\.{0,1}){1,4}$')
 
@@ -33,6 +34,7 @@ offset = 0
 
 def add_token(values, key, token, delimiter=' '):
     values[key] = (values[key] + ' ' if values[key] else '') + token
+
 
 while True:
     ids = openerp_execute(
