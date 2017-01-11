@@ -1,1 +1,2 @@
 partner-contact https://github.com/OCA/partner-contact 8.0
+intrastat https://github.com/sunflowerit 9.0-mig-intrastat-base
