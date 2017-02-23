@@ -26,14 +26,14 @@
     "category": "Accounting & Finance",
     "summary": "Export XAF auditfiles for Dutch tax authorities",
     "depends": [
-        'base',
-        'account',
+        "base",
+        "account",
     ],
     "data": [
-        'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
         "views/xaf_auditfile_export.xml",
-        'views/templates.xml',
-        'views/menu.xml',
+        "views/templates.xml",
+        "views/menu.xml",
     ],
     "installable": True,
 }
