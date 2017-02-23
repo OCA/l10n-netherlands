@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "XAF auditfile export",
-    "version": "8.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "Therp BV, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Accounting & Finance",
@@ -30,19 +30,10 @@
         'account',
     ],
     "data": [
-        "views/xaf_auditfile_export.xml",
-        "views/menu.xml",
-        'views/templates.xml',
         'security/ir.model.access.csv',
+        "views/xaf_auditfile_export.xml",
+        'views/templates.xml',
+        'views/menu.xml',
     ],
-    "qweb": [
-    ],
-    "test": [
-    ],
-    "auto_install": False,
-    "installable": False,
-    "application": False,
-    "external_dependencies": {
-        'python': [],
-    },
+    "installable": True,
 }
