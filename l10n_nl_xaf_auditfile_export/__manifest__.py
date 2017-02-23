@@ -21,7 +21,7 @@
 {
     "name": "XAF auditfile export",
     "version": "8.0.1.0.0",
-    "author": "Therp BV",
+    "author": "Therp BV, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Accounting & Finance",
     "summary": "Export XAF auditfiles for Dutch tax authorities",
@@ -40,7 +40,7 @@
     "test": [
     ],
     "auto_install": False,
-    'installable': False,
+    "installable": False,
     "application": False,
     "external_dependencies": {
         'python': [],
