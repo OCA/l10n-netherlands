@@ -22,7 +22,7 @@ import base64
 import collections
 from StringIO import StringIO
 from lxml import etree
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
 from odoo import _, models, fields, api, exceptions, release, modules
 
@@ -173,6 +173,18 @@ class XafAuditfileExport(models.Model):
 
     @api.multi
     def get_periods(self):
+
+        def month_end_date(date_start):
+            month = date_start.month
+            year = date_start.year
+            month += 1
+            if month == 13:
+                month = 1
+                year += 1
+
+            start_date_next_month = date_start.replace(month=month, year=year)
+            return start_date_next_month - timedelta(days=1)
+
         self.ensure_one()
         months = rrule(
             freq=MONTHLY, bymonth=(),
@@ -187,11 +199,12 @@ class XafAuditfileExport(models.Model):
         periods = []
         for dt_start in list(months):
             date_start = fields.Date.to_string(dt_start.date())
+            date_end = fields.Date.to_string(month_end_date(dt_start.date()))
             periods.append(Period(
                 number=self.get_period_number(date_start),
                 name=dt_start.strftime('%B') + ' ' + self.fiscalyear_name,
-                date_start=self.date_start,
-                date_end=self.date_end,
+                date_start=date_start,
+                date_end=date_end,
             ))
 
         return periods
