@@ -1,1 +1,1 @@
-partner-contact
+partner-contact https://github.com/OCA/partner-contact 7.0
