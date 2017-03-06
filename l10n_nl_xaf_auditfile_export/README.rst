@@ -26,7 +26,7 @@ Usage
 
 To use this module, you need to:
 
-* go to `Invoicing`/`Reporting`/`Legal Reports`/`Auditfile export`
+* go to `Accounting`/`Reports`/`PDF Reports`/`Auditfile export`
 * create a new record, adjust values if the defaults are not appropriate
 * click `Generate auditfile`
 * click `Download` on the field `Auditfile`
