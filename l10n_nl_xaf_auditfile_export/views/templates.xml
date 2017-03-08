@@ -62,7 +62,7 @@
                 </streetAddress>
                 <bankAccount t-foreach="p.bank_ids" t-as="bank">
                     <bankAccNr><t t-esc="bank.acc_number" /></bankAccNr>
-                    <bankIdCd><t t-esc="bank.bank_bic or bank.bank.bic" /></bankIdCd>
+                    <bankIdCd><t t-esc="bank.bank_bic or bank.bank_id.bic" /></bankIdCd>
                 </bankAccount>
                 <changeInfo t-if="p.write_uid">
                     <userID><t t-esc="p.write_uid.login" /></userID>
