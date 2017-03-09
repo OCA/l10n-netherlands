@@ -13,6 +13,8 @@ The currently exported version is 3.2
 Configuration
 =============
 
+The exporting feature is available to the users who have `Accountant` or `Adviser` rights for accounting.
+
 To configure the default start and end dates of the actual fiscal year, go to `accounting`/`settings` and change the
 last date of the year you want to export. Then in the form of the audit file export, by default the end-date will be set
 accordingly and the start date will be 12 months before the end date.
@@ -26,7 +28,8 @@ Usage
 
 To use this module, you need to:
 
-* go to `Accounting`/`Reports`/`PDF Reports`/`Auditfile export`
+* be sure that you have `Accountant` or `Adviser` rights for accounting
+* go to `Accounting`/`Reports`/`Auditfile export`
 * create a new record, adjust values if the defaults are not appropriate
 * click `Generate auditfile`
 * click `Download` on the field `Auditfile`

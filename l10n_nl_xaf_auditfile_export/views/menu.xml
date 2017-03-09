@@ -2,7 +2,8 @@
 <odoo>
 
     <menuitem id="menu_auditfiles"
-        parent="account.menu_finance_legal_statement"
+        parent="account.menu_finance_reports"
+        groups="account.group_account_user"
         action="action_auditfiles" />
 
 </odoo>
