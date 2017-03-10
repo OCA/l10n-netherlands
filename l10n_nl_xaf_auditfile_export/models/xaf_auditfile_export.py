@@ -19,9 +19,11 @@
 #
 ##############################################################################
 import base64
+import collections
 from StringIO import StringIO
 from lxml import etree
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil.rrule import rrule, MONTHLY
 from openerp import _, models, fields, api, exceptions, release, modules
 
 
@@ -36,17 +38,22 @@ class XafAuditfileExport(models.Model):
     _name = 'xaf.auditfile.export'
     _description = 'XAF auditfile export'
     _inherit = ['mail.thread']
-    _order = 'period_start desc'
+    _order = 'date_start desc'
 
     @api.depends('name')
     def _auditfile_name_get(self):
         self.auditfile_name = '%s.xaf' % self.name
 
+    @api.multi
+    def _compute_fiscalyear_name(self):
+        for auditfile in self:
+            if auditfile.date_start:
+                auditfile.fiscalyear_name = auditfile.date_start[0:4]
+
     name = fields.Char('Name')
-    period_start = fields.Many2one(
-        'account.period', 'Start period', required=True)
-    period_end = fields.Many2one(
-        'account.period', 'End period', required=True)
+    date_start = fields.Date('Start date', required=True)
+    date_end = fields.Date('End date', required=True)
+    fiscalyear_name = fields.Char(compute='_compute_fiscalyear_name')
     auditfile = fields.Binary('Auditfile', readonly=True, copy=False)
     auditfile_name = fields.Char(
         'Auditfile filename', compute=_auditfile_name_get)
@@ -55,39 +62,30 @@ class XafAuditfileExport(models.Model):
     company_id = fields.Many2one('res.company', 'Company', required=True)
 
     @api.model
-    def default_get(self, fields):
-        defaults = super(XafAuditfileExport, self).default_get(fields)
-        company = self.env['res.company'].browse([
-            self.env['res.company']._company_default_get(
-                object=self._model._name)])
-        fiscalyear = self.env['account.fiscalyear'].browse([
-            self.env['account.fiscalyear'].find(exception=False)])
-        if fiscalyear and self.env['account.fiscalyear'].search(
-                [('date_start', '<', fiscalyear.date_start)],
-                limit=1):
-            fiscalyear = self.env['account.fiscalyear'].search(
-                [('date_start', '<', fiscalyear.date_start)], limit=1,
-                order='date_stop desc')
-        if 'company_id' in fields:
+    def default_get(self, fields_list):
+        defaults = super(XafAuditfileExport, self).default_get(fields_list)
+        company = self.env.user.company_id
+        fy_dates = company.compute_fiscalyear_dates(datetime.now())
+        date_from = fields.Date.to_string(fy_dates['date_from'])
+        date_to = fields.Date.to_string(fy_dates['date_to'])
+        defaults.setdefault('date_start', date_from)
+        defaults.setdefault('date_end', date_to)
+        if 'company_id' in fields_list:
             defaults.setdefault('company_id', company.id)
-        if 'name' in fields:
+        if 'name' in fields_list:
             defaults.setdefault(
                 'name', _('Auditfile %s %s') % (
                     company.name,
-                    fiscalyear.name if fiscalyear
-                    else datetime.now().strftime('%Y')))
-        if 'period_start' in fields and fiscalyear:
-            defaults.setdefault('period_start', fiscalyear.period_ids[0].id)
-        if 'period_end' in fields and fiscalyear:
-            defaults.setdefault('period_end', fiscalyear.period_ids[-1].id)
+                    datetime.now().strftime('%Y')))
+
         return defaults
 
     @api.one
-    @api.constrains('period_start', 'period_end')
-    def check_periods(self):
-        if self.period_start.date_start > self.period_end.date_start:
+    @api.constrains('date_start', 'date_end')
+    def check_dates(self):
+        if self.date_start >= self.date_end:
             raise exceptions.ValidationError(
-                _('You need to choose consecutive periods!'))
+                _('Starting date must be anterior ending date!'))
 
     @api.multi
     def button_generate(self):
@@ -128,7 +126,7 @@ class XafAuditfileExport(models.Model):
             return
 
         self.auditfile = base64.b64encode(etree.tostring(
-            xmldoc, xml_declaration=True, encoding='utf8'))
+            xmldoc, xml_declaration=True, encoding='UTF-8'))
 
     @api.multi
     def get_odoo_version(self):
@@ -163,19 +161,53 @@ class XafAuditfileExport(models.Model):
 
     @api.multi
     def get_accounts(self):
-        '''return browse record list of accounts'''
+        '''return recordset of accounts'''
         return self.env['account.account'].search([
             ('company_id', '=', self.company_id.id),
         ])
 
+    @api.model
+    def get_period_number(self, date):
+        period_id = date[3:4] + date[5:7]
+        return period_id
+
     @api.multi
     def get_periods(self):
-        '''return periods in this export'''
-        return self.env['account.period'].search([
-            ('date_start', '<=', self.period_end.date_stop),
-            ('date_stop', '>=', self.period_start.date_start),
-            ('company_id', '=', self.company_id.id),
-        ])
+
+        def month_end_date(date_start):
+            month = date_start.month
+            year = date_start.year
+            month += 1
+            if month == 13:
+                month = 1
+                year += 1
+
+            start_date_next_month = date_start.replace(month=month, year=year)
+            return start_date_next_month - timedelta(days=1)
+
+        self.ensure_one()
+        months = rrule(
+            freq=MONTHLY, bymonth=(),
+            dtstart=fields.Date.from_string(self.date_start),
+            until=fields.Date.from_string(self.date_end)
+        )
+
+        Period = collections.namedtuple(
+            'Period',
+            'number name date_start date_end'
+        )
+        periods = []
+        for dt_start in list(months):
+            date_start = fields.Date.to_string(dt_start.date())
+            date_end = fields.Date.to_string(month_end_date(dt_start.date()))
+            periods.append(Period(
+                number=self.get_period_number(date_start),
+                name=dt_start.strftime('%B') + ' ' + self.fiscalyear_name,
+                date_start=date_start,
+                date_end=date_end,
+            ))
+
+        return periods
 
     @api.multi
     def get_taxes(self):
@@ -188,27 +220,33 @@ class XafAuditfileExport(models.Model):
     def get_move_line_count(self):
         '''return amount of move lines'''
         self.env.cr.execute(
-            'select count(*) from account_move_line where period_id in %s '
+            'select count(*) from account_move_line '
+            'where date >= \'' + self.date_start + '\' '
+            'and date <= \'' + self.date_end + '\' '
             'and (company_id=%s or company_id is null)',
-            (tuple(p.id for p in self.get_periods()), self.company_id.id))
+            (self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
     def get_move_line_total_debit(self):
         '''return total debit of move lines'''
         self.env.cr.execute(
-            'select sum(debit) from account_move_line where period_id in %s '
+            'select sum(debit) from account_move_line '
+            'where date >= \'' + self.date_start + '\' '
+            'and date <= \'' + self.date_end + '\' '
             'and (company_id=%s or company_id is null)',
-            (tuple(p.id for p in self.get_periods()), self.company_id.id))
+            (self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
     def get_move_line_total_credit(self):
         '''return total credit of move lines'''
         self.env.cr.execute(
-            'select sum(credit) from account_move_line where period_id in %s '
+            'select sum(credit) from account_move_line '
+            'where date >= \'' + self.date_start + '\' '
+            'and date <= \'' + self.date_end + '\' '
             'and (company_id=%s or company_id is null)',
-            (tuple(p.id for p in self.get_periods()), self.company_id.id))
+            (self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
@@ -222,11 +260,11 @@ class XafAuditfileExport(models.Model):
     def get_moves(self, journal):
         '''return moves for a journal, generator style'''
         offset = 0
-        period_ids = [p.id for p in self.get_periods()]
         while True:
             results = self.env['account.move'].search(
                 [
-                    ('period_id', 'in', period_ids),
+                    ('date', '>=', self.date_start),
+                    ('date', '<=', self.date_end),
                     ('journal_id', '=', journal.id),
                 ],
                 offset=offset,
@@ -240,3 +278,8 @@ class XafAuditfileExport(models.Model):
                 yield result
             results.env.invalidate_all()
             del results
+
+    @api.model
+    def get_move_period_number(self, move):
+        period_number = self.get_period_number(move.date)
+        return period_number
