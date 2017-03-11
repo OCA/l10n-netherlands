@@ -122,7 +122,7 @@ class XafAuditfileExport(models.Model):
                         'l10n_nl_xaf_auditfile_export', 'data',
                         'XmlAuditfileFinancieel3.2.xsd'))))
         if not xsd.validate(xmldoc):
-            self.message_post('\n'.join(map(str, xsd.error_log)))
+            self.message_post('<br><br>\n'.join(map(str, xsd.error_log)))
             return
 
         self.auditfile = base64.b64encode(etree.tostring(
