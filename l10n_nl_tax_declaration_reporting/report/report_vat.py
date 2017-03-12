@@ -106,8 +106,8 @@ class VatReport(models.AbstractModel):
             tags_list = map_tax_tag[tax_id]
             if tag_id in tags_list:
                 if type == 'omzet':
-                    return line[2]
-                return line[1]
+                    return int(line[2])
+                return int(line[1])
         return 0.0
 
     def _map_tax_tag(self, form):
