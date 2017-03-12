@@ -141,14 +141,18 @@ class VatReport(models.AbstractModel):
         query = """
             SELECT inv_tax.tax_id,
                    sum(inv_tax.amount),
-                   sum(inv_line.price_subtotal_signed)
+                   (
+                    SELECT sum(price_subtotal_signed)
+                    FROM account_invoice_line inv_line
+                    JOIN account_invoice_line_tax inv_line_tax
+                    ON inv_line.id = inv_line_tax.invoice_line_id
+                    WHERE
+                    inv_line.invoice_id = ANY(array_agg(inv_tax.invoice_id))
+                    AND inv_line.id = inv_line_tax.invoice_line_id
+                   )
             FROM account_invoice_tax AS inv_tax
-                JOIN account_invoice_line_tax inv_line_tax
-                    on inv_line_tax.tax_id = inv_tax.tax_id
-                JOIN account_invoice_line inv_line
-                    on inv_line.id = inv_line_tax.invoice_line_id
                 JOIN account_invoice inv
-                    on inv.id = inv_line.invoice_id
+                    on inv.id = inv_tax.invoice_id
         """
         query += filter_by_dates(form['date_from'], form['date_to'])
 
