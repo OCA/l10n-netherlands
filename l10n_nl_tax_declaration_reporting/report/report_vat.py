@@ -2,14 +2,14 @@
 # Copyright 2014-2017 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from openerp import api, fields, models
 
 
 class VatReport(models.AbstractModel):
     _name = 'report.l10n_nl_tax_declaration_reporting.tax_report_template'
 
     @api.multi
-    def render_html(self, docids, data=None):
+    def render_html(self, data=None):
 
         company_id = data['form']['company_id']
         company_name = self.env['res.company'].browse(company_id).name

@@ -4,7 +4,7 @@
 
 {
     'name': 'VAT Report Netherlands',
-    'version': '10.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Localization',
     'license': 'AGPL-3',
     'author': 'Onestein, Odoo Community Association (OCA), Odoo SA',
