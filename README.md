@@ -1,3 +1,5 @@
+
+
 Odoo Dutch localization project
 ===============================
 
@@ -23,3 +25,8 @@ addon | version | summary
 [l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 8.0.1.0.0 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
+
+Translation status
+------------------
+
+[![Transifex Status](https://www.transifex.com/projects/p/OCA-l10n-netherlands-8-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-l10n-netherlands-8-0)
