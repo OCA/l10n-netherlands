@@ -37,7 +37,7 @@ class ResPartner(models.Model):
         if not apikey or apikey == 'Your API key':
             return False
         from pyPostcode import Api
-        provider = Api(apikey)
+        provider = Api(apikey, (2, 0, 0))
         test = provider.getaddress('1053NJ', '334T')
         if not test or not test._data:
             raise exceptions.Warning(
@@ -67,9 +67,9 @@ class ResPartner(models.Model):
         keyword in Python
         """
         postal_code = self.zip and self.zip.replace(' ', '')
-        if (not (postal_code and self.street_number)
-                or (self.country_id and
-                    self.country_id != self.env.ref('base.nl'))):
+        country = self.country_id
+        if not (postal_code and self.street_number) or \
+                country and country != self.env.ref('base.nl'):
             return {}
 
         provider_obj = self.get_provider_obj()
@@ -78,9 +78,9 @@ class ResPartner(models.Model):
         pc_info = provider_obj.getaddress(postal_code, self.street_number)
         if not pc_info or not pc_info._data:
             return {}
-        self.street_name = pc_info._data['street']
-        self.city = pc_info._data['town']
-        self.state_id = self.get_province(pc_info._province)
+        self.street_name = pc_info.street
+        self.city = pc_info.town
+        self.state_id = self.get_province(pc_info.province)
 
     @api.model
     def fields_view_get(

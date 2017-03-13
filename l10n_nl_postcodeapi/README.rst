@@ -1,8 +1,11 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-    :alt: License: AGPL-3
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
 
+===================================
 Auto-completion for Dutch addresses
 ===================================
+
 This module contains integration of the excellent and free address completion
 service 'PostcodeAPI'. The service allows lookups by zip code and house number,
 providing street name and city. The lookups will be triggered in the partner
@@ -17,7 +20,7 @@ Installation
 This module depends on the module partner_street_number, which will split
 up the street field into separate fields for street name and number.
 
-This module can be gotten from https://github.com/oca/partner-contact/tree/8.0
+This module can be gotten from https://github.com/oca/partner-contact/tree/9.0
 
 You also need to have the 'pyPostcode' Python library by Stefan Jansen
 installed (https://pypi.python.org/pypi/pyPostcode).
@@ -33,25 +36,22 @@ directory, but not loaded by default. You can import the file manually.
 
 Compatibility
 =============
-This module is compatible with OpenERP 8.0.
+This module is compatible with Odoo 9.0.
 
 Usage
 =====
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/176/8.0
+   :target: https://runbot.odoo-community.org/runbot/176/9.0
 
-.. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-.. branch is "8.0" for example
 
 Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-netherlands/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
-If you spotted it first, help us smashing it by providing a detailed and welcomed feedback
-`here <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_postcodeapi%0Aversion:%200.1%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+If you spotted it first, help us smashing it by providing a detailed and welcomed feedback.
 
 Credits
 =======
