@@ -18,12 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models
+from odoo import models
 
 
 class IrQwebAuditfileStringWidget999(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string999'
-    _inherit = 'ir.qweb.widget'
+    _name = 'ir.qweb.field.auditfile.string999'
+    _inherit = 'ir.qweb.field'
     _max_length = 999
 
     def _format(self, inner, options, qwebcontext):
@@ -32,36 +32,36 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
 
 
 class IrQwebAuditfileStringWidget9(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string9'
-    _inherit = 'ir.qweb.widget.auditfile.string999'
+    _name = 'ir.qweb.field.auditfile.string9'
+    _inherit = 'ir.qweb.field.auditfile.string999'
     _max_length = 9
 
 
 class IrQwebAuditfileStringWidget10(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string10'
-    _inherit = 'ir.qweb.widget.auditfile.string999'
+    _name = 'ir.qweb.field.auditfile.string10'
+    _inherit = 'ir.qweb.field.auditfile.string999'
     _max_length = 10
 
 
 class IrQwebAuditfileStringWidget15(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string15'
-    _inherit = 'ir.qweb.widget.auditfile.string999'
+    _name = 'ir.qweb.field.auditfile.string15'
+    _inherit = 'ir.qweb.field.auditfile.string999'
     _max_length = 15
 
 
 class IrQwebAuditfileStringWidget20(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string20'
-    _inherit = 'ir.qweb.widget.auditfile.string999'
+    _name = 'ir.qweb.field.auditfile.string20'
+    _inherit = 'ir.qweb.field.auditfile.string999'
     _max_length = 20
 
 
 class IrQwebAuditfileStringWidget30(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string30'
-    _inherit = 'ir.qweb.widget.auditfile.string999'
+    _name = 'ir.qweb.field.auditfile.string30'
+    _inherit = 'ir.qweb.field.auditfile.string999'
     _max_length = 30
 
 
 class IrQwebAuditfileStringWidget50(models.AbstractModel):
-    _name = 'ir.qweb.widget.auditfile.string50'
-    _inherit = 'ir.qweb.widget.auditfile.string999'
+    _name = 'ir.qweb.field.auditfile.string50'
+    _inherit = 'ir.qweb.field.auditfile.string999'
     _max_length = 50

@@ -1,0 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_nl_xaf_auditfile_export
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-09 11:47+0000\n"
+"PO-Revision-Date: 2017-03-09 11:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile
+msgid "Auditfile"
+msgstr "Auditfile"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:77
+#, python-format
+msgid "Auditfile %s %s"
+msgstr "Auditfile %s %s"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
+#: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.menu_auditfiles
+msgid "Auditfile export"
+msgstr "Auditfile export"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile_name
+msgid "Auditfile filename"
+msgstr "Auditfile bestandsnaam"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_company_id
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_generated
+msgid "Date generated"
+msgstr "Datum gegenereerd"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_display_name
+msgid "Display Name"
+msgstr "Weergave naam"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_end
+msgid "End date"
+msgstr "Einddatum"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_fiscalyear_name
+msgid "Fiscalyear name"
+msgstr "Boekjaar"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.form_xaf_auditfile_export
+msgid "Generate auditfile"
+msgstr "Genereer auditfile"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export___last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
+msgid "Last write"
+msgstr "Laast geschreven"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_name
+msgid "Name"
+msgstr "Naam"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_start
+msgid "Start date"
+msgstr "Startdatum"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:88
+#, python-format
+msgid "Starting date must be anterior ending date!"
+msgstr "Startdatum moet liggen voor de einddatum!"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_xaf_auditfile_export
+msgid "XAF auditfile export"
+msgstr "XAF auditfile export"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string10
+msgid "ir.qweb.field.auditfile.string10"
+msgstr "ir.qweb.field.auditfile.string10"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string15
+msgid "ir.qweb.field.auditfile.string15"
+msgstr "ir.qweb.field.auditfile.string15"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string20
+msgid "ir.qweb.field.auditfile.string20"
+msgstr "ir.qweb.field.auditfile.string20"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string30
+msgid "ir.qweb.field.auditfile.string30"
+msgstr "ir.qweb.field.auditfile.string30"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string50
+msgid "ir.qweb.field.auditfile.string50"
+msgstr "ir.qweb.field.auditfile.string50"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string9
+msgid "ir.qweb.field.auditfile.string9"
+msgstr "ir.qweb.field.auditfile.string9"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string999
+msgid "ir.qweb.field.auditfile.string999"
+msgstr "ir.qweb.field.auditfile.string999"
+

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
-        <act_window id="action_auditfiles"
-            name="Auditfile export"
-            res_model="xaf.auditfile.export"
-            view_mode="tree,form"
-            view_type="form" />
-        <menuitem id="menu_auditfiles"
-            parent="account.menu_finance_legal_statement"
-            action="action_auditfiles" />
-    </data>
-</openerp>
+<odoo>
+
+    <menuitem id="menu_auditfiles"
+        parent="account.menu_finance_reports"
+        groups="account.group_account_user"
+        action="action_auditfiles" />
+
+</odoo>

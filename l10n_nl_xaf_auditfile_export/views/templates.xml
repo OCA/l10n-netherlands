@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
+<odoo>
+
         <template id="auditfile_template">
 <auditfile>
     <header>
-        <fiscalYear><t t-esc="self.period_start.fiscalyear_id.name" t-esc-options='{"widget": "auditfile.string9"}' /></fiscalYear>
-        <startDate><t t-esc="self.period_start.date_start" /></startDate>
-        <endDate><t t-esc="self.period_end.date_stop" /></endDate>
+        <fiscalYear><t t-esc="self.fiscalyear_name" t-esc-options='{"widget": "auditfile.string9"}' /></fiscalYear>
+        <startDate><t t-esc="self.date_start" /></startDate>
+        <endDate><t t-esc="self.date_end" /></endDate>
         <curCode><t t-esc="self.company_id.currency_id.name" /></curCode>
         <dateCreated><t t-esc="self.date_generated[:10]" /></dateCreated>
         <softwareDesc>Odoo</softwareDesc>
@@ -62,7 +62,7 @@
                 </streetAddress>
                 <bankAccount t-foreach="p.bank_ids" t-as="bank">
                     <bankAccNr><t t-esc="bank.acc_number" /></bankAccNr>
-                    <bankIdCd><t t-esc="bank.bank_bic or bank.bank.bic" /></bankIdCd>
+                    <bankIdCd><t t-esc="bank.bank_bic or bank.bank_id.bic" /></bankIdCd>
                 </bankAccount>
                 <changeInfo t-if="p.write_uid">
                     <userID><t t-esc="p.write_uid.login" /></userID>
@@ -76,7 +76,7 @@
             <ledgerAccount t-foreach="self.get_accounts()" t-as="a">
                 <accID><t t-esc="a.code" /></accID>
                 <accDesc><t t-esc="a.name" t-esc-options='{"widget": "auditfile.string999"}' /></accDesc>
-                <accTp><t t-esc="'P' if a.user_type.report_type in ['income', 'expense'] else 'B' if a.user_type.report_type in ['asset', 'liability'] else 'M'" /></accTp>
+                <accTp><t t-esc="'P' if a.user_type_id.type in ['income', 'expense'] else 'B' if a.user_type_id.type in ['asset', 'liability'] else 'M'" /></accTp>
                 <!-- don't export the following for now
                 <leadCode>String</leadCode>
                 <leadDescription>String</leadDescription>
@@ -108,16 +108,16 @@
             <vatCode t-foreach="self.get_taxes()" t-as="t">
                 <vatID><t t-esc="t.id" /></vatID>
                 <vatDesc><t t-esc="t.name" t-esc-options='{"widget": "auditfile.string999"}' /></vatDesc>
-                <vatToPayAccID><t t-esc="t.account_paid_id.code" /></vatToPayAccID>
-                <vatToClaimAccID><t t-esc="t.account_collected_id.code" /></vatToClaimAccID>
+                <vatToPayAccID><t t-esc="t.refund_account_id.code" /></vatToPayAccID>
+                <vatToClaimAccID><t t-esc="t.account_id.code" /></vatToClaimAccID>
             </vatCode>
         </vatCodes>
         <periods>
             <period t-foreach="self.get_periods()" t-as="p">
-                <periodNumber><t t-esc="p.id" /></periodNumber>
+                <periodNumber><t t-esc="p.number" /></periodNumber>
                 <periodDesc><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></periodDesc>
                 <startDatePeriod><t t-esc="p.date_start" /></startDatePeriod>
-                <endDatePeriod><t t-esc="p.date_stop" /></endDatePeriod>
+                <endDatePeriod><t t-esc="p.date_end" /></endDatePeriod>
             </period>
         </periods>
         <transactions>
@@ -135,14 +135,14 @@
                 <transaction t-foreach="self.get_moves(j)" t-as="m">
                     <nr><t t-esc="m.id" /></nr>
                     <desc><t t-esc="m.name" /></desc>
-                    <periodNumber><t t-esc="m.period_id.id" /></periodNumber>
+                    <periodNumber><t t-esc="self.get_move_period_number(m)" /></periodNumber>
                     <trDt><t t-esc="m.date" /></trDt>
                     <amnt><t t-esc="m.amount" /></amnt>
                     <!-- left to inheriting modules
                     <sourceID />
                     <userID />
                     /-->
-                    <trLine t-foreach="m.line_id" t-as="l">
+                    <trLine t-foreach="m.line_ids" t-as="l">
                         <nr><t t-esc="l.id" /></nr>
                         <accID><t t-esc="l.account_id.code" /></accID>
                         <docRef><t t-esc="l.ref" t-esc-options='{"widget": "auditfile.string999"}' /></docRef>
@@ -150,9 +150,9 @@
                         <desc><t t-esc="l.name" /></desc>
                         <amnt><t t-esc="l.credit or l.debit" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
-                        <recRef t-if="l.reconcile_id"><t t-esc="l.reconcile_id.name" /></recRef>
+                        <recRef t-if="l.full_reconcile_id"><t t-esc="l.full_reconcile_id.name" /></recRef>
                         <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
-                        <invRef t-if="l.invoice"><t t-esc="l.invoice.number" t-esc-options='{"widget": "auditfile.string999"}' /></invRef>
+                        <invRef t-if="l.invoice_id"><t t-esc="l.invoice_id.number" t-esc-options='{"widget": "auditfile.string999"}' /></invRef>
                         <!-- future extensions
                         <matchKeyID />
                         <orderRef />
@@ -180,5 +180,5 @@
     </company>
 </auditfile>
         </template>
-    </data>
-</openerp>
+
+</odoo>
