@@ -17,12 +17,7 @@ addon | version | summary
 --- | --- | ---
 [l10n_nl_bsn](l10n_nl_bsn/) | 10.0.0.1.0 | Burgerservicenummer (BSN) for Partners
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 10.0.0.1.0 | Autocomplete Dutch addresses using PostcodeApi.nu
-
-Unported addons
----------------
-addon | version | summary
---- | --- | ---
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 8.0.1.0.0 (unported) | Export XAF auditfiles for Dutch tax authorities
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 10.0.1.0.0 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
