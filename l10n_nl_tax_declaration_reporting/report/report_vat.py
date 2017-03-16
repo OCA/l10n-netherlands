@@ -149,6 +149,7 @@ class VatReport(models.AbstractModel):
                     on inv_line.id = inv_line_tax.invoice_line_id
                 JOIN account_invoice inv
                     on inv.id = inv_line.invoice_id
+                    AND inv.id = inv_tax.invoice_id
         """
         query += filter_by_dates(form['date_from'], form['date_to'])
 
