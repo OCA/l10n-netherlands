@@ -97,7 +97,7 @@ class VatStatement(models.Model):
         lines['1c'] = {
             'code': '1c', 'omzet': 0.0, 'btw': 0.0,
             'name': _('Leveringen/diensten belast met overige tarieven '
-                    'behalve 0%')}
+                      'behalve 0%')}
         lines['1d'] = {
             'code': '1d', 'omzet': 0.0, 'btw': 0.0,
             'name': _('1d Prive-gebruik')}
