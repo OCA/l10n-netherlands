@@ -1,163 +1,98 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_nl_tax_declaration_reporting
-#
+# * l10n_nl_tax_declaration_reporting
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-10 09:48+0000\n"
-"PO-Revision-Date: 2014-11-10 11:10+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2017-03-12 14:37+0000\n"
+"PO-Revision-Date: 2017-03-12 14:37+0000\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
+"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: \n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,chart_tax_id:0
-#: report:account.vat.declaration.nl:0
-msgid "Chart of Tax"
-msgstr "Belastingweergave"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "1a Leveringen/diensten belast met 21%"
+msgstr "1a Leveringen/diensten belast met 21%"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: model:ir.model,name:l10n_nl_tax_declaration_reporting.model_account_vat_declaration_nl
-msgid "Account Vat Declaration"
-msgstr "Rekening belasting aangifte"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "1b Deliveries/services taxed with 6%"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "1b Leveringen/diensten belast met 6%"
 msgstr "1b Leveringen/diensten belast met 6%"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "VAT declaration"
-msgstr "BTW Aangifte"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "1c Leveringen/diensten belast met overige tarieven behalve 0%"
+msgstr "1c Leveringen/diensten belast met overige tarieven behalve 0%"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: model:ir.ui.menu,name:l10n_nl_tax_declaration_reporting.menu_account_vat_declaration_nl
-msgid "NL VAT Declaration"
-msgstr "NL BTW Aangifte"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "1d Prive-gebruik"
+msgstr "1d Prive-gebruik"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "€"
-msgstr "€"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "1e Leveringen/diensten belast met 0%"
+msgstr "1e Leveringen/diensten belast met 0%"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "3b Deliveries to/services in countries in the EU"
-msgstr "3b Leveringen naar/diensten in landen binnen de EU"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "2a Heffing van omzetbelasting is naar u verlegd"
+msgstr "2a Heffing van omzetbelasting is naar u verlegd"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Realignment scheme (domestic)"
-msgstr "Verleggingsregelingen binnenland"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "3a Leveringen naar landen buiten de EU"
+msgstr "3a Leveringen naar landen buiten de EU"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Performance abroad"
-msgstr "Prestaties naar/in het buitenland"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "3b Leveringen naar landen binnen de EU"
+msgstr "3b Leveringen naar landen binnen de EU"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Domestic Performance"
-msgstr "Prestaties binnenland"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Turnover tax"
-msgstr "Omzetbelasting"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,display_detail:0
-msgid "Display Detail"
-msgstr "Details weergeven"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,company_id:0
-msgid "Company"
-msgstr "Bedrijf"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "4a Deliveries/services from countries outside the EU"
-msgstr "4a Leveringen/diensten uit landen buiten de EU"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "2a Deliveries/services where the turnover tax has been transferred to you"
-msgstr "2a Leveringen/diensten waarbij de heffing van omzetbelasting naar u is verlegd"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "5b Pre-tax"
-msgstr "5b Voorbelasting"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "3c Installation/distance sales within the EU"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "3c Installatie/afstandsverkopen binnen de EU"
 msgstr "3c Installatie/afstandsverkopen binnen de EU"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: view:account.vat.declaration.nl:0
-msgid "Taxes Report"
-msgstr "BTW aangifte"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "4a Verwerving uit landen buiten de EU"
+msgstr "4a Verwerving uit landen buiten de EU"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: help:account.vat.declaration.nl,fiscalyear_id:0
-msgid "Keep empty for all open fiscal year"
-msgstr "Houd open voor alle fiscale jaren"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "4b Verwerving van goederen uit landen binnen de EU"
+msgstr "4b Verwerving van goederen uit landen binnen de EU"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: selection:account.vat.declaration.nl,filter:0
-msgid "Date"
-msgstr "Datum"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "5a Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
+msgstr "5a Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,chart_account_id:0
-msgid "Chart of Account"
-msgstr "Rekeningschema"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "5b Voorbelasting"
+msgstr "5b Voorbelasting"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,journal_ids:0
-msgid "Journals"
-msgstr "Dagboeken"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "5c Subtotaal (rubriek 5a min 5b)"
+msgstr "5c Subtotaal (rubriek 5a min 5b)"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "1d Private use"
-msgstr "1d Privé-gebruik"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: view:account.vat.declaration.nl:0
-msgid "Print Tax Statement"
-msgstr "Afdrukken belastingaangifte"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: help:account.vat.declaration.nl,chart_account_id:0
-msgid "Select Charts of Accounts"
-msgstr "Rekeningschema kiezen"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,date_to:0
-msgid "End Date"
-msgstr "Einddatum"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,period_from:0
-#: report:account.vat.declaration.nl:0
-msgid "Start Period"
-msgstr "Beginperiode"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: selection:account.vat.declaration.nl,target_move:0
-#: code:addons/l10n_nl_tax_declaration_reporting/report/common_report_header.py:68
-#, python-format
-msgid "All Posted Entries"
-msgstr "Alle mutaties"
+#: model:ir.model,name:l10n_nl_tax_declaration_reporting.model_account_vat_declaration_nl
+msgid "Account Common Report"
+msgstr "Account Common Report"
 
 #. module: l10n_nl_tax_declaration_reporting
 #: model:ir.actions.act_window,name:l10n_nl_tax_declaration_reporting.action_account_vat_declaration_nl
@@ -165,98 +100,19 @@ msgid "Account Tax Declaration"
 msgstr "Belastingaangifte"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "1c Deliveries/services taxed with other rates, except 0%"
-msgstr "1c Leveringen/diensten belast met overige tarieven behalve 0%"
+#: selection:account.vat.declaration.nl,target_move:0
+msgid "All Entries"
+msgstr "Alle boekingen"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,period_to:0
-#: report:account.vat.declaration.nl:0
-msgid "End Period"
-msgstr "Eind periode"
+#: selection:account.vat.declaration.nl,target_move:0
+msgid "All Posted Entries"
+msgstr "Alle mutaties"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: code:addons/l10n_nl_tax_declaration_reporting/report/common_report_header.py:92
-#, python-format
-msgid "Error!"
-msgstr "Onbekende fout!"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Amount"
-msgstr "Bedrag"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Performance from abroad directed to you"
-msgstr "Prestaties uit het buitenland aan u verricht"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "3a Deliveries to countries outside the EU (export)"
-msgstr "3a Leveringen naar landen buiten de EU (uitvoer)"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: selection:account.vat.declaration.nl,filter:0
-msgid "No Filters"
-msgstr "Geen filters"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: code:addons/l10n_nl_tax_declaration_reporting/report/common_report_header.py:92
-#, python-format
-msgid "Not implemented."
-msgstr "Niet geïmplementeerd."
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "5a turnover tax due (sum of 1a up to and including 4b)"
-msgstr "5a Verschuldigde omzetbelasting (som rubrieken 1a t/m 4b)"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: view:account.vat.declaration.nl:0
-msgid "This menu prints a tax declaration based on invoices or payments. Select one or several periods of the fiscal year. The information required for a tax declaration is automatically generated by Odoo from invoices. This data is updated in real time. That’s very useful because it enables you to preview at any time the tax that you owe at the start and end of the month or quarter."
-msgstr "Dit menu drukt een BTW-aangifte af. Selecteer één of meer periodes uit het fiscale jaar. De benodigde informatie voor de BTW-aangifte wordt door Odoo automatisch verzameld op basis van de facturen. De rapportage geeft de actuele stand van zaken, zodat u op elk moment kunt zien hoeveel belasting u schuldig bent aan het begin en eind van een periode."
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Pre-tax"
-msgstr "5b Voorbelasting"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "4b Deliveries/services of countries in the EU"
-msgstr "4b Leveringen/diensten uit landen binnen de EU"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "1a Deliveries/services taxed with 21%"
-msgstr "1a Leveringen/diensten belast met 21%"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: selection:account.vat.declaration.nl,based_on:0
-msgid "Invoices"
-msgstr "Facturen"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: model:ir.actions.report.xml,name:l10n_nl_tax_declaration_reporting.report_account_vat_declaration_nl
-msgid "VAT Report NL"
-msgstr "BTW Rapport NL"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,fiscalyear_id:0
-#: report:account.vat.declaration.nl:0
-msgid "Fiscal Year"
-msgstr "Boekjaar"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,target_move:0
-msgid "Target Moves"
-msgstr "Doelrekening"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "5c Subtotal to pay (+) or to reclaim (-)"
-msgstr "5c Subtotaal te betalen (+) of terug te vragen (-)"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "BTW"
+msgstr "BTW"
 
 #. module: l10n_nl_tax_declaration_reporting
 #: field:account.vat.declaration.nl,based_on:0
@@ -264,31 +120,75 @@ msgid "Based on"
 msgstr "Gebaseerd op"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: view:account.vat.declaration.nl:0
-#: selection:account.vat.declaration.nl,filter:0
-#: report:account.vat.declaration.nl:0
-msgid "Periods"
-msgstr "Periodes"
-
-#. module: l10n_nl_tax_declaration_reporting
-#: view:account.vat.declaration.nl:0
+#: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
 msgid "Cancel"
 msgstr "Annuleer"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: report:account.vat.declaration.nl:0
-msgid "Based On"
-msgstr "Gebaseerd op"
+#: field:account.vat.declaration.nl,chart_account_id:0
+msgid "Chart of Account"
+msgstr "Grootboekschema"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: field:account.vat.declaration.nl,date_from:0
-msgid "Start Date"
-msgstr "Startdatum"
+#: field:account.vat.declaration.nl,chart_tax_id:0
+msgid "Chart of Tax"
+msgstr "Belastingweergave"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: help:account.vat.declaration.nl,chart_tax_id:0
-msgid "Select Charts of Taxes"
-msgstr "Kies belastingschema"
+#: field:account.vat.declaration.nl,company_id:0
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,create_uid:0
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,create_date:0
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: selection:account.vat.declaration.nl,filter:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Datum"
+msgstr "Datum"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,display_detail:0
+msgid "Display Detail"
+msgstr "Details weergeven"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,display_name:0
+#: field:report.l10n_nl_tax_declaration_reporting.tax_report_template,display_name:0
+msgid "Display Name"
+msgstr "Weergave naam"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,date_to:0
+msgid "End Date"
+msgstr "Einddatum"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,period_to:0
+msgid "End Period"
+msgstr "Eind periode"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Error in tax code:"
+msgstr "Fout in BTW code:"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Facturen"
+msgstr "Facturen"
 
 #. module: l10n_nl_tax_declaration_reporting
 #: field:account.vat.declaration.nl,filter:0
@@ -296,19 +196,175 @@ msgid "Filter by"
 msgstr "Filter op"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: view:account.vat.declaration.nl:0
-msgid "or"
-msgstr "of"
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Fiscaal jaar"
+msgstr "Fiscaal jaar"
 
 #. module: l10n_nl_tax_declaration_reporting
-#: selection:account.vat.declaration.nl,target_move:0
-#: code:addons/l10n_nl_tax_declaration_reporting/report/common_report_header.py:67
-#, python-format
-msgid "All Entries"
-msgstr "Alle boekingen"
+#: field:account.vat.declaration.nl,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr "Boekjaar"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Gebaseerd op"
+msgstr "Gebaseerd op"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,id:0
+#: field:report.l10n_nl_tax_declaration_reporting.tax_report_template,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: selection:account.vat.declaration.nl,based_on:0
+msgid "Invoices"
+msgstr "Facturen"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,journal_ids:0
+msgid "Journals"
+msgstr "Dagboeken"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: help:account.vat.declaration.nl,fiscalyear_id:0
+msgid "Keep empty for all open fiscal year"
+msgstr "Houd open voor alle fiscale jaren"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,__last_update:0
+#: field:report.l10n_nl_tax_declaration_reporting.tax_report_template,__last_update:0
+msgid "Last Modified on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,write_uid:0
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,write_date:0
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Leveringen en/of diensten binnenland"
+msgstr "Leveringen en/of diensten binnenland"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Leveringen naar het buitenland"
+msgstr "Leveringen naar het buitenland"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Leveringen vanuit het buitenland"
+msgstr "Leveringen vanuit het buitenland"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: model:ir.ui.menu,name:l10n_nl_tax_declaration_reporting.menu_account_vat_declaration_nl
+msgid "NL VAT Declaration"
+msgstr "NL BTW Aangifte"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: model:ir.actions.report.xml,name:l10n_nl_tax_declaration_reporting.report_account_vat_declaration_nl
+msgid "New VAT Report NL"
+msgstr "Nieuw BTW rapportage NL"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: selection:account.vat.declaration.nl,filter:0
+msgid "No Filters"
+msgstr "Geen filters"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Omzet"
+msgstr "Omzet"
 
 #. module: l10n_nl_tax_declaration_reporting
 #: selection:account.vat.declaration.nl,based_on:0
 msgid "Payments"
 msgstr "Betalingen"
 
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Periodes"
+msgstr "Periodes"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
+#: selection:account.vat.declaration.nl,filter:0
+msgid "Periods"
+msgstr "Periodes"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
+msgid "Print Tax Statement"
+msgstr "Afdrukken belastingaangifte"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Rekening"
+msgstr "Rekening"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: help:account.vat.declaration.nl,chart_account_id:0
+msgid "Select Charts of Accounts"
+msgstr "Rekeningschema kiezen"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: help:account.vat.declaration.nl,chart_tax_id:0
+msgid "Select Charts of Taxes"
+msgstr "Kies belastingschema"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,date_from:0
+msgid "Start Date"
+msgstr "Startdatum"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,period_from:0
+msgid "Start Period"
+msgstr "Beginperiode"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: field:account.vat.declaration.nl,target_move:0
+msgid "Target Moves"
+msgstr "Doelrekening"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
+msgid "Taxes Report"
+msgstr "BTW aangifte"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
+msgid ""
+"This menu prints a tax declaration based on invoices or payments. Select one"
+" or several periods of the fiscal year. The information required for a tax "
+"declaration is automatically generated by Odoo from invoices. This data is "
+"updated in real time. That’s very useful because it enables you to preview "
+"at any time the tax that you owe at the start and end of the month or "
+"quarter."
+msgstr ""
+"Dit menu drukt een BTW-aangifte af. Selecteer één of meer periodes uit het "
+"fiscale jaar. De benodigde informatie voor de BTW-aangifte wordt door Odoo "
+"automatisch verzameld op basis van de facturen. De rapportage geeft de "
+"actuele stand van zaken, zodat u op elk moment kunt zien hoeveel belasting u"
+" schuldig bent aan het begin en eind van een periode."
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Verleggingsregelingen: BTW naar u verlegd"
+msgstr "Verleggingsregelingen: BTW naar u verlegd"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
+msgid "Voorbelasting"
+msgstr "Voorbelasting"
+
+#. module: l10n_nl_tax_declaration_reporting
+#: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
+msgid "or"
+msgstr "of"

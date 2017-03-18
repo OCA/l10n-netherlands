@@ -1,0 +1,204 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_nl_xaf_auditfile_export
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-12 14:37+0000\n"
+"PO-Revision-Date: 2017-03-12 14:37+0000\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
+"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,auditfile:0
+msgid "Auditfile"
+msgstr "Auditfile"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:75
+#, python-format
+msgid "Auditfile %s %s"
+msgstr "Auditfile %s %s"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
+#: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.menu_auditfiles
+msgid "Auditfile export"
+msgstr "Auditfile export"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,auditfile_name:0
+msgid "Auditfile filename"
+msgstr "Auditfile bestandsnaam"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,company_id:0
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,create_uid:0
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,create_date:0
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,date_generated:0
+msgid "Date generated"
+msgstr "Datum gegenereerd"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Datum van het laatste bericht gemaakt op dit record"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:ir.qweb.widget.auditfile.string10,display_name:0
+#: field:ir.qweb.widget.auditfile.string15,display_name:0
+#: field:ir.qweb.widget.auditfile.string20,display_name:0
+#: field:ir.qweb.widget.auditfile.string30,display_name:0
+#: field:ir.qweb.widget.auditfile.string50,display_name:0
+#: field:ir.qweb.widget.auditfile.string9,display_name:0
+#: field:ir.qweb.widget.auditfile.string999,display_name:0
+#: field:xaf.auditfile.export,display_name:0
+msgid "Display Name"
+msgstr "Weergave naam"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,period_end:0
+msgid "End period"
+msgstr "Eind periode"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,message_follower_ids:0
+msgid "Followers"
+msgstr "Volgers"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: view:xaf.auditfile.export:l10n_nl_xaf_auditfile_export.form_xaf_auditfile_export
+msgid "Generate auditfile"
+msgstr "Genereer auditfile"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,message_summary:0
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
+"Bevat de samenvatting van de chatter (aantal berichten,...). Deze "
+"samenvatting is direct in html formaat om zo in de kanban weergave te worden"
+" ingevoegd."
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:ir.qweb.widget.auditfile.string10,id:0
+#: field:ir.qweb.widget.auditfile.string15,id:0
+#: field:ir.qweb.widget.auditfile.string20,id:0
+#: field:ir.qweb.widget.auditfile.string30,id:0
+#: field:ir.qweb.widget.auditfile.string50,id:0
+#: field:ir.qweb.widget.auditfile.string9,id:0
+#: field:ir.qweb.widget.auditfile.string999,id:0
+#: field:xaf.auditfile.export,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Indien aangevinkt vragen nieuwe berichten uw aandacht."
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Is een volger"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,message_last_post:0
+msgid "Last Message Date"
+msgstr "Laatste bericht datum"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:ir.qweb.widget.auditfile.string10,__last_update:0
+#: field:ir.qweb.widget.auditfile.string15,__last_update:0
+#: field:ir.qweb.widget.auditfile.string20,__last_update:0
+#: field:ir.qweb.widget.auditfile.string30,__last_update:0
+#: field:ir.qweb.widget.auditfile.string50,__last_update:0
+#: field:ir.qweb.widget.auditfile.string9,__last_update:0
+#: field:ir.qweb.widget.auditfile.string999,__last_update:0
+#: field:xaf.auditfile.export,__last_update:0
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,write_uid:0
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,write_date:0
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: view:website:l10n_nl_xaf_auditfile_export.auditfile_template
+msgid "Last write"
+msgstr "Laatste schrijfactie"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,message_ids:0
+msgid "Messages"
+msgstr "Berichten"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,message_ids:0
+msgid "Messages and communication history"
+msgstr "Berichten en communicatie geschiedenis"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: view:website:l10n_nl_xaf_auditfile_export.auditfile_template
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,period_start:0
+msgid "Start period"
+msgstr "Start periode"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,message_summary:0
+msgid "Summary"
+msgstr "Samenvatting"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,message_unread:0
+msgid "Unread Messages"
+msgstr "Ongelezen berichten"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_xaf_auditfile_export
+msgid "XAF auditfile export"
+msgstr "XAF auditfile export"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:90
+#, python-format
+msgid "You need to choose consecutive periods!"
+msgstr "Je moet opeenvolgende periodes te kiezen!"
