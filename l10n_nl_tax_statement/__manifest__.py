@@ -15,7 +15,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'views/account_tax_statement.xml',
+        'views/l10n_nl_vat_statement.xml',
     ],
     'installable': True,
 }

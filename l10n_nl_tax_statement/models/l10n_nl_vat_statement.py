@@ -9,13 +9,11 @@ from odoo.exceptions import Warning as UserError
 
 
 class VatStatement(models.Model):
-    _name = 'l10n_nl_vat_statement'
+    _name = 'l10n.nl.vat.statement'
 
     name = fields.Char(
-        string='Statement',
+        string='Tax Statement',
         required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]},
     )
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -26,7 +24,7 @@ class VatStatement(models.Model):
         string='Status'
     )
     line_ids = fields.One2many(
-        'l10n_nl_vat_statement.line',
+        'l10n.nl.vat.statement.line',
         'statement_id',
         'Lines'
     )
@@ -34,26 +32,33 @@ class VatStatement(models.Model):
         'res.company',
         'Company',
         required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]},
         default=lambda self: self.env.user.company_id
     )
     from_date = fields.Date(
         required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]},
     )
     to_date = fields.Date(
         required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]},
     )
     date_range_id = fields.Many2one(
         'date.range',
         'Date range',
-        readonly=True,
-        states={'draft': [('readonly', False)]},
     )
+    currency_id = fields.Many2one(
+        'res.currency',
+        related='company_id.currency_id',
+        readonly=True
+    )
+    target_move = fields.Selection([
+        ('posted', 'All Posted Entries'),
+        ('all', 'All Entries')],
+        'Target Moves',
+        readonly=True,
+        required=True,
+        default='posted'
+    )
+    date_posted = fields.Datetime(readonly=True)
+    date_update = fields.Datetime(readonly=True)
 
     @api.model
     def default_get(self, fields_list):
@@ -70,12 +75,14 @@ class VatStatement(models.Model):
     @api.onchange('date_range_id')
     def onchange_date_range_id(self):
         if self.date_range_id and self.state == 'draft':
-            self.from_date = self.date_range_id.date_start
-            self.to_date = self.date_range_id.date_end
+            self.write({
+                'from_date': self.date_range_id.date_start,
+                'to_date': self.date_range_id.date_end,
+            })
 
     @api.model
     def _get_taxes_domain(self):
-        domain = [
+        return [
             '|', '|',
             ('base_balance', '!=', 0), ('base_balance_regular', '!=', 0),
             '|', '|',
@@ -83,7 +90,6 @@ class VatStatement(models.Model):
             '|',
             ('balance_regular', '!=', 0), ('balance_refund', '!=', 0)
         ]
-        return domain
 
     @api.model
     def _prepare_lines(self):
@@ -153,30 +159,30 @@ class VatStatement(models.Model):
 
     @api.model
     def _get_tags_map(self):
-        tags_map = {}
-        tags_map[self.env.ref('l10n_nl.tag_nl_03').id] = ('1a', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_20').id] = ('1a', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_05').id] = ('1b', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_22').id] = ('1b', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_06').id] = ('1c', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_23').id] = ('1c', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_07').id] = ('1d', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_24').id] = ('1d', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_08').id] = ('1e', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_10').id] = ('2a', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_27').id] = ('2a', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_12').id] = ('3a', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_13').id] = ('3b', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_14').id] = ('3c', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_16').id] = ('4a', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_29').id] = ('4a', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_17').id] = ('4b', 'omzet')
-        tags_map[self.env.ref('l10n_nl.tag_nl_30').id] = ('4b', 'btw')
-        tags_map[self.env.ref('l10n_nl.tag_nl_33').id] = ('5b', 'btw')
-        return tags_map
+        return {
+            self.env.ref('l10n_nl.tag_nl_03').id: ('1a', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_20').id: ('1a', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_05').id: ('1b', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_22').id: ('1b', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_06').id: ('1c', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_23').id: ('1c', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_07').id: ('1d', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_24').id: ('1d', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_08').id: ('1e', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_10').id: ('2a', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_27').id: ('2a', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_12').id: ('3a', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_13').id: ('3b', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_14').id: ('3c', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_16').id: ('4a', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_29').id: ('4a', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_17').id: ('4b', 'omzet'),
+            self.env.ref('l10n_nl.tag_nl_30').id: ('4b', 'btw'),
+            self.env.ref('l10n_nl.tag_nl_33').id: ('5b', 'btw'),
+        }
 
     @api.multi
-    def compute(self):
+    def update(self):
         self.ensure_one()
 
         if self.state == 'posted':
@@ -194,15 +200,16 @@ class VatStatement(models.Model):
         # create lines
         for line in lines:
             lines[line].update({'statement_id': self.id})
-            self.env['l10n_nl_vat_statement.line'].create(
+            self.env['l10n.nl.vat.statement.line'].create(
                 lines[line]
             )
+        self.date_update = fields.Datetime.now()
 
     def _compute_lines(self, lines):
         ctx = {
             'from_date': self.from_date,
             'to_date': self.to_date,
-            'target_move': 'all',  # TODO
+            'target_move': self.target_move,
             'company_id': self.company_id.id,
         }
         tags_map = self._get_tags_map()
@@ -210,10 +217,10 @@ class VatStatement(models.Model):
         taxes = self.env['account.tax'].with_context(ctx).search(domain)
         for tax in taxes:
             for tag in tax.tag_ids:
-                map = tags_map.get(tag.id)
-                if map:
-                    column = map[1]
-                    code = map[0]
+                tag_map = tags_map.get(tag.id)
+                if tag_map:
+                    column = tag_map[1]
+                    code = tag_map[0]
                     if column == 'omzet':
                         lines[code][column] += abs(tax.base_balance)
                     else:
@@ -221,11 +228,29 @@ class VatStatement(models.Model):
 
     @api.multi
     def post(self):
-        self.state = 'posted'
+        self.write({
+            'state': 'posted',
+            'date_posted': fields.Datetime.now()
+        })
 
     @api.multi
     def reset(self):
-        self.state = 'draft'
+        self.write({
+            'state': 'draft',
+            'date_posted': None
+        })
+
+    @api.multi
+    def write(self, values):
+        for statement in self:
+            if 'state' not in values or values['state'] != 'draft':
+                if statement.state == 'posted':
+                    for val in values:
+                        if val != 'state':
+                            raise UserError(
+                                _('You cannot modify a posted statement! '
+                                  'Reset the statement to draft first.'))
+        return super(VatStatement, self).write(values)
 
     @api.multi
     def unlink(self):

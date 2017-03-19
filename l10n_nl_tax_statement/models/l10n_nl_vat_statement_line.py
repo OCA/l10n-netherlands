@@ -7,14 +7,14 @@ from odoo.exceptions import Warning as UserError
 
 
 class VatStatementLine(models.Model):
-    _name = 'l10n_nl_vat_statement.line'
+    _name = 'l10n.nl.vat.statement.line'
     _order = 'code'
 
     name = fields.Char()
     code = fields.Char()
 
     statement_id = fields.Many2one(
-        'l10n_nl_vat_statement',
+        'l10n.nl.vat.statement',
         'Statement'
     )
     currency_id = fields.Many2one(

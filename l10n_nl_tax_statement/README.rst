@@ -25,7 +25,7 @@ Usage
 
 #. Go to the menu: Reports > Taxes Balance > NL BTW Statement
 #. Create a statement, providing a name and specifying start date and end date
-#. Press the Recompute button to calculate the report: the report lines will be displayed in the tab Statement
+#. Press the Update button to calculate the report: the report lines will be displayed in the tab Statement
 #. Press the Post button to set the status of the statement to Posted; the statements set to this state cannot be modified anymore
 #. If you need to recalculate or modify or delete a statement already set to Posted status you need first to set it back to Draft status: press the button Reset to Draft
 
