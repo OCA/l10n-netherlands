@@ -32,6 +32,7 @@ class VatStatement(models.Model):
         'res.company',
         'Company',
         required=True,
+        readonly=True,
         default=lambda self: self.env.user.company_id
     )
     from_date = fields.Date(
@@ -94,6 +95,9 @@ class VatStatement(models.Model):
     @api.model
     def _prepare_lines(self):
         lines = {}
+        lines['1'] = {
+            'code': '1',
+            'name': _('Leveringen en/of diensten binnenland')}
         lines['1a'] = {
             'code': '1a', 'omzet': 0.0, 'btw': 0.0,
             'name': _('Leveringen/diensten belast met 21%')}
@@ -110,9 +114,15 @@ class VatStatement(models.Model):
         lines['1e'] = {
             'code': '1e', 'omzet': 0.0,
             'name': _('Leveringen/diensten belast met 0%')}
+        lines['2'] = {
+            'code': '2',
+            'name': _('Verleggingsregelingen: BTW naar u verlegd')}
         lines['2a'] = {
             'code': '2a', 'omzet': 0.0, 'btw': 0.0,
             'name': _('Heffing van omzetbelasting is naar u verlegd')}
+        lines['3'] = {
+            'code': '3',
+            'name': _('Leveringen naar het buitenland')}
         lines['3a'] = {
             'code': '3a', 'omzet': 0.0,
             'name': _('Leveringen naar landen buiten de EU')}
@@ -122,12 +132,18 @@ class VatStatement(models.Model):
         lines['3c'] = {
             'code': '3c', 'omzet': 0.0,
             'name': _('Installatie/afstandsverkopen binnen de EU')}
+        lines['4'] = {
+            'code': '4',
+            'name': _('Leveringen vanuit het buitenland')}
         lines['4a'] = {
             'code': '4a', 'omzet': 0.0, 'btw': 0.0,
             'name': _('Verwerving uit landen buiten de EU')}
         lines['4b'] = {
             'code': '4b', 'omzet': 0.0, 'btw': 0.0,
             'name': _('Verwerving van goederen uit landen binnen de EU')}
+        lines['5'] = {
+            'code': '5',
+            'name': _('Voorbelasting')}
         lines['5a'] = {
             'code': '5a', 'btw': 0.0,
             'name': _('Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)')}

@@ -122,3 +122,7 @@ class VatStatementConfigWizard(models.TransientModel):
             'tag_5b_btw': self.tag_5b_btw.id,
             'tag_5b_btw_bis': self.tag_5b_btw_bis.id,
         })
+
+        action_name = 'l10n_nl_tax_statement.action_account_vat_statement_nl'
+        action = self.env.ref(action_name).read()[0]
+        return action

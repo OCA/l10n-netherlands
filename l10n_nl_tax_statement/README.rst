@@ -32,6 +32,7 @@ Usage
 #. Press the Update button to calculate the report: the report lines will be displayed in the tab Statement
 #. Press the Post button to set the status of the statement to Posted; the statements set to this state cannot be modified anymore
 #. If you need to recalculate or modify or delete a statement already set to Posted status you need first to set it back to Draft status: press the button Reset to Draft
+#. If you need to print the report in PDF, open a statement form and click: Print -> NL Tax Statement
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot

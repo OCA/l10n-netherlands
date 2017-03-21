@@ -14,25 +14,25 @@
                     <div>
                         <field name="tag_1a_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_1a_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_1a_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                     <label for="id" string="1b"/>
                     <div>
                         <field name="tag_1b_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_1b_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_1b_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                     <label for="id" string="1c"/>
                     <div>
                         <field name="tag_1c_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_1c_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_1c_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                     <label for="id" string="1d"/>
                     <div>
                         <field name="tag_1d_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_1d_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_1d_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                     <label for="id" string="1e"/>
                     <div>
@@ -45,7 +45,7 @@
                     <div>
                         <field name="tag_2a_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_2a_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_2a_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                 </group>
                 <group string="Leveringen naar het buitenland">
@@ -70,23 +70,23 @@
                     <div>
                         <field name="tag_4a_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_4a_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_4a_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                     <label for="id" string="4b"/>
                     <div>
                         <field name="tag_4b_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
-                        <field name="tag_4b_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_4b_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                 </group>
                 <group string="Voorbelasting">
                     <label for="id" string="5b"/>
                     <div>
-                        <field name="tag_5b_btw" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_5b_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
                     <label for="id" string="5b bis"/>
                     <div>
-                        <field name="tag_5b_btw_bis" class="oe_inline oe_text_right" placeholder="BTW"/>
+                        <field name="tag_5b_btw_bis" class="oe_inline" placeholder="BTW"/>
                     </div>
                 </group>
             </form>

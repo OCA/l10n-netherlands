@@ -47,7 +47,7 @@
                                         </group>
                                     </group>
                                 </form>
-                                <tree>
+                                <tree colors="grey:code in ('1','2','3','4','5')">
                                     <field name="code"/>
                                     <field name="name"/>
                                     <field name="omzet"/>
