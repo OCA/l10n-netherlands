@@ -81,6 +81,13 @@ class VatStatement(models.Model):
                 'to_date': self.date_range_id.date_end,
             })
 
+    @api.onchange('from_date', 'to_date')
+    def onchange_date(self):
+        display_name = self.company_id.name
+        if self.from_date and self.to_date:
+            display_name += ': ' + ' '.join([self.from_date, self.to_date])
+        self.name = display_name
+
     @api.model
     def _get_taxes_domain(self):
         return [
