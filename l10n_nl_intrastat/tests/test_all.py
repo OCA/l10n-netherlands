@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
 
 from odoo.tests.common import TransactionCase
+from odoo import fields
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 
@@ -13,6 +14,9 @@ class TestIntrastatNL(TransactionCase):
     def setUp(self):
         super(TestIntrastatNL, self).setUp()
 
+        self.company = self.env.ref('base.main_company')
+        self.company.currency_id = self.env.ref('base.EUR')
+
         type_receivable = self.env.ref('account.data_account_type_receivable')
         self.account_receivable = self.env['account.account'].search(
             [('user_type_id', '=', type_receivable.id)],
@@ -20,11 +24,8 @@ class TestIntrastatNL(TransactionCase):
         )
         self.land_account = self.env.ref('account.demo_sale_of_land_account')
 
-    def test_generate_report(self):
-        # Set our company's country to NL
-        Tax = self.env['account.tax']
-        company = self.env.ref('base.main_company')
-        company.country_id = self.env.ref('base.nl')
+    def test_date_range(self):
+        company = self.company
 
         # Create a date range type
         type = self.env['date.range.type'].create({
@@ -34,22 +35,41 @@ class TestIntrastatNL(TransactionCase):
         })
 
         # Create a date range spanning the last three months
-        start_datetime = datetime.today() + relativedelta(months=-3)
+        start_date = date.today() + relativedelta(months=-3)
         date_range = self.env['date.range'].create({
             'name': 'FS2016',
-            'date_start': start_datetime.strftime(DF),
-            'date_end': self.Date.today(),
+            'date_start': start_date.strftime(DF),
+            'date_end': fields.Date.today(),
             'company_id': company.id,
             'type_id': type.id
         })
 
-        # Create an empty, draft intrastat report for this period
+        # Create an empty, draft intrastat report
         report = self.env['l10n_nl.report.intrastat'].create({
             'company_id': company.id,
-            'date_range_id': date_range.id,
-
+            'date_from': fields.Date.today(),
+            'date_to': fields.Date.today(),
         })
+
+        # test that dates are updated
+        report.write({'date_range_id': date_range.id})
         report.onchange_date_range_id()
+        self.assertEquals(report.date_from, start_date.strftime(DF))
+        self.assertEquals(report.date_to, fields.Date.today())
+
+    def test_generate_report(self):
+        # Set our company's country to NL
+        Tax = self.env['account.tax']
+        company = self.company
+        company.country_id = self.env.ref('base.nl')
+
+        # Create an empty, draft intrastat report for this period
+        start_date = date.today() + relativedelta(months=-3)
+        report = self.env['l10n_nl.report.intrastat'].create({
+            'company_id': company.id,
+            'date_from': start_date.strftime(DF),
+            'date_to': fields.Date.today(),
+        })
         self.assertEquals(report.state, 'draft')
 
         # Generate lines and store initial total
@@ -81,7 +101,6 @@ class TestIntrastatNL(TransactionCase):
             'street': 'Main Street, 10',
             'phone': '123456789',
             'email': 'info@ghoststep.com',
-            'vat': 'FR32123456789',
             'type': 'contact'
         })
 
@@ -92,7 +111,7 @@ class TestIntrastatNL(TransactionCase):
         consumable = self.env.ref('product.product_product_10')
 
         # Create a new invoice to GhostStep, dated last month, price: 250
-        a_date_in_last_month = datetime.today() + \
+        a_date_in_last_month = date.today() + \
             relativedelta(day=1, months=-1)
         fp = self.env['account.fiscal.position'].create(
             dict(name="fiscal position", sequence=1)

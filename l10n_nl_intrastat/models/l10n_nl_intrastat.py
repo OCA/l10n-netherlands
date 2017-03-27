@@ -3,8 +3,7 @@
 # Copyright 2012-2015 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api, _
-from odoo.exceptions import Warning
+from odoo import models, fields, api
 
 
 class ReportIntrastat(models.Model):
@@ -157,23 +156,11 @@ class ReportIntrastat(models.Model):
             'total_amount': total_amount
         })
 
-    @api.multi
-    def unlink(self):
-        """
-        Do not allow unlinking of confirmed reports
-        """
-        for report in self:
-            if report.state != 'draft':
-                raise Warning(
-                    _('Cannot remove IPC reports in a non-draft state')
-                )
-        return super(ReportIntrastat, self).unlink()
-
 
 class ReportIntrastatLine(models.Model):
     """Lines for dutch ICP report."""
     _name = 'l10n_nl.report.intrastat.line'
-    _description = 'Declaration of intracommunautary transactions (ICP) line'
+    _description = 'Declaration of intra-Community transactions (ICP) line'
     _order = 'partner_id, country_code'
     _rec_name = 'partner_id'
 
