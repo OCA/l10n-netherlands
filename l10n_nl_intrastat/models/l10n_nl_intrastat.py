@@ -11,8 +11,19 @@ class ReportIntrastat(models.Model):
     _name = 'l10n_nl.report.intrastat'
     _description = 'Declaration of intra-Community transactions (ICP)'
     _order = 'date_to desc'
-    _rec_name = 'date_range_id'
     _inherit = 'intrastat.common'
+
+    @api.multi
+    @api.depends('date_from', 'date_to')
+    def _compute_year_month(self):
+        for report in self:
+            report.year_month = '-'.join([report.date_from, report.date_to])
+
+    year_month = fields.Char(
+        compute='_compute_year_month',
+        string='Period',
+        readonly=True,
+        help="Date range of the declaration.")
 
     last_updated = fields.Datetime(readonly=True)
     date_range_id = fields.Many2one(

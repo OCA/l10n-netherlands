@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.tests.common import TransactionCase
 from odoo import fields
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+from odoo.exceptions import UserError
 
 
 class TestIntrastatNL(TransactionCase):
@@ -212,3 +213,14 @@ class TestIntrastatNL(TransactionCase):
         # Test if the total amount has increased by the invoice value
         # New total should be 285.0 + round(100.00 / 1.3086, 2) = 361.42
         self.assertTrue(abs(report.total_amount - total - 361.42) <= 0.01)
+
+        # validate and try to delete the report, must be denied
+        report.set_done()
+        self.assertEquals(report.state, 'done')
+        with self.assertRaises(UserError):
+            report.unlink()
+
+        # set the report back to draft and delete it
+        report.set_draft()
+        self.assertEquals(report.state, 'draft')
+        report.unlink()
