@@ -167,6 +167,11 @@ class ReportIntrastat(models.Model):
             'total_amount': total_amount
         })
 
+    @api.multi
+    def unlink(self):
+        self.line_ids.unlink()
+        return super(ReportIntrastat, self).unlink()
+
 
 class ReportIntrastatLine(models.Model):
     """Lines for dutch ICP report."""
