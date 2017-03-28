@@ -17,6 +17,9 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'data/report_layouts.xml',
+        'report/reports.xml',
+        'report/l10n_nl_intrastat.xml',
         'views/l10n_nl_intrastat.xml',
     ],
 }
