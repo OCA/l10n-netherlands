@@ -204,4 +204,3 @@ class TestIntrastatNL(TransactionCase):
         # Unlink draft report
         report.set_draft()
         report.unlink()
-        

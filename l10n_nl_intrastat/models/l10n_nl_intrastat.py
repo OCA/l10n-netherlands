@@ -161,7 +161,7 @@ class ReportIntrastat(models.Model):
         Do not allow unlinking of confirmed reports
         """
         if self.search([('state', '!=', 'draft')]):
-            raise UserError(_('Cannot remove IPC reports in a non-draft state'))
+            raise UserError(_("Cannot remove IPC reports in 'Done' state"))
         return super(ReportIntrastat, self).unlink()
 
 
