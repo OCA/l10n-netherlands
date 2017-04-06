@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 from openerp.addons.decimal_precision import decimal_precision as dp
+from openerp.exceptions import UserError
 
 
 class ReportIntrastat(models.Model):
@@ -19,9 +20,8 @@ class ReportIntrastat(models.Model):
         required=True,
         string='Date range'
     )
-    date_from = fields.Date(related='date_range_id.date_start', readonly=True)
-    date_to = fields.Date(related='date_range_id.date_end', readonly=True,
-                          store=True)
+    date_from = fields.Date(string='Date from', required=True)
+    date_to = fields.Date(string='Date to', required=True)
     company_id = fields.Many2one(
         comodel_name='res.company',
         default=lambda self: self.env.user.company_id,
@@ -51,8 +51,13 @@ class ReportIntrastat(models.Model):
         comodel_name='l10n_nl.report.intrastat.line',
         inverse_name='report_id',
         readonly=True,
-        # compute='_compute_lines_and_total'
     )
+
+    @api.onchange('date_range_id')
+    def _onchange_date_range_id(self):
+        if self.date_range_id:
+            self.date_from = self.date_range_id.date_start
+            self.date_to = self.date_range_id.date_end
 
     @api.multi
     def set_draft(self):
@@ -83,19 +88,19 @@ class ReportIntrastat(models.Model):
             return
 
         # Define search for invoices for period and company:
-        company_obj = self.company_id  # simplify access
+        company = self.company_id  # simplify access
         invoice_domain = [
             ('type', 'in', ('out_invoice', 'out_refund')),
             ('date_invoice', '>=', self.date_from),
             ('date_invoice', '<=', self.date_to),
             ('state', 'in', ('open', 'paid')),
-            ('company_id', '=', self.company_id.id),
+            ('company_id', '=', company.id),
         ]
         # Search invoices that need intrastat reporting:
         invoice_records = invoice_model.search(
             invoice_domain + [
                 ('partner_id.country_id.intrastat', '=', True),
-                ('partner_id.country_id.id', '!=', company_obj.country_id.id),
+                ('partner_id.country_id.id', '!=', company.country_id.id),
             ]
         )
         invoice_line_records = invoice_line_model.search([
@@ -127,9 +132,9 @@ class ReportIntrastat(models.Model):
             # Convert currency amount if necessary:
             currency = line.invoice_id.currency_id
             invoice_date = line.invoice_id.date_invoice
-            if (currency and currency != company_obj.currency_id):
+            if (currency and currency != company.currency_id):
                 amount = currency.with_context(date=invoice_date).compute(
-                    amount, company_obj.currency_id, round=True)
+                    amount, company.currency_id, round=True)
             # Accumulate totals:
             amounts[amount_type] += amount  # per partner and type
             total_amount += amount  # grand total
@@ -150,6 +155,15 @@ class ReportIntrastat(models.Model):
             'total_amount': total_amount
         })
 
+    @api.multi
+    def unlink(self):
+        """
+        Do not allow unlinking of confirmed reports
+        """
+        if self.search([('state', '!=', 'draft')]):
+            raise UserError(_('Cannot remove IPC reports in a non-draft state'))
+        return super(ReportIntrastat, self).unlink()
+
 
 class ReportIntrastatLine(models.Model):
     """Lines for dutch ICP report."""
@@ -163,6 +177,7 @@ class ReportIntrastatLine(models.Model):
         comodel_name='l10n_nl.report.intrastat',
         readonly=True,
         required=True,
+        ondelete='cascade'
     )
     partner_id = fields.Many2one(
         string='Partner',

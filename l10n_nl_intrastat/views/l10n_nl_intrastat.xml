@@ -34,8 +34,8 @@
                         <group name="date_range">
                             <field string="Period" name="date_range_id" domain="[('company_id','=',company_id)]"
                                 attrs="{'readonly': [('state','=','done')]}"/>
-                            <field name="date_from" readonly="1"/>
-                            <field name="date_to" readonly="1"/>
+                            <field name="date_from" attrs="{'readonly': [('state','=','done')]}"/>
+                            <field name="date_to" attrs="{'readonly': [('state','=','done')]}"/>
                         </group>
                         <group>
                             <label for="last_updated" />

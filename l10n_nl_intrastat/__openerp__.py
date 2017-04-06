@@ -10,7 +10,7 @@
     'license': 'AGPL-3',
     'summary': """Intrastat report for the Netherlands""",
     'author': 'Therp BV, Odoo Community Association (OCA)',
-    'website': 'https://launchpad.net/new-report-intrastat',
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'depends': [
         'intrastat_base',
         'date_range'

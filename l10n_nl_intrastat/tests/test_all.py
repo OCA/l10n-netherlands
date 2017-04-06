@@ -4,6 +4,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from openerp.tests.common import TransactionCase
+from openerp.exceptions import UserError
 
 
 class TestIntrastatNL(TransactionCase):
@@ -35,7 +36,7 @@ class TestIntrastatNL(TransactionCase):
         # Create a date range spanning the last three months
         date_range = self.env['date.range'].create({
             'name': 'FS2016',
-            'date_start': datetime.today() + relativedelta(months=-3),
+            'date_start': datetime.today() - relativedelta(months=3),
             'date_end': datetime.today(),
             'company_id': company.id,
             'type_id': type.id
@@ -45,8 +46,10 @@ class TestIntrastatNL(TransactionCase):
         report = self.intrastat_report.create({
             'company_id': company.id,
             'date_range_id': date_range.id,
-
+            'date_from': date_range.date_start,
+            'date_to': date_range.date_end,
         })
+        report._onchange_date_range_id()
         self.assertEquals(report.state, 'draft')
 
         # Generate lines and store initial total
@@ -193,3 +196,12 @@ class TestIntrastatNL(TransactionCase):
         # Test if the total amount has increased by the invoice value
         # New total should be 285.0 + round(100.00 / 1.3086, 2) = 361.42
         self.assertTrue(abs(report.total_amount - total - 361.42) <= 0.01)
+
+        # Unlinking done reports should be prohibited
+        report.set_done()
+        self.assertRaises(UserError, report.unlink)
+
+        # Unlink draft report
+        report.set_draft()
+        report.unlink()
+        
