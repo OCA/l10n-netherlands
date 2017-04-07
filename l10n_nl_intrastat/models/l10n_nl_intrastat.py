@@ -14,6 +14,12 @@ class ReportIntrastat(models.Model):
     _rec_name = 'date_range_id'
     _inherit = ['intrastat.common']
 
+    year_month = fields.Char(
+        compute = '_compute_year_month',
+        string = 'Period',
+        readonly = True,
+        help = "Date range of the declaration.")
+
     last_updated = fields.Datetime(readonly=True, required=False)
     date_range_id = fields.Many2one(
         comodel_name='date.range',
@@ -52,6 +58,13 @@ class ReportIntrastat(models.Model):
         inverse_name='report_id',
         readonly=True,
     )
+
+    @api.multi
+    @api.depends('date_from', 'date_to')
+    def _compute_year_month(self):
+        for report in self:
+            report.year_month = '-'.join(
+            [report.date_from, report.date_to])
 
     @api.onchange('date_range_id')
     def _onchange_date_range_id(self):
@@ -160,7 +173,7 @@ class ReportIntrastat(models.Model):
         """
         Do not allow unlinking of confirmed reports
         """
-        if self.search([('state', '!=', 'draft')]):
+        if self.filtered(lambda s: s.state != 'draft'):
             raise UserError(_("Cannot remove IPC reports in 'Done' state"))
         return super(ReportIntrastat, self).unlink()
 
