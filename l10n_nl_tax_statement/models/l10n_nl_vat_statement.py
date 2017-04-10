@@ -90,14 +90,7 @@ class VatStatement(models.Model):
 
     @api.model
     def _get_taxes_domain(self):
-        return [
-            '|', '|',
-            ('base_balance', '!=', 0), ('base_balance_regular', '!=', 0),
-            '|', '|',
-            ('base_balance_refund', '!=', 0), ('balance', '!=', 0),
-            '|',
-            ('balance_regular', '!=', 0), ('balance_refund', '!=', 0)
-        ]
+        return [('has_moves', '=', True)]
 
     @api.model
     def _prepare_lines(self):
