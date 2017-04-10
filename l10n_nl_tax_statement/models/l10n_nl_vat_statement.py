@@ -167,7 +167,7 @@ class VatStatement(models.Model):
         _2ab = lines['2a']['btw']
         _4ab = lines['4a']['btw']
         _4bb = lines['4b']['btw']
-        _5ab = _1ab + _1bb + _1cb + _1db + _2ab - _4ab - _4bb
+        _5ab = _1ab + _1bb + _1cb + _1db + _2ab + _4ab + _4bb
         _5bb = lines['5b']['btw']
         _5cb = _5ab - _5bb
 
