@@ -167,8 +167,15 @@ class VatStatement(models.Model):
         _2ab = lines['2a']['btw']
         _4ab = lines['4a']['btw']
         _4bb = lines['4b']['btw']
+
+        # 5a is the sum of 1a through 4b
         _5ab = _1ab + _1bb + _1cb + _1db + _2ab + _4ab + _4bb
+
+        # 5b: invert the original sign (5b should be always positive)
+        lines['5b']['btw'] = lines['5b']['btw'] * -1
         _5bb = lines['5b']['btw']
+
+        # 5c is the difference: 5a - 5b
         _5cb = _5ab - _5bb
 
         # update 5a and 5c
@@ -250,9 +257,9 @@ class VatStatement(models.Model):
                     column = tag_map[1]
                     code = tag_map[0]
                     if column == 'omzet':
-                        lines[code][column] += abs(tax.base_balance)
+                        lines[code][column] += tax.base_balance
                     else:
-                        lines[code][column] += abs(tax.balance)
+                        lines[code][column] += tax.balance
 
     @api.multi
     def post(self):
