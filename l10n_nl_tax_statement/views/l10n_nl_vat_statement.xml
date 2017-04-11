@@ -20,10 +20,10 @@
                     </h1>
                     <group>
                         <group name="tax_report">
-                            <field name="company_id" groups="base.group_multi_company"/>
-                            <field name="date_range_id"/>
-                            <field name="from_date"/>
-                            <field name="to_date"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            <field name="date_range_id" domain="[('company_id','=',company_id)]" attrs="{'readonly': [('state','=','posted')]}"/>
+                            <field name="from_date" attrs="{'readonly': [('state','=','posted')]}"/>
+                            <field name="to_date" attrs="{'readonly': [('state','=','posted')]}"/>
                         </group>
                         <group name="extra_parameters">
                             <field name="date_posted"/>
