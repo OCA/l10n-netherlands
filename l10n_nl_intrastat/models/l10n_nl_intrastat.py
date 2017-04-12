@@ -168,11 +168,6 @@ class ReportIntrastat(models.Model):
             'total_amount': total_amount
         })
 
-    @api.multi
-    def unlink(self):
-        self.line_ids.unlink()
-        return super(ReportIntrastat, self).unlink()
-
 
 class ReportIntrastatLine(models.Model):
     """Lines for dutch ICP report."""
@@ -186,6 +181,7 @@ class ReportIntrastatLine(models.Model):
         comodel_name='l10n_nl.report.intrastat',
         readonly=True,
         required=True,
+        ondelete='cascade'
     )
     partner_id = fields.Many2one(
         string='Partner',
