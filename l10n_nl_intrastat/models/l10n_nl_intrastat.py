@@ -15,10 +15,10 @@ class ReportIntrastat(models.Model):
     _inherit = ['intrastat.common']
 
     year_month = fields.Char(
-        compute = '_compute_year_month',
-        string = 'Period',
-        readonly = True,
-        help = "Date range of the declaration.")
+        compute='_compute_year_month',
+        string='Period',
+        readonly=True,
+        help="Date range of the declaration.")
 
     last_updated = fields.Datetime(readonly=True, required=False)
     date_range_id = fields.Many2one(
@@ -64,7 +64,7 @@ class ReportIntrastat(models.Model):
     def _compute_year_month(self):
         for report in self:
             report.year_month = '-'.join(
-            [report.date_from, report.date_to])
+                [report.date_from, report.date_to])
 
     @api.onchange('date_range_id')
     def _onchange_date_range_id(self):
