@@ -65,7 +65,7 @@
                     <bankIdCd><t t-esc="bank.bank_bic or bank.bank_id.bic" /></bankIdCd>
                 </bankAccount>
                 <changeInfo t-if="p.write_uid">
-                    <userID><t t-esc="p.write_uid.login" /></userID>
+                    <userID><t t-esc="p.write_uid.login[:35]" /></userID>
                     <changeDateTime><t t-esc="p.write_date[:10]" />T<t t-esc="p.write_date[-8:]" /></changeDateTime>
                     <changeDescription>Last write</changeDescription>
                 </changeInfo>
@@ -94,7 +94,7 @@
                 </taxonomy>
                 /-->
                 <changeInfo t-if="a.write_uid">
-                    <userID><t t-esc="a.write_uid.login" /></userID>
+                    <userID><t t-esc="a.write_uid.login[:35]" /></userID>
                     <changeDateTime><t t-esc="a.write_date[:10]" />T<t t-esc="a.write_date[-8:]" /></changeDateTime>
                     <changeDescription>Last write</changeDescription>
                 </changeInfo>
