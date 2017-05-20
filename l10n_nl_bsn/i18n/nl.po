@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-01 19:13+0000\n"
-"PO-Revision-Date: 2017-05-01 19:13+0000\n"
+"POT-Creation-Date: 2017-05-18 09:59+0000\n"
+"PO-Revision-Date: 2017-05-18 09:59+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_bsn
-#: code:addons/l10n_nl_bsn/models/res_partner.py:50
+#: code:addons/l10n_nl_bsn/models/res_partner.py:65
 #, python-format
 msgid "Another person (%s) has the same BSN (%s)."
 msgstr "Een ander persoon (%s) heeft dezelfde BSN (%s)."
@@ -37,14 +37,14 @@ msgid "Partner"
 msgstr "Relatie"
 
 #. module: l10n_nl_bsn
-#: code:addons/l10n_nl_bsn/models/res_partner.py:35
+#: code:addons/l10n_nl_bsn/models/res_partner.py:56
 #, python-format
 msgid "The BSN you entered (%s) is not valid."
 msgstr "De ingevoerde BSN (%s) is niet geldig."
 
 #. module: l10n_nl_bsn
-#: code:addons/l10n_nl_bsn/models/res_partner.py:37
-#: code:addons/l10n_nl_bsn/models/res_partner.py:52
+#: code:addons/l10n_nl_bsn/models/res_partner.py:58
+#: code:addons/l10n_nl_bsn/models/res_partner.py:67
 #, python-format
 msgid "Warning!"
 msgstr "Waarschuwing!"
