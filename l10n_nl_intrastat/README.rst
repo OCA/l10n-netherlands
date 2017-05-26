@@ -2,14 +2,14 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=============================================
-Intrastat reporting (ICP) for the Netherlands
-=============================================
+==============================================
+Intra-Community transactions declaration (ICP)
+==============================================
 
 Based on the OCA Intrastat framework, this module provides an
-intrastat report for the Netherlands. Only generating the required data
-for a manual declaration is supported. Message communication with the
-tax authority has not yet been implemented.
+intra-Community Tax report (ICP declaration) for the Netherlands.
+Only generating the required data for a manual declaration is supported.
+Message communication with the tax authority has not yet been implemented.
 
 The intrastat base module requires the country field required on
 partner addresses. Selected countries are marked for inclusion in this report.

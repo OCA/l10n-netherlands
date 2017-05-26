@@ -11,7 +11,7 @@
       />
 
     <record id="paperformat_nl_intrastat" model="report.paperformat">
-        <field name="name">Dutch Intrastat ICP qweb paperformat</field>
+        <field name="name">Dutch Intracom ICP qweb paperformat</field>
         <field name="default" eval="True" />
         <field name="format">A4</field>
         <field name="page_height">0</field>

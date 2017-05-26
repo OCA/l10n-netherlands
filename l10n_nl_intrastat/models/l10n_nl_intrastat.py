@@ -7,7 +7,7 @@ from odoo import models, fields, api
 
 
 class ReportIntrastat(models.Model):
-    """Dutch Intrastat (ICP) report."""
+    """Dutch Intracom (ICP) report."""
     _name = 'l10n_nl.report.intrastat'
     _description = 'Declaration of intra-Community transactions (ICP)'
     _order = 'date_to desc'
@@ -108,7 +108,7 @@ class ReportIntrastat(models.Model):
             ('company_id', '=', company.id),
         ]
 
-        # Search invoices that need intrastat reporting:
+        # Search invoices that need intracom reporting:
         invoice_domain += [
             ('partner_id.country_id.intrastat', '=', True),
             ('partner_id.country_id.id', '!=', company.country_id.id),
@@ -123,7 +123,7 @@ class ReportIntrastat(models.Model):
         total_amount = 0.0
         partner_amounts_map = {}
         for line in invoice_line_records:
-            # Ignore invoiceline if taxes should not be included in intrastat:
+            # Ignore invoiceline if taxes should not be included:
             if any(
                     tax.exclude_from_intrastat_if_present
                     for tax in line.invoice_line_tax_ids):

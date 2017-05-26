@@ -45,7 +45,7 @@ class TestIntrastatNL(TransactionCase):
             'type_id': type.id
         })
 
-        # Create an empty, draft intrastat report
+        # Create an empty, draft intracom report
         report = self.env['l10n_nl.report.intrastat'].create({
             'company_id': company.id,
             'date_from': fields.Date.today(),
@@ -64,7 +64,7 @@ class TestIntrastatNL(TransactionCase):
         company = self.company
         company.country_id = self.env.ref('base.nl')
 
-        # Create an empty, draft intrastat report for this period
+        # Create an empty, draft intracom report for this period
         start_date = date.today() + relativedelta(months=-3)
         report = self.env['l10n_nl.report.intrastat'].create({
             'company_id': company.id,
@@ -85,7 +85,7 @@ class TestIntrastatNL(TransactionCase):
             'sequence': 1,
         })
         # Create another fixed tax that, when added to an invoice line,
-        # removes the line from the intrastat calculation.
+        # removes the line from the intracom calculation.
         tax2 = Tax.create({
             'name': "Fixed tax 2",
             'amount_type': 'fixed',

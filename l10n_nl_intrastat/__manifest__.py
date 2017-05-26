@@ -4,11 +4,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Intrastat reporting (ICP) for the Netherlands',
+    'name': 'Intra-Community transactions declaration (ICP)',
     'version': '10.0.1.0.0',
     'category': 'Localisation/Report Intrastat',
     'license': 'AGPL-3',
-    'summary': 'Intrastat report for the Netherlands',
+    'summary': 'Intracom Tax Report for the Netherlands',
     'author': 'Therp BV, Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/intrastat',
     'depends': [

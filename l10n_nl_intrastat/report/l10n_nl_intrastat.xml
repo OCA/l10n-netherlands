@@ -28,7 +28,7 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="l10n_nl_intrastat.internal_layout">
                     <!-- Defines global variables used by internal layout -->
-                    <t t-set="title">Intrastat report (ICP)</t>
+                    <t t-set="title">Intra-Community transactions report (ICP)</t>
                     <t t-set="company_name" t-value="o.company_id.name"/>
 
                     <div class="page">
