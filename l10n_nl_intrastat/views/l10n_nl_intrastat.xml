@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
+<data>
 
-        <!-- INTRASTAT REPORT TREE VIEW -->
-        <record id="l10n_nl_intrastat_report_tree" model="ir.ui.view">
-            <field name="name">NL Intrastat Report</field>
-            <field name="model">l10n_nl.report.intrastat</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="date_range_id" string="Period" readonly="1" />
-                    <field name="total_amount" readonly="1" />
-                    <field name="last_updated" readonly="1" />
-                    <field name="state" readonly="1" />
-                </tree>
-            </field>
-        </record>
+    <!-- INTRACOM REPORT TREE VIEW -->
+    <record id="l10n_nl_intrastat_report_tree" model="ir.ui.view">
+        <field name="model">l10n_nl.report.intrastat</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="total_amount"/>
+                <field name="last_updated"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
 
-        <!-- INTRASTAT REPORT FORM VIEW -->
-        <record id="l10n_nl_intrastat_report_form" model="ir.ui.view">
-            <field name="name">NL Intrastat Report</field>
-            <field name="model">l10n_nl.report.intrastat</field>
-            <field name="arch" type="xml">
-                <form>
-                    <header>
-                        <button type="object" name="set_done" states="draft" string="Validate" class="oe_highlight"/>
-                        <button type="object" name="set_draft" states="done" string="Reset to draft"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
-                    </header>
+    <!-- INTRACOM REPORT FORM VIEW -->
+    <record id="l10n_nl_intrastat_report_form" model="ir.ui.view">
+        <field name="model">l10n_nl.report.intrastat</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="set_done" states="draft" string="Validate" class="oe_highlight"/>
+                    <button type="object" name="set_draft" states="done" string="Reset to draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button icon="fa-repeat"
+                                name="generate_lines"
+                                string="Update"
+                                states="draft"
+                                type="object"
+                                class="oe_stat_button"/>
+                    </div>
                     <group name="main_info">
                         <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                     </group>
@@ -38,53 +46,43 @@
                             <field name="date_to" attrs="{'readonly': [('state','=','done')]}"/>
                         </group>
                         <group>
-                            <label for="last_updated" />
-                            <div>
-                                <field name="last_updated" readonly="1" class="oe_inline"/>
-                                <span style="margin-left: 5px;"/>
-                                <button icon="gtk-execute"
-                                        name="generate_lines"
-                                        string="Update"
-                                        states="draft"
-                                        type="object"
-                                        class="oe_inline"/>
-                            </div>
-                            <field name="total_amount" readonly="1"/>
+                            <field name="last_updated"/>
+                            <field name="total_amount"/>
                         </group>
                     </group>
                     <separator/>
-                    <field readonly="1" name="line_ids" colspan="4" nolabel="1" mode="tree"/>
-                </form>
-            </field>
-        </record>
+                    <field readonly="1" name="line_ids" nolabel="1" mode="tree"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <record id="l10n_nl_intrastat_report_line_tree" model="ir.ui.view">
-            <field name="name">l10n_nl.intrastat.report.line.tree</field>
-            <field name="model">l10n_nl.report.intrastat.line</field>
-            <field name="arch" type="xml">
-                <tree string="ICP Declaration lines">
-                    <field name="partner_id"/>
-                    <field name="country_code"/>
-                    <field name="vat"/>
-                    <field name="amount_product"/>
-                    <field name="amount_service"/>
-                </tree>
-            </field>
-        </record>
+    <record id="l10n_nl_intrastat_report_line_tree" model="ir.ui.view">
+        <field name="model">l10n_nl.report.intrastat.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="country_code"/>
+                <field name="vat"/>
+                <field name="amount_product"/>
+                <field name="amount_service"/>
+            </tree>
+        </field>
+    </record>
 
-        <record id="l10n_nl_intrastat_action" model="ir.actions.act_window">
-            <field name="name">ICP Reports</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">l10n_nl.report.intrastat</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="l10n_nl_intrastat_report_tree"/>
-        </record>
+    <record id="l10n_nl_intrastat_action" model="ir.actions.act_window">
+        <field name="name">ICP Reports</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n_nl.report.intrastat</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_nl_intrastat_report_tree"/>
+    </record>
 
-        <menuitem
-            id="l10n_nl_intrastat_report_menu"
-            parent="intrastat_base.menu_intrastat_base_root"
-            action="l10n_nl_intrastat_action" />
+    <menuitem
+        id="l10n_nl_intrastat_report_menu"
+        parent="intrastat_base.menu_intrastat_base_root"
+        action="l10n_nl_intrastat_action" />
 
-    </data>
+</data>
 </openerp>

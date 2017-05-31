@@ -7,11 +7,11 @@ Intra-Community transactions declaration (ICP)
 ==============================================
 
 Based on the OCA Intrastat framework, this module provides an
-intra-Community Tax report (ICP declaration) for the Netherlands. 
+intra-Community Tax report (ICP declaration) for the Netherlands.
 Only generating the required data for a manual declaration is supported.
 Message communication with the tax authority has not yet been implemented.
 
-The intrastat base module requires the country field required on 
+The intrastat base module requires the country field required on
 partner addresses. Selected countries are marked for inclusion in this report.
 
 Amounts for products and services are reported separately. All services
@@ -42,7 +42,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-      :target: https://runbot.odoo-community.org/runbot/176/9.0
+   :target: https://runbot.odoo-community.org/runbot/176/9.0
 
 Known issues / Roadmap
 ======================
@@ -55,7 +55,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/OCA/l10n-netherlands/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed feedback.
+help us smash it by providing a detailed and welcomed feedback.
 
 Credits
 =======
@@ -70,6 +70,7 @@ Contributors
 
 * Therp BV
 * Sunflower IT
+* Andrea Stirpe <a.stirpe@onestein.nl>
 
 Maintainer
 ----------

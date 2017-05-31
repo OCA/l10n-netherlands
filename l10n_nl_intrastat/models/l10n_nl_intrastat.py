@@ -4,17 +4,22 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
-from openerp.addons.decimal_precision import decimal_precision as dp
 from openerp.exceptions import UserError
 
 
 class ReportIntrastat(models.Model):
     """Dutch Intracom (ICP) report."""
-    _name = "l10n_nl.report.intrastat"
-    _description = "Declaration of intra-Community transactions (ICP)"
-    _order = "date_to desc"
+    _name = 'l10n_nl.report.intrastat'
+    _description = 'Declaration of intra-Community transactions (ICP)'
+    _order = 'date_to desc'
     _rec_name = 'date_range_id'
-    _inherit = ['intrastat.common']
+    _inherit = 'intrastat.common'
+
+    @api.multi
+    @api.depends('date_from', 'date_to')
+    def _compute_year_month(self):
+        for report in self:
+            report.year_month = '-'.join([report.date_from, report.date_to])
 
     year_month = fields.Char(
         compute='_compute_year_month',
@@ -24,9 +29,8 @@ class ReportIntrastat(models.Model):
 
     last_updated = fields.Datetime(readonly=True)
     date_range_id = fields.Many2one(
-        comodel_name='date.range',
-        required=True,
-        string='Date range'
+        'date.range',
+        'Date range'
     )
     date_from = fields.Date(required=True)
     date_to = fields.Date(required=True)
@@ -39,7 +43,7 @@ class ReportIntrastat(models.Model):
     total_amount = fields.Monetary(
         string='Total amount',
         readonly=True,
-        help='Total amount in company currency of the declaration.',
+        help='Total amount in company currency of the declaration.'
     )
     currency_id = fields.Many2one(
         related='company_id.currency_id',
@@ -47,7 +51,6 @@ class ReportIntrastat(models.Model):
         readonly=True
     )
     state = fields.Selection(
-        string='State',
         selection=[
             ('draft', 'Draft'),
             ('done', 'Done'),
@@ -58,18 +61,11 @@ class ReportIntrastat(models.Model):
              "the parameters become read-only."
     )
     line_ids = fields.One2many(
+        'l10n_nl.report.intrastat.line',
+        'report_id',
         string='ICP line',
-        comodel_name='l10n_nl.report.intrastat.line',
-        inverse_name='report_id',
         readonly=True,
     )
-
-    @api.multi
-    @api.depends('date_from', 'date_to')
-    def _compute_year_month(self):
-        for report in self:
-            report.year_month = '-'.join(
-                [report.date_from, report.date_to])
 
     @api.onchange('date_range_id')
     def _onchange_date_range_id(self):
@@ -101,10 +97,6 @@ class ReportIntrastat(models.Model):
         # Check whether all configuration done to generate report
         self._check_generate_lines()
 
-        # We need at least these variables to calculate
-        if not self.date_from or not self.date_to or not self.company_id:
-            return
-
         # Define search for invoices for period and company:
         company = self.company_id
         invoice_domain = [
@@ -118,7 +110,8 @@ class ReportIntrastat(models.Model):
             ('partner_id.country_id.intrastat', '=', True),
             ('partner_id.country_id.id', '!=', company.country_id.id),
         ]
-        # Search invoices that need intrastat reporting:
+
+        # Search invoices that need intracom reporting:
         invoice_records = Invoice.search(invoice_domain)
         invoice_line_records = InvoiceLine.search([
             ('invoice_id', 'in', invoice_records.ids),
@@ -184,9 +177,9 @@ class ReportIntrastat(models.Model):
 
 class ReportIntrastatLine(models.Model):
     """Lines for dutch ICP report."""
-    _name = "l10n_nl.report.intrastat.line"
-    _description = "Declaration of intracommunautary transactions (ICP) line"
-    _order = "partner_id, country_code"
+    _name = 'l10n_nl.report.intrastat.line'
+    _description = 'Declaration of intra-Community transactions (ICP) line'
+    _order = 'partner_id, country_code'
     _rec_name = 'partner_id'
 
     report_id = fields.Many2one(
@@ -209,18 +202,20 @@ class ReportIntrastatLine(models.Model):
         readonly=True,
     )
     country_code = fields.Char(
-        string='Country Code',
         related='partner_id.country_id.code',
         store=True,
         readonly=True,
     )
-    amount_product = fields.Float(
-        string='Amount products',
-        readonly=True,
-        digits=dp.get_precision('Account'),
+    currency_id = fields.Many2one(
+        related='report_id.company_id.currency_id',
+        string='Currency',
+        readonly=True
     )
-    amount_service = fields.Float(
+    amount_product = fields.Monetary(
+        string='Amount products',
+        readonly=True
+    )
+    amount_service = fields.Monetary(
         string='Amount services',
-        readonly=True,
-        digits=dp.get_precision('Account'),
+        readonly=True
     )

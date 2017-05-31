@@ -3,8 +3,9 @@
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
-from openerp.tests.common import TransactionCase
+from openerp import fields
 from openerp.exceptions import UserError
+from openerp.tests.common import TransactionCase
 
 
 class TestIntrastatNL(TransactionCase):
@@ -23,11 +24,8 @@ class TestIntrastatNL(TransactionCase):
         )
         self.land_account = self.env.ref('account.demo_sale_of_land_account')
 
-    def test_generate_report(self):
-        # Set our company's country to NL
-        Tax = self.env['account.tax']
-        company = self.env.ref('base.main_company')
-        company.country_id = self.env.ref('base.nl')
+    def test_date_range(self):
+        company = self.company
 
         # Create a date range type
         type = self.env['date.range.type'].create({
@@ -37,20 +35,42 @@ class TestIntrastatNL(TransactionCase):
         })
 
         # Create a date range spanning the last three months
+        start_date = date.today() - relativedelta(months=3)
+        start_date_odoo = fields.Date.to_string(start_date)
         date_range = self.env['date.range'].create({
             'name': 'FS2016',
-            'date_start': date.today() - relativedelta(months=3),
-            'date_end': date.today(),
+            'date_start': start_date_odoo,
+            'date_end': fields.Date.today(),
             'company_id': company.id,
             'type_id': type.id
         })
 
-        # Create an empty, draft intrastat report for this period
+        # Create an empty, draft intracom report
         report = self.env['l10n_nl.report.intrastat'].create({
             'company_id': company.id,
-            'date_range_id': date_range.id,
-            'date_from': date_range.date_start,
-            'date_to': date_range.date_end,
+            'date_from': fields.Date.today(),
+            'date_to': fields.Date.today(),
+        })
+
+        # test that dates are updated
+        report.write({'date_range_id': date_range.id})
+        report.onchange_date_range_id()
+        self.assertEquals(report.date_from, start_date_odoo)
+        self.assertEquals(report.date_to, fields.Date.today())
+
+    def test_generate_report(self):
+        # Set our company's country to NL
+        Tax = self.env['account.tax']
+        company = self.company
+        company.country_id = self.env.ref('base.nl')
+
+        # Create an empty, draft intrastat report for this period
+        start_date = date.today() - relativedelta(months=3)
+        start_date_odoo = fields.Date.to_string(start_date)
+        report = self.env['l10n_nl.report.intrastat'].create({
+            'company_id': company.id,
+            'date_from': start_date_odoo,
+            'date_to': fields.Date.today(),
         })
         report._onchange_date_range_id()
         self.assertEquals(report.state, 'draft')
@@ -61,15 +81,15 @@ class TestIntrastatNL(TransactionCase):
 
         # Create a regular fixed tax
         tax1 = Tax.create({
-            'name': "Fixed tax",
+            'name': 'Fixed tax',
             'amount_type': 'fixed',
             'amount': 10,
             'sequence': 1,
         })
         # Create another fixed tax that, when added to an invoice line,
-        # removes the line from the intrastat calculation.
+        # removes the line from the intracom calculation.
         tax2 = Tax.create({
-            'name': "Fixed tax 2",
+            'name': 'Fixed tax 2',
             'amount_type': 'fixed',
             'amount': 10,
             'sequence': 1,
@@ -84,7 +104,6 @@ class TestIntrastatNL(TransactionCase):
             'street': 'Main Street, 10',
             'phone': '123456789',
             'email': 'info@ghoststep.com',
-            'vat': 'FR32123456789',
             'type': 'contact'
         })
 
@@ -106,7 +125,7 @@ class TestIntrastatNL(TransactionCase):
             'account_id': self.account_receivable.id,
             'type': 'out_invoice',
             'fiscal_position_id': fp.id,
-            'date_invoice': a_date_in_last_month,
+            'date_invoice': fields.Date.to_string(a_date_in_last_month),
             'partner_id': ghoststep.id,
             'invoice_line_ids': [
                 (0, False, {
@@ -171,7 +190,7 @@ class TestIntrastatNL(TransactionCase):
             'account_id': self.account_receivable.id,
             'type': 'out_invoice',
             'fiscal_position_id': fp.id,
-            'date_invoice': a_date_in_last_month,
+            'date_invoice': fields.Date.to_string(a_date_in_last_month),
             'partner_id': ghoststep.id,
             'invoice_line_ids': [
                 (0, False, {
@@ -197,10 +216,13 @@ class TestIntrastatNL(TransactionCase):
         # New total should be 285.0 + round(100.00 / 1.3086, 2) = 361.42
         self.assertTrue(abs(report.total_amount - total - 361.42) <= 0.01)
 
-        # Unlinking done reports should be prohibited
+        # validate and try to delete the report, must be denied
         report.set_done()
-        self.assertRaises(UserError, report.unlink)
+        self.assertEquals(report.state, 'done')
+        with self.assertRaises(UserError):
+            report.unlink()
 
-        # Unlink draft report
+        # set the report back to draft and delete it
         report.set_draft()
+        self.assertEquals(report.state, 'draft')
         report.unlink()
