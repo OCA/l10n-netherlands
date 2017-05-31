@@ -114,18 +114,19 @@ class ReportIntrastat(models.Model):
         # Search invoices that need intracom reporting:
         invoice_records = Invoice.search(invoice_domain)
         invoice_line_records = InvoiceLine.search([
-            ('invoice_id', 'in', invoice_records.ids),
-            # Ignore invoiceline if taxes should not be included in intrastat
-            '|',
-            ('invoice_line_tax_ids', '=', False),
-            ('invoice_line_tax_ids.exclude_from_intrastat_if_present',
-                '!=', 'True')
+            ('invoice_id', 'in', invoice_records.ids)
         ])
 
         # Gather amounts from invoice lines
         total_amount = 0.0
         partner_amounts_map = {}
         for line in invoice_line_records:
+            # Ignore invoiceline if taxes should not be included:
+            if any(
+                    tax.exclude_from_intrastat_if_present
+                    for tax in line.invoice_line_tax_ids):
+                continue
+            # Report is per commercial partner:
             commercial_partner = \
                 line.invoice_id.partner_id.commercial_partner_id
             amounts = partner_amounts_map.setdefault(commercial_partner, {
