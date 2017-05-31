@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Copyright 2010-2011 Akretion (http://www.akretion.com)
+# Copyright 2012-2015 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
@@ -7,9 +9,9 @@ from openerp.exceptions import UserError
 
 
 class ReportIntrastat(models.Model):
-    """Dutch Intrastat (ICP) report."""
+    """Dutch Intracom (ICP) report."""
     _name = "l10n_nl.report.intrastat"
-    _description = "Declaration of intracommunautary transactions (ICP)"
+    _description = "Declaration of intra-Community transactions (ICP)"
     _order = "date_to desc"
     _rec_name = 'date_range_id'
     _inherit = ['intrastat.common']
@@ -20,24 +22,29 @@ class ReportIntrastat(models.Model):
         readonly=True,
         help="Date range of the declaration.")
 
-    last_updated = fields.Datetime(readonly=True, required=False)
+    last_updated = fields.Datetime(readonly=True)
     date_range_id = fields.Many2one(
         comodel_name='date.range',
         required=True,
         string='Date range'
     )
-    date_from = fields.Date(string='Date from', required=True)
-    date_to = fields.Date(string='Date to', required=True)
+    date_from = fields.Date(required=True)
+    date_to = fields.Date(required=True)
     company_id = fields.Many2one(
-        comodel_name='res.company',
+        'res.company',
         default=lambda self: self.env.user.company_id,
-        string='Company'
+        string='Company',
+        required=True
     )
-    total_amount = fields.Float(
+    total_amount = fields.Monetary(
         string='Total amount',
         readonly=True,
-        help="Total amount in company currency of the declaration.",
-        digits=dp.get_precision('Account'),
+        help='Total amount in company currency of the declaration.',
+    )
+    currency_id = fields.Many2one(
+        related='company_id.currency_id',
+        string='Currency',
+        readonly=True
     )
     state = fields.Selection(
         string='State',
@@ -47,10 +54,8 @@ class ReportIntrastat(models.Model):
         ],
         default='draft',
         readonly=True,
-        help=(
-            "State of the declaration. When the state is set to 'Done', "
-            "the parameters become read-only."
-        ),
+        help="State of the declaration. When the state is set to 'Done', "
+             "the parameters become read-only."
     )
     line_ids = fields.One2many(
         string='ICP line',
@@ -90,8 +95,8 @@ class ReportIntrastat(models.Model):
         """
         self.ensure_one()
         # Other models:
-        invoice_model = self.env['account.invoice']
-        invoice_line_model = self.env['account.invoice.line']
+        Invoice = self.env['account.invoice']
+        InvoiceLine = self.env['account.invoice.line']
 
         # Check whether all configuration done to generate report
         self._check_generate_lines()
@@ -101,7 +106,7 @@ class ReportIntrastat(models.Model):
             return
 
         # Define search for invoices for period and company:
-        company = self.company_id  # simplify access
+        company = self.company_id
         invoice_domain = [
             ('type', 'in', ('out_invoice', 'out_refund')),
             ('date_invoice', '>=', self.date_from),
@@ -109,14 +114,13 @@ class ReportIntrastat(models.Model):
             ('state', 'in', ('open', 'paid')),
             ('company_id', '=', company.id),
         ]
+        invoice_domain += [
+            ('partner_id.country_id.intrastat', '=', True),
+            ('partner_id.country_id.id', '!=', company.country_id.id),
+        ]
         # Search invoices that need intrastat reporting:
-        invoice_records = invoice_model.search(
-            invoice_domain + [
-                ('partner_id.country_id.intrastat', '=', True),
-                ('partner_id.country_id.id', '!=', company.country_id.id),
-            ]
-        )
-        invoice_line_records = invoice_line_model.search([
+        invoice_records = Invoice.search(invoice_domain)
+        invoice_line_records = InvoiceLine.search([
             ('invoice_id', 'in', invoice_records.ids),
             # Ignore invoiceline if taxes should not be included in intrastat
             '|',
