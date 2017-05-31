@@ -2,16 +2,16 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=============================================
-Intrastat reporting (ICP) for the Netherlands
-=============================================
+==============================================
+Intra-Community transactions declaration (ICP)
+==============================================
 
 Based on the OCA Intrastat framework, this module provides an
-intrastat report for the Netherlands. Only generating the required data
-for a manual declaration is supported. Message communication with the
-tax authority has not yet been implemented.
+intra-Community Tax report (ICP declaration) for the Netherlands. 
+Only generating the required data for a manual declaration is supported.
+Message communication with the tax authority has not yet been implemented.
 
-The intrastat base module requires the country field required on
+The intrastat base module requires the country field required on 
 partner addresses. Selected countries are marked for inclusion in this report.
 
 Amounts for products and services are reported separately. All services
@@ -21,11 +21,6 @@ the French version of this report.
 To exclude specific lines from the report, you can mark specific taxes
 as such. If such a tax is applied to the line, the line will not be
 included in the reported amounts.
-
-Installation
-============
-
-Just install.
 
 Configuration
 =============
@@ -44,6 +39,10 @@ To use this module, you need to:
 #. Create a report, define a date range, press Update
 #. Watch the ICP report values for this date range appear
 #. Manually copy the values into your ICP tax entry
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+      :target: https://runbot.odoo-community.org/runbot/176/9.0
 
 Known issues / Roadmap
 ======================
