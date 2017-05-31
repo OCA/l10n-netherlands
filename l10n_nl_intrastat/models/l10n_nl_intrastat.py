@@ -11,7 +11,7 @@ class ReportIntrastat(models.Model):
     _name = 'l10n_nl.report.intrastat'
     _description = 'Declaration of intra-Community transactions (ICP)'
     _order = 'date_to desc'
-    _rec_name = 'date_range_id'
+    _rec_name = 'year_month'
     _inherit = 'intrastat.common'
 
     @api.multi
