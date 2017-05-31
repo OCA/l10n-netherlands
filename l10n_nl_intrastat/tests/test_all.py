@@ -36,10 +36,10 @@ class TestIntrastatNL(TransactionCase):
 
         # Create a date range spanning the last three months
         start_date = date.today() - relativedelta(months=3)
-        start_date_odoo = fields.Date.to_string(start_date)
+        start_date = fields.Date.to_string(start_date)
         date_range = self.env['date.range'].create({
             'name': 'FS2016',
-            'date_start': start_date_odoo,
+            'date_start': start_date,
             'date_end': fields.Date.today(),
             'company_id': company.id,
             'type_id': type.id
@@ -54,8 +54,8 @@ class TestIntrastatNL(TransactionCase):
 
         # test that dates are updated
         report.write({'date_range_id': date_range.id})
-        report.onchange_date_range_id()
-        self.assertEquals(report.date_from, start_date_odoo)
+        report._onchange_date_range_id()
+        self.assertEquals(report.date_from, start_date)
         self.assertEquals(report.date_to, fields.Date.today())
 
     def test_generate_report(self):
@@ -66,10 +66,10 @@ class TestIntrastatNL(TransactionCase):
 
         # Create an empty, draft intrastat report for this period
         start_date = date.today() - relativedelta(months=3)
-        start_date_odoo = fields.Date.to_string(start_date)
+        start_date = fields.Date.to_string(start_date)
         report = self.env['l10n_nl.report.intrastat'].create({
             'company_id': company.id,
-            'date_from': start_date_odoo,
+            'date_from': start_date,
             'date_to': fields.Date.today(),
         })
         report._onchange_date_range_id()
