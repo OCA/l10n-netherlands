@@ -3,8 +3,7 @@
 # Copyright 2012-2015 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, _
-from openerp.exceptions import UserError
+from openerp import models, fields, api
 
 
 class ReportIntrastat(models.Model):
@@ -165,15 +164,6 @@ class ReportIntrastat(models.Model):
             'line_ids': [(0, False, line) for line in new_lines],
             'total_amount': total_amount
         })
-
-    @api.multi
-    def unlink(self):
-        """
-        Do not allow unlinking of confirmed reports
-        """
-        if self.filtered(lambda s: s.state != 'draft'):
-            raise UserError(_("Cannot remove IPC reports in 'Done' state"))
-        return super(ReportIntrastat, self).unlink()
 
 
 class ReportIntrastatLine(models.Model):
