@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-21 02:39+0000\n"
-"PO-Revision-Date: 2017-04-21 02:39+0000\n"
+"POT-Creation-Date: 2017-05-31 03:42+0000\n"
+"PO-Revision-Date: 2017-05-31 03:42+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -199,7 +199,7 @@ msgstr "Weergave naam"
 #. module: l10n_nl_tax_statement
 #: selection:l10n.nl.vat.statement,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Concept"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_from_date
