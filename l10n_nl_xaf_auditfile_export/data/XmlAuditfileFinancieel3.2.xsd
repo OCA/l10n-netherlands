@@ -1006,6 +1006,7 @@
 			<xsd:enumeration value="PYG"/>
 			<xsd:enumeration value="QAR"/>
 			<xsd:enumeration value="ROL"/>
+			<xsd:enumeration value="RUB"/>
 			<xsd:enumeration value="RUR"/>
 			<xsd:enumeration value="RWF"/>
 			<xsd:enumeration value="SAR"/>
