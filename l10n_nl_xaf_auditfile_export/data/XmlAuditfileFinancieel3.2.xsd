@@ -821,6 +821,7 @@
 			<xsd:enumeration value="QA"/>
 			<xsd:enumeration value="RE"/>
 			<xsd:enumeration value="RO"/>
++			<xsd:enumeration value="RS"/>
 			<xsd:enumeration value="RU"/>
 			<xsd:enumeration value="RW"/>
 			<xsd:enumeration value="SA"/>
@@ -1005,6 +1006,7 @@
 			<xsd:enumeration value="PYG"/>
 			<xsd:enumeration value="QAR"/>
 			<xsd:enumeration value="ROL"/>
+			<xsd:enumeration value="RUB"/>
 			<xsd:enumeration value="RUR"/>
 			<xsd:enumeration value="RWF"/>
 			<xsd:enumeration value="SAR"/>
