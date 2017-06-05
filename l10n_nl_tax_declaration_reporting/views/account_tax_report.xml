@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report
+        id="report_account_vat_declaration_nl"
+        model="account.vat.declaration.nl"
+        string="VAT Report NL"
+        report_type="qweb-pdf"
+        name="l10n_nl_tax_declaration_reporting.tax_report_template"
+        file="tax_report_file"
+    />
+
+    <record id="report_account_vat_declaration_nl" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="l10n_nl_tax_declaration_reporting.paperformat_euro_tax_declaration_qweb"/>
+    </record>
+
+    <template id="l10n_nl_tax_declaration_reporting.tax_report_template">
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page col-xs-offset-1">
+                    <style type="text/css">
+                      table.table {
+                        border-collapse: collapse;
+                      }
+                      table.table tr td {
+                        padding: 0;
+                        border-bottom: 1px #EEE solid;
+                      }
+                      table.table tr.headerline td {
+                        border-bottom: 1px black solid;
+                      }
+                    </style>
+                    <table class="table-condensed" style="width: 100%;">
+                        <tr>
+                            <td><centre><strong>Bedrijf</strong></centre></td>
+                            <td><centre><strong>Datum</strong></centre></td>
+                        </tr>
+                        <tr>
+                            <td><t t-esc="company"/></td>
+                            <td><t t-esc="time_now"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><br/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valuta</strong></td>
+                            <td><strong>Startdatum</strong></td>
+                            <td><strong>Einddatum</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Euro</td>
+                            <td><t t-esc="start_date"/></td>
+                            <td><t t-esc="end_date"/></td>
+                        </tr>
+                    </table>
+
+                    <t t-if='tax_code_error'>
+                        <div> </div>
+                        <div>
+                            <strong>Error in tax code:</strong> <t t-esc='tax_code_error'/>
+                        </div>
+                    </t>
+
+                    <t t-if='not tax_code_error'>
+                        <table class="table" style="width: 100%; margin-top: 80px;">
+                            <tr class="headerline">
+                                <td><strong>Leveringen en/of diensten binnenland</strong></td>
+                                <td style="text-align:right"><strong>Omzet</strong></td>
+                                <td style="text-align:right"><strong>BTW</strong></td>
+                            </tr>
+                            <tr>
+                                <td> 1a Leveringen/diensten belast met 21%</td>
+                                <td style="text-align:right"><t t-esc="_1AO"/></td>
+                                <td style="text-align:right"><t t-esc="_1AB"/></td>
+                            </tr>
+                            <tr>
+                                <td> 1b Leveringen/diensten belast met 6%</td>
+                                <td style="text-align:right"><t t-esc="_1BO"/></td>
+                                <td style="text-align:right"><t t-esc="_1BB"/></td>
+                            </tr>
+                            <tr>
+                                <td> 1c Leveringen/diensten belast met overige tarieven behalve 0%</td>
+                                <td style="text-align:right"><t t-esc="_1CO"/></td>
+                                <td style="text-align:right"><t t-esc="_1CB"/></td>
+                            </tr>
+                            <tr>
+                                <td> 1d Prive-gebruik</td>
+                                <td style="text-align:right"><t t-esc="_1DO"/></td>
+                                <td style="text-align:right"><t t-esc="_1DB"/></td>
+                            </tr>
+                            <tr>
+                                <td> 1e Leveringen/diensten belast met 0%</td>
+                                <td style="text-align:right"><t t-esc="_1EO"/></td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><br/></td>
+                            </tr>
+                            <tr class="headerline">
+                                <td><strong>Verleggingsregelingen: BTW naar u verlegd</strong></td>
+                                <td style="text-align:right"><strong>Omzet</strong></td>
+                                <td style="text-align:right"><strong>BTW</strong></td>
+                            </tr>
+                            <tr>
+                                <td> 2a Heffing van omzetbelasting is naar u verlegd</td>
+                                <td style="text-align:right"><t t-esc="_2AO"/></td>
+                                <td style="text-align:right"><t t-esc="_2AB"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><br/></td>
+                            </tr>
+                            <tr class="headerline">
+                                <td><strong>Leveringen naar het buitenland</strong></td>
+                                <td style="text-align:right"><strong>Omzet</strong></td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td> 3a Leveringen naar landen buiten de EU</td>
+                                <td style="text-align:right"><t t-esc="_3AO"/></td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td> 3b Leveringen naar landen binnen de EU</td>
+                                <td style="text-align:right"><t t-esc="_3BO"/></td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td> 3c Installatie/afstandsverkopen binnen de EU</td>
+                                <td style="text-align:right"><t t-esc="_3CO"/></td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><br/></td>
+                            </tr>
+                            <tr class="headerline">
+                                <td><strong>Leveringen vanuit het buitenland</strong></td>
+                                <td style="text-align:right"><strong>Omzet</strong></td>
+                                <td style="text-align:right"><strong>BTW</strong></td>
+                            </tr>
+                            <tr>
+                                <td> 4a Verwerving uit landen buiten de EU</td>
+                                <td style="text-align:right"> <t t-esc="_4AO"/></td>
+                                <td style="text-align:right"> <t t-esc="_4AB"/></td>
+                            </tr>
+                            <tr>
+                                <td> 4b Verwerving van goederen uit landen binnen de EU</td>
+                                <td style="text-align:right"><t t-esc="_4BO"/> </td>
+                                <td style="text-align:right"><t t-esc="_4BB"/> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><br/></td>
+                            </tr>
+                            <tr class="headerline">
+                                <td><strong>Voorbelasting</strong></td>
+                                <td> </td>
+                                <td style="text-align:right"><strong>BTW</strong></td>
+                            </tr>
+                            <tr>
+                                <td>5a Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)</td>
+                                <td>  </td>
+                                <td style="text-align:right"><t t-esc="_5AB"/></td>
+                            </tr>
+                            <tr>
+                                <td>5b Voorbelasting</td>
+                                <td>  </td>
+                                <td style="text-align:right"><t t-esc="_5BB"/> </td>
+                            </tr>
+                            <tr>
+                                <td>5c Subtotaal (rubriek 5a min 5b)</td>
+                                <td> </td>
+                                <td style="text-align:right"><t t-esc="_5CB"/></td>
+                            </tr>
+                        </table>
+                    </t>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
