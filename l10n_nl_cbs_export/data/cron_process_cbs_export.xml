@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="cbs_export_file" model="ir.cron">
+            <field eval="&quot;&quot;&quot;cron_get_cbs_export_file&quot;&quot;&quot;" name="function"/>
+            <field eval="&quot;&quot;&quot;months&quot;&quot;&quot;" name="interval_type"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Generate CBS Export File &quot;&quot;&quot;" name="name"/>
+            <field eval="-1" name="numbercall"/>
+            <field eval="5" name="priority"/>
+            <field eval="0" name="doall"/>
+            <field eval="1" name="active"/>
+            <field eval="1" name="interval_number"/>
+            <field eval="&quot;&quot;&quot;cbs.export.file&quot;&quot;&quot;" name="model"/>
+        </record>
+    </data>
+</openerp>     
