@@ -2,15 +2,18 @@
 # See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "CBS Export",
+    "name": "CBS Export Intrahandel Sale",
     "version": "1.0",
     "author": "Odoo Experts",
     "website": "https://www.odooexperts.nl",
     "category": "Accounting",
     "depends": ["account", "report_intrastat"],
-    "summary": "CBS Export File",
+    "summary": "CBS Export File for Dutch Intrahandel Sale",
     "description": """
-        CBS Export File
+        CBS Export File for Dutch Intrahandel Sale
+        
+        See also: https://www.cbs.nl/nl-nl/deelnemers-enquetes/deelnemers-enquetes/bedrijven/onderzoek/lopend/internationale-handel-in-goederen/idep-codelijsten
+        
     """,
     "data": [
         "security/ir.model.access.csv",
