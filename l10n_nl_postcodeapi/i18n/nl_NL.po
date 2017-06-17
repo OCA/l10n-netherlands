@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_nl_postcodeapi
+# 
+# Translators:
+# Peter Hageman <hageman.p@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-04 06:45+0000\n"
+"PO-Revision-Date: 2017-06-04 06:45+0000\n"
+"Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_nl_postcodeapi
+#: code:addons/l10n_nl_postcodeapi/models/res_partner.py:45
+#, python-format
+msgid ""
+"Could not verify the connection with the address lookup service (if you want"
+" to get rid of this message, please rename or delete the system parameter "
+"'l10n_nl_postcodeapi.apikey')."
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: model:ir.model,name:l10n_nl_postcodeapi.model_res_country_state
+msgid "Country state"
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:addons/l10n_nl_postcodeapi/models/res_partner.py:44
+#, python-format
+msgid "Error"
+msgstr "Fout"
+
+#. module: l10n_nl_postcodeapi
+#: model:ir.model,name:l10n_nl_postcodeapi.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: model:ir.model,name:l10n_nl_postcodeapi.model_ir_config_parameter
+msgid "ir.config_parameter"
+msgstr "ir.config_parameter"
