@@ -1,0 +1,261 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_nl_intrastat
+# 
+# Translators:
+# Peter Hageman <hageman.p@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-04 06:45+0000\n"
+"PO-Revision-Date: 2017-06-04 06:45+0000\n"
+"Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "(product + service)"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.internal_layout
+msgid "<span>Printed: </span>"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Amount Product"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Amount Service"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_amount_product
+msgid "Amount products"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_amount_service
+msgid "Amount services"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_company_id
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat_filters
+msgid "Company Currency"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_country_code
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Country Code"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_create_uid
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_create_date
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_currency_id
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_currency_id
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_date_from
+msgid "Date from"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_date_range_id
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat_filters
+msgid "Date range"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,help:l10n_nl_intrastat.field_l10n_nl_report_intrastat_year_month
+msgid "Date range of the declaration."
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_date_to
+msgid "Date to"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat_filters
+msgid "Date update"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model,name:l10n_nl_intrastat.model_l10n_nl_report_intrastat
+msgid "Declaration of intra-Community transactions (ICP)"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model,name:l10n_nl_intrastat.model_l10n_nl_report_intrastat_line
+msgid "Declaration of intra-Community transactions (ICP) line"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_display_name
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: selection:l10n_nl.report.intrastat,state:0
+msgid "Done"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: selection:l10n_nl.report.intrastat,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.actions.act_window,name:l10n_nl_intrastat.l10n_nl_intrastat_action
+#: model:ir.ui.menu,name:l10n_nl_intrastat.l10n_nl_intrastat_report_menu
+msgid "ICP Reports"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_ids
+msgid "ICP line"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_id
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Intra-Community transactions report (ICP)"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat___last_update
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_write_uid
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_write_date
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_last_updated
+msgid "Last updated"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.actions.report.xml,name:l10n_nl_intrastat.action_report_nl_intrastat
+msgid "NL ICP Report"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_partner_id
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_year_month
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.l10n_nl_intrastat_report_form
+msgid "Period"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_report_id
+msgid "Report"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.l10n_nl_intrastat_report_form
+msgid "Reset to draft"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_state
+msgid "State"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,help:l10n_nl_intrastat.field_l10n_nl_report_intrastat_state
+msgid ""
+"State of the declaration. When the state is set to 'Done', the parameters "
+"become read-only."
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,help:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_vat
+msgid ""
+"Tax Identification Number. Fill it if the company is subjected to taxes. "
+"Used by the some of the legal statements."
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,help:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_total_amount
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "Total amount"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,help:l10n_nl_intrastat.field_l10n_nl_report_intrastat_total_amount
+msgid "Total amount in company currency of the declaration."
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.l10n_nl_intrastat_report_form
+msgid "Update"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_line_vat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
+msgid "VAT"
+msgstr ""
+
+#. module: l10n_nl_intrastat
+#: model:ir.ui.view,arch_db:l10n_nl_intrastat.l10n_nl_intrastat_report_form
+msgid "Validate"
+msgstr ""
