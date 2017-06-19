@@ -41,7 +41,6 @@ class ResPartner(models.Model):
         test = provider.getaddress('1053NJ', '334T')
         if not test or not test._data:
             raise exceptions.Warning(
-                _('Error'),
                 _('Could not verify the connection with the address '
                   'lookup service (if you want to get rid of this '
                   'message, please rename or delete the system parameter '
