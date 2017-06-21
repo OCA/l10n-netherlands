@@ -68,8 +68,10 @@ class ReportIntrastat(models.Model):
     @api.onchange('date_range_id')
     def onchange_date_range_id(self):
         if self.date_range_id and self.state == 'draft':
-            self.date_from = self.date_range_id.date_start
-            self.date_to = self.date_range_id.date_end
+            self.update({
+                'from_date': self.date_range_id.date_start,
+                'to_date': self.date_range_id.date_end,
+            })
 
     @api.multi
     def set_draft(self):
