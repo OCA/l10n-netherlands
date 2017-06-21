@@ -143,17 +143,17 @@ class TestVatStatement(TransactionCase):
     def test_07_update_exception1(self):
         self.statement_1.post()
         with self.assertRaises(UserError):
-            self.statement_1.update()
+            self.statement_1.statement_update()
 
     def test_08_update_exception2(self):
         self.config.unlink()
         with self.assertRaises(UserError):
-            self.statement_1.update()
+            self.statement_1.statement_update()
 
     def test_09_update_working(self):
         self.invoice_1._onchange_invoice_line_ids()
         self.invoice_1.action_invoice_open()
-        self.statement_1.update()
+        self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 19)
 
         _1 = self.StatLine.search(
@@ -174,7 +174,7 @@ class TestVatStatement(TransactionCase):
 
     def test_10_line_unlink_exception(self):
         self.invoice_1.action_invoice_open()
-        self.statement_1.update()
+        self.statement_1.statement_update()
         self.statement_1.post()
         with self.assertRaises(UserError):
             self.statement_1.line_ids.unlink()
