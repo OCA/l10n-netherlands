@@ -72,8 +72,10 @@ class VatStatement(models.Model):
     @api.onchange('date_range_id')
     def onchange_date_range_id(self):
         if self.date_range_id and self.state == 'draft':
-            self.from_date = self.date_range_id.date_start
-            self.to_date = self.date_range_id.date_end
+            self.update({
+                'from_date': self.date_range_id.date_start,
+                'to_date': self.date_range_id.date_end,
+            })
 
     @api.onchange('from_date', 'to_date')
     def onchange_date(self):
@@ -215,7 +217,7 @@ class VatStatement(models.Model):
         }
 
     @api.multi
-    def update(self):
+    def statement_update(self):
         self.ensure_one()
 
         if self.state == 'posted':

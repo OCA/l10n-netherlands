@@ -11,7 +11,7 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="update" string="Update" states="draft" type="object" class="oe_stat_button" icon="fa-repeat"/>
+                        <button name="statement_update" string="Update" states="draft" type="object" class="oe_stat_button" icon="fa-repeat"/>
                         <button name="post" string="Post" states="draft" type="object" class="oe_stat_button" icon="fa-arrow-right text-success"/>
                     </div>
                     <label for="name"/>
