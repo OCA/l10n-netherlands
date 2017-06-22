@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import models
+from odoo import api, models
 
 
 class IrQwebAuditfileStringWidget999(models.AbstractModel):
@@ -26,9 +26,12 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
     _inherit = 'ir.qweb.field'
     _max_length = 999
 
-    def _format(self, inner, options, qwebcontext):
-        return self.pool['ir.qweb']\
-            .eval_str(inner, qwebcontext)[:self._max_length]
+    @api.model
+    def value_to_html(self, value, options):
+        value = value[:self._max_length] if value else ''
+        return super(IrQwebAuditfileStringWidget999, self).value_to_html(
+            value, options
+        )
 
 
 class IrQwebAuditfileStringWidget9(models.AbstractModel):
