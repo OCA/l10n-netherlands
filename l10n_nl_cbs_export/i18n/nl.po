@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_nl_cbs_export
+#   * l10n_nl_cbs_export
 #
 msgid ""
 msgstr ""
@@ -38,11 +38,6 @@ msgstr "Augustus"
 #: model:ir.ui.view,arch_db:l10n_nl_cbs_export.view_cbs_export_file_tree
 msgid "CBS Export"
 msgstr "CBS Export"
-
-#. module: l10n_nl_cbs_export
-#: model:ir.ui.view,arch_db:l10n_nl_cbs_export.view_cbs_export_file_form
-msgid "CBS Export Again"
-msgstr "CBS Exporteer opnieuw"
 
 #. module: l10n_nl_cbs_export
 #: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_cbs_export_invoice
@@ -190,11 +185,16 @@ msgid "Year"
 msgstr "Jaar"
 
 #. module: l10n_nl_cbs_export
-#: model:ir.ui.view,arch_db:l10n_nl_cbs_export.view_cbs_export_file_form
-msgid "account Invoice"
-msgstr "Factuur"
-
-#. module: l10n_nl_cbs_export
 #: model:ir.model,name:l10n_nl_cbs_export.model_cbs_export_file
 msgid "cbs.export.file"
 msgstr "CBS Export bestand"
+
+#. module: tvg_cbs_export
+#: model:ir.ui.view,arch_db:tvg_cbs_export.view_cbs_export_file_form
+msgid "Invoices"
+msgstr "Facturen"
+
+#. module: tvg_cbs_export
+#: model:ir.ui.view,arch_db:tvg_cbs_export.view_cbs_export_file_form
+msgid "Manual CBS Export"
+msgstr "Manuaal CBS Exporteer"

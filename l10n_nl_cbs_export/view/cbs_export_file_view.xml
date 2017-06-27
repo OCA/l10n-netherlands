@@ -1,87 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-    <record id="view_cbs_export_file_tree" model="ir.ui.view">
-        <field name="name">cbs.export.file.tree</field>
-        <field name="model">cbs.export.file</field>
-        <field name="type">tree</field>
-        <field name="priority" eval="8"/>
-        <field name="arch" type="xml">
-        <tree string="CBS Export" >
-            <field name='name'/>
-            <field name="cbs_export_invoice" filename='filename'/>
-        </tree>
-        </field>
-    </record>
 
-    <record id="view_cbs_export_file_form" model="ir.ui.view">
-        <field name="name">cbs.export.file.form</field>
-        <field name="model">cbs.export.file</field>
-        <field name="arch" type="xml">
-            <form string="CBS Export" >
-                <header>
-                    <button name="get_data" string="CBS Export Again" type="object" class="oe_highlight" attrs="{'invisible': [('cbs_export_invoice', '!=', False)]}"/>
-                </header>
-                <sheet>
-                    <group>
-                        <field name='name' invisible='True'/>
-                        <field name="cbs_export_invoice" filename='filename' attrs="{'invisible': [('cbs_export_invoice', '=', False)]}"/>
-                    </group>
-                    <group>
-                        <field name='month' attrs="{'readonly': [('cbs_export_invoice', '!=', False)]}"/>
-                        <field name='year' required='True' attrs="{'readonly': [('cbs_export_invoice', '!=', False)]}"/>
-                    </group>
-                  <notebook>
-                        <page string="account Invoice">
-                            <field name="account_invoice_ids" readonly='True'>
-                                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Invoice">
-                                    <field name="partner_id" groups="base.group_user" string="Customer"/>
-                                    <field name="date_invoice"/>
-                                    <field name="state"/>
-                                    <field name="type" invisible="context.get('type',True)"/>
-                                </tree>
-                            </field>
-                        </page>
-                 </notebook>
-                 </sheet>
-                 <div class="oe_chatter">
-                            <field name="message_follower_ids" widget="mail_followers"/>
-                            <field name="message_ids" widget="mail_thread"/>
-                 </div>
-            </form>
-        </field>
-    </record>
+        <record id="view_cbs_export_file_tree" model="ir.ui.view">
+            <field name="name">cbs.export.file.tree</field>
+            <field name="model">cbs.export.file</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="CBS Export" >
+                    <field name='name'/>
+                    <field name="cbs_export_invoice" filename='filename'/>
+                </tree>
+            </field>
+        </record>
 
-    <record model="ir.actions.act_window" id="act_open_cbs_export_file_view">
-        <field name="name">CBS Export</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">cbs.export.file</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[]</field>
-        <field name="context">{}</field>
-    </record>
+        <record id="view_cbs_export_file_form" model="ir.ui.view">
+            <field name="name">cbs.export.file.form</field>
+            <field name="model">cbs.export.file</field>
+            <field name="arch" type="xml">
+                <form string="CBS Export" >
+                    <header>
+                        <button name="get_data" string="Manual CBS Export" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name='name' invisible='True'/>
+                            <field name="cbs_export_invoice" filename='filename' attrs="{'invisible': [('cbs_export_invoice', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name='month' attrs="{'readonly': [('cbs_export_invoice', '!=', False)]}"/>
+                            <field name='year' required='True' attrs="{'readonly': [('cbs_export_invoice', '!=', False)]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Invoices">
+                                <field name="account_invoice_ids" readonly='True'>
+                                    <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Invoice">
+                                        <field name="partner_id" groups="base.group_user" string="Customer"/>
+                                        <field name="date_invoice"/>
+                                        <field name="state"/>
+                                        <field name="type" invisible="context.get('type',True)"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
 
-    <record model="ir.actions.act_window.view" id="act_open_cbs_export_file_view_tree">
-        <field name="sequence" eval="10"/>
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_cbs_export_file_tree"/>
-    </record>
-     <record model="ir.actions.act_window.view" id="act_open_cbs_export_file_view_form">
-        <field name="sequence" eval="11"/>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="view_cbs_export_file_form"/>
-    </record>
+        <record model="ir.actions.act_window" id="act_open_cbs_export_file_view">
+            <field name="name">CBS Export</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cbs.export.file</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
 
-    <menuitem id="account_cbs_export_file_menu"
-        name="Export files"
-        parent="account.menu_finance_reports"
-        sequence="6"
-        groups="account.group_account_invoice"/>
+        <record model="ir.actions.act_window.view" id="act_open_cbs_export_file_view_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cbs_export_file_tree"/>
+        </record>
 
-    <menuitem id="menu_cbs_export_file"
-        parent="account_cbs_export_file_menu"
-        sequence="1"
-        action="act_open_cbs_export_file_view"/>
+        <record model="ir.actions.act_window.view" id="act_open_cbs_export_file_view_form">
+            <field name="sequence" eval="11"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cbs_export_file_form"/>
+        </record>
+
+        <menuitem id="account_cbs_export_file_menu"
+            name="Export files"
+            parent="account.menu_finance_reports"
+            sequence="6"
+            groups="account.group_account_invoice"/>
+
+        <menuitem id="menu_cbs_export_file"
+            parent="account_cbs_export_file_menu"
+            sequence="1"
+            action="act_open_cbs_export_file_view"/>
+
     </data>
 </odoo>
