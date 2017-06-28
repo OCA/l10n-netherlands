@@ -97,7 +97,7 @@ class CbsExportFile(models.Model):
         invoices = self.env['account.invoice'].search([
             ('type', '=', 'out_invoice'),
             ('state', 'in', ['open', 'paid']),
-            ('company_id', '=', self.env.user.company_id.id),
+            ('company_id', '=', self.company_id.id),
             ('partner_id.country_id.intrastat', '=', True),
             ('partner_id.country_id.code', '!=', 'NL'),
             ('date_invoice', '>=', datetime.strptime(
@@ -120,7 +120,7 @@ class CbsExportFile(models.Model):
         else:
             self.env['account.invoice'].search([
                 ('cbs_export_id', '=', self.id),
-                ('company_id', '=', self.env.user.company_id.id),
+                ('company_id', '=', self.company_id.id),
                 ('id', 'not in', invoices.ids)
             ]).write(
                 {'cbs_export_id': False}
