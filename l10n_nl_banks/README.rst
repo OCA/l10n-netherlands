@@ -14,21 +14,9 @@ Installation
 To install this module, you need to:
 #. Only instal the module
 
-
-Configuration
-=============
-
-#. No gonfiguration needed
-
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/176/10.0
-
-Known issues / Roadmap
-======================
-
-#. None
-
 
 Bug Tracker
 ===========
