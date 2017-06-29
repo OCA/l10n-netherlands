@@ -33,7 +33,7 @@ Images
 ------
 
 * Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
-
+* Bank image: <http://www.iconninja.com/banking-icon-466530>
 Contributors
 ------------
 
