@@ -6,7 +6,7 @@
 Dutch Banks
 ================
 
-This module will import all Dutch bans with the BIC code
+This module will import all Dutch banks with the BIC code
 
 Installation
 ============

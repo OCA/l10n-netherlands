@@ -4,7 +4,7 @@
 {
     "name": "Dutch banks",
     "version": "10.0.1.0.0",
-    "author": "Odoo Experts, Onestein, Odoo Community Association (OCA)",
+    "author": "Odoo Experts, Odoo Community Association (OCA)",
     "website": "https://www.odooexperts.nl",
     "category": "Accounting",
     "depends": ["base"],
