@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
+================
 Dutch CBS Export
-==============
+================
 
 CBS = Dutch Bureau of Statistics (Centraal Bureau voor de statistiek)
 
@@ -31,9 +31,6 @@ To configure this module, you need to:
 #. Go to Technical Settings > Scheduled Actions and set the Cron "Generate CBS Export File" job on the montly date you want to have the CSV file
 
 
-.. figure:: path/to/local/image.png
-   :alt: alternative description
-   :width: 600 px
 
 Usage
 =====
@@ -45,10 +42,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/{repo_id}/{branch}
-
-.. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-.. branch is "8.0" for example
+   :target: https://runbot.odoo-community.org/runbot/176/10.0
 
 Known issues / Roadmap
 ======================
@@ -65,7 +59,7 @@ Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/{project_repo}/issues>`_. In case of trouble, please
+<https://github.com/OCA/l10n-netherlands/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smash it by providing detailed and welcomed feedback.
 
@@ -80,16 +74,8 @@ Images
 Contributors
 ------------
 
-* Firstname Lastname <email.address@example.org>
-* Second Person <second.person@example.org>
-
-Funders
--------
-
-The development of this module has been financially supported by:
-
-* Company 1 name
-* Company 2 name
+* Erwin van der Ploeg <erwin@odooexperts.nl>
+* Andrea Stirpe <a.stirpe@onestein.nl>
 
 Maintainer
 ----------
@@ -102,6 +88,6 @@ This module is maintained by the OCA.
 
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
-promote it's widespread use.
+promote its widespread use.
 
 To contribute to this module, please visit https://odoo-community.org.
