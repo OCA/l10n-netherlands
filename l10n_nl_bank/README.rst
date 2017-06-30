@@ -3,16 +3,12 @@
    :alt: License: AGPL-3
 
 ================
-Dutch Banks
+Dutch banks List
 ================
 
-This module will import all Dutch banks with the BIC code
+This module will import all the Dutch banks with their name and
+BIC code to ease the input of bank accounts.
 
-Installation
-============
-
-To install this module, you need to:
-#. Only instal the module
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -34,6 +30,7 @@ Images
 
 * Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
 * Bank image: <http://www.iconninja.com/banking-icon-466530>
+
 Contributors
 ------------
 
