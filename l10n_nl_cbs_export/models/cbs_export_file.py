@@ -64,7 +64,7 @@ class CbsExportFile(models.Model):
         'month_year_company_unique',
         'unique(month, year, company_id)',
         _('A CBS export already exists with the same month and year '
-        'for this company!')
+          'for this company!')
         )]
 
     @api.model
@@ -226,8 +226,9 @@ class CbsExportFile(models.Model):
                 str('0000000000').zfill(10)
 
             if len(str(invoice_line.invoice_id.number or '')) < 8:
-                invoice_value = str(invoice_line.invoice_id.number) + \
-                                str(line_counter).zfill(2)
+                invoice_value = \
+                    str(invoice_line.invoice_id.number) + \
+                    str(line_counter).zfill(2)
                 value += str(invoice_value).ljust(10)
             else:
                 value += str(
