@@ -10,15 +10,15 @@ CBS = Dutch Bureau of Statistics (Centraal Bureau voor de statistiek)
 
 When you export products within the EU you have to report those exports to the Dutch CBS.
 This module will provide a export CSV file which you can upload on the CBS website. The CSV
-file is automaticaly created every month trough a cron job.
+file is automatically created every month trough a cron job.
 
 
 Installation
 ============
 
 To install this module, you need to:
-#. Instal the module
-#. This module is depending on the Odoo moduel report_intrastat, for the intrastat code and countries for intrastat reporting
+#. Install the module
+#. This module depends on the Odoo module report_intrastat, for the intrastat code and countries for intrastat reporting
 
 
 Configuration
@@ -27,18 +27,17 @@ Configuration
 To configure this module, you need to:
 
 #. Go to Sales > Configuration > Countries and check if all EU countries are checked as 'Intrastat member"
-#. Set the Intratat code on the products
-#. Go to Technical Settings > Scheduled Actions and set the Cron "Generate CBS Export File" job on the montly date you want to have the CSV file
-
-
+#. Set the Intrastat code on the products
+#. Go to Technical Settings > Scheduled Actions and set the Cron "Generate CBS Export File" job on the monthly date you want to have the CSV file
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to Accounting > Reports > Export files > CBS Export
+#. Go to Accounting > Reports > Export files > CBS Export (the user must belong to group "Accounting & Finance / Billing")
 #. Download the created CSV file and upload in to the CBS website
+#. The user belonging to group "Accounting & Finance / Adviser" can use the button "Manual CBS Export" to force a re-creation of the CSV file
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -52,8 +51,9 @@ Known issues / Roadmap
 * Field Transport "Vervoerwijze" is set hardcoded on 3. This is the most common used value.
 * Field Statistic stelsel "Statistisch Stelsel" is set hardcoded on 00. This is the most common used value.
 * Field Transaction "Transactie" is set hardcoded on 1. This is the most common used value.
+* Field "Bijzondere maatstaf" is not yet implemented.
 
-See documentation added to this module (doc folder) for futher information abount the layout and field values.
+See documentation added to this module (doc folder) for further information about the layout and field values.
 
 Bug Tracker
 ===========
