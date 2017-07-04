@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="ABNA" model="res.bank">
+        <field name="name">ABN AMRO BANK N.V.</field>
+        <field name="bic">ABNANL2A</field>
+    </record>
+    <record id="AEGO" model="res.bank">
+        <field name="name">AEGON BANK N.V.</field>
+        <field name="bic">AEGONL2U</field>
+    </record>
+    <record id="AKBK" model="res.bank">
+        <field name="name">AKBANK N.V.</field>
+        <field name="bic">AKBKNL2R</field>
+    </record>
+    <record id="ANDL" model="res.bank">
+        <field name="name">ANADOLUBANK NEDERLAND N.V.</field>
+        <field name="bic">ANDLNL2A</field>
+    </record>
+    <record id="ARBN" model="res.bank">
+        <field name="name">ACHMEA RETAIL BANK N.V.</field>
+        <field name="bic">ARBNNL22</field>
+    </record>
+    <record id="ARSN" model="res.bank">
+        <field name="name">ARGENTA SPAARBANK-BIJKANTOOR NEDERLAND</field>
+        <field name="bic">ARSNNL21</field>
+    </record>
+    <record id="ARTE" model="res.bank">
+        <field name="name">GE ARTESIA BANK</field>
+        <field name="bic">ARTENL2A</field>
+    </record>
+    <record id="BCDM" model="res.bank">
+        <field name="name">BANQUE CHAABI DU MAROC</field>
+        <field name="bic">BCDMNL21</field>
+    </record>
+    <record id="BCIT" model="res.bank">
+        <field name="name">INTESA SANPAOLO S.P.A.,AMSTERDAM BRANCH, AMSTERDAM</field>
+        <field name="bic">BCITNL2A</field>
+    </record>
+    <record id="BICK" model="res.bank">
+        <field name="name">BINCKBANK N.V.</field>
+        <field name="bic">BICKNL2A</field>
+    </record>
+    <record id="BKMG" model="res.bank">
+        <field name="name">BANK MENDES GANS N.V.</field>
+        <field name="bic">BKMGNL2A</field>
+    </record>
+    <record id="BNGH" model="res.bank">
+        <field name="name">NV BANK NEDERLANDSE GEMEENTEN</field>
+        <field name="bic">BNGHNL2G</field>
+    </record>
+    <record id="BNPA" model="res.bank">
+        <field name="name">BNP PARIBAS S.A. - THE NETHERLANDS BRANCH</field>
+        <field name="bic">BNPANL2A</field>
+    </record>
+    <record id="BOFA" model="res.bank">
+        <field name="name">BANK OF AMERICA, N.A. AMSTERDAM</field>
+        <field name="bic">BOFANLNX</field>
+    </record>
+    <record id="BOTK" model="res.bank">
+        <field name="name">BANK OF TOKYO-MITSUBISHI UFJ (HOLLAND) N.V.</field>
+        <field name="bic">BOTKNL2X</field>
+    </record>
+    <record id="CITC" model="res.bank">
+        <field name="name">CITCO BANK NEDERLAND N.V.</field>
+        <field name="bic">CITCNL2A</field>
+    </record>
+    <record id="CITI" model="res.bank">
+        <field name="name">CITIBANK INTERNATIONAL PLC NETHERLANDS BRANCH</field>
+        <field name="bic">CITINL2X</field>
+    </record>
+    <record id="COBA" model="res.bank">
+        <field name="name">COMMERZBANK AG KANTOOR AMSTERDAM</field>
+        <field name="bic">COBANL2X</field>
+    </record>
+    <record id="DEUT" model="res.bank">
+        <field name="name">DEUTSCHE BANK A.G. AMSTERDAM</field>
+        <field name="bic">DEUTNL2A</field>
+    </record>
+    <record id="DHBN" model="res.bank">
+        <field name="name">DEMIR-HALK BANK (NEDERLAND) N.V.</field>
+        <field name="bic">DHBNNL2R</field>
+    </record>
+    <record id="DLBK" model="res.bank">
+        <field name="name">DELTA LLOYD BANK N.V.</field>
+        <field name="bic">DLBKNL2A</field>
+    </record>
+    <record id="DNIB" model="res.bank">
+        <field name="name">NIBC BANK N.V.</field>
+        <field name="bic">DNIBNL2G</field>
+    </record>
+    <record id="DRES" model="res.bank">
+        <field name="name">COMMERZBANK AG, AMSTERDAM BRANCH</field>
+        <field name="bic">DRESNL2X</field>
+    </record>
+    <record id="FBHL" model="res.bank">
+        <field name="name">CREDIT EUROPE BANK N.V.</field>
+        <field name="bic">FBHLNL2A</field>
+    </record>
+    <record id="FLOR" model="res.bank">
+        <field name="name">NEDERLANDSCHE BANK (DE) N.V.</field>
+        <field name="bic">FLORNL2A</field>
+    </record>
+    <record id="FRBK" model="res.bank">
+        <field name="name">FRIESLAND BANK</field>
+        <field name="bic">FRBKNL2L</field>
+    </record>
+    <record id="FVLB" model="res.bank">
+        <field name="name">LANSCHOT BANKIERS NV F. VAN</field>
+        <field name="bic">FVLBNL22</field>
+    </record>
+    <record id="GILL" model="res.bank">
+        <field name="name">THEODOOR GILISSEN BANKIERS N.V.</field>
+        <field name="bic">GILLNL2A</field>
+    </record>
+    <record id="HAND" model="res.bank">
+        <field name="name">(Svenska) Handelsbanken AB</field>
+        <field name="bic">HANDNL2A</field>
+    </record>
+    <record id="HSBC" model="res.bank">
+        <field name="name">HSBC BANK PLC.</field>
+        <field name="bic">HSBCNL2A</field>
+    </record>
+    <record id="INGB" model="res.bank">
+        <field name="name">ING BANK N.V.</field>
+        <field name="bic">INGBNL2A</field>
+    </record>
+    <record id="INKB" model="res.bank">
+        <field name="name">INTERBANK N.V.</field>
+        <field name="bic">INKBNL21</field>
+    </record>
+    <record id="INSI" model="res.bank">
+        <field name="name">BANK INSINGER DE BEAUFORT N.V.</field>
+        <field name="bic">INSINL2A</field>
+    </record>
+    <record id="ISBK" model="res.bank">
+        <field name="name">ISBANK GMBH, AMSTERDAM BRANCH</field>
+        <field name="bic">ISBKNL2A</field>
+    </record>
+    <record id="KABA" model="res.bank">
+        <field name="name">YAPI KREDI BANK NEDERLAND N.V.</field>
+        <field name="bic">KABANL2A</field>
+    </record>
+    <record id="KASA" model="res.bank">
+        <field name="name">KAS BANK N.V.</field>
+        <field name="bic">KASANL2A</field>
+    </record>
+    <record id="KOEX" model="res.bank">
+        <field name="name">KOREA EXCHANGE BANK, AMSTERDAM BRANCH</field>
+        <field name="bic">KOEXNL2A</field>
+    </record>
+    <record id="KRED" model="res.bank">
+        <field name="name">KBC BANK NEDERLAND N.V.</field>
+        <field name="bic">KREDNL2X</field>
+    </record>
+    <record id="LOYD" model="res.bank">
+        <field name="name">LLOYDS TSB BANK PLC.</field>
+        <field name="bic">LOYDNL2A</field>
+    </record>
+    <record id="LPLN" model="res.bank">
+        <field name="name">LEASEPLAN CORPORATION N.V.</field>
+        <field name="bic">LPLNNL2A</field>
+    </record>
+    <record id="MHCB" model="res.bank">
+        <field name="name">MIZUHO CORPORATE BANK NEDERLAND N.V.</field>
+        <field name="bic">MHCBNL2A</field>
+    </record>
+    <record id="NWAB" model="res.bank">
+        <field name="name">NEDERLANDSE WATERSCHAPSBANK N.V.</field>
+        <field name="bic">NWABNL2G</field>
+    </record>
+    <record id="OVBN" model="res.bank">
+        <field name="name">LEVOB BANK N.V.</field>
+        <field name="bic">OVBNNL22</field>
+    </record>
+    <record id="RABO" model="res.bank">
+        <field name="name">RABOBANK NEDERLAND</field>
+        <field name="bic">RABONL2U</field>
+    </record>
+    <record id="RBOS" model="res.bank">
+        <field name="name">THE ROYAL BANK OF SCOTLAND N.V.</field>
+        <field name="bic">RBOSNL2A</field>
+    </record>
+    <record id="SNSB" model="res.bank">
+        <field name="name">SNS BANK N.V.</field>
+        <field name="bic">SNSBNL2A</field>
+    </record>
+    <record id="SOGE" model="res.bank">
+        <field name="name">SOCIETE GENERALE</field>
+        <field name="bic">SOGENL2A</field>
+    </record>
+    <record id="STAL" model="res.bank">
+        <field name="name">STAALBANKIERS N.V.</field>
+        <field name="bic">STALNL2G</field>
+    </record>
+    <record id="STOL" model="res.bank">
+        <field name="name">AMSTERDAM TRADE BANK N.V.</field>
+        <field name="bic">STOLNL2A</field>
+    </record>
+    <record id="TEBU" model="res.bank">
+        <field name="name">ECONOMY BANK N.V.,THE</field>
+        <field name="bic">TEBUNL2A</field>
+    </record>
+    <record id="TRIO" model="res.bank">
+        <field name="name">TRIODOS BANK N.V.</field>
+        <field name="bic">TRIONL2U</field>
+    </record>
+    <record id="UBSW" model="res.bank">
+        <field name="name">UBS BANK (NETHERLANDS) B.V.</field>
+        <field name="bic">UBSWNL2A</field>
+    </record>
+    <record id="UGBI" model="res.bank">
+        <field name="name">GARANTIBANK INTERNATIONAL N.V.</field>
+        <field name="bic">UGBINL2A</field>
+    </record>
+    <record id="KNAP" model="res.bank">
+        <field name="name">KNAP BANK</field>
+        <field name="bic">KNABNL2H</field>
+    </record>
+
+</odoo>
