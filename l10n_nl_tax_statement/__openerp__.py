@@ -15,6 +15,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/tax_statement_security_rule.xml',
         'data/report_layouts.xml',
         'views/l10n_nl_vat_statement.xml',
         'report/reports.xml',
