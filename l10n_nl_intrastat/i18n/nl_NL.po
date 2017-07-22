@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Peter Hageman <hageman.p@gmail.com>, 2017
+# Andrea Stirpe <a.stirpe@onestein.nl>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-04 06:45+0000\n"
-"PO-Revision-Date: 2017-06-04 06:45+0000\n"
-"Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
+"POT-Creation-Date: 2017-07-05 02:43+0000\n"
+"PO-Revision-Date: 2017-07-05 02:43+0000\n"
+"Last-Translator: Andrea Stirpe <a.stirpe@onestein.nl>, 2017\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,7 +93,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_intrastat.field_l10n_nl_report_intrastat_date_range_id
 #: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat_filters
 msgid "Date range"
-msgstr ""
+msgstr "Datum range"
 
 #. module: l10n_nl_intrastat
 #: model:ir.model.fields,help:l10n_nl_intrastat.field_l10n_nl_report_intrastat_year_month
@@ -107,7 +108,7 @@ msgstr ""
 #. module: l10n_nl_intrastat
 #: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat_filters
 msgid "Date update"
-msgstr ""
+msgstr "Datum bijgewerkt"
 
 #. module: l10n_nl_intrastat
 #: model:ir.model,name:l10n_nl_intrastat.model_l10n_nl_report_intrastat
@@ -133,7 +134,7 @@ msgstr ""
 #. module: l10n_nl_intrastat
 #: selection:l10n_nl.report.intrastat,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Concept"
 
 #. module: l10n_nl_intrastat
 #: model:ir.actions.act_window,name:l10n_nl_intrastat.l10n_nl_intrastat_action
