@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-31 03:42+0000\n"
-"PO-Revision-Date: 2017-07-22 12:14+0100\n"
+"PO-Revision-Date: 2017-07-24 09:58+0100\n"
 "Last-Translator: Odoo Experts <erwin@odooexperts.nl>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "(producten + diensten)"
 #. module: l10n_nl_intrastat
 #: model:ir.ui.view,arch_db:l10n_nl_intrastat.internal_layout
 msgid "<span>Printed: </span>"
-msgstr "<span>Afgedruk: </span>"
+msgstr "<span>Afgedrukt: </span>"
 
 #. module: l10n_nl_intrastat
 #: model:ir.ui.view,arch_db:l10n_nl_intrastat.report_nl_intrastat
