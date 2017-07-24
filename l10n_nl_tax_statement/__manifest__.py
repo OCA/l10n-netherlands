@@ -4,7 +4,7 @@
 
 {
     'name': 'Netherlands BTW Statement',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Localization',
     'license': 'AGPL-3',
     'author': 'Onestein, Odoo Community Association (OCA)',
@@ -15,6 +15,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/tax_statement_security_rule.xml',
         'data/report_layouts.xml',
         'views/l10n_nl_vat_statement.xml',
         'report/reports.xml',
