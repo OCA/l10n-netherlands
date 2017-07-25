@@ -53,6 +53,10 @@ class XafAuditfileExport(models.Model):
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
+    account_account_ids = fields.Many2many('account.account',
+                                           string='Accounts to ignore',
+                                           help='''Accounts that should not
+                                           be shown on the report''')
 
     @api.model
     def default_get(self, fields):
@@ -173,6 +177,7 @@ class XafAuditfileExport(models.Model):
         '''return browse record list of accounts'''
         return self.env['account.account'].search([
             ('company_id', '=', self.company_id.id),
+            ('id', 'not in', self.account_account_ids.ids),
         ])
 
     @api.multi
