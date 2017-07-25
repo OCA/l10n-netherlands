@@ -109,9 +109,10 @@ class ReportIntrastat(models.Model):
         ]
 
         # Search invoices that need intracom reporting:
+        company_country = company.country_id
         invoice_domain += [
             ('commercial_partner_id.country_id.intrastat', '=', True),
-            ('commercial_partner_id.country_id.id', '!=', company.country_id.id),
+            ('commercial_partner_id.country_id.id', '!=', company_country.id),
         ]
         invoice_records = Invoice.search(invoice_domain)
 
