@@ -110,8 +110,8 @@ class ReportIntrastat(models.Model):
 
         # Search invoices that need intracom reporting:
         invoice_domain += [
-            ('partner_id.country_id.intrastat', '=', True),
-            ('partner_id.country_id.id', '!=', company.country_id.id),
+            ('commercial_partner_id.country_id.intrastat', '=', True),
+            ('commercial_partner_id.country_id.id', '!=', company.country_id.id),
         ]
         invoice_records = Invoice.search(invoice_domain)
 
@@ -129,8 +129,7 @@ class ReportIntrastat(models.Model):
                     for tax in line.invoice_line_tax_ids):
                 continue
             # Report is per commercial partner:
-            commercial_partner = \
-                line.invoice_id.partner_id.commercial_partner_id
+            commercial_partner = line.invoice_id.commercial_partner_id
             amounts = partner_amounts_map.setdefault(commercial_partner, {
                 'amount_product': 0.0,
                 'amount_service': 0.0,
