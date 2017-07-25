@@ -23,6 +23,7 @@
                             <field name="name" attrs="{'readonly': [('auditfile', '!=', False)]}" />
                             <field name="period_start" attrs="{'readonly': [('auditfile', '!=', False)]}" />
                             <field name="period_end" attrs="{'readonly': [('auditfile', '!=', False)]}" />
+                            <field name="account_account_ids" attrs="{'readonly': [('auditfile', '!=', False)]}" />
                             <field name="company_id" attrs="{'readonly': [('auditfile', '!=', False)]}" groups="base.group_multi_company" />
                         </group>
                         <group name="output_data" attrs="{'invisible': [('auditfile', '=', False)]}">
