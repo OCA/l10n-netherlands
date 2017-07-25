@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="demo_partner" model="res.partner">
+            <field name="name">Demo partner with special character in zip at cutoff position</field>
+            <field name="zip">123456789Ω</field>
+        </record>
+        <record id="base.main_partner" model="res.partner">
+            <!-- it's not important this this is NL, but it must be something /-->
+            <field name="country_id" ref="base.nl" />
+        </record>
+    </data>
+</openerp>

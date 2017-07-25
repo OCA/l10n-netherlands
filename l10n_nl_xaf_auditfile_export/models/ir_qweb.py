@@ -27,8 +27,9 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
     _max_length = 999
 
     def _format(self, inner, options, qwebcontext):
-        return self.pool['ir.qweb']\
-            .eval_str(inner, qwebcontext)[:self._max_length]
+        return tools.ustr(
+            self.pool['ir.qweb'].eval_str(inner, qwebcontext)
+        )[:self._max_length].encode('utf8')
 
 
 class IrQwebAuditfileStringWidget9(models.AbstractModel):
