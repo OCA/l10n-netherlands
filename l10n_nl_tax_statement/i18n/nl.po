@@ -1,23 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * l10n_nl_tax_statement
-#
+# 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 03:42+0000\n"
-"PO-Revision-Date: 2017-07-22 12:18+0100\n"
-"Last-Translator: Odoo Experts <erwin@odooexperts.nl>\n"
+"POT-Creation-Date: 2017-07-26 11:35+0000\n"
+"PO-Revision-Date: 2017-07-26 11:35+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.1\n"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -98,7 +97,7 @@ msgstr "5b bis"
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.internal_layout
 msgid "<span>Printed: </span>"
-msgstr "<span>Afgedrukt: </span>"
+msgstr "<span>Printed: </span>"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -130,7 +129,7 @@ msgstr "BTW"
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "BTW Tags Settings"
-msgstr "BTW label instellingen"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_btw
@@ -175,13 +174,13 @@ msgstr "Valuta"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_date_posted
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date posted"
-msgstr "Datum geboekt"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_date_range_id
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date range"
-msgstr "Datum bereik"
+msgstr "Datum t/m"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_date_update
@@ -205,7 +204,7 @@ msgstr "Concept"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_from_date
 msgid "From date"
-msgstr "Datum vanaf"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:118
@@ -230,7 +229,7 @@ msgstr "Installatie/afstandsverkopen binnen de EU"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_is_group
 msgid "Is group"
-msgstr "Is groep"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement___last_update
@@ -322,18 +321,18 @@ msgstr "Regels"
 #: model:ir.actions.act_window,name:l10n_nl_tax_statement.action_account_vat_statement_nl
 #: model:ir.ui.menu,name:l10n_nl_tax_statement.menu_account_vat_statement_nl
 msgid "NL BTW Statement"
-msgstr "Aangifte omzetbelasting"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.act_window,name:l10n_nl_tax_statement.action_account_vat_statement_nl_config
 #: model:ir.ui.menu,name:l10n_nl_tax_statement.menu_account_vat_statement_nl_config
 msgid "NL BTW Tags"
-msgstr "BTW labels"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.report.xml,name:l10n_nl_tax_statement.action_report_tax_statement
 msgid "NL Tax Statement"
-msgstr "Aangifte omzetbelasting"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_name
@@ -356,7 +355,7 @@ msgstr "Boeken"
 #. module: l10n_nl_tax_statement
 #: selection:l10n.nl.vat.statement,state:0
 msgid "Posted"
-msgstr "Geboekt"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -503,8 +502,12 @@ msgstr "Tag 5b btw bis"
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:187
 #, python-format
-msgid "Tags mapping not configured for this Company! Check the NL BTW Tags Configuration."
-msgstr "Tags mapping not configured for this Company! Check the NL BTW Tags Configuration."
+msgid ""
+"Tags mapping not configured for this Company! Check the NL BTW Tags "
+"Configuration."
+msgstr ""
+"Tags mapping not configured for this Company! Check the NL BTW Tags "
+"Configuration."
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_target_move
@@ -514,17 +517,17 @@ msgstr "Welke boekingen"
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Target moves"
-msgstr "Welke boekingen"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_name
 msgid "Tax Statement"
-msgstr "Aangifte omzetbelasting"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_to_date
 msgid "To date"
-msgstr "Datum t/m"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -572,31 +575,35 @@ msgstr "Voorbelasting"
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:288
 #, python-format
-msgid "You cannot delete a posted statement! Reset the statement to draft first."
-msgstr "Het is niet mogelijk een geboekte aangifte te verwijderen. Zet de aangifte eerst terug naar concept."
+msgid ""
+"You cannot delete a posted statement! Reset the statement to draft first."
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:69
 #, python-format
-msgid "You cannot delete lines of a posted statement! Reset the statement to draft first."
-msgstr "Het is niet mogelijk regels van een geboekte aangifte te verwijderen. Zet de aangifte eerst terug naar concept."
+msgid ""
+"You cannot delete lines of a posted statement! Reset the statement to draft "
+"first."
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:218
 #, python-format
 msgid "You cannot modify a posted statement!"
-msgstr "Het is niet mogelijk een geboekte aangifte te bewerken!"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:279
 #, python-format
-msgid "You cannot modify a posted statement! Reset the statement to draft first."
-msgstr "Het is niet mogelijk een geboekte aangifte te bewerken! Zet de aangifte eerst terug naar concept."
+msgid ""
+"You cannot modify a posted statement! Reset the statement to draft first."
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement
 msgid "l10n.nl.vat.statement"
-msgstr "l10n.nl.vat.statement"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_config
