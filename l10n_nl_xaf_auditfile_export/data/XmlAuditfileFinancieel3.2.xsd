@@ -653,6 +653,7 @@
 			<xsd:enumeration value="AT"/>
 			<xsd:enumeration value="AU"/>
 			<xsd:enumeration value="AW"/>
+			<xsd:enumeration value="AX"/>
 			<xsd:enumeration value="AZ"/>
 			<xsd:enumeration value="BA"/>
 			<xsd:enumeration value="BB"/>
