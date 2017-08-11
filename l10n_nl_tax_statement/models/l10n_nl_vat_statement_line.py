@@ -49,8 +49,8 @@ class VatStatementLine(models.Model):
     )
     omzet = fields.Monetary()
     btw = fields.Monetary()
-    format_omzet = fields.Char(compute='_compute_amount_format', string='Omzet')
-    format_btw = fields.Char(compute='_compute_amount_format', string='BTW')
+    format_omzet = fields.Char(compute='_compute_amount_format')
+    format_btw = fields.Char(compute='_compute_amount_format')
 
     is_group = fields.Boolean(compute='_compute_is_group')
     is_readonly = fields.Boolean(compute='_compute_is_readonly')
