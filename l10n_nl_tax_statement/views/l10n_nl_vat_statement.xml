@@ -34,7 +34,7 @@
                     </group>
                     <notebook name="notebook">
                         <page name="statement" string="Statement">
-                            <field name="line_ids" readonly="1">
+                            <field name="line_ids">
                                 <form>
                                     <group>
                                         <group>
@@ -47,16 +47,25 @@
                                         </group>
                                     </group>
                                 </form>
-                                <tree colors="grey:is_group">
+                                <tree colors="grey:is_group" editable="bottom" create="false" delete="false">
                                     <field name="is_group" invisible="1"/>
-                                    <field name="code"/>
-                                    <field name="name"/>
+                                    <field name="is_readonly" invisible="1"/>
+                                    <field name="code" readonly="1"/>
+                                    <field name="name" readonly="1"/>
                                     <field name="format_omzet" invisible="1"/>
                                     <field name="format_btw" invisible="1"/>
-                                    <field name="omzet" attrs="{'invisible': [('format_omzet', '=', False)]}"/>
-                                    <field name="btw" attrs="{'invisible': [('format_btw', '=', False)]}"/>
+                                    <field name="omzet" attrs="{'invisible': [('format_omzet', '=', False)],'readonly': [('is_readonly', '=', True)]}"/>
+                                    <field name="btw" attrs="{'invisible': [('format_btw', '=', False)],'readonly': [('is_readonly', '=', True)]}"/>
                                 </tree>
                             </field>
+                            <group>
+                                <group>
+                                </group>
+                                <group>
+                                    <label for="btw_total"/>
+                                    <field name="btw_total" nolabel="1"/>
+                                </group>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -71,6 +80,7 @@
                 <field name="name"/>
                 <field name="from_date"/>
                 <field name="to_date"/>
+                <field name="btw_total"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </tree>
         </field>

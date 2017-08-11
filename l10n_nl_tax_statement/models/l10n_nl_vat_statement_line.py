@@ -8,15 +8,25 @@ from odoo.exceptions import Warning as UserError
 
 
 OMZET_DISPLAY = (
-    '1a', '1b', '1c', '1d', '1e', '2a', '3a', '3b', '3c', '4a', '4b'
+    '1a', '1b', '1c', '1d', '1e',
+    '2a',
+    '3a', '3b', '3c',
+    '4a', '4b'
 )
 
 BTW_DISPLAY = (
-    '1a', '1b', '1c', '1d', '2a', '4a', '4b', '5a', '5b', '5c'
+    '1a', '1b', '1c', '1d',
+    '2a',
+    '4a', '4b',
+    '5a', '5b', '5c','5d', '5e', '5f'
 )
 
 GROUP_DISPLAY = (
     '1', '2', '3', '4', '5'
+)
+
+EDITABLE_DISPLAY = (
+    '5d', '5e', '5f'
 )
 
 
@@ -43,6 +53,9 @@ class VatStatementLine(models.Model):
     format_btw = fields.Char(compute='_amount_format', string='BTW')
 
     is_group = fields.Boolean(compute='_compute_is_group')
+    is_readonly = fields.Boolean(compute='_compute_is_readonly')
+
+    state = fields.Selection(related='statement_id.state')
 
     @api.multi
     @api.depends('omzet', 'btw', 'code')
@@ -60,6 +73,15 @@ class VatStatementLine(models.Model):
     def _compute_is_group(self):
         for line in self:
             line.is_group = line.code in GROUP_DISPLAY
+
+    @api.multi
+    @api.depends('code')
+    def _compute_is_readonly(self):
+        for line in self:
+            if line.state == 'draft':
+                line.is_readonly = line.code not in EDITABLE_DISPLAY
+            else:
+                line.is_readonly = True
 
     @api.multi
     def unlink(self):
