@@ -63,12 +63,12 @@ class VatStatement(models.Model):
         string='5g. Total (5c + 5d)'
     )
     format_btw_total = fields.Char(
-        compute='_amount_format_btw_total', string='5g - Total'
+        compute='_compute_amount_format_btw_total', string='5g - Total'
     )
 
     @api.multi
     @api.depends('btw_total')
-    def _amount_format_btw_total(self):
+    def _compute_amount_format_btw_total(self):
         for statement in self:
             btw = formatLang(self.env, statement.btw_total, monetary=True)
             statement.format_btw_total = btw

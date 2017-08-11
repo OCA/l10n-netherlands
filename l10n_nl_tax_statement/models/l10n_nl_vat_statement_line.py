@@ -18,7 +18,7 @@ BTW_DISPLAY = (
     '1a', '1b', '1c', '1d',
     '2a',
     '4a', '4b',
-    '5a', '5b', '5c','5d', '5e', '5f'
+    '5a', '5b', '5c', '5d', '5e', '5f'
 )
 
 GROUP_DISPLAY = (
@@ -49,8 +49,8 @@ class VatStatementLine(models.Model):
     )
     omzet = fields.Monetary()
     btw = fields.Monetary()
-    format_omzet = fields.Char(compute='_amount_format', string='Omzet')
-    format_btw = fields.Char(compute='_amount_format', string='BTW')
+    format_omzet = fields.Char(compute='_compute_amount_format', string='Omzet')
+    format_btw = fields.Char(compute='_compute_amount_format', string='BTW')
 
     is_group = fields.Boolean(compute='_compute_is_group')
     is_readonly = fields.Boolean(compute='_compute_is_readonly')
@@ -59,7 +59,7 @@ class VatStatementLine(models.Model):
 
     @api.multi
     @api.depends('omzet', 'btw', 'code')
-    def _amount_format(self):
+    def _compute_amount_format(self):
         for line in self:
             omzet = formatLang(self.env, line.omzet, monetary=True)
             btw = formatLang(self.env, line.btw, monetary=True)
