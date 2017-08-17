@@ -1,25 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Extend res.partner model."""
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2014-2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import api, models, fields
+# © 2017 Therp BV <http://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from odoo import api, models, fields
 
 GENDERS = [('male', 'Male'), ('female', 'Female'), ('unknown', 'Unknown')]
 
@@ -37,6 +19,7 @@ class ResPartner(models.Model):
             self.salutation_manual = self.salutation
             self.salutation_address_manual = self.salutation_address
 
+    @api.model
     def get_salutation_name_format(self):
         """Return the desired name format for use in the salutation."""
         return (
@@ -54,7 +37,7 @@ class ResPartner(models.Model):
         'salutation_manual',
         'salutation_address_manual'
     )
-    def _get_salutation(self):
+    def _compute_salutation(self):
         """Return the salutation fields."""
 
         def get_prefix(field, partner):
@@ -107,15 +90,13 @@ class ResPartner(models.Model):
 
     gender = fields.Selection(GENDERS, required=True, default='unknown')
     salutation = fields.Char(
-        compute='_get_salutation',
+        compute='_compute_salutation',
         string='Salutation (letter)'
     )
     salutation_address = fields.Char(
-        compute='_get_salutation',
+        compute='_compute_salutation',
         string='Salutation (address)'
     )
     use_manual_salutations = fields.Boolean('Enter salutations manually')
     salutation_manual = fields.Char('Manual salutation (letter)')
     salutation_address_manual = fields.Char('Manual salutation (address)')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
