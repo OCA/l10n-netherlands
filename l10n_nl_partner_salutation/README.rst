@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-Module Dutch Partner Name
-=========================
+Dutch Partner Salutation
+========================
 
 This module splits off a gender field from the partner title. New fields
 are added to the title model to express the salutation of partners, in
@@ -26,6 +26,7 @@ Contributors
 * Holger Brunn <hbrunn@therp.nl>
 * Ronald Portier <ronald@therp.nl>
 * Stefan Rijnhart <stefan@therp.nl>
+* George Daramouskas <gdaramouskas@therp.nl>
 
 Maintainer
 ----------
