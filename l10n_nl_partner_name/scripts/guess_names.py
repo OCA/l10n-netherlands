@@ -1,28 +1,30 @@
 #!/usr/bin/python
+# © 2017 Therp BV <http://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import argparse
 import xmlrpclib
 import re
 parser = argparse.ArgumentParser()
-parser.add_argument('openerp_host')
-parser.add_argument('openerp_db')
-parser.add_argument('openerp_user')
-parser.add_argument('openerp_passwd')
+parser.add_argument('odoo_host')
+parser.add_argument('odoo_db')
+parser.add_argument('odoo_user')
+parser.add_argument('odoo_passwd')
 parser.add_argument('additional_search', nargs='?')
 args = parser.parse_args()
 
-openerp_socket = xmlrpclib.ServerProxy(
-    'http://%s/xmlrpc/common' % args.openerp_host)
-openerp_uid = openerp_socket.login(
-    args.openerp_db, args.openerp_user, args.openerp_passwd)
-openerp_socket = xmlrpclib.ServerProxy(
-    'http://%s/xmlrpc/object' % args.openerp_host, allow_none=True)
+odoo_socket = xmlrpclib.ServerProxy(
+    'http://%s/xmlrpc/common' % args.odoo_host)
+odoo_uid = odoo_socket.login(
+    args.odoo_db, args.odoo_user, args.odoo_passwd)
+odoo_socket = xmlrpclib.ServerProxy(
+    'http://%s/xmlrpc/object' % args.odoo_host, allow_none=True)
 
 
-def openerp_execute(model, method, *pargs, **kwargs):
-    return openerp_socket.execute(
-        args.openerp_db, openerp_uid,
-        args.openerp_passwd, model, method, *pargs, **kwargs)
+def odoo_execute(model, method, *pargs, **kwargs):
+    return odoo_socket.execute(
+        args.odoo_db, odoo_uid,
+        args.odoo_passwd, model, method, *pargs, **kwargs)
 
 
 infixes = ['van', 'der', 'ter', 'de', 'v/d']
@@ -37,7 +39,7 @@ def add_token(values, key, token, delimiter=' '):
 
 
 while True:
-    ids = openerp_execute(
+    ids = odoo_execute(
         'res.partner', 'search',
         [
             ('lastname', '!=', False),
@@ -53,7 +55,7 @@ while True:
     if not ids:
         break
 
-    for partner in openerp_execute(
+    for partner in odoo_execute(
             'res.partner', 'read', ids,
             ['lastname', 'firstname', 'initials', 'infix']):
         print partner['lastname']
@@ -75,6 +77,6 @@ while True:
         partner['lastname'] = ' '.join(tokens)
 
         print partner
-        openerp_execute('res.partner', 'write', partner['id'], partner)
+        odoo_execute('res.partner', 'write', partner['id'], partner)
 
     offset += limit
