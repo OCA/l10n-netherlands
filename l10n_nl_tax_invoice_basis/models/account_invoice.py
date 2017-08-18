@@ -14,6 +14,9 @@ class AccountInvoice(models.Model):
         move_lines = super(AccountInvoice, self).finalize_invoice_move_lines(
             move_lines
         )
-        for line in filter(lambda l: l[2]['tax_line_id'], move_lines):
-            line[2]['tax_date'] = self.date_invoice
+        is_invoice_basis = self.env.company_id.l10n_nl_tax_invoice_basis
+        is_nl = self.env.company_id.country_id == self.env.ref('base.nl')
+        if is_nl and is_invoice_basis:
+            for line in move_lines:
+                line[2]['tax_date'] = self.date_invoice
         return move_lines

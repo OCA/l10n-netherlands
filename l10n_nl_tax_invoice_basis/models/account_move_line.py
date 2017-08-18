@@ -25,5 +25,5 @@ class AccountMoveLine(models.Model):
             line.date = line.move_id.date
             is_invoice_basis = line.company_id.l10n_nl_tax_invoice_basis
             is_nl = line.company_id.country_id == self.env.ref('base.nl')
-            if is_nl and is_invoice_basis:
+            if is_nl and is_invoice_basis and line.tax_line_id:
                 line.date = line.tax_date or line.move_id.date

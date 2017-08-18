@@ -12,6 +12,7 @@
     'license': 'AGPL-3',
     'depends': [
         'account',
+        'account_tax_balance',
     ],
     'data': [
         'views/account_config_settings.xml',
