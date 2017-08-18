@@ -17,7 +17,7 @@ See https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/
 
 Without this module installed for example, when you use an accounting date with vendor invoices, the Generic TAX reports & Aangifte omzetbelasting shows the VAT in the wrong period/date.
 
-If you want to adopt the Kasstelsel system instead, consider to install the standard Odoo module account_tax_cash_basis instead.
+If you want to adopt the Kasstelsel system instead, consider to install the standard Odoo module account_tax_cash_basis.
 Find more information about the kasstelsel system in: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/kasstelsel/kasstelsel
 
 
@@ -25,8 +25,6 @@ Installation
 ============
 
 Install this module if you want to enable the Factuurstelsel system for your Company.
-
-If you want to adopt the Kasstelsel system instead, consider to install the standard Odoo module account_tax_cash_basis.
 
 
 Configuration
