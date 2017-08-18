@@ -1,24 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Extend res.partner with extra fields for Dutch names."""
-##############################################################################
-#
-#    Odoo, Open Source Management Solution
-#    This module copyright (C) 2013-2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 Therp BV <http://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from mako.template import Template
 from odoo import models, fields, api
 
@@ -27,8 +9,8 @@ class ResPartner(models.Model):
     """Extend res.partner with extra fields for Dutch names."""
     _inherit = 'res.partner'
 
-    initials = fields.Char(size=16)
-    infix = fields.Char(size=32)
+    initials = fields.Char()
+    infix = fields.Char()
 
     @api.one
     @api.depends("firstname", "lastname", "initials", "infix")
@@ -64,5 +46,3 @@ class ResPartner(models.Model):
         # super assumes $lastname $firstname, we want it the other way around
         return dict(
             result, lastname=result['firstname'], firstname=result['lastname'])
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

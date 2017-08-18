@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# © 2017 Therp BV <http://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import argparse
 import xmlrpclib
