@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Cas Vissers <casvissers@brahoo.nl>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 11:35+0000\n"
-"PO-Revision-Date: 2017-07-26 11:35+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2017-08-10 08:41+0000\n"
+"PO-Revision-Date: 2017-08-10 08:41+0000\n"
+"Last-Translator: Cas Vissers <casvissers@brahoo.nl>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +26,8 @@ msgstr ""
 msgid ""
 "A CBS export already exists with the same month and year for this company!"
 msgstr ""
+"Er bestaat reeds een CBS export voor dezelfde maand en jaar binnen dit "
+"bedrijf!"
 
 #. module: l10n_nl_cbs_export
 #: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_account_invoice_ids
