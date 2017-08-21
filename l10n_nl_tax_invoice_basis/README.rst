@@ -16,6 +16,7 @@ It means that, when validating an invoice, the system uses the invoice date inst
 See https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/factuurstelsel
 
 Without this module installed for example, when you use an accounting date with vendor invoices, the Generic TAX reports & Aangifte omzetbelasting shows the VAT in the wrong period/date.
+So this module is meant to fill the gap between the standard Odoo way and the Factuurstelsel system, commonly used in the Netherlands.
 
 If you want to adopt the Kasstelsel system instead, consider to install the standard Odoo module account_tax_cash_basis instead.
 Find more information about the kasstelsel system in: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/kasstelsel/kasstelsel
@@ -46,6 +47,19 @@ As an example, a use case of this module could be:
 
 #. Create a Vendor Bill (Purchase Invoice) and set Accounting Date in a period different than the one of the invoice date (for example, the invoice date = 14-aug and the accounting date = 14-jul).
 #. Generate your VAT statement report, it will be computed according to the factuurstelsel.
+
+Known issues / Roadmap
+======================
+
+* This module extends the OCA module account_tax_balance: only the TAX reports made with modules depending on account_tax_balance will comply with Factuurstelsel. Standard Odoo TAX reports are actually not compliant with Factuurstelsel.
+
+Bug Tracker
+===========
+
+Bugs are tracked on `GitHub Issues
+<https://github.com/OCA/l10n-netherlands/issues>`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
