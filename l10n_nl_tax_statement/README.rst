@@ -32,6 +32,7 @@ Usage
 #. Go to the menu: Invoicing -> Reports > Taxes Balance > NL BTW Statement
 #. Create a statement, providing a name and specifying start date and end date
 #. Press the Update button to calculate the report: the report lines will be displayed in the tab Statement
+#. Manually enter the BTW amounts of lines '5d', '5e', '5f' (in Edit mode, click on the amount of the line to be able to change it)
 #. Press the Post button to set the status of the statement to Posted; the statements set to this state cannot be modified anymore
 #. If you need to recalculate or modify or delete a statement already set to Posted status you need first to set it back to Draft status: press the button Reset to Draft
 #. If you need to print the report in PDF, open a statement form and click: Print -> NL Tax Statement

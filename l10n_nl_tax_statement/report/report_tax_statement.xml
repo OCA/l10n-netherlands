@@ -69,6 +69,12 @@
                                     <div class="act_as_cell right"><span t-field="line.format_btw"/></div>
                                 </div>
                             </t>
+                            <div class="act_as_row lines">
+                                <!--## total btw-->
+                                <div class="act_as_cell left" style="width: 900px;"> &amp;nbsp; &amp;nbsp; 5g - Totaal</div>
+                                <div class="act_as_cell right"> </div>
+                                <div class="act_as_cell right"><span t-field="o.format_btw_total"/></div>
+                            </div>
                         </div>
                     </div>
                 </t>
