@@ -114,7 +114,7 @@
         </vatCodes>
         <periods>
             <period t-foreach="self.get_periods()" t-as="p">
-                <periodNumber><t t-esc="p.id" /></periodNumber>
+                <periodNumber><t t-esc="p.code[-1:] + p.code[0:2]" /></periodNumber>
                 <periodDesc><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></periodDesc>
                 <startDatePeriod><t t-esc="p.date_start" /></startDatePeriod>
                 <endDatePeriod><t t-esc="p.date_stop" /></endDatePeriod>
@@ -135,7 +135,7 @@
                 <transaction t-foreach="self.get_moves(j)" t-as="m">
                     <nr><t t-esc="m.id" /></nr>
                     <desc><t t-esc="m.name" /></desc>
-                    <periodNumber><t t-esc="m.period_id.id" /></periodNumber>
+                    <periodNumber><t t-esc="m.period_id.code[-1:] + m.period_id.code[0:2]" /></periodNumber>
                     <trDt><t t-esc="m.date" /></trDt>
                     <amnt><t t-esc="m.amount" /></amnt>
                     <!-- left to inheriting modules
