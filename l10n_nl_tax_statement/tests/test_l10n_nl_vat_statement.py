@@ -154,7 +154,7 @@ class TestVatStatement(TransactionCase):
         self.invoice_1._onchange_invoice_line_ids()
         self.invoice_1.action_invoice_open()
         self.statement_1.statement_update()
-        self.assertEqual(len(self.statement_1.line_ids.ids), 19)
+        self.assertEqual(len(self.statement_1.line_ids.ids), 22)
 
         _1 = self.StatLine.search(
             [('code', '=', '1'), ('id', 'in', self.statement_1.line_ids.ids)],

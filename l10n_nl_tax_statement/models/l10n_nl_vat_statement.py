@@ -6,6 +6,7 @@ from datetime import datetime
 
 from odoo import api, fields, models, _
 from odoo.exceptions import Warning as UserError
+from odoo.tools.misc import formatLang
 
 
 class VatStatement(models.Model):
@@ -56,6 +57,21 @@ class VatStatement(models.Model):
     )
     date_posted = fields.Datetime(readonly=True)
     date_update = fields.Datetime(readonly=True)
+
+    btw_total = fields.Monetary(
+        compute='_compute_btw_total',
+        string='5g. Total (5c + 5d)'
+    )
+    format_btw_total = fields.Char(
+        compute='_compute_amount_format_btw_total', string='5g - Total'
+    )
+
+    @api.multi
+    @api.depends('btw_total')
+    def _compute_amount_format_btw_total(self):
+        for statement in self:
+            btw = formatLang(self.env, statement.btw_total, monetary=True)
+            statement.format_btw_total = btw
 
     @api.model
     def default_get(self, fields_list):
@@ -149,6 +165,15 @@ class VatStatement(models.Model):
         lines['5c'] = {
             'code': '5c', 'btw': 0.0,
             'name': _('Subtotaal (rubriek 5a min 5b)')}
+        lines['5d'] = {
+            'code': '5d', 'btw': 0.0,
+            'name': _('Vermindering volgens de kleineondernemersregeling')}
+        lines['5e'] = {
+            'code': '5e', 'btw': 0.0,
+            'name': _('Schatting vorige aangifte(n)')}
+        lines['5f'] = {
+            'code': '5f', 'btw': 0.0,
+            'name': _('Schatting deze aangifte')}
         return lines
 
     @api.model
@@ -288,3 +313,12 @@ class VatStatement(models.Model):
                     _('You cannot delete a posted statement! '
                       'Reset the statement to draft first.'))
         super(VatStatement, self).unlink()
+
+    @api.depends('line_ids.btw')
+    def _compute_btw_total(self):
+        for statement in self:
+            total = 0.0
+            for line in statement.line_ids:
+                if line.code in ['5c', '5d']:
+                    total += line.btw
+            statement.btw_total = total
