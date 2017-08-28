@@ -105,3 +105,31 @@ class TestTaxInvoiceBasis(TransactionCase):
         self.assertEquals(tax_august.balance_regular, 0.)
         self.assertEquals(tax_august.base_balance_refund, 0.)
         self.assertEquals(tax_august.balance_refund, 0.)
+
+    def test_skip_by_context(self):
+
+        # Factuurstelsel configured as enabled
+        # but context is used to skip the functionality
+        update_ctx = {'skip_invoice_basis_domain': True}
+        self.period_july.update(update_ctx)
+        self.period_august.update(update_ctx)
+
+        # Validate invoice
+        self.invoice.action_invoice_open()
+
+        tax_july = self.tax.with_context(self.period_july)
+        tax_august = self.tax.with_context(self.period_august)
+
+        self.assertEquals(tax_july.base_balance, -100.)
+        self.assertEquals(tax_july.balance, -21.)
+        self.assertEquals(tax_july.base_balance_regular, 0.)
+        self.assertEquals(tax_july.balance_regular, 0.)
+        self.assertEquals(tax_july.base_balance_refund, -100.)
+        self.assertEquals(tax_july.balance_refund, -21.)
+
+        self.assertEquals(tax_august.base_balance, 0.)
+        self.assertEquals(tax_august.balance, 0.)
+        self.assertEquals(tax_august.base_balance_regular, 0.)
+        self.assertEquals(tax_august.balance_regular, 0.)
+        self.assertEquals(tax_august.base_balance_refund, 0.)
+        self.assertEquals(tax_august.balance_refund, 0.)
