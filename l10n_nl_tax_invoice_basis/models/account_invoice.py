@@ -18,5 +18,5 @@ class AccountInvoice(models.Model):
         is_nl = self.company_id.country_id == self.env.ref('base.nl')
         if is_nl and is_invoice_basis:
             for line in move_lines:
-                line[2]['tax_date'] = self.date_invoice
+                line[2]['l10n_nl_date_invoice'] = self.date_invoice
         return move_lines

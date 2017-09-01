@@ -8,4 +8,4 @@ from odoo import fields, models
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    tax_date = fields.Date()
+    l10n_nl_date_invoice = fields.Date()

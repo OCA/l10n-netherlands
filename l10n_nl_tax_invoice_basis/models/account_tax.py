@@ -39,20 +39,20 @@ class AccountTax(models.Model):
         ] + tax_date_domain + date_domain
 
     def _get_accounting_date_domain(self, domain_params):
-        # if 'tax_date' is not set, get the standard 'date' instead
+        # if 'l10n_nl_date_invoice' is not set, get the account date instead
         return [
             '&', '&',
-            ('tax_date', '=', False),
+            ('l10n_nl_date_invoice', '=', False),
             ('date', '>=', domain_params['from_date']),
             ('date', '<=', domain_params['to_date']),
         ]
 
     def _get_tax_date_domain(self, domain_params):
-        # if 'tax_date' is set, use this value
+        # if 'l10n_nl_date_invoice' is set, use this value
         # instead of the standard 'date'
         return [
             '&', '&',
-            ('tax_date', '!=', False),
-            ('tax_date', '>=', domain_params['from_date']),
-            ('tax_date', '<=', domain_params['to_date']),
+            ('l10n_nl_date_invoice', '!=', False),
+            ('l10n_nl_date_invoice', '>=', domain_params['from_date']),
+            ('l10n_nl_date_invoice', '<=', domain_params['to_date']),
         ]
