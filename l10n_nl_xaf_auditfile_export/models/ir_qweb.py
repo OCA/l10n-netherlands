@@ -26,10 +26,20 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
     _inherit = 'ir.qweb.widget'
     _max_length = 999
 
+    def _trunk_eval(self, expr, qwebcontext):
+        if expr == "0":
+            return qwebcontext.get(0, '')
+        val = self.pool['ir.qweb'].eval(expr, qwebcontext)
+        if isinstance(val, basestring):
+            val = val[:self._max_length]
+        if isinstance(val, unicode):
+            return val.encode("utf8")
+        if val is False or val is None:
+            return ''
+        return str(val)
+
     def _format(self, inner, options, qwebcontext):
-        return tools.ustr(
-            self.pool['ir.qweb'].eval_str(inner, qwebcontext)
-        )[:self._max_length].encode('utf8')
+        return self._trunk_eval(inner, qwebcontext)
 
 
 class IrQwebAuditfileStringWidget9(models.AbstractModel):
