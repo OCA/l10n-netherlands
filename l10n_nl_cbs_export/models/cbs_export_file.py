@@ -217,6 +217,8 @@ class CbsExportFile(models.Model):
                 sign_of_invoice_value = '+'
             if (invoice_line.quantity * invoice_line.product_id.weight) >= 0:
                 sign_of_weight = '+'
+            if invoice_line.price_subtotal < 0:
+                sign_of_invoice_value = '-'
 
             value = \
                 str(datetime.strptime(
@@ -238,15 +240,17 @@ class CbsExportFile(models.Model):
                 str('00') + \
                 str(sign_of_weight) + \
                 str(int(invoice_line.quantity * invoice_line.product_id.weight)
-                    ).zfill(10) + \
+                    ).replace('-','').zfill(10) + \
                 str('+') + \
                 str('0000000000').zfill(10) + sign_of_invoice_value
             if invoice_line.price_subtotal == 0.0:
                 standard_price = invoice_line.product_id.standard_price
                 quantity = invoice_line.quantity
-                value += str(int(standard_price * quantity)).zfill(10)
+                value += str(int(standard_price * quantity)).replace(
+                    '-', '').zfill(10)
             else:
-                value += str(int(invoice_line.price_subtotal)).zfill(10)
+                value += str(int(invoice_line.price_subtotal)).replace(
+                    '-', '').zfill(10)
             value += str(int(invoice_line.price_subtotal)).zfill(10) + \
                 str('+') + \
                 str('0000000000').zfill(10)
