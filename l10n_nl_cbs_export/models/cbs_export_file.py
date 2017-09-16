@@ -190,7 +190,8 @@ class CbsExportFile(models.Model):
             str(" " * 5) + \
             str(datetime.now().strftime("%Y%m%d").ljust(8)) + \
             str(datetime.now().strftime("%H%M%S").ljust(6)) + \
-            str(company.phone or '').replace('+31', '0').replace(' ', '')[0:15].ljust(15) + \
+            str(company.phone or '').replace(
+                '+31', '0').replace(' ', '')[0:15].ljust(15) + \
             str(" " * 13) + '\r\n'
 
         return cbs_export_data
