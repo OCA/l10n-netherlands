@@ -240,7 +240,7 @@ class CbsExportFile(models.Model):
                 str('00') + \
                 str(sign_of_weight) + \
                 str(int(invoice_line.quantity * invoice_line.product_id.weight)
-                    ).replace('-','').zfill(10) + \
+                    ).replace('-', '').zfill(10) + \
                 str('+') + \
                 str('0000000000').zfill(10) + sign_of_invoice_value
             if invoice_line.price_subtotal == 0.0:
