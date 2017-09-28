@@ -13,7 +13,9 @@
                 />
             </xpath>
             <xpath expr="//field[@name='child_ids']/parent::page" position="after">
-                <page string="Salutation">
+                <page
+                    string="Salutation"
+                    attrs="{'invisible': [('is_company', '=', True)]}">
                     <group>
                         <group name="salutations">
                             <field name="use_manual_salutations"/>
