@@ -4,9 +4,8 @@
 Dutch Partner Salutation
 ========================
 
-This module splits off a gender field from the partner title. New fields
-are added to the title model to express the salutation of partners, in
-combination with the gender field. Based on partner_name_dutch, you can
+New fields are added to the title model to express the salutation of partners,
+in combination with the gender field. Based on partner_name_dutch, you can
 then refer to function fields generating full salutations to use at the
 start of a letter, or short versions to be used in addresses.
 
