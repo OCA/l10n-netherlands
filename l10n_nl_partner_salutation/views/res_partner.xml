@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field
+            name="inherit_id"
+            ref="partner_contact_gender.view_personal_information_gender"
+            />
+        <field name="model">res.partner</field>
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="///group[@name='personal_information_group']"
+                position="attributes"
+                >
+                <attribute name="colspan">6</attribute>                                        
+                <attribute name="col">4</attribute>                                        
+            </xpath> 
+            <field name="gender" position="after">
+            <field name="use_manual_salutations"/>
+            <field
+                name="salutation"
+                attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
+            />
+            <field
+                name="salutation_address"
+                attrs="{'invisible': [('use_manual_salutations', '=', True)]}"
+            />
+            <field
+                name="salutation_manual"
+                attrs="{'invisible': [('use_manual_salutations', '=', False)]}"
+                string="Salutation (letter)"
+            />
+            <field
+                name="salutation_address_manual"
+                attrs="{'invisible': [('use_manual_salutations', '=', False)]}"
+                string="Salutation (address)"
+            />
+            </field>
+        </field>
+    </record>
+
+</odoo>
