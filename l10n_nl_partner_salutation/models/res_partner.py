@@ -3,7 +3,21 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, models, fields
 
-GENDERS = [('male', 'Male'), ('female', 'Female'), ('unknown', 'Unknown')]
+
+DEFAULT_PREFIX = {
+    'shortcut': {
+        'male': 'De heer',
+        'female': 'Mevrouw',
+        'other': '',
+        'unknown': 'De heer of mevrouw',
+    },
+    'salutation': {
+        'male': 'Geachte heer',
+        'female': 'Geachte mevrouw',
+        'other': 'Geachte',
+        'unknown': 'Geachte heer of mevrouw',
+    }
+}
 
 
 class ResPartner(models.Model):
@@ -19,15 +33,21 @@ class ResPartner(models.Model):
             self.salutation_manual = self.salutation
             self.salutation_address_manual = self.salutation_address
 
-    @api.model
-    def get_salutation_name_format(self):
-        """Return the desired name format for use in the salutation."""
-        return (
-            "${firstname or initials or ''}"
-            "${' ' if (firstname or initials) else ''}"
-            "${infix or ''}"
-            "${' ' if infix else ''}"
-            "${lastname or ''}"
+    @api.multi
+    def get_salutation_name(self):
+        """Return the name formatted for use in salutation."""
+        self.ensure_one()
+        # Use API from partner_firstname
+        # (actually method as it has been overridden in partner_name_dutch)
+        return self.with_context(
+            name_format="${firstname or initials or ''}"
+                        "${' ' if (firstname or initials) else ''}"
+                        "${infix or ''}"
+                        "${' ' if infix else ''}"
+                        "${lastname or ''}"
+        )._get_computed_name(
+            self.lastname, self.firstname, initials=self.initials,
+            infix=self.infix
         )
 
     @api.depends(
@@ -50,34 +70,22 @@ class ResPartner(models.Model):
             if partner.gender in ('male', 'female'):
                 val = partner.title[field + '_' + partner.gender]
             if not val:
-                val = partner.title[field] or default_prefix[
-                    field][partner.gender or 'unknown']
-            return val + ' '
+                val = partner.title[field] or \
+                    DEFAULT_PREFIX[field][partner.gender or 'unknown']
+            return val and (val + ' ') or ''
 
-        default_prefix = {
-            'shortcut': {
-                'male': 'De heer',
-                'female': 'Mevrouw',
-                'unknown': 'De heer of mevrouw',
-            },
-            'salutation': {
-                'male': 'Geachte heer',
-                'female': 'Geachte mevrouw',
-                'unknown': 'Geachte heer of mevrouw',
-            }
-        }
-        name_format = self.get_salutation_name_format()
         for rec in self:
             rec.salutation = False
             rec.salutation_address = False
+            if rec.is_company:
+                # For the moment also no manual salutations for company:
+                continue
             if rec.use_manual_salutations:
                 rec.salutation = rec.salutation_manual or False
-                rec.salutation_address = rec.salutation_address_manual or False
+                rec.salutation_address = \
+                    rec.salutation_address_manual or False
             # Use API from partner_firstname
-            name = self.with_context(name_format=name_format)\
-                ._get_computed_name(
-                    rec.lastname, rec.firstname, initials=rec.initials,
-                    infix=rec.infix)
+            name = rec.get_salutation_name()
             # Apply prefix/or and suffix
             if not rec.salutation:
                 rec.salutation = get_prefix('salutation', rec) + name
@@ -88,7 +96,6 @@ class ResPartner(models.Model):
                 if rec.title.postnominal:
                     rec.salutation_address += ' ' + rec.title.postnominal
 
-    gender = fields.Selection(GENDERS, required=True, default='unknown')
     salutation = fields.Char(
         compute='_compute_salutation',
         string='Salutation (letter)'
