@@ -251,8 +251,7 @@ class CbsExportFile(models.Model):
             else:
                 value += str(int(invoice_line.price_subtotal)).replace(
                     '-', '').zfill(10)
-            value += str(int(invoice_line.price_subtotal)).zfill(10) + \
-                str('+') + \
+            value += str('+') + \
                 str('0000000000').zfill(10)
 
             if len(str(invoice_line.invoice_id.number or '')) < 8:
