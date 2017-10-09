@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2017 Therp BV <http://therp.nl>
+# Copyright 2017 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, models, fields
 
@@ -33,6 +33,17 @@ class ResPartner(models.Model):
             self.salutation_manual = self.salutation
             self.salutation_address_manual = self.salutation_address
 
+    @api.model
+    def get_salutation_name_format(self):
+        """Return the name format for use in salutation."""
+        return (
+            "${firstname or initials or ''}"
+            "${' ' if (firstname or initials) else ''}"
+            "${infix or ''}"
+            "${' ' if infix else ''}"
+            "${lastname or ''}"
+        )
+
     @api.multi
     def get_salutation_name(self):
         """Return the name formatted for use in salutation."""
@@ -40,11 +51,7 @@ class ResPartner(models.Model):
         # Use API from partner_firstname
         # (actually method as it has been overridden in partner_name_dutch)
         return self.with_context(
-            name_format="${firstname or initials or ''}"
-                        "${' ' if (firstname or initials) else ''}"
-                        "${infix or ''}"
-                        "${' ' if infix else ''}"
-                        "${lastname or ''}"
+            name_format=self.get_salutation_name_format()
         )._get_computed_name(
             self.lastname, self.firstname, initials=self.initials,
             infix=self.infix
