@@ -12,7 +12,6 @@
     'license': 'AGPL-3',
     'depends': ['l10n_nl', 'account_tax_unece'],
     'data': [
-        'views/account_tax_template.xml',
         'data/account_tax_template.xml',
     ],
     'post_init_hook': 'set_unece_on_taxes',
