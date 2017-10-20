@@ -1,0 +1,32 @@
+<openerp>
+  <data>
+    <record id="view_hr_employee_simple_form_firstname" model="ir.ui.view">
+      <field name="name">hr.employee.simplified.form.firstname</field>
+      <field name="model">hr.employee</field>
+      <field
+          name="inherit_id"
+          ref="hr.view_employee_form"
+      />
+      <field name="arch" type="xml">
+          <data>
+              <label for="name" position="replace"/>
+              <xpath expr="//h1[field[@name='name']]" position="replace">
+                  <h1 class="oe_read_only">
+                    <field name="display_name"/>
+                  </h1>
+                  <label for="infix" class="oe_edit_only"/>
+                  <field name="infix" />
+                  <label for="firstname" class="oe_edit_only"/>
+                  <field name="firstname" />
+                  <label for="lastname" class="oe_edit_only"/>
+                  <field name="lastname" />
+                  <label for="initials" class="oe_edit_only"/>
+                  <field name="initials" />
+              </xpath>
+          </data>
+      </field>
+    </record>
+
+
+  </data>
+</openerp>
