@@ -198,7 +198,7 @@ class XafAuditfileExport(models.Model):
             'select count(*) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null)',
             (tuple(p.id for p in self.get_periods()), self.company_id.id))
-        return self.env.cr.fetchall()[0][0]
+        return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
     def get_move_line_total_debit(self):
@@ -207,7 +207,7 @@ class XafAuditfileExport(models.Model):
             'select sum(debit) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null)',
             (tuple(p.id for p in self.get_periods()), self.company_id.id))
-        return self.env.cr.fetchall()[0][0]
+        return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
     def get_move_line_total_credit(self):
@@ -216,7 +216,7 @@ class XafAuditfileExport(models.Model):
             'select sum(credit) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null)',
             (tuple(p.id for p in self.get_periods()), self.company_id.id))
-        return self.env.cr.fetchall()[0][0]
+        return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
     def get_journals(self):
