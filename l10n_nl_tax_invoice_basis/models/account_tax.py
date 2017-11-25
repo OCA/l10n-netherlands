@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -14,21 +13,24 @@ class AccountTax(models.Model):
             to_date,
             company_id
         )
-        if not self._context.get('skip_invoice_basis_domain'):
-            company = self.env['res.company'].browse(company_id)
-            is_nl = company.country_id == self.env.ref('base.nl')
-            if is_nl:
-                domain_params = {
-                    'company_id': company_id,
-                    'from_date': from_date,
-                    'to_date': to_date,
-                }
-                # following line breaks the inheritance chain;
-                # it is intentional, to avoid other modules to interfere;
-                # pass context ''skip_invoice_basis_domain' if you
-                # don't want to allow this behavior
-                res = self._get_invoice_basis_domain(domain_params)
-        return res
+
+        if self._context.get('skip_invoice_basis_domain'):
+            return res
+
+        company = self.env['res.company'].browse(company_id)
+        if company.country_id != self.env.ref('base.nl'):
+            return res
+
+        domain_params = {
+            'company_id': company_id,
+            'from_date': from_date,
+            'to_date': to_date,
+        }
+        # following line breaks the inheritance chain;
+        # it is intentional, to avoid other modules to interfere;
+        # pass context ''skip_invoice_basis_domain' if you
+        # don't want to allow this behavior
+        return self._get_invoice_basis_domain(domain_params)
 
     def _get_invoice_basis_domain(self, domain_params):
         tax_date_domain = self._get_tax_date_domain(domain_params)
