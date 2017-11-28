@@ -73,6 +73,8 @@ Contributors
 
 * Andrea Stirpe <a.stirpe@onestein.nl>
 
+Do not contact contributors directly about support or help with technical issues.
+
 Maintainer
 ----------
 
