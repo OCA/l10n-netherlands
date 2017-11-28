@@ -13,6 +13,7 @@ The field is visible when the flag is_company is false.
 A double check on the BSN is done when inserting/modifying its value:
  - validation of the BSN (check whether the format is correct);
  - check if another partner with the same BSN already exists.
+
 In both cases, a non-blocking alert is shown.
 
 
