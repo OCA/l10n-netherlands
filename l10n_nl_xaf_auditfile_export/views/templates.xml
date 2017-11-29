@@ -36,7 +36,6 @@
                 <custSupName><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></custSupName>
                 <contact t-if="p.is_company and p.child_ids"><t t-esc="p.child_ids[0].name" t-esc-options='{"widget": "auditfile.string50"}' /></contact>
                 <telephone><t t-esc="p.phone" t-esc-options='{"widget": "auditfile.string30"}' /></telephone>
-                <fax><t t-esc="p.fax" t-esc-options='{"widget": "auditfile.string30"}' /></fax>
                 <eMail><t t-esc="p.email" /></eMail>
                 <website><t t-esc="p.website" /></website>
                 <!-- not in standard data model
@@ -65,7 +64,7 @@
                     <bankIdCd><t t-esc="bank.bank_bic or bank.bank_id.bic" /></bankIdCd>
                 </bankAccount>
                 <changeInfo t-if="p.write_uid">
-                    <userID><t t-esc="p.write_uid.login" /></userID>
+                    <userID><t t-esc="p.write_uid.id" /></userID>
                     <changeDateTime><t t-esc="p.write_date[:10]" />T<t t-esc="p.write_date[-8:]" /></changeDateTime>
                     <changeDescription>Last write</changeDescription>
                 </changeInfo>
@@ -94,7 +93,7 @@
                 </taxonomy>
                 /-->
                 <changeInfo t-if="a.write_uid">
-                    <userID><t t-esc="a.write_uid.login" /></userID>
+                    <userID><t t-esc="a.write_uid.id" /></userID>
                     <changeDateTime><t t-esc="a.write_date[:10]" />T<t t-esc="a.write_date[-8:]" /></changeDateTime>
                     <changeDescription>Last write</changeDescription>
                 </changeInfo>
@@ -148,7 +147,7 @@
                         <docRef><t t-esc="l.ref" t-esc-options='{"widget": "auditfile.string999"}' /></docRef>
                         <effDate><t t-esc="l.date" /></effDate>
                         <desc><t t-esc="l.name" /></desc>
-                        <amnt><t t-esc="l.credit or l.debit" /></amnt>
+                        <amnt><t t-esc="abs(l.balance)" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
                         <recRef t-if="l.full_reconcile_id"><t t-esc="l.full_reconcile_id.name" /></recRef>
                         <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
