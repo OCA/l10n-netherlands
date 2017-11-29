@@ -1,26 +1,9 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2015 Therp BV <https://therp.nl>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 import base64
 import collections
-from StringIO import StringIO
+from io import BytesIO
 from lxml import etree
 from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
@@ -80,27 +63,30 @@ class XafAuditfileExport(models.Model):
 
         return defaults
 
-    @api.one
+    @api.multi
     @api.constrains('date_start', 'date_end')
     def check_dates(self):
-        if self.date_start >= self.date_end:
-            raise exceptions.ValidationError(
-                _('Starting date must be anterior ending date!'))
+        for auditfile in self:
+            if auditfile.date_start >= auditfile.date_end:
+                raise exceptions.ValidationError(
+                    _('Starting date must be anterior ending date!'))
 
     @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
-        xml = self.env.ref('l10n_nl_xaf_auditfile_export.auditfile_template')\
-            .render(values={
+        xml = self.env['ir.ui.view'].render_template(
+            "l10n_nl_xaf_auditfile_export.auditfile_template",
+            values={
                 'self': self,
-            })
+            },
+        )
         # the following is dealing with the fact that qweb templates don't like
         # namespaces, but we need the correct namespaces for validation
         # we inject them at parse time in order not to traverse the document
         # multiple times
         default_namespace = 'http://www.auditfiles.nl/XAF/3.2'
         iterparse = etree.iterparse(
-            StringIO(xml),
+            BytesIO(xml),
             remove_blank_text=True, remove_comments=True)
         for action, element in iterparse:
             element.tag = '{%s}%s' % (default_namespace, element.tag)
@@ -117,7 +103,7 @@ class XafAuditfileExport(models.Model):
 
         xsd = etree.XMLSchema(
             etree.parse(
-                file(
+                open(
                     modules.get_module_resource(
                         'l10n_nl_xaf_auditfile_export', 'data',
                         'XmlAuditfileFinancieel3.2.xsd'))))
@@ -156,7 +142,7 @@ class XafAuditfileExport(models.Model):
             offset += MAX_RECORDS
             for result in results:
                 yield result
-            results.env.invalidate_all()
+            results.env.cache.invalidate()
             del results
 
     @api.multi
@@ -221,10 +207,10 @@ class XafAuditfileExport(models.Model):
         '''return amount of move lines'''
         self.env.cr.execute(
             'select count(*) from account_move_line '
-            'where date >= \'' + self.date_start + '\' '
-            'and date <= \'' + self.date_end + '\' '
+            'where date >= \'%s\' '
+            'and date <= \'%s\' '
             'and (company_id=%s or company_id is null)',
-            (self.company_id.id, ))
+            (self.date_start, self.date_end, self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
@@ -232,10 +218,10 @@ class XafAuditfileExport(models.Model):
         '''return total debit of move lines'''
         self.env.cr.execute(
             'select sum(debit) from account_move_line '
-            'where date >= \'' + self.date_start + '\' '
-            'and date <= \'' + self.date_end + '\' '
+            'where date >= \'%s\' '
+            'and date <= \'%s\' '
             'and (company_id=%s or company_id is null)',
-            (self.company_id.id, ))
+            (self.date_start, self.date_end, self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
@@ -243,10 +229,10 @@ class XafAuditfileExport(models.Model):
         '''return total credit of move lines'''
         self.env.cr.execute(
             'select sum(credit) from account_move_line '
-            'where date >= \'' + self.date_start + '\' '
-            'and date <= \'' + self.date_end + '\' '
+            'where date >= \'%s\' '
+            'and date <= \'%s\' '
             'and (company_id=%s or company_id is null)',
-            (self.company_id.id, ))
+            (self.date_start, self.date_end, self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
@@ -276,7 +262,7 @@ class XafAuditfileExport(models.Model):
             offset += MAX_RECORDS
             for result in results:
                 yield result
-            results.env.invalidate_all()
+            results.env.cache.invalidate()
             del results
 
     @api.model
