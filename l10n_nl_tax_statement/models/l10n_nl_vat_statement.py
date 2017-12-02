@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -199,6 +198,16 @@ class VatStatement(models.Model):
         # update 5a and 5c
         lines['5a'].update({'btw': _5ab})
         lines['5c'].update({'btw': _5cb})
+
+        # omzet (from 1a to 4b): invert the original sign
+        # in case it differs from the sign of related btw
+        to_be_checked_inverted = ['1a', '1b', '1c', '1d', '2a', '4a', '4b']
+        for code in to_be_checked_inverted:
+            btw_sign = 1 if lines[code]['btw'] >= 0.0 else -1
+            omzet_sign = 1 if lines[code]['omzet'] >= 0.0 else -1
+            if btw_sign != omzet_sign:
+                lines[code]['omzet'] *= -1
+
         return lines
 
     @api.model
@@ -238,7 +247,7 @@ class VatStatement(models.Model):
     def statement_update(self):
         self.ensure_one()
 
-        if self.state == 'posted':
+        if self.state in ['posted']:
             raise UserError(
                 _('You cannot modify a posted statement!'))
 
@@ -259,15 +268,20 @@ class VatStatement(models.Model):
         self.date_update = fields.Datetime.now()
 
     def _compute_lines(self, lines):
+        self.ensure_one()
         ctx = {
             'from_date': self.from_date,
             'to_date': self.to_date,
             'target_move': self.target_move,
             'company_id': self.company_id.id,
         }
-        tags_map = self._get_tags_map()
         domain = self._get_taxes_domain()
         taxes = self.env['account.tax'].with_context(ctx).search(domain)
+        self._set_statement_lines(lines, taxes)
+
+    def _set_statement_lines(self, lines, taxes):
+        self.ensure_one()
+        tags_map = self._get_tags_map()
         for tax in taxes:
             for tag in tax.tag_ids:
                 tag_map = tags_map.get(tag.id)
