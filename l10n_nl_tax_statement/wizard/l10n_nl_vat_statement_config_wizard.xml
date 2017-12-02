@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Onestein (<http://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
 <odoo>
 
     <record id="view_account_vat_statement_nl_config" model="ir.ui.view">
@@ -103,7 +106,7 @@
     <menuitem
         id="menu_account_vat_statement_nl_config"
         parent="account.account_account_menu"
-        groups="account.group_account_user"
+        groups="account.group_account_user,account.group_account_manager"
         sequence="15"
         action="action_account_vat_statement_nl_config"/>
 
