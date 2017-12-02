@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<!-- Copyright 2017 Onestein (<http://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 
-    <report
-      id="action_report_tax_statement"
-      model="l10n.nl.vat.statement"
-      string="NL Tax Statement"
-      report_type="qweb-pdf"
-      name="l10n_nl_tax_statement.report_tax_statement"
-      file="l10n_nl_tax_statement.report_tax_statement"
-      />
+<odoo>
 
     <record id="paperformat_nl_tax_statement" model="report.paperformat">
         <field name="name">Dutch Tax Statement qweb paperformat</field>
@@ -24,10 +18,6 @@
         <field name="header_line" eval="False" />
         <field name="header_spacing">10</field>
         <field name="dpi">110</field>
-    </record>
-
-    <record id="action_report_tax_statement" model="ir.actions.report.xml">
-        <field name="paperformat_id" ref="paperformat_nl_tax_statement"/>
     </record>
 
 </odoo>
