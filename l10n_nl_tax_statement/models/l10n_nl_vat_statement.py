@@ -199,6 +199,16 @@ class VatStatement(models.Model):
         # update 5a and 5c
         lines['5a'].update({'btw': _5ab})
         lines['5c'].update({'btw': _5cb})
+
+        # omzet (from 1a to 4b): invert the original sign
+        # in case it differs from the sign of related btw
+        to_be_checked_inverted = ['1a', '1b', '1c', '1d', '2a', '4a', '4b']
+        for code in to_be_checked_inverted:
+            btw_sign = 1 if lines[code]['btw'] >= 0.0 else -1
+            omzet_sign = 1 if lines[code]['omzet'] >= 0.0 else -1
+            if btw_sign != omzet_sign:
+                lines[code]['omzet'] *= -1
+
         return lines
 
     @api.model
