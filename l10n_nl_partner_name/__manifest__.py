@@ -17,4 +17,5 @@
     'external_dependencies': {
         'python': ['mako'],
     },
+    'license': 'AGPL-3',
 }
