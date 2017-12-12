@@ -42,9 +42,7 @@ class IrQwebAuditfileFloatWidget2(models.AbstractModel):
 
     @api.model
     def value_to_html(self, value, options):
-        value_in = value
         value = float_round(value, self._max_digits) if value else 0.0
-
         return super(IrQwebAuditfileFloatWidget2, self).value_to_html(
             value, options
         )
