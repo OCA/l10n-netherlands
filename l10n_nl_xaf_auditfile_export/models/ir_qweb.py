@@ -19,6 +19,7 @@
 #
 ##############################################################################
 from odoo import api, models
+from odoo.tools.float_utils import float_round
 
 
 class IrQwebAuditfileStringWidget999(models.AbstractModel):
@@ -30,6 +31,21 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
     def value_to_html(self, value, options):
         value = value[:self._max_length] if value else ''
         return super(IrQwebAuditfileStringWidget999, self).value_to_html(
+            value, options
+        )
+
+
+class IrQwebAuditfileFloatWidget2(models.AbstractModel):
+    _name = 'ir.qweb.field.auditfile.round2'
+    _inherit = 'ir.qweb.field'
+    _max_digits = 2
+
+    @api.model
+    def value_to_html(self, value, options):
+        value_in = value
+        value = float_round(value, self._max_digits) if value else 0.0
+
+        return super(IrQwebAuditfileFloatWidget2, self).value_to_html(
             value, options
         )
 
