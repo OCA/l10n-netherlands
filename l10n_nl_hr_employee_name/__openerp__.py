@@ -25,8 +25,6 @@
     'category': 'Contact management',
     'depends': [
         'hr',
-        'l10n_nl_partner_name',
-        'hr_employee_data_from_work_address',
     ],
     'installable': True,
 }
