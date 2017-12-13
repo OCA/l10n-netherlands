@@ -7,7 +7,6 @@ Module Dutch Employee Name
     Use Dutch conventions for employee names:
     - have infixes
     - have initials
-    - split first and last name (provided by partner_firstname)
 
 Contributors
 ------------
