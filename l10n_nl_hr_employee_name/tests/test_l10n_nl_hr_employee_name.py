@@ -11,31 +11,14 @@ class TestL10nNlPartnerName(TransactionCase):
             'name': 'Mark Rutte',
         })
         # partner_firstname still works
-        self.assertEqual(employee.firstname, 'Mark')
-        self.assertEqual(employee.lastname, 'Rutte')
-        employee.firstname = 'Willem-Alexander'
-        employee.lastname = 'van Oranje-Nassau'
-        self.assertEqual(
-            employee.name,
-            'Willem-Alexander van Oranje-Nassau'
-        )
-        
-        employee.write({
-            'name': employee.name,
-        })
-        self.assertEqual(employee.firstname, 'Willem-Alexander')
-        self.assertEqual(employee.lastname, 'van Oranje-Nassau')
-
-
         partner = self.env['res.partner'].create({
             'name': 'Mark Rutte',
         })
-        employee2 = self.env['hr.employee'].create({
-            'name': 'should beReplaced'
+        employee = self.env['hr.employee'].create({
+            'name': 'stephanie bergman'
             'address_id': partner.id
         })
-
         self.assertEqual(partner.firstname, 'Mark')
         self.assertEqual(partner.lastname, 'Rutte')
-        self.assertEqual(employee2.firstname, 'Mark')
-        self.assertEqual(employee2.lastname, 'Rutte')
+        self.assertEqual(employee2.firstname, 'stephanie')
+        self.assertEqual(employee2.lastname, 'bergman')
