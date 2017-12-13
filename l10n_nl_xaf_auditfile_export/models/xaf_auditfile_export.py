@@ -92,10 +92,10 @@ class XafAuditfileExport(models.Model):
     @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
-        auditfile_template = self._get_auditfile_template()
-        xml = auditfile_template.render(values={
-            'self': self,
-        })
+        xml = self.env.ref('l10n_nl_xaf_auditfile_export.auditfile_template')\
+            .render(values={
+                'self': self.sudo(),
+            })
         # the following is dealing with the fact that qweb templates don't like
         # namespaces, but we need the correct namespaces for validation
         # we inject them at parse time in order not to traverse the document
@@ -129,13 +129,6 @@ class XafAuditfileExport(models.Model):
 
         self.auditfile = base64.b64encode(etree.tostring(
             xmldoc, xml_declaration=True, encoding='UTF-8'))
-
-    @api.multi
-    def _get_auditfile_template(self):
-        self.ensure_one()
-        return self.env.ref(
-            'l10n_nl_xaf_auditfile_export.auditfile_template'
-        )
 
     @api.multi
     def get_odoo_version(self):
@@ -198,7 +191,7 @@ class XafAuditfileExport(models.Model):
             'select count(*) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null)',
             (tuple(p.id for p in self.get_periods()), self.company_id.id))
-        return self.env.cr.fetchall()[0][0] or 0
+        return self.env.cr.fetchall()[0][0]
 
     @api.multi
     def get_move_line_total_debit(self):
@@ -207,7 +200,7 @@ class XafAuditfileExport(models.Model):
             'select sum(debit) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null)',
             (tuple(p.id for p in self.get_periods()), self.company_id.id))
-        return self.env.cr.fetchall()[0][0] or 0
+        return self.env.cr.fetchall()[0][0]
 
     @api.multi
     def get_move_line_total_credit(self):
@@ -216,7 +209,7 @@ class XafAuditfileExport(models.Model):
             'select sum(credit) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null)',
             (tuple(p.id for p in self.get_periods()), self.company_id.id))
-        return self.env.cr.fetchall()[0][0] or 0
+        return self.env.cr.fetchall()[0][0]
 
     @api.multi
     def get_journals(self):

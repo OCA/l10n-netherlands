@@ -30,7 +30,6 @@
         'account',
     ],
     "data": [
-        "demo/res_partner.xml",
         "views/xaf_auditfile_export.xml",
         "views/menu.xml",
         'views/templates.xml',
