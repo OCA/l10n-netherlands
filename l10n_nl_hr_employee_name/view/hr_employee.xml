@@ -18,10 +18,10 @@
                   <field name="infix" />
                   <label for="firstname" class="oe_edit_only"/>
                   <field name="firstname" />
-                  <label for="lastname" class="oe_edit_only"/>
-                  <field name="lastname" />
                   <label for="initials" class="oe_edit_only"/>
                   <field name="initials" />
+                  <label for="lastname" class="oe_edit_only"/>
+                  <field name="lastname" />
               </xpath>
           </data>
       </field>
