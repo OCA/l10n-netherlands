@@ -34,32 +34,4 @@ class HrEmployee(models.Model):
     lastname = fields.Char(string='lastname')
     initials = fields.Char(string='initials')
     infix = fields.Char(string='infix')
-    name_informal = fields.Char(string='nickname')
-    name_formal = fields.Char(
-        string='Name', compute='_compute_display_name_formal', store=True)
-    name_informal = fields.Char(
-        string='Name', compute='_compute_display_name_formal', store=True)
-
-    # computing NL stile formal and informal names
-    @api.depends('initials', 'firstname', 'infix', 'name')
-    @api.multi
-    def _compute_display_name_formal(self):
-        for employee in self:
-            myname = ''
-            informal = ''
-            if employee.firstname:
-                informal += employee.firstname + ' '
-            if employee.initials:
-                myname += employee.initials + ' '
-            else:
-                if employee.firstname:
-                    myname += employee.firstname + ' '
-            if employee.infix:
-                myname += employee.infix + ' '
-                informal += employee.infix + ' '
-            if employee.name:
-                myname += employee.name
-                informal += employee.name
-            employee.name_formal = myname.strip()
-            employee.name_informal = informal.strip()
-
+    calling_name = fields.Char(string='nickname')
