@@ -1,19 +1,35 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Therp BV <http://therp.nl>.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
+# Copyright 2015-2018 Therp BV <https://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import base64
-from StringIO import StringIO
-from lxml import etree
+import logging
+import os
 from datetime import datetime
-from openerp import _, models, fields, api, exceptions, release, modules
+from lxml import etree
+
+from openerp import _, api, fields, models, modules
+from openerp.exceptions import ValidationError
+from openerp.sql_db import dsn
+from openerp.tools.config import config
+
+from ..auditfile import create_auditfile
 
 
-MAX_RECORDS = 10000
-'''For possibly huge lists, only read chunks from the database in order to
-avoid oom exceptions.
-This is the default for ir.config_parameter
-"l10n_nl_xaf_auditfile_export.max_records"'''
+_logger = logging.getLogger(__name__)
+
+
+def get_filetype_dir(filetype):
+    """Each functional type of file will have its own main directory."""
+    # This function might be made part of a general module
+    # in the knowledge repository
+    d = os.path.join(config['data_dir'], 'file_cabinet', filetype)
+    if not os.path.exists(d):
+        os.makedirs(d, 0700)
+    return d
+
+
+def get_auditfile_path(filename):
+    return os.path.join(get_filetype_dir('auditfile'), filename)
 
 
 class XafAuditfileExport(models.Model):
@@ -22,18 +38,13 @@ class XafAuditfileExport(models.Model):
     _inherit = ['mail.thread']
     _order = 'period_start desc'
 
-    @api.depends('name')
-    def _auditfile_name_get(self):
-        self.auditfile_name = '%s.xaf' % self.name
-
     name = fields.Char('Name')
     period_start = fields.Many2one(
         'account.period', 'Start period', required=True)
     period_end = fields.Many2one(
         'account.period', 'End period', required=True)
-    auditfile = fields.Binary('Auditfile', readonly=True, copy=False)
-    auditfile_name = fields.Char(
-        'Auditfile filename', compute=_auditfile_name_get)
+    auditfile_url = fields.Char(
+        'Auditfile url', readonly=True, copy=False)
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     data_export = fields.Selection(
@@ -80,174 +91,74 @@ class XafAuditfileExport(models.Model):
             defaults.setdefault('period_end', fiscalyear.period_ids[-1].id)
         return defaults
 
+    @api.onchange('company_id')
+    def _onchange_company_id(self):
+        company = self.company_id
+        if not company:
+            self.period_start = False
+            self.period_end = False
+        else:
+            if company != self.period_start.company_id or \
+                    company != self.period_end.company_id:
+                fiscalyear_model = self.env['account.fiscalyear'].with_context(
+                    company_id=company.id)
+                fiscalyear_id = fiscalyear_model.find(exception=False)
+                if not fiscalyear_id:
+                    self.period_start = False
+                    self.period_end = False
+                else:
+                    fiscalyear = fiscalyear_model.browse([fiscalyear_id])
+                    # New check for company, maybe only one was wrong
+                    if company != self.period_start.company_id:
+                        self.period_start = fiscalyear.period_ids[0]
+                    if company != self.period_end.company_id:
+                        self.period_end = fiscalyear.period_ids[-1]
+        # If company.id == False, will disable selecting period,
+        # else period has to be for the right company
+        domain = {}
+        company_domain = [('company_id', '=', company.id)]
+        domain['period_start'] = company_domain
+        domain['period_end'] = company_domain
+        return {'domain': domain}
+
     @api.one
     @api.constrains('period_start', 'period_end')
     def check_periods(self):
         if self.period_start.date_start > self.period_end.date_start:
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('You need to choose consecutive periods!'))
 
     @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
-        accounts, journals, partner_ids, periods = self._get_data()
-        auditfile_template = self._get_auditfile_template()
-        xml = auditfile_template.render(values={
-            'accounts': accounts,
-            'journals': journals,
-            'partner_ids': partner_ids,
-            'periods': periods,
-            'self': self,
-        })
-        # the following is dealing with the fact that qweb templates don't like
-        # namespaces, but we need the correct namespaces for validation
-        # we inject them at parse time in order not to traverse the document
-        # multiple times
-        default_namespace = 'http://www.auditfiles.nl/XAF/3.2'
-        iterparse = etree.iterparse(
-            StringIO(xml),
-            remove_blank_text=True, remove_comments=True)
-        for action, element in iterparse:
-            element.tag = '{%s}%s' % (default_namespace, element.tag)
-        del xml
-        xmldoc = etree.Element(
-            iterparse.root.tag,
-            nsmap={
-                None: default_namespace,
-                'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            })
-        for element in iterparse.root:
-            xmldoc.append(element)
-        del iterparse
-
-        xsd = etree.XMLSchema(
-            etree.parse(
-                file(
-                    modules.get_module_resource(
-                        'l10n_nl_xaf_auditfile_export', 'data',
-                        'XmlAuditfileFinancieel3.2.xsd'))))
-        if not xsd.validate(xmldoc):
-            self.message_post('\n'.join(map(str, xsd.error_log)))
+        # Check wether we can create validation schema
+        xsd_path = modules.get_module_resource(
+            'l10n_nl_xaf_auditfile_export', 'data',
+            'XmlAuditfileFinancieel3.2.xsd')
+        xsd = xsd = etree.XMLSchema(etree.parse(xsd_path))
+        #  Collect input specification
+        specification = {
+            'company_id': self.company_id.id,
+            'date_start': self.period_start.date_start,
+            'date_stop': self.period_end.date_stop}
+        # Determine path for auditfile
+        auditfile_name = '%s.xaf' % self.name.replace(' ', '_')
+        auditfile_path = get_auditfile_path(auditfile_name)
+        # Compose connection string to odoo DB-name
+        db, connection_string = dsn(self.env.cr.dbname)
+        # Now ready to call function to create xml file
+        _logger.debug(_("Start creation of xml audit file"))
+        create_auditfile(specification, auditfile_path, connection_string)
+        _logger.debug(_(
+            "Before parsing created xml audit file %s") % auditfile_path)
+        parser = etree.iterparse(auditfile_path, schema=xsd)
+        try:
+            for action, element in parser:
+                # We come here at the end of each element
+                element.clear()
+        except etree.XMLSyntaxError as e:
+            self.message_post('Invalid audit file:\n%s' % e)
             return
-
-        self.auditfile = base64.b64encode(etree.tostring(
-            xmldoc, xml_declaration=True, encoding='UTF-8'))
-
-    @api.multi
-    def _get_auditfile_template(self):
-        self.ensure_one()
-        return self.env.ref(
-            'l10n_nl_xaf_auditfile_export.xaf_template_%s'
-            % self.data_export
-        )
-
-    def _get_data(self):
-        periods = self.env['account.period'].search([
-            ('date_start', '<=', self.period_end.date_stop),
-            ('date_stop', '>=', self.period_start.date_start),
-            ('company_id', '=', self.company_id.id),
-        ], order='date_start, special desc')
-
-        self._cr.execute(
-            "SELECT partner_id, account_id, journal_id "
-            "FROM account_move_line "
-            "WHERE period_id IN %s AND account_id NOT IN %s "
-            "AND company_id=%s ",
-            (tuple(periods._ids),
-             tuple(self.exclude_account_ids._ids or [0]),
-             self.company_id.id))
-        res = self._cr.fetchall()
-
-        partner_ids = list(set([x[0] for x in res]))
-
-        account_ids = list(set([x[1] for x in res]))
-        accounts = self.env['account.account'].search([
-            ('id', 'in', account_ids)], order='code')
-
-        journal_ids = list(set([x[2] for x in res]))
-        journals = self.env['account.journal'].search([
-            ('id', 'in', journal_ids)], order='code')
-
-        return accounts, journals, partner_ids, periods
-
-    @api.multi
-    def get_odoo_version(self):
-        '''return odoo version'''
-        return release.version
-
-    @api.multi
-    def get_partners(self, partner_ids):
-        '''return a generator over partners'''
-        offset = 0
-        while True:
-            results = self.env['res.partner'].search(
-                [('id', 'in', partner_ids)],
-                offset=offset, order='display_name',
-                limit=self.env['ir.config_parameter'].get_param(
-                    'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS))
-            if not results:
-                break
-            offset += MAX_RECORDS
-            for result in results:
-                yield result
-            results.env.invalidate_all()
-            del results
-
-    @api.multi
-    def get_move_line_count(self, periods):
-        '''return amount of move lines'''
-        self.env.cr.execute(
-            'select count(id) from account_move_line where period_id in %s '
-            'and (company_id=%s or company_id is null) '
-            'and account_id not in %s',
-            (tuple(p.id for p in periods),
-                self.company_id.id,
-                tuple(self.exclude_account_ids.ids) or (0, )))
-        return self.env.cr.fetchall()[0][0] or 0
-
-    @api.multi
-    def get_move_line_total_debit(self, periods):
-        '''return total debit of move lines'''
-        self.env.cr.execute(
-            'select sum(debit) from account_move_line where period_id in %s '
-            'and (company_id=%s or company_id is null) '
-            'and account_id not in %s',
-            (tuple(p.id for p in periods),
-                self.company_id.id,
-                tuple(self.exclude_account_ids.ids) or (0, )))
-        return self.env.cr.fetchall()[0][0] or 0
-
-    @api.multi
-    def get_move_line_total_credit(self, periods):
-        '''return total credit of move lines'''
-        self.env.cr.execute(
-            'select sum(credit) from account_move_line where period_id in %s '
-            'and (company_id=%s or company_id is null) '
-            'and account_id not in %s',
-            (tuple(p.id for p in periods),
-                self.company_id.id,
-                tuple(self.exclude_account_ids.ids) or (0, )))
-        return self.env.cr.fetchall()[0][0] or 0
-
-    @api.multi
-    def get_moves(self, journal, periods):
-        '''return moves for a journal, generator style'''
-        offset = 0
-        while True:
-            results = self.env['account.move'].search(
-                [
-                    ('period_id', 'in', periods.ids),
-                    ('journal_id', '=', journal.id),
-                ],
-                offset=offset,
-                limit=int(self.env['ir.config_parameter'].get_param(
-                    'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS)))
-            if not results:
-                break
-            offset += MAX_RECORDS
-            for result in results:
-                yield result
-            results.env.invalidate_all()
-            del results
+        self.auditfile_url = (
+            '/file_cabinet/auditfile?filename=%s' % auditfile_name)
+        _logger.debug(_("Completed processing of audit file"))
