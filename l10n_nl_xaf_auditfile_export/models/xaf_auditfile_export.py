@@ -134,9 +134,9 @@ class XafAuditfileExport(models.Model):
                     ('company_id', '=', self.company_id.id),
                 ],
                 offset=offset,
-                limit=self.env['ir.config_parameter'].get_param(
+                limit=int(self.env['ir.config_parameter'].get_param(
                     'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS))
+                    default=MAX_RECORDS)))
             if not results:
                 break
             offset += MAX_RECORDS
@@ -254,9 +254,9 @@ class XafAuditfileExport(models.Model):
                     ('journal_id', '=', journal.id),
                 ],
                 offset=offset,
-                limit=self.env['ir.config_parameter'].get_param(
+                limit=int(self.env['ir.config_parameter'].get_param(
                     'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS))
+                    default=MAX_RECORDS)))
             if not results:
                 break
             offset += MAX_RECORDS
