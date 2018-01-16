@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Onestein (<http://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
 <odoo>
 
     <record id="view_l10n_nl_vat_report_form" model="ir.ui.view">
@@ -6,13 +9,13 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="reset" string="Reset to Draft" states="posted" type="object"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,final"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="statement_update" string="Update" states="draft" type="object" class="oe_stat_button" icon="fa-repeat"/>
                         <button name="post" string="Post" states="draft" type="object" class="oe_stat_button" icon="fa-arrow-right text-success"/>
+                        <button name="reset" string="Reset to Draft" states="posted" type="object" class="oe_stat_button" icon="fa-arrow-left text-success"/>
+                        <button name="finalize" string="Finalize" states="posted" type="object" class="oe_stat_button" icon="fa-stop-circle-o text-success" confirm="If you confirm, it will be not possible to modify this Statement or reset it back to draft anymore. Do you confirm?"/>
                     </div>
                     <label for="name"/>
                     <h1>
@@ -21,9 +24,9 @@
                     <group>
                         <group name="tax_report">
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-                            <field name="date_range_id" attrs="{'readonly': [('state','=','posted')]}"/>
-                            <field name="from_date" attrs="{'readonly': [('state','=','posted')]}"/>
-                            <field name="to_date" attrs="{'readonly': [('state','=','posted')]}"/>
+                            <field name="date_range_id" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
+                            <field name="from_date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
+                            <field name="to_date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
                         </group>
                         <group name="extra_parameters">
                             <field name="date_posted"/>
@@ -33,7 +36,13 @@
                         </group>
                     </group>
                     <notebook name="notebook">
-                        <page name="statement" string="Statement">
+                        <page name="statement" string="BTW Statement">
+                            <group name="statement_lines" string="BTW Statement lines">
+                                <div states="draft">Press the Update button in order to recompute the statement lines!</div>
+                                <div class="oe_button_box" name="button_box">
+                                    <button name="statement_update" string="Update" states="draft" type="object" class="oe_stat_button" icon="fa-repeat"/>
+                                </div>
+                            </group>
                             <field name="line_ids">
                                 <form>
                                     <group>
@@ -47,7 +56,7 @@
                                         </group>
                                     </group>
                                 </form>
-                                <tree colors="grey:is_group" editable="bottom" create="false" delete="false">
+                                <tree decoration-muted="is_group" editable="bottom" create="false" delete="false">
                                     <field name="is_group" invisible="1"/>
                                     <field name="is_readonly" invisible="1"/>
                                     <field name="code" readonly="1"/>
@@ -66,6 +75,31 @@
                                     <field name="btw_total" nolabel="1"/>
                                 </group>
                             </group>
+                        </page>
+                        <page name="entry_lines" string="Past Undeclared Invoices" attrs="{'invisible':[('state','!=','draft')]}">
+                            <group name="unreported_move_filter" string="Include Undeclared Invoices">
+                                <group>
+                                    <field name="unreported_move_from_date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
+                                </group>
+                                <group>
+                                </group>
+                                <div>Add/Remove the Undeclared Invoices listed below. Afterwards press the Update button in order to recompute the statement lines!</div>
+                                <div class="oe_button_box" name="button_box">
+                                    <button name="statement_update" string="Update" states="draft" type="object" class="oe_stat_button" icon="fa-repeat"/>
+                                </div>
+                            </group>
+                            <field name="unreported_move_ids">
+                                <tree editable="bottom" create="false" delete="false" decoration-muted="l10n_nl_vat_statement_include != True">
+                                    <field name="date" readonly="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="journal_id" readonly="1"/>
+                                    <field name="partner_id" readonly="1"/>
+                                    <field name="amount" readonly="1"/>
+                                    <field name="l10n_nl_vat_statement_include" invisible="1"/>
+                                    <button name="add_move_in_statement" icon="fa fa-play" string="Add Invoice" type="object" attrs="{'invisible': [('l10n_nl_vat_statement_include', '=', True)]}"/>
+                                    <button name="unlink_move_from_statement" icon="fa fa-remove" string="Remove Invoice" type="object" attrs="{'invisible': [('l10n_nl_vat_statement_include', '!=', True)]}"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
