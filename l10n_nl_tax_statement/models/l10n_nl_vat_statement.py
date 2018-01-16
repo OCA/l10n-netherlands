@@ -2,9 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
-from odoo.exceptions import Warning as UserError
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from odoo.tools.misc import formatLang
 
 
@@ -17,7 +19,8 @@ class VatStatement(models.Model):
     )
     state = fields.Selection([
         ('draft', 'Draft'),
-        ('posted', 'Posted')],
+        ('posted', 'Posted'),
+        ('final', 'Final')],
         readonly=True,
         default='draft',
         copy=False,
@@ -64,6 +67,81 @@ class VatStatement(models.Model):
     format_btw_total = fields.Char(
         compute='_compute_amount_format_btw_total', string='5g - Total'
     )
+    move_line_ids = fields.One2many(
+        'account.move.line',
+        'l10n_nl_vat_statement_id',
+        string='Entry Lines',
+        readonly=True,
+    )
+
+    @api.multi
+    def _compute_unreported_move_ids(self):
+        for statement in self:
+            domain = statement._get_unreported_move_domain()
+            move_line_ids = self.env['account.move.line'].search(domain)
+            statement.unreported_move_ids = move_line_ids.mapped('move_id')
+
+    @api.multi
+    def _get_unreported_move_domain(self):
+        self.ensure_one()
+        domain = [
+            ('company_id', '=', self.company_id.id),
+            ('invoice_id', '!=', False),
+            ('l10n_nl_vat_statement_id', '=', False),
+        ]
+        if self.is_invoice_basis and not self.unreported_move_from_date:
+            domain += [
+                '|',
+                '&',
+                ('l10n_nl_date_invoice', '=', False),
+                ('date', '<', self.from_date),
+                '&',
+                ('l10n_nl_date_invoice', '!=', False),
+                ('l10n_nl_date_invoice', '<', self.from_date),
+            ]
+        elif self.is_invoice_basis and self.unreported_move_from_date:
+            domain += [
+                '|',
+                '&', '&',
+                ('l10n_nl_date_invoice', '=', False),
+                ('date', '<', self.from_date),
+                ('date', '>=', self.unreported_move_from_date),
+                '&', '&',
+                ('l10n_nl_date_invoice', '!=', False),
+                ('l10n_nl_date_invoice', '<', self.from_date),
+                ('l10n_nl_date_invoice', '>=', self.unreported_move_from_date),
+            ]
+        else:
+            domain += [
+                ('date', '<', self.from_date),
+            ]
+            if self.unreported_move_from_date:
+                domain += [
+                    ('date', '>=', self.unreported_move_from_date),
+                ]
+        return domain
+
+    unreported_move_ids = fields.One2many(
+        'account.move',
+        string="Unreported Journal Entries",
+        compute='_compute_unreported_move_ids'
+    )
+    unreported_move_from_date = fields.Date('From Date')
+
+    @api.multi
+    def _compute_is_invoice_basis(self):
+        self.is_invoice_basis = False
+        has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
+            ('model', '=', 'res.company'),
+            ('name', '=', 'l10n_nl_tax_invoice_basis')
+        ])
+        if has_invoice_basis:
+            self.is_invoice_basis = self.company_id.l10n_nl_tax_invoice_basis
+
+    is_invoice_basis = fields.Boolean(
+        string='NL Tax Invoice Basis',
+        compute='_compute_is_invoice_basis',
+    )
 
     @api.multi
     @api.depends('btw_total')
@@ -98,6 +176,19 @@ class VatStatement(models.Model):
         if self.from_date and self.to_date:
             display_name += ': ' + ' '.join([self.from_date, self.to_date])
         self.name = display_name
+
+    @api.onchange('from_date')
+    def onchange_date_from_date(self):
+        d_from = datetime.strptime(self.from_date, DF)
+        # by default the unreported_move_from_date is set to
+        # a quarter (three months) before the from_date of the statement
+        d_from_2months = d_from + relativedelta(months=-3, day=1)
+        date_from = fields.Date.to_string(d_from_2months)
+        self.unreported_move_from_date = date_from
+
+    @api.onchange('unreported_move_from_date')
+    def onchange_unreported_move_from_date(self):
+        self._compute_unreported_move_ids()
 
     @api.model
     def _get_taxes_domain(self):
@@ -247,7 +338,7 @@ class VatStatement(models.Model):
     def statement_update(self):
         self.ensure_one()
 
-        if self.state in ['posted']:
+        if self.state in ['posted', 'final']:
             raise UserError(
                 _('You cannot modify a posted statement!'))
 
@@ -257,6 +348,7 @@ class VatStatement(models.Model):
         # calculate lines
         lines = self._prepare_lines()
         self._compute_lines(lines)
+        self._compute_past_invoices_lines(lines)
         self._finalize_lines(lines)
 
         # create lines
@@ -266,6 +358,25 @@ class VatStatement(models.Model):
                 lines[line]
             )
         self.date_update = fields.Datetime.now()
+
+    def _compute_past_invoices_lines(self, lines):
+        self.ensure_one()
+        ctx = {
+            'from_date': self.from_date,
+            'to_date': self.to_date,
+            'target_move': self.target_move,
+            'company_id': self.company_id.id,
+            'skip_invoice_basis_domain': True,
+            'is_invoice_basis': self.is_invoice_basis,
+            'unreported_move_from_date': self.unreported_move_from_date
+        }
+        taxes = self.env['account.tax'].with_context(ctx)
+        for move in self.unreported_move_ids:
+            for move_line in move.line_ids:
+                if move_line.tax_exigible:
+                    if move_line.tax_line_id:
+                        taxes |= move_line.tax_line_id
+        self._set_statement_lines(lines, taxes)
 
     def _compute_lines(self, lines):
         self.ensure_one()
@@ -294,10 +405,59 @@ class VatStatement(models.Model):
                         lines[code][column] += tax.balance
 
     @api.multi
+    def finalize(self):
+        self.ensure_one()
+        self.write({
+            'state': 'final'
+        })
+
+    @api.multi
     def post(self):
+        self.ensure_one()
+        prev_open_statements = self.search([
+            ('company_id', '=', self.company_id.id),
+            ('state', '=', 'draft'),
+            ('id', '<', self.id)
+        ], limit=1)
+
+        if prev_open_statements:
+            raise UserError(
+                _('You cannot post a statement if all the previous '
+                  'statements are not yet posted! '
+                  'Please Post all the other statements first.'))
+
         self.write({
             'state': 'posted',
             'date_posted': fields.Datetime.now()
+        })
+        self.unreported_move_ids.write({
+            'l10n_nl_vat_statement_id': self.id,
+        })
+        domain = [
+            ('company_id', '=', self.company_id.id),
+            ('l10n_nl_vat_statement_id', '=', False),
+        ]
+        if self.is_invoice_basis:
+            domain += [
+                '|',
+                '&', '&',
+                ('l10n_nl_date_invoice', '=', False),
+                ('date', '<=', self.to_date),
+                ('date', '>=', self.from_date),
+                '&', '&',
+                ('l10n_nl_date_invoice', '!=', False),
+                ('l10n_nl_date_invoice', '<=', self.to_date),
+                ('l10n_nl_date_invoice', '>=', self.from_date),
+            ]
+        else:
+            domain += [
+                ('date', '<=', self.to_date),
+                ('date', '>=', self.from_date),
+            ]
+        move_line_ids = self.env['account.move.line'].search(domain)
+        updated_move_ids = move_line_ids.mapped('move_id')
+        updated_move_ids.write({
+            'l10n_nl_vat_statement_id': self.id,
         })
 
     @api.multi
@@ -306,14 +466,29 @@ class VatStatement(models.Model):
             'state': 'draft',
             'date_posted': None
         })
+        req = """
+            UPDATE account_move_line
+            SET l10n_nl_vat_statement_id = NULL
+            WHERE
+              l10n_nl_vat_statement_id = %s
+        """
+        self.env.cr.execute(
+            req, (self.id, ))
+
+    @api.model
+    def _modifiable_values_when_posted(self):
+        return ['state']
 
     @api.multi
     def write(self, values):
         for statement in self:
+            if statement.state == 'final':
+                raise UserError(
+                    _('You cannot modify a statement set as final!'))
             if 'state' not in values or values['state'] != 'draft':
                 if statement.state == 'posted':
                     for val in values:
-                        if val != 'state':
+                        if val not in self._modifiable_values_when_posted():
                             raise UserError(
                                 _('You cannot modify a posted statement! '
                                   'Reset the statement to draft first.'))
@@ -326,6 +501,9 @@ class VatStatement(models.Model):
                 raise UserError(
                     _('You cannot delete a posted statement! '
                       'Reset the statement to draft first.'))
+            if statement.state == 'final':
+                raise UserError(
+                    _('You cannot delete a statement set as final!'))
         super(VatStatement, self).unlink()
 
     @api.depends('line_ids.btw')

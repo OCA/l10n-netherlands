@@ -1,10 +1,9 @@
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.tools.misc import formatLang
-from odoo.exceptions import Warning as UserError
-
 
 OMZET_DISPLAY = (
     '1a', '1b', '1c', '1d', '1e',
@@ -89,4 +88,7 @@ class VatStatementLine(models.Model):
                 raise UserError(
                     _('You cannot delete lines of a posted statement! '
                       'Reset the statement to draft first.'))
+            if line.statement_id.state == 'final':
+                raise UserError(
+                    _('You cannot delete lines of a statement set as final!'))
         super(VatStatementLine, self).unlink()
