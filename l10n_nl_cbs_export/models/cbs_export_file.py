@@ -179,7 +179,7 @@ class CbsExportFile(models.Model):
     def _format_header(self):
         company = self.company_id
         month_period = datetime.now().replace(
-            month=int(self.month), year=int(self.year))
+            month=int(self.month), year=int(self.year), day=1)
 
         cbs_export_data = \
             str('9801') + \
