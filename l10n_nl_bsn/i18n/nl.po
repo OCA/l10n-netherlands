@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Frank Schellenberg <opensource@schellenberg.nl>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-08 03:37+0000\n"
-"PO-Revision-Date: 2017-12-08 03:37+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2018-01-16 06:23+0000\n"
+"PO-Revision-Date: 2018-01-16 06:23+0000\n"
+"Last-Translator: Frank Schellenberg <opensource@schellenberg.nl>, 2018\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgstr "BSN"
 #. module: l10n_nl_bsn
 #: model:ir.model,name:l10n_nl_bsn.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: l10n_nl_bsn
 #: code:addons/l10n_nl_bsn/models/res_partner.py:55
