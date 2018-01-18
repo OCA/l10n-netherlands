@@ -4,35 +4,6 @@
 
 <odoo>
 
-    <template id="l10n_nl_tax_statement.internal_layout">
-        <div class="header">
-            <div class="row">
-                <div class="col-xs-6">
-                    <span t-esc="title"/>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <span t-esc="company_name"/>
-                </div>
-            </div>
-        </div>
-        <t t-raw="0" />
-        <div class="footer">
-            <div class="row">
-                <div class="col-xs-6 custom_footer">
-                    <span>Printed: </span>
-                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
-                </div>
-                <div class="col-xs-6 text-right custom_footer">
-                    <ul class="list-inline">
-                        <li><span class="page"/></li>
-                        <li>/</li>
-                        <li><span class="topage"/></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </template>
-
     <template id="l10n_nl_tax_statement.report_tax_statement_filters">
         <div class="act_as_table data_table" style="width: 1140px;">
             <div class="act_as_row labels">
@@ -64,9 +35,9 @@
     </template>
 
     <template id="l10n_nl_tax_statement.report_tax_statement">
-        <t t-call="report.html_container">
+        <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="l10n_nl_tax_statement.internal_layout">
+                <t t-call="web.internal_layout">
                     <!-- Defines global variables used by internal layout -->
                     <t t-set="title">Aangifte omzetbelasting</t>
                     <t t-set="company_name" t-value="o.company_id.name"/>
