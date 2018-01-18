@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="state_drenthe" model="res.country.state">
+            <field name="name">Drenthe</field>
+            <field name="code">NL-DR</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_flevoland" model="res.country.state">
+            <field name="name">Flevoland</field>
+            <field name="code">NL-FL</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_friesland" model="res.country.state">
+            <field name="name">Friesland</field>
+            <field name="code">NL-FR</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_gelderland" model="res.country.state">
+            <field name="name">Gelderland</field>
+            <field name="code">NL-GD</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_groningen" model="res.country.state">
+            <field name="name">Groningen</field>
+            <field name="code">NL-GR</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_limburg" model="res.country.state">
+            <field name="name">Limburg</field>
+            <field name="code">NL-LB</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_noordbrabant" model="res.country.state">
+            <field name="name">Noord-Brabant</field>
+            <field name="code">NL-NB</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_noordholland" model="res.country.state">
+            <field name="name">Noord-Holland</field>
+            <field name="code">NL-NH</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_overijssel" model="res.country.state">
+            <field name="name">Overijssel</field>
+            <field name="code">NL-OV</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_utrecht" model="res.country.state">
+            <field name="name">Utrecht</field>
+            <field name="code">NL-UT</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_zuidholland" model="res.country.state">
+            <field name="name">Zuid-Holland</field>
+            <field name="code">NL-ZH</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_zeeland" model="res.country.state">
+            <field name="name">Zeeland</field>
+            <field name="code">NL-ZL</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_aruba" model="res.country.state">
+            <field name="name">Aruba</field>
+            <field name="code">NL-AW</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+       <record id="state_curacao" model="res.country.state">
+            <field name="name">Curaçao</field>
+            <field name="code">NL-CW</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_sintmaarten" model="res.country.state">
+            <field name="name">Sint Maarten</field>
+            <field name="code">NL-SX</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_bonaire" model="res.country.state">
+            <field name="name">Bonaire</field>
+            <field name="code">NL-BQ1</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+       <record id="state_saba" model="res.country.state">
+            <field name="name">Saba</field>
+            <field name="code">NL-BQ2</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+        <record id="state_sinteustatius" model="res.country.state">
+            <field name="name">Sint Eustatius</field>
+            <field name="code">NL-BQ3</field>
+            <field name="country_id" ref="base.nl"/>
+        </record>
+    </data>
+</odoo>
