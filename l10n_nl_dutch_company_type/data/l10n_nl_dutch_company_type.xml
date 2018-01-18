@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="company_type_solepropietor" model="res.partner.company.type">
+            <field name="name">Sole proprietor</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_generalpartnership" model="res.partner.company.type">
+            <field name="name">General partnership</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_professionalpartnership" model="res.partner.company.type">
+            <field name="name">Professional partnership</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_limitedpartnership" model="res.partner.company.type">
+            <field name="name">Limited partnership</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_privatelimitedcompany" model="res.partner.company.type">
+            <field name="name">Private limited company</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_publiclimitedcompany" model="res.partner.company.type">
+            <field name="name">Public limited company</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_association" model="res.partner.company.type">
+            <field name="name">Association</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_cooperative" model="res.partner.company.type">
+            <field name="name">Cooperative</field>
+            <field name="shortcut"></field>
+        </record>
+        <record id="company_type_foundation" model="res.partner.company.type">
+            <field name="name">Foundation</field>
+            <field name="shortcut"></field>
+        </record>
+    </data>
+</odoo>
