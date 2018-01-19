@@ -53,10 +53,10 @@ class XafAuditfileExport(models.Model):
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
-    account_account_ids = fields.Many2many('account.account',
-                                           string='Accounts to ignore',
-                                           help='''Accounts that should not
-                                           be shown on the report''')
+    exclude_account_ids = fields.Many2many(
+        'account.account',
+        string='Accounts to exclude',
+        help='''Accounts that should not be shown on the report''')
 
     @api.model
     def default_get(self, fields):
@@ -64,8 +64,8 @@ class XafAuditfileExport(models.Model):
         company = self.env['res.company'].browse([
             self.env['res.company']._company_default_get(
                 object=self._model._name)])
-        fiscalyear = self.env['account.fiscalyear'].browse([
-            self.env['account.fiscalyear'].find(exception=False)])
+        fiscalyear = self.env['account.fiscalyear'].browse(
+            self.env['account.fiscalyear'].find(exception=False) or [])
         if fiscalyear and self.env['account.fiscalyear'].search(
                 [('date_start', '<', fiscalyear.date_start)],
                 limit=1):
@@ -177,7 +177,7 @@ class XafAuditfileExport(models.Model):
         '''return browse record list of accounts'''
         return self.env['account.account'].search([
             ('company_id', '=', self.company_id.id),
-            ('id', 'not in', self.account_account_ids.ids),
+            ('id', 'not in', self.exclude_account_ids.ids),
         ])
 
     @api.multi
@@ -200,9 +200,12 @@ class XafAuditfileExport(models.Model):
     def get_move_line_count(self):
         '''return amount of move lines'''
         self.env.cr.execute(
-            'select count(*) from account_move_line where period_id in %s '
-            'and (company_id=%s or company_id is null)',
-            (tuple(p.id for p in self.get_periods()), self.company_id.id))
+            'select count(id) from account_move_line where period_id in %s '
+            'and (company_id=%s or company_id is null) '
+            'and account_id not in %s',
+            (tuple(p.id for p in self.get_periods()),
+                self.company_id.id,
+                tuple(self.exclude_account_ids.ids) or (0, )))
         return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
@@ -210,8 +213,11 @@ class XafAuditfileExport(models.Model):
         '''return total debit of move lines'''
         self.env.cr.execute(
             'select sum(debit) from account_move_line where period_id in %s '
-            'and (company_id=%s or company_id is null)',
-            (tuple(p.id for p in self.get_periods()), self.company_id.id))
+            'and (company_id=%s or company_id is null) '
+            'and account_id not in %s',
+            (tuple(p.id for p in self.get_periods()),
+                self.company_id.id,
+                tuple(self.exclude_account_ids.ids) or (0, )))
         return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
@@ -219,8 +225,11 @@ class XafAuditfileExport(models.Model):
         '''return total credit of move lines'''
         self.env.cr.execute(
             'select sum(credit) from account_move_line where period_id in %s '
-            'and (company_id=%s or company_id is null)',
-            (tuple(p.id for p in self.get_periods()), self.company_id.id))
+            'and (company_id=%s or company_id is null) '
+            'and account_id not in %s',
+            (tuple(p.id for p in self.get_periods()),
+                self.company_id.id,
+                tuple(self.exclude_account_ids.ids) or (0, )))
         return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
