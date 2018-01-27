@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
+# Melroy van den Berg <webmaster1989@gmail.com>, 2018
 # Frank Schellenberg <opensource@schellenberg.nl>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-16 06:23+0000\n"
-"PO-Revision-Date: 2018-01-16 06:23+0000\n"
+"POT-Creation-Date: 2018-01-25 15:47+0000\n"
+"PO-Revision-Date: 2018-01-25 15:47+0000\n"
 "Last-Translator: Frank Schellenberg <opensource@schellenberg.nl>, 2018\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -109,11 +110,6 @@ msgstr "5g - Totaal"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_btw_total
 msgid "5g. Total (5c + 5d)"
 msgstr "5g. Totaal (5c + 5d)"
-
-#. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.internal_layout
-msgid "<span>Printed: </span>"
-msgstr "<span>Printed: </span>"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -370,7 +366,7 @@ msgstr "BTW labels"
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement
 msgid "NL Tax Statement"
-msgstr "BTW-aangite"
+msgstr "BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_name
