@@ -11,7 +11,9 @@
         'base',
     ],
     "data": [
+        'security/ir.model.access.csv',
         'data/l10n_nl_country_states.xml',
+        "data/res_country_state_nl_zip.xml",
     ],
     "installable": True,
     "application": False,
