@@ -28,4 +28,3 @@ class TestL10nNlCountryStates(TransactionCase):
             partner.state_id,
             self.env.ref('l10n_nl_country_states.state_groningen'),
         )
-

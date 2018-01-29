@@ -2,8 +2,6 @@
 # this script generates the data file for postcode state mapping
 # TODO: this could be much more efficient if we actually used min/max
 import argparse
-import itertools
-import operator
 import xlrd
 
 parser = argparse.ArgumentParser()
