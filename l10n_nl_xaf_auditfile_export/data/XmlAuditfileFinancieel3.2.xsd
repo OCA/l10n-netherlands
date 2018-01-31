@@ -746,6 +746,7 @@
 			<xsd:enumeration value="IR"/>
 			<xsd:enumeration value="IS"/>
 			<xsd:enumeration value="IT"/>
+			<xsd:enumeration value="JE"/>
 			<xsd:enumeration value="JM"/>
 			<xsd:enumeration value="JO"/>
 			<xsd:enumeration value="JP"/>
