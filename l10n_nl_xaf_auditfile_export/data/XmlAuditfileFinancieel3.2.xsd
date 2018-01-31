@@ -822,7 +822,7 @@
 			<xsd:enumeration value="QA"/>
 			<xsd:enumeration value="RE"/>
 			<xsd:enumeration value="RO"/>
-+			<xsd:enumeration value="RS"/>
+			<xsd:enumeration value="RS"/>
 			<xsd:enumeration value="RU"/>
 			<xsd:enumeration value="RW"/>
 			<xsd:enumeration value="SA"/>
