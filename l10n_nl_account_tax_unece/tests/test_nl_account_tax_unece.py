@@ -2,9 +2,11 @@
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, at_install, post_install
 
 
+@at_install(False)
+@post_install(True)
 class TestNlAccountTaxUnece(TransactionCase):
 
     def setUp(self):
