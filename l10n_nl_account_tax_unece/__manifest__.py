@@ -16,5 +16,5 @@
     ],
     'post_init_hook': 'set_unece_on_taxes',
     'installable': True,
-    'auto_installable': True,
+    'auto_install': True,
 }
