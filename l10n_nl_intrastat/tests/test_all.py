@@ -133,7 +133,7 @@ class TestIntrastatNL(TransactionCase):
                     'price_unit': 50.0,
                     'product_id': service.id,
                     'quantity': 5.0,
-                    'uos_id': self.env.ref('product.product_uom_unit').id
+                    'uom_id': self.env.ref('product.product_uom_unit').id
                 }),
                 (0, False, {
                     'name': 'Sale of consumable',
@@ -142,7 +142,7 @@ class TestIntrastatNL(TransactionCase):
                     'price_unit': 35.0,
                     'product_id': consumable.id,
                     'quantity': 1.0,
-                    'uos_id': self.env.ref('product.product_uom_unit').id
+                    'uom_id': self.env.ref('product.product_uom_unit').id
                 }),
                 (0, False, {
                     'name': 'Sale to be excluded from intrastat report',
@@ -151,7 +151,7 @@ class TestIntrastatNL(TransactionCase):
                     'price_unit': 20.0,
                     'product_id': service.id,
                     'quantity': 2.0,
-                    'uos_id': self.env.ref('product.product_uom_unit').id
+                    'uom_id': self.env.ref('product.product_uom_unit').id
                 }),
             ]
         })
@@ -198,7 +198,7 @@ class TestIntrastatNL(TransactionCase):
                     'price_unit': 100.0,
                     'product_id': service.id,
                     'quantity': 1.0,
-                    'uos_id': self.env.ref('product.product_uom_unit').id
+                    'uom_id': self.env.ref('product.product_uom_unit').id
                 }),
             ]
         })
