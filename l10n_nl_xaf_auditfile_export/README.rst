@@ -46,6 +46,7 @@ Contributors
 ------------
 
 * Holger Brunn <hbrunn@therp.nl>
+* Luc De Meyer <info@noviat.com>
 
 Icon
 ----

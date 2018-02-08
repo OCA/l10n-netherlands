@@ -1,23 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright (C) 2015 Therp BV <http://therp.nl>.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 import base64
 from StringIO import StringIO
 from lxml import etree
@@ -52,6 +36,16 @@ class XafAuditfileExport(models.Model):
         'Auditfile filename', compute=_auditfile_name_get)
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
+    data_export = fields.Selection(
+        selection=[
+            ('default', 'Default'),
+            ('all', 'All'),
+        ], string='Data record info',
+        required=True, default='default',
+        help="Select 'All' in order to include "
+             "optional partner details and "
+             "general account history information "
+             "in the exported XAF File. ")
     company_id = fields.Many2one('res.company', 'Company', required=True)
     exclude_account_ids = fields.Many2many(
         'account.account',
@@ -96,6 +90,7 @@ class XafAuditfileExport(models.Model):
     @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
+        self._get_data()
         auditfile_template = self._get_auditfile_template()
         xml = auditfile_template.render(values={
             'self': self,
@@ -138,8 +133,36 @@ class XafAuditfileExport(models.Model):
     def _get_auditfile_template(self):
         self.ensure_one()
         return self.env.ref(
-            'l10n_nl_xaf_auditfile_export.auditfile_template'
+            'l10n_nl_xaf_auditfile_export.xaf_template_%s'
+            % self.data_export
         )
+
+    def _get_data(self):
+        self._periods = self.env['account.period'].search([
+            ('date_start', '<=', self.period_end.date_stop),
+            ('date_stop', '>=', self.period_start.date_start),
+            ('company_id', '=', self.company_id.id),
+        ], order='date_start, special desc')
+
+        self._cr.execute(
+            "SELECT partner_id, account_id, journal_id "
+            "FROM account_move_line "
+            "WHERE period_id IN %s AND account_id NOT IN %s "
+            "AND company_id=%s ",
+            (tuple(self._periods._ids),
+             tuple(self.exclude_account_ids._ids),
+             self.company_id.id))
+        res = self._cr.fetchall()
+
+        self._partner_ids = list(set([x[0] for x in res]))
+
+        account_ids = list(set([x[1] for x in res]))
+        self._accounts = self.env['account.account'].search([
+            ('id', 'in', account_ids)], order='code')
+
+        journal_ids = list(set([x[2] for x in res]))
+        self._journals = self.env['account.journal'].search([
+            ('id', 'in', journal_ids)], order='code')
 
     @api.multi
     def get_odoo_version(self):
@@ -148,22 +171,15 @@ class XafAuditfileExport(models.Model):
 
     @api.multi
     def get_partners(self):
-        '''return a generator over partners and suppliers'''
+        '''return a generator over partners'''
         offset = 0
         while True:
             results = self.env['res.partner'].search(
-                [
-                    '|',
-                    ('customer', '=', True),
-                    ('supplier', '=', True),
-                    '|',
-                    ('company_id', '=', False),
-                    ('company_id', '=', self.company_id.id),
-                ],
-                offset=offset,
-                limit=int(self.env['ir.config_parameter'].get_param(
+                [('id', 'in', self._partner_ids)],
+                offset=offset, order='display_name',
+                limit=self.env['ir.config_parameter'].get_param(
                     'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS)))
+                    default=MAX_RECORDS))
             if not results:
                 break
             offset += MAX_RECORDS
@@ -175,26 +191,12 @@ class XafAuditfileExport(models.Model):
     @api.multi
     def get_accounts(self):
         '''return browse record list of accounts'''
-        return self.env['account.account'].search([
-            ('company_id', '=', self.company_id.id),
-            ('id', 'not in', self.exclude_account_ids.ids),
-        ])
+        return self._accounts
 
     @api.multi
     def get_periods(self):
         '''return periods in this export'''
-        return self.env['account.period'].search([
-            ('date_start', '<=', self.period_end.date_stop),
-            ('date_stop', '>=', self.period_start.date_start),
-            ('company_id', '=', self.company_id.id),
-        ])
-
-    @api.multi
-    def get_taxes(self):
-        '''return taxes'''
-        return self.env['account.tax'].search([
-            ('company_id', '=', self.company_id.id),
-        ])
+        return self._periods
 
     @api.multi
     def get_move_line_count(self):
@@ -235,19 +237,16 @@ class XafAuditfileExport(models.Model):
     @api.multi
     def get_journals(self):
         '''return journals'''
-        return self.env['account.journal'].search([
-            ('company_id', '=', self.company_id.id),
-        ])
+        return self._journals
 
     @api.multi
     def get_moves(self, journal):
         '''return moves for a journal, generator style'''
         offset = 0
-        period_ids = [p.id for p in self.get_periods()]
         while True:
             results = self.env['account.move'].search(
                 [
-                    ('period_id', 'in', period_ids),
+                    ('period_id', 'in', self._periods.ids),
                     ('journal_id', '=', journal.id),
                 ],
                 offset=offset,

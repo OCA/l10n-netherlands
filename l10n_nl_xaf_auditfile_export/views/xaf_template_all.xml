@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <template id="auditfile_template">
+        <template id="xaf_template_all">
 <auditfile>
     <header>
         <fiscalYear><t t-esc="self.period_start.fiscalyear_id.name" t-esc-options='{"widget": "auditfile.string9"}' /></fiscalYear>
@@ -104,6 +104,7 @@
         <!-- we might fill in those later
         <openingBalance />
         /-->
+        <!-- future extensions
         <vatCodes>
             <vatCode t-foreach="self.get_taxes()" t-as="t">
                 <vatID><t t-esc="t.id" /></vatID>
@@ -112,6 +113,7 @@
                 <vatToClaimAccID><t t-esc="t.account_collected_id.code" /></vatToClaimAccID>
             </vatCode>
         </vatCodes>
+        -->
         <periods>
             <period t-foreach="self.get_periods()" t-as="p">
                 <periodNumber><t t-esc="p.date_stop[3] + p.date_stop[5:7]"/></periodNumber>
