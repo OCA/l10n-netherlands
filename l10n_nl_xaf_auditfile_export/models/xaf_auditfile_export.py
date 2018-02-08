@@ -150,7 +150,7 @@ class XafAuditfileExport(models.Model):
             "WHERE period_id IN %s AND account_id NOT IN %s "
             "AND company_id=%s ",
             (tuple(self._periods._ids),
-             tuple(self.exclude_account_ids._ids),
+             tuple(self.exclude_account_ids._ids or [0]),
              self.company_id.id))
         res = self._cr.fetchall()
 
