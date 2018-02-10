@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-12 14:37+0000\n"
-"PO-Revision-Date: 2017-03-12 14:37+0000\n"
+"POT-Creation-Date: 2018-02-07 16:17+0000\n"
+"PO-Revision-Date: 2018-02-07 16:17+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,exclude_account_ids:0
+msgid "Accounts that should not be shown on the report"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,exclude_account_ids:0
+msgid "Accounts to exclude"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,auditfile:0
 msgid "Auditfile"
 msgstr "Auditfile"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:75
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:79
 #, python-format
 msgid "Auditfile %s %s"
 msgstr "Auditfile %s %s"
@@ -198,7 +208,7 @@ msgid "XAF auditfile export"
 msgstr "XAF auditfile export"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:90
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:94
 #, python-format
 msgid "You need to choose consecutive periods!"
 msgstr "Je moet opeenvolgende periodes te kiezen!"
