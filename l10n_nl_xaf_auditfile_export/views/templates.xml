@@ -148,7 +148,7 @@
                         <docRef><t t-esc="l.ref" t-esc-options='{"widget": "auditfile.string999"}' /></docRef>
                         <effDate><t t-esc="l.date" /></effDate>
                         <desc><t t-esc="l.name" /></desc>
-                        <amnt><t t-esc="l.credit or l.debit" /></amnt>
+                        <amnt><t t-esc="abs(l.balance)" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
                         <recRef t-if="l.full_reconcile_id"><t t-esc="l.full_reconcile_id.name" /></recRef>
                         <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
