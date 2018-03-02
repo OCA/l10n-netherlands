@@ -17,8 +17,8 @@
         "demo/res_partner.xml",
         "views/xaf_auditfile_export.xml",
         "views/menu.xml",
-        'views/xaf_template_default.xml',
         'views/xaf_template_all.xml',
+        'views/xaf_template_default.xml',
         'security/ir.model.access.csv',
     ],
     "qweb": [
