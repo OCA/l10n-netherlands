@@ -90,9 +90,13 @@ class XafAuditfileExport(models.Model):
     @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
-        self._get_data()
+        accounts, journals, partner_ids, periods = self._get_data()
         auditfile_template = self._get_auditfile_template()
         xml = auditfile_template.render(values={
+            'accounts': accounts,
+            'journals': journals,
+            'partner_ids': partner_ids,
+            'periods': periods,
             'self': self,
         })
         # the following is dealing with the fact that qweb templates don't like
@@ -138,7 +142,7 @@ class XafAuditfileExport(models.Model):
         )
 
     def _get_data(self):
-        self._periods = self.env['account.period'].search([
+        periods = self.env['account.period'].search([
             ('date_start', '<=', self.period_end.date_stop),
             ('date_stop', '>=', self.period_start.date_start),
             ('company_id', '=', self.company_id.id),
@@ -149,20 +153,22 @@ class XafAuditfileExport(models.Model):
             "FROM account_move_line "
             "WHERE period_id IN %s AND account_id NOT IN %s "
             "AND company_id=%s ",
-            (tuple(self._periods._ids),
+            (tuple(periods._ids),
              tuple(self.exclude_account_ids._ids or [0]),
              self.company_id.id))
         res = self._cr.fetchall()
 
-        self._partner_ids = list(set([x[0] for x in res]))
+        partner_ids = list(set([x[0] for x in res]))
 
         account_ids = list(set([x[1] for x in res]))
-        self._accounts = self.env['account.account'].search([
+        accounts = self.env['account.account'].search([
             ('id', 'in', account_ids)], order='code')
 
         journal_ids = list(set([x[2] for x in res]))
-        self._journals = self.env['account.journal'].search([
+        journals = self.env['account.journal'].search([
             ('id', 'in', journal_ids)], order='code')
+
+        return accounts, journals, partner_ids, periods
 
     @api.multi
     def get_odoo_version(self):
@@ -170,12 +176,12 @@ class XafAuditfileExport(models.Model):
         return release.version
 
     @api.multi
-    def get_partners(self):
+    def get_partners(self, partner_ids):
         '''return a generator over partners'''
         offset = 0
         while True:
             results = self.env['res.partner'].search(
-                [('id', 'in', self._partner_ids)],
+                [('id', 'in', partner_ids)],
                 offset=offset, order='display_name',
                 limit=self.env['ir.config_parameter'].get_param(
                     'l10n_nl_xaf_auditfile_export.max_records',
@@ -189,64 +195,49 @@ class XafAuditfileExport(models.Model):
             del results
 
     @api.multi
-    def get_accounts(self):
-        '''return browse record list of accounts'''
-        return self._accounts
-
-    @api.multi
-    def get_periods(self):
-        '''return periods in this export'''
-        return self._periods
-
-    @api.multi
-    def get_move_line_count(self):
+    def get_move_line_count(self, periods):
         '''return amount of move lines'''
         self.env.cr.execute(
             'select count(id) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null) '
             'and account_id not in %s',
-            (tuple(p.id for p in self.get_periods()),
+            (tuple(p.id for p in periods),
                 self.company_id.id,
                 tuple(self.exclude_account_ids.ids) or (0, )))
         return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
-    def get_move_line_total_debit(self):
+    def get_move_line_total_debit(self, periods):
         '''return total debit of move lines'''
         self.env.cr.execute(
             'select sum(debit) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null) '
             'and account_id not in %s',
-            (tuple(p.id for p in self.get_periods()),
+            (tuple(p.id for p in periods),
                 self.company_id.id,
                 tuple(self.exclude_account_ids.ids) or (0, )))
         return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
-    def get_move_line_total_credit(self):
+    def get_move_line_total_credit(self, periods):
         '''return total credit of move lines'''
         self.env.cr.execute(
             'select sum(credit) from account_move_line where period_id in %s '
             'and (company_id=%s or company_id is null) '
             'and account_id not in %s',
-            (tuple(p.id for p in self.get_periods()),
+            (tuple(p.id for p in periods),
                 self.company_id.id,
                 tuple(self.exclude_account_ids.ids) or (0, )))
         return self.env.cr.fetchall()[0][0] or 0
 
     @api.multi
-    def get_journals(self):
-        '''return journals'''
-        return self._journals
-
-    @api.multi
-    def get_moves(self, journal):
+    def get_moves(self, journal, periods):
         '''return moves for a journal, generator style'''
         offset = 0
         while True:
             results = self.env['account.move'].search(
                 [
-                    ('period_id', 'in', self._periods.ids),
+                    ('period_id', 'in', periods.ids),
                     ('journal_id', '=', journal.id),
                 ],
                 offset=offset,

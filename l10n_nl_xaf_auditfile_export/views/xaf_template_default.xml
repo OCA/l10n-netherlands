@@ -26,7 +26,7 @@
             <country t-if="self.company_id.country_id"><t t-esc="self.company_id.country_id.code"/></country>
           </streetAddress>
           <customersSuppliers>
-            <customerSupplier t-foreach="self.get_partners()" t-as="p">
+            <customerSupplier t-foreach="self.get_partners(partner_ids)" t-as="p">
               <custSupID><t t-esc="p.id"/></custSupID>
               <custSupName><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}'/></custSupName>
               <taxRegistrationCountry t-if="p.country_id"><t t-esc="p.country_id.code"/></taxRegistrationCountry>
@@ -41,7 +41,7 @@
             </customerSupplier>
           </customersSuppliers>
           <generalLedger>
-            <ledgerAccount t-foreach="self.get_accounts()" t-as="a">
+            <ledgerAccount t-foreach="accounts" t-as="a">
               <accID><t t-esc="a.code"/></accID>
               <accDesc><t t-esc="a.name" t-esc-options='{"widget": "auditfile.string999"}'/></accDesc>
               <accTp><t t-esc="'P' if a.user_type.report_type in ['income', 'expense'] else 'B' if a.user_type.report_type in ['asset', 'liability'] else 'M'"/></accTp>
@@ -51,7 +51,7 @@
         <openingBalance />
         /-->
           <periods>
-            <period t-foreach="self.get_periods()" t-as="p">
+            <period t-foreach="periods" t-as="p">
               <periodNumber><t t-esc="p.id" /></periodNumber>
               <periodDesc><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}'/></periodDesc>
               <startDatePeriod><t t-esc="p.date_start"/></startDatePeriod>
@@ -59,14 +59,14 @@
             </period>
           </periods>
           <transactions>
-            <linesCount><t t-esc="self.get_move_line_count()"/></linesCount>
-            <totalDebit><t t-esc="self.get_move_line_total_debit()"/></totalDebit>
-            <totalCredit><t t-esc="self.get_move_line_total_credit()"/></totalCredit>
-            <journal t-foreach="self.get_journals()" t-as="j">
+            <linesCount><t t-esc="self.get_move_line_count(periods)"/></linesCount>
+            <totalDebit><t t-esc="self.get_move_line_total_debit(periods)"/></totalDebit>
+            <totalCredit><t t-esc="self.get_move_line_total_credit(periods)"/></totalCredit>
+            <journal t-foreach="journals" t-as="j">
               <jrnID><t t-esc="j.code"/></jrnID>
               <desc><t t-esc="j.name"/></desc>
               <jrnTp><t t-esc="'B' if j.type == 'bank' else 'C' if j.type == 'cash' else 'O' if j.type == 'situation' else 'S' if j.type in ['sale', 'sale_refund'] else 'P' if j.type in ['purchase', 'purchase_refund'] else 'Z'"/></jrnTp>
-              <transaction t-foreach="self.get_moves(j)" t-as="m">
+              <transaction t-foreach="self.get_moves(j, periods)" t-as="m">
                 <nr><t t-esc="m.id"/></nr>
                 <desc><t t-esc="m.name"/></desc>
                 <periodNumber><t t-esc="m.period_id.id"/></periodNumber>
