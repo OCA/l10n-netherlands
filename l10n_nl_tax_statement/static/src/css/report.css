@@ -1,22 +1,22 @@
-body, table, td, span, div {
+.nl_tax > table, .nl_tax > td, .nl_tax > span, .nl_tax > div {
     font-family: Helvetica, Arial;
 }
-.act_as_table {
+.nl_tax_act_as_table {
     display: table;
 }
-.act_as_row  {
+.nl_tax_act_as_row  {
     display: table-row !important;
     page-break-inside: avoid;
 }
-.act_as_cell {
+.nl_tax_act_as_cell {
     display: table-cell;
     page-break-inside: avoid;
     font-size:18px;
 }
-.act_as_row.labels {
+.nl_tax_act_as_row.labels {
     background-color:#F0F0F0;
 }
-.data_table {
+.nl_tax_table {
     width: 100%;
     table-layout: fixed;
     border-left:0px;
@@ -29,21 +29,21 @@ body, table, td, span, div {
     padding-bottom:3px;
     border-collapse:collapse;
 }
-.data_table .act_as_cell{
+.nl_tax_table .nl_tax_act_as_cell{
     border-bottom: 1px solid lightGrey;
     text-align: center;
     word-wrap: break-word;
 }
-.data_table .act_as_row.labels {
+.nl_tax_table .nl_tax_act_as_row.labels {
     font-weight: bold;
 }
-.act_as_cell.right {
+.nl_tax_act_as_cell.right {
     word-wrap:normal;
     text-align:right;
 }
-.act_as_cell.left {
+.nl_tax_act_as_cell.left {
     text-align:left;
 }
-.custom_footer {
+.nl_tax_footer {
     font-size:18px;
 }
