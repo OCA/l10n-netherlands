@@ -8,6 +8,7 @@
     </template>
 
     <template id="l10n_nl_tax_statement.internal_layout">
+        <div class="nl_tax">
         <div class="header">
             <div class="row">
                 <div class="col-xs-6">
@@ -21,11 +22,11 @@
         <t t-raw="0" />
         <div class="footer">
             <div class="row">
-                <div class="col-xs-6 custom_footer">
+                <div class="col-xs-6 nl_tax_footer">
                     <span>Printed: </span>
                     <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
                 </div>
-                <div class="col-xs-6 text-right custom_footer">
+                <div class="col-xs-6 text-right nl_tax_footer">
                     <ul class="list-inline">
                         <li><span class="page"/></li>
                         <li>/</li>
@@ -33,6 +34,7 @@
                     </ul>
                 </div>
             </div>
+        </div>
         </div>
     </template>
 
