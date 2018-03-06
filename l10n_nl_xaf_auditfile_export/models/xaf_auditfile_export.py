@@ -222,7 +222,7 @@ class XafAuditfileExport(models.Model):
             'and date <= %s '
             'and (company_id=%s or company_id is null)',
             (self.date_start, self.date_end, self.company_id.id, ))
-        return self.env.cr.fetchall()[0][0]
+        return round(self.env.cr.fetchall()[0][0], 2)
 
     @api.multi
     def get_move_line_total_credit(self):
@@ -233,7 +233,7 @@ class XafAuditfileExport(models.Model):
             'and date <= %s '
             'and (company_id=%s or company_id is null)',
             (self.date_start, self.date_end, self.company_id.id, ))
-        return self.env.cr.fetchall()[0][0]
+        return round(self.env.cr.fetchall()[0][0], 2)
 
     @api.multi
     def get_journals(self):
