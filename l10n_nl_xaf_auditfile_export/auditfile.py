@@ -609,7 +609,7 @@ def main():
     def parse_arguments():
         parser = argparse.ArgumentParser()
         # Pass connection string as:
-        # "dbname='template1' user='my_user' host='localhost' password='password'"
+        # "dbname='xxx' user='my_user' host='localhost' password='password'"
         # Only dbname is required (when using ident login)
         parser.add_argument('connection_string', action='store')
         # Compute default start and end date
@@ -632,7 +632,7 @@ def main():
         connection_string = args.connection_string
         create_auditfile(specification, 'auditfile.xaf', connection_string)
         return 0
-    except Exception as err:
+    except Exception:
         _logger.exception('Unexpected exception in main()')
         return 2
 

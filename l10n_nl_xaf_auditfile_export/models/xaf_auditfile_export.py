@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2015-2018 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-import base64
 import logging
 import os
 from datetime import datetime
@@ -121,12 +120,13 @@ class XafAuditfileExport(models.Model):
         domain['period_end'] = company_domain
         return {'domain': domain}
 
-    @api.one
+    @api.multi
     @api.constrains('period_start', 'period_end')
     def check_periods(self):
-        if self.period_start.date_start > self.period_end.date_start:
-            raise ValidationError(
-                _('You need to choose consecutive periods!'))
+        for this in self:
+            if this.period_start.date_start > this.period_end.date_start:
+                raise ValidationError(
+                    _('You need to choose consecutive periods!'))
 
     @api.multi
     def button_generate(self):
@@ -157,7 +157,7 @@ class XafAuditfileExport(models.Model):
                 # We come here at the end of each element
                 element.clear()
         except etree.XMLSyntaxError as e:
-            self.message_post('Invalid audit file:\n%s' % e)
+            self.message_post(_('Invalid audit file:\n%s') % e)
             return
         self.auditfile_url = (
             '/file_cabinet/auditfile?filename=%s' % auditfile_name)
