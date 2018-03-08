@@ -10,4 +10,4 @@ class TestL10nNlXafAuditfileExport(TransactionCase):
     def test_l10n_nl_xaf_auditfile_export_default(self):
         export = self.env['xaf.auditfile.export'].create({})
         export.button_generate()
-        self.assertTrue(export.auditfile)
+        self.assertTrue(export.auditfile_url)
