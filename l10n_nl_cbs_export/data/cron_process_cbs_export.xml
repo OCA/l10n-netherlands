@@ -4,12 +4,12 @@
     <record id="cbs_export_file" model="ir.cron">
         <field name="name">Generate CBS Export File</field>
         <field name="interval_type">months</field>
-        <field name="model">cbs.export.file</field>
+        <field name="model_id" ref="model_cbs_export_file"/>
         <field name="user_id" ref="base.user_root"/>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
-        <field name="function" eval="'cron_get_cbs_export_file'"/>
-        <field name="args" eval="'()'" />
+        <field name="state">code</field>
+        <field name="code">model.cron_get_cbs_export_file()</field>
     </record>
 
 </odoo>

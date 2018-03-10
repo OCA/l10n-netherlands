@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Odoo Experts (<https://www.odooexperts.nl>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import base64
 import calendar
@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 
 class CbsExportFile(models.Model):
     _name = 'cbs.export.file'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread']
 
     @api.multi
     def _compute_get_filename(self):
@@ -173,7 +173,7 @@ class CbsExportFile(models.Model):
             ),
             subtype='mt_comment'
         )
-        self.cbs_export_invoice = base64.encodestring(cbs_export_data)
+        self.cbs_export_invoice = base64.b64encode(cbs_export_data.encode())
 
     @api.model
     def _format_header(self):
@@ -196,8 +196,8 @@ class CbsExportFile(models.Model):
 
         return cbs_export_data
 
-    @api.model
-    def _format_footer(self):
+    @staticmethod
+    def _format_footer():
         cbs_export_data = str('9899') + str(" " * 111) + '\r\n'
         return cbs_export_data
 
@@ -206,13 +206,13 @@ class CbsExportFile(models.Model):
         self.ensure_one()
 
         line_counter = 1
+        invoice_line_number = 0
         cbs_export_data = ''
         invoices = self.account_invoice_ids
 
         for invoice_line in invoices.mapped('invoice_line_ids'):
             sign_of_weight = '-'
             sign_of_invoice_value = '-'
-            invoice_line_number = 0
             if invoice_line.invoice_id.amount_total_signed >= 0:
                 sign_of_invoice_value = '+'
             if (invoice_line.quantity * invoice_line.product_id.weight) >= 0:
@@ -243,6 +243,7 @@ class CbsExportFile(models.Model):
                     ).replace('-', '').zfill(10) + \
                 str('+') + \
                 str('0000000000').zfill(10) + sign_of_invoice_value
+
             if invoice_line.price_subtotal == 0.0:
                 standard_price = invoice_line.product_id.standard_price
                 quantity = invoice_line.quantity
@@ -251,13 +252,12 @@ class CbsExportFile(models.Model):
             else:
                 value += str(int(invoice_line.price_subtotal)).replace(
                     '-', '').zfill(10)
-            value += str('+') + \
-                str('0000000000').zfill(10)
+            value += str('+') + str('0000000000').zfill(10)
 
             if len(str(invoice_line.invoice_id.number or '')) < 8:
                 invoice_value = \
                     str(invoice_line.invoice_id.number) + \
-                    str(line_counter).zfill(2)
+                    str(invoice_line_number).zfill(2)
                 value += str(invoice_value).ljust(10)
             else:
                 value += str(
@@ -271,6 +271,7 @@ class CbsExportFile(models.Model):
                 str(" " * 7) + '\r\n'
 
             line_counter += 1
+            invoice_line_number += 1
             if invoice_line_number > 99:
                 invoice_line_number = 1
             cbs_export_data += value

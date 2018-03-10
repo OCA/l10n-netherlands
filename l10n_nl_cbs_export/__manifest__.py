@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Odoo Experts (<https://www.odooexperts.nl>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "CBS Export Intrahandel Sale",
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "Odoo Experts, Onestein, Odoo Community Association (OCA)",
     "website": "https://www.odooexperts.nl",
     "category": "Accounting",

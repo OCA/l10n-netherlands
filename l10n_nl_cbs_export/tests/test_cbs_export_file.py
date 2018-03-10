@@ -1,12 +1,14 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<http://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import base64
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+from psycopg2 import IntegrityError
 
 from odoo.tests.common import TransactionCase
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+from odoo.tools import mute_logger
 from odoo.exceptions import ValidationError
 
 
@@ -18,6 +20,7 @@ class TestCbsExportFile(TransactionCase):
         self.company = self.env.ref('base.main_company')
         company = self.company
         company.country_id = self.env.ref('base.nl')
+        company.partner_id.phone = '+3123456789'
 
         type_receivable = self.env.ref('account.data_account_type_receivable')
         self.account_receivable = self.env['account.account'].search(
@@ -29,10 +32,8 @@ class TestCbsExportFile(TransactionCase):
             ('user_type_id', '=', type_account.id)
         ], limit=1)
 
-        Tax = self.env['account.tax']
-
         # Create a regular fixed tax
-        tax1 = Tax.create({
+        tax1 = self.env['account.tax'].create({
             'name': "Fixed tax",
             'amount_type': 'fixed',
             'amount': 10,
@@ -57,8 +58,7 @@ class TestCbsExportFile(TransactionCase):
         consumable = self.env.ref('product.product_product_10')
 
         # Create a new invoice to partner1, dated last month, price: 250
-        a_date_in_last_month = date.today() + \
-            relativedelta(day=1, months=-1)
+        a_date_in_last_month = date.today() + relativedelta(day=1, months=-1)
         fp = self.env['account.fiscal.position'].create(
             dict(name="fiscal position", sequence=1)
         )
@@ -171,12 +171,24 @@ class TestCbsExportFile(TransactionCase):
 
         # Generate the csv file
         cbs_export.get_data()
-        result_file = cbs_export.cbs_export_invoice.decode('base64')
+        result_file = base64.b64decode(cbs_export.cbs_export_invoice)
         self.assertTrue(result_file)
 
         # Check lines length
         for result_line in result_file.splitlines():
             self.assertEqual(len(result_line), 115)
+
+        # Check first line values
+        company_result_period = result_file[16:22].decode('utf-8')
+        cbs_export_period = cbs_export.year + cbs_export.month.ljust(2)
+        self.assertEqual(cbs_export_period, company_result_period)
+
+        # Check line boundary '\r\n'
+        i = 1
+        while 117*i <= len(result_file):
+            self.assertEqual(result_file[117*i-2], 13)  # '\r'
+            self.assertEqual(result_file[117*i-1], 10)  # '\n'
+            i += 1
 
     def test_04_run_cron_job(self):
 
@@ -202,7 +214,7 @@ class TestCbsExportFile(TransactionCase):
         self.assertEqual(len(cbs_export1), 1)
 
         # Verify that the csv file was generated
-        result_file = cbs_export1.cbs_export_invoice.decode('base64')
+        result_file = base64.b64decode(cbs_export1.cbs_export_invoice)
         self.assertTrue(result_file)
 
         # Run again job "Generate CBS Export File"
@@ -244,3 +256,9 @@ class TestCbsExportFile(TransactionCase):
         # Trying to export the CBS file raises an error
         with self.assertRaises(ValidationError):
             cbs_export.get_data()
+
+    def test_06_integrity_error(self):
+
+        self.env['cbs.export.file'].create({})
+        with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
+            self.env['cbs.export.file'].create({})
