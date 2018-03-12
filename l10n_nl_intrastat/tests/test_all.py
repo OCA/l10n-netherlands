@@ -15,7 +15,11 @@ class TestIntrastatNL(TransactionCase):
         super(TestIntrastatNL, self).setUp()
 
         self.company = self.env.ref('base.main_company')
-        self.company.currency_id = self.env.ref('base.EUR')
+
+        self.env.cr.execute(
+            'update res_company set currency_id=%s',
+            (self.env.ref('base.EUR'),),
+        )
 
         type_receivable = self.env.ref('account.data_account_type_receivable')
         self.account_receivable = self.env['account.account'].search(
