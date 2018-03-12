@@ -18,7 +18,7 @@ class TestIntrastatNL(TransactionCase):
 
         self.env.cr.execute(
             'update res_company set currency_id=%s',
-            (self.env.ref('base.EUR'),),
+            (self.env.ref('base.EUR').id,),
         )
 
         type_receivable = self.env.ref('account.data_account_type_receivable')
