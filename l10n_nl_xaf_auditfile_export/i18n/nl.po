@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-07 16:17+0000\n"
-"PO-Revision-Date: 2018-02-07 16:17+0000\n"
+"POT-Creation-Date: 2018-03-07 03:54+0000\n"
+"PO-Revision-Date: 2018-03-07 03:54+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,12 +30,17 @@ msgid "Accounts to exclude"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
+#: selection:xaf.auditfile.export,data_export:0
+msgid "All"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,auditfile:0
 msgid "Auditfile"
 msgstr "Auditfile"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:79
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:73
 #, python-format
 msgid "Auditfile %s %s"
 msgstr "Auditfile %s %s"
@@ -67,6 +72,11 @@ msgid "Created on"
 msgstr "Aangemaakt op"
 
 #. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,data_export:0
+msgid "Data record info"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,date_generated:0
 msgid "Date generated"
 msgstr "Datum gegenereerd"
@@ -75,6 +85,11 @@ msgstr "Datum gegenereerd"
 #: help:xaf.auditfile.export,message_last_post:0
 msgid "Date of the last message posted on the record."
 msgstr "Datum van het laatste bericht gemaakt op dit record"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: selection:xaf.auditfile.export,data_export:0
+msgid "Default"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: field:ir.qweb.widget.auditfile.string10,display_name:0
@@ -163,7 +178,7 @@ msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: view:website:l10n_nl_xaf_auditfile_export.auditfile_template
+#: view:website:l10n_nl_xaf_auditfile_export.xaf_template_all
 msgid "Last write"
 msgstr "Laatste schrijfactie"
 
@@ -183,9 +198,16 @@ msgid "Name"
 msgstr "Naam"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: view:website:l10n_nl_xaf_auditfile_export.auditfile_template
+#: view:website:l10n_nl_xaf_auditfile_export.xaf_template_all
 msgid "Odoo"
 msgstr "Odoo"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,data_export:0
+msgid ""
+"Select 'All' in order to include optional partner details and general "
+"account history information in the exported XAF File. "
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,period_start:0
@@ -208,7 +230,12 @@ msgid "XAF auditfile export"
 msgstr "XAF auditfile export"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:94
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:88
 #, python-format
 msgid "You need to choose consecutive periods!"
 msgstr "Je moet opeenvolgende periodes te kiezen!"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: view:website:l10n_nl_xaf_auditfile_export.xaf_template_default
+msgid "l10n_nl_xaf_auditfile_export.xaf_template_default"
+msgstr ""
