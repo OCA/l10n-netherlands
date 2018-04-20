@@ -23,7 +23,7 @@ addon | version | summary
 [l10n_nl_country_states](l10n_nl_country_states/) | 10.0.1.0.1 | l10n_nl_country_states
 [l10n_nl_dutch_company_type](l10n_nl_dutch_company_type/) | 10.0.1.0.0 | Adds the Dutch company types
 [l10n_nl_intrastat](l10n_nl_intrastat/) | 10.0.1.0.1 | Intracom Tax Report for the Netherlands
-[l10n_nl_partner_name](l10n_nl_partner_name/) | 8.0.1.0.0 | Dutch partner names
+[l10n_nl_partner_name](l10n_nl_partner_name/) | 10.0.1.0.0 | Dutch partner names
 [l10n_nl_partner_salutation](l10n_nl_partner_salutation/) | 10.0.1.1.0 | Full salutation for partners, Dutch style
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 10.0.0.1.0 | Autocomplete Dutch addresses using PostcodeApi.nu
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 10.0.1.0.0 | Enable invoice basis on tax according to the Dutch law
