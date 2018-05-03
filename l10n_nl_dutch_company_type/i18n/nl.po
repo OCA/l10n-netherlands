@@ -60,3 +60,28 @@ msgstr "Naamloze vennootschap"
 msgid "Sole proprietor"
 msgstr "Eenmanszaak"
 
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative_limited
+msgid "Limited liability cooperative"
+msgstr "Coöperatie met beperkte aansprakelijkheid"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative_excluded
+msgid "Excluded liability cooperative"
+msgstr "Coöperatie met uitgesloten aansprakelijkheid"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative_legal
+msgid "Legal liability cooperative"
+msgstr "Coöperatie met wettelijke aansprakelijkheid"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_mutual_assurance
+msgid "Mutual assurance company"
+msgstr "Onderlinge waarborgmaatschappij"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_church
+msgid "Church"
+msgstr "Kerkgenootschap"
+
