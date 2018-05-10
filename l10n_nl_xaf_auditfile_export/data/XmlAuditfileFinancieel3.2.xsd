@@ -664,9 +664,11 @@
 			<xsd:enumeration value="BH"/>
 			<xsd:enumeration value="BI"/>
 			<xsd:enumeration value="BJ"/>
+			<xsd:enumeration value="BL"/>
 			<xsd:enumeration value="BM"/>
 			<xsd:enumeration value="BN"/>
 			<xsd:enumeration value="BO"/>
+			<xsd:enumeration value="BQ"/>
 			<xsd:enumeration value="BR"/>
 			<xsd:enumeration value="BS"/>
 			<xsd:enumeration value="BT"/>
@@ -690,6 +692,7 @@
 			<xsd:enumeration value="CS"/>
 			<xsd:enumeration value="CU"/>
 			<xsd:enumeration value="CV"/>
+			<xsd:enumeration value="CW"/>
 			<xsd:enumeration value="CX"/>
 			<xsd:enumeration value="CY"/>
 			<xsd:enumeration value="CZ"/>
@@ -717,6 +720,7 @@
 			<xsd:enumeration value="GD"/>
 			<xsd:enumeration value="GE"/>
 			<xsd:enumeration value="GF"/>
+			<xsd:enumeration value="GG"/>
 			<xsd:enumeration value="GH"/>
 			<xsd:enumeration value="GI"/>
 			<xsd:enumeration value="GL"/>
@@ -746,6 +750,7 @@
 			<xsd:enumeration value="IR"/>
 			<xsd:enumeration value="IS"/>
 			<xsd:enumeration value="IT"/>
+			<xsd:enumeration value="JE"/>
 			<xsd:enumeration value="JM"/>
 			<xsd:enumeration value="JO"/>
 			<xsd:enumeration value="JP"/>
@@ -774,6 +779,8 @@
 			<xsd:enumeration value="MA"/>
 			<xsd:enumeration value="MC"/>
 			<xsd:enumeration value="MD"/>
+			<xsd:enumeration value="ME"/>
+			<xsd:enumeration value="MF"/>
 			<xsd:enumeration value="MG"/>
 			<xsd:enumeration value="MH"/>
 			<xsd:enumeration value="MK"/>
@@ -840,8 +847,10 @@
 			<xsd:enumeration value="SN"/>
 			<xsd:enumeration value="SO"/>
 			<xsd:enumeration value="SR"/>
+			<xsd:enumeration value="SS"/>
 			<xsd:enumeration value="ST"/>
 			<xsd:enumeration value="SV"/>
+			<xsd:enumeration value="SX"/>
 			<xsd:enumeration value="SY"/>
 			<xsd:enumeration value="SZ"/>
 			<xsd:enumeration value="TC"/>
