@@ -19,15 +19,10 @@ For further information, please visit:
 
 * https://www.odoo.com/forum/help-1
 
-Configuration
-=============
-
-This module works on huge amount of data, so there is a possibility to encounter out of memory exceptions. In this case. set the config parameter `l10n_nl_xaf_auditfile_export.max_records` to a value much lower than 10000.
-
 Known issues / Roadmap
 ======================
 
-* encrypted and compressed files would be nice
+* encrypted files would be nice
 
 
 Bug Tracker
@@ -47,6 +42,7 @@ Contributors
 
 * Holger Brunn <hbrunn@therp.nl>
 * Luc De Meyer <info@noviat.com>
+* Stefan Rijnhart <stefan@opener.amsterdam>
 
 Icon
 ----
