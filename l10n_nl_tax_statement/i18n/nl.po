@@ -5,13 +5,14 @@
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
 # Cas Vissers <casvissers@brahoo.nl>, 2017
+# Thomas Pot <thomas@open2bizz.nl>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-08 01:52+0000\n"
-"PO-Revision-Date: 2017-12-08 01:52+0000\n"
-"Last-Translator: Cas Vissers <casvissers@brahoo.nl>, 2017\n"
+"POT-Creation-Date: 2018-04-19 09:19+0000\n"
+"PO-Revision-Date: 2018-04-19 09:19+0000\n"
+"Last-Translator: Thomas Pot <thomas@open2bizz.nl>, 2018\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,12 +104,12 @@ msgstr "5b bis"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_format_btw_total
 msgid "5g - Total"
-msgstr ""
+msgstr "5g - Totaal"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_btw_total
 msgid "5g. Total (5c + 5d)"
-msgstr ""
+msgstr "5g. Totaal (5c + 5d)"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.internal_layout
@@ -219,12 +220,12 @@ msgstr "Concept"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_format_btw
 msgid "Format btw"
-msgstr ""
+msgstr "Formaat btw"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_format_omzet
 msgid "Format omzet"
-msgstr ""
+msgstr "Formaat omzet"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_from_date
@@ -259,7 +260,7 @@ msgstr "Is een groep"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_is_readonly
 msgid "Is readonly"
-msgstr ""
+msgstr "Is alleen lezen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement___last_update
@@ -395,13 +396,13 @@ msgstr "Terugzetten naar concept"
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:176
 #, python-format
 msgid "Schatting deze aangifte"
-msgstr ""
+msgstr "Schatting deze aangifte"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:173
 #, python-format
 msgid "Schatting vorige aangifte(n)"
-msgstr ""
+msgstr "Schatting vorige aangifte(n)"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_statement_id
@@ -592,7 +593,7 @@ msgstr "Verleggingsregelingen: BTW naar u verlegd"
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:170
 #, python-format
 msgid "Vermindering volgens de kleineondernemersregeling"
-msgstr ""
+msgstr "Vermindering volgens de kleineondernemersregeling"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:161
