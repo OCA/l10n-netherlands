@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * l10n_nl_tax_statement
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
 # Cas Vissers <casvissers@brahoo.nl>, 2017
@@ -14,10 +14,10 @@ msgstr ""
 "PO-Revision-Date: 2018-04-19 09:19+0000\n"
 "Last-Translator: Thomas Pot <thomas@open2bizz.nl>, 2018\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_tax_statement
@@ -627,8 +627,8 @@ msgstr "Voorbelasting"
 msgid ""
 "You cannot delete a posted statement! Reset the statement to draft first."
 msgstr ""
-"U kunt een ingediende aangifte niet verwijderen! Zet de aangifte eerst terug"
-" naar concept."
+"U kunt een ingediende aangifte niet verwijderen! Zet de aangifte eerst terug "
+"naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:91
