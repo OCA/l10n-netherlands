@@ -8,6 +8,7 @@
                 <field name="name" />
                 <field name="date_start" />
                 <field name="date_end" />
+                <field name="date_generated" />
             </tree>
         </field>
     </record>
@@ -49,7 +50,7 @@
         <field name="res_model">xaf.auditfile.export</field>
         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="form_xaf_auditfile_export"/>
+        <field name="view_id" ref="tree_xaf_auditfile_export"/>
         <field name="target">current</field>
     </record>
 
