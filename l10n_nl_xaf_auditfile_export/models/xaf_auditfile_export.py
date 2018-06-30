@@ -221,10 +221,10 @@ class XafAuditfileExport(models.Model):
         '''return amount of move lines'''
         self.env.cr.execute(
             'select count(*) from account_move_line '
-            'where date >= \'' + self.date_start + '\' '
-            'and date <= \'' + self.date_end + '\' '
+            'where date >= %s '
+            'and date <= %s '
             'and (company_id=%s or company_id is null)',
-            (self.company_id.id, ))
+            (self.date_start, self.date_end, self.company_id.id, ))
         return self.env.cr.fetchall()[0][0]
 
     @api.multi
@@ -232,10 +232,10 @@ class XafAuditfileExport(models.Model):
         '''return total debit of move lines'''
         self.env.cr.execute(
             'select sum(debit) from account_move_line '
-            'where date >= \'' + self.date_start + '\' '
-            'and date <= \'' + self.date_end + '\' '
+            'where date >= %s '
+            'and date <= %s '
             'and (company_id=%s or company_id is null)',
-            (self.company_id.id, ))
+            (self.date_start, self.date_end, self.company_id.id, ))
         return round(self.env.cr.fetchall()[0][0], 2)
 
     @api.multi
@@ -243,10 +243,10 @@ class XafAuditfileExport(models.Model):
         '''return total credit of move lines'''
         self.env.cr.execute(
             'select sum(credit) from account_move_line '
-            'where date >= \'' + self.date_start + '\' '
-            'and date <= \'' + self.date_end + '\' '
+            'where date >= %s '
+            'and date <= %s '
             'and (company_id=%s or company_id is null)',
-            (self.company_id.id, ))
+            (self.date_start, self.date_end, self.company_id.id, ))
         return round(self.env.cr.fetchall()[0][0], 2)
 
     @api.multi
