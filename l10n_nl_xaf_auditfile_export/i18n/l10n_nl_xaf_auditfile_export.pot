@@ -1,22 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * l10n_nl_xaf_auditfile_export
+#	* l10n_nl_xaf_auditfile_export
 #
-# Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-25 14:42+0000\n"
-"PO-Revision-Date: 2017-07-25 14:42+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
-"Language: nl\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_needaction
@@ -26,44 +21,44 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile
 msgid "Auditfile"
-msgstr "Auditfile"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:77
 #, python-format
 msgid "Auditfile %s %s"
-msgstr "Auditfile %s %s"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
 #: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.menu_auditfiles
 msgid "Auditfile export"
-msgstr "Auditfile export"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile_name
 msgid "Auditfile filename"
-msgstr "Auditfile bestandsnaam"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_company_id
 msgid "Company"
-msgstr "Bedrijf"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_create_uid
 msgid "Created by"
-msgstr "Aangemaakt door"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_create_date
 msgid "Created on"
-msgstr "Aangemaakt op"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_generated
 msgid "Date generated"
-msgstr "Datum gegenereerd"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_last_post
@@ -80,17 +75,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_widget_auditfile_string9_display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_display_name
 msgid "Display Name"
-msgstr "Weergave naam"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_end
 msgid "End date"
-msgstr "Einddatum"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_fiscalyear_name
 msgid "Fiscalyear name"
-msgstr "Boekjaar"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_follower_ids
@@ -110,7 +105,7 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.form_xaf_auditfile_export
 msgid "Generate auditfile"
-msgstr "Genereer auditfile"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_widget_auditfile_string10_id
@@ -122,7 +117,7 @@ msgstr "Genereer auditfile"
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_widget_auditfile_string9_id
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_unread
@@ -154,22 +149,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_widget_auditfile_string9___last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export___last_update
 msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_write_uid
 msgid "Last Updated by"
-msgstr "Laatst bijgewerkt door"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_write_date
 msgid "Last Updated on"
-msgstr "Laatst bijgewerkt op"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Last write"
-msgstr "Laast geschreven"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_ids
@@ -179,7 +174,7 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_name
 msgid "Name"
-msgstr "Naam"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_needaction_counter
@@ -199,18 +194,18 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Odoo"
-msgstr "Odoo"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_start
 msgid "Start date"
-msgstr "Startdatum"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:88
 #, python-format
 msgid "Starting date must be anterior ending date!"
-msgstr "Startdatum moet liggen voor de einddatum!"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_message_unread
@@ -225,7 +220,7 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_xaf_auditfile_export
 msgid "XAF auditfile export"
-msgstr "XAF auditfile export"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string10
@@ -261,3 +256,4 @@ msgstr ""
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string999
 msgid "ir.qweb.widget.auditfile.string999"
 msgstr ""
+
