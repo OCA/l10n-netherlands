@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo11-addon-l10n_nl_account_tax_unece',
+        'odoo11-addon-l10n_nl_bank',
         'odoo11-addon-l10n_nl_bsn',
         'odoo11-addon-l10n_nl_tax_invoice_basis',
         'odoo11-addon-l10n_nl_tax_statement',
