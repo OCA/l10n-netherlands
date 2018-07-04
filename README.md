@@ -28,7 +28,7 @@ addon | version | summary
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 10.0.0.1.0 | Autocomplete Dutch addresses using PostcodeApi.nu
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 10.0.1.0.0 | Enable invoice basis on tax according to the Dutch law
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 10.0.1.2.0 | Netherlands BTW Statement
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 10.0.1.0.0 | Export XAF auditfiles for Dutch tax authorities
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 10.0.1.0.1 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
