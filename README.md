@@ -30,4 +30,4 @@ addon | version | summary
 Translation status
 ------------------
 
-[![Transifex Status](https://www.transifex.com/projects/p/OCA-l10n-netherlands-8-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-l10n-netherlands-8-0)
+[![OCA Weblate Status](https://translation.odoo-community.org/widgets/l10n-netherlands-8-0/-/svg-badge.svg)](https://translation.odoo-community.org/projects/l10n-netherlands-8-0/)
