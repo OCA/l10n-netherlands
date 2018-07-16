@@ -27,6 +27,7 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
   - pip install pypostcode
+  - if ! [ "$LINT_CHECK" = "1" ]; then pip install transip acme; fi
 # example: dependency
 # - git clone https://github.com/OCA/webkit-tools -b ${VERSION} $HOME/webkit-tools
 
