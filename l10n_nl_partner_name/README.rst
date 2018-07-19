@@ -9,6 +9,12 @@ Module Dutch Partner Name
     - have initials
     - split first and last name (provided by partner_firstname)
 
+Roadmap
+-------
+
+- allow to turn on/off initials and infix separately
+- add nickname (roepnaam) field to also turn on and off separately
+
 Contributors
 ------------
 
