@@ -22,3 +22,14 @@ class TestL10nNlPartnerName(TransactionCase):
         })
         self.assertEqual(partner.firstname, 'Willem-Alexander')
         self.assertEqual(partner.lastname, 'van Oranje-Nassau')
+        onchange_vals = {
+            'lastname': 'Oranje-Nassau',
+            'infix': 'van',
+        }
+        partner.onchange(
+            onchange_vals, ['lastname', 'infix'], partner._onchange_spec(),
+        )
+        self.assertEqual(
+            partner.name,
+            'Willem-Alexander van Oranje-Nassau'
+        )

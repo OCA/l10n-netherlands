@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="param_name_order" model="ir.config_parameter">
+        <field name="key">partner_names_order</field>
+        <field name="value">first_last</field>
+    </record>
+</odoo>
