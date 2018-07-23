@@ -1,0 +1,61 @@
+{
+   "apiVersion": "2.0",
+   "meta":
+  {
+
+  },
+   "data":
+  {
+     "itemsPerPage": 10,
+     "startPage": 1,
+     "totalItems": 2,
+     "items": [
+      {
+         "kvkNumber": "68727720",
+         "rsin": "857567433",
+         "tradeNames":
+        {
+           "shortBusinessName": "Test NV Katrien",
+           "currentStatutoryNames": [ "Test NV Katrien"
+          ]
+        },
+         "hasEntryInBusinessRegister": true,
+         "hasNonMailingIndication": true,
+         "isLegalPerson": true,
+         "isBranch": false,
+         "isMainBranch": false
+      },
+
+      {
+         "kvkNumber": "68727720",
+         "branchNumber": "000037143557",
+         "rsin": "857567433",
+         "tradeNames":
+        {
+           "businessName": "Test NV Katrien",
+           "shortBusinessName": "Test NV Katrien",
+           "currentTradeNames": [ "Test NV Katrien"
+          ],
+           "currentStatutoryNames": [ "Test NV Katrien"
+          ]
+        },
+         "hasEntryInBusinessRegister": true,
+         "hasNonMailingIndication": true,
+         "isLegalPerson": false,
+         "isBranch": true,
+         "isMainBranch": true,
+         "addresses": [
+          {
+             "type": "vestigingsadres",
+             "street": "Rietdekkershof",
+             "houseNumber": "8",
+             "houseNumberAddition": "",
+             "postalCode": "9646AS",
+             "city": "Veendam",
+             "country": "Nederland"
+          }
+        ]
+      }
+    ]
+  }
+}
