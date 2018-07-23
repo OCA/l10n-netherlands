@@ -1,0 +1,23 @@
+{
+   "actief":true,
+   "dossiernummer":"56048785",
+   "vestigingsnummer":"000025642197",
+   "subdossiernummer":"0000",
+   "postcode":"4814DC",
+   "type":"Hoofdvestiging",
+   "straat":"Reduitlaan",
+   "huisnummer":"45",
+   "plaats":"Breda",
+   "handelsnaam":"Onestein B.V.",
+   "bestaandehandelsnaam":[
+      "Onestein B.V."
+   ],
+   "statutairehandelsnaam":[
+      "Onestein B.V."
+   ],
+   "sbi":[
+      "6202"
+   ],
+   "RSIN":"851956099",
+   "BTW":"NL851956099B01"
+}
