@@ -1,0 +1,76 @@
+{
+   "dossiernummer":[
+      {
+         "text":"56048718",
+         "dossiernummer":"56048718",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/hoofdvestiging-56048718-0000-ondernemerscentrum-de-pastorie",
+         "id":"hoofdvestiging-56048718-0000-ondernemerscentrum-de-pastorie",
+         "handelsnaam":"Ondernemerscentrum De Pastorie",
+         "plaats":"Gorinchem"
+      },
+      {
+         "text":"56048750",
+         "dossiernummer":"56048750",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/rechtspersoon-56048750-stichting-golfers-van-nederland",
+         "id":"rechtspersoon-56048750-stichting-golfers-van-nederland",
+         "handelsnaam":"Stichting Golfers van Nederland",
+         "plaats":"Heerenveen"
+      },
+      {
+         "text":"56048769",
+         "dossiernummer":"56048769",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/hoofdvestiging-56048769-0000-brouns-investment-management-bv",
+         "id":"hoofdvestiging-56048769-0000-brouns-investment-management-bv",
+         "handelsnaam":"Brouns Investment Management B.V.",
+         "plaats":"Maastricht"
+      },
+      {
+         "text":"56048769",
+         "dossiernummer":"56048769",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/rechtspersoon-56048769-brouns-investment-management-bv",
+         "id":"rechtspersoon-56048769-brouns-investment-management-bv",
+         "handelsnaam":"Brouns Investment Management B.V.",
+         "plaats":"Maastricht"
+      },
+      {
+         "text":"56048777",
+         "dossiernummer":"56048777",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/hoofdvestiging-56048777-0000-badman-holding-bv",
+         "id":"hoofdvestiging-56048777-0000-badman-holding-bv",
+         "handelsnaam":"Badman Holding B.V.",
+         "plaats":"Heiloo"
+      },
+      {
+         "text":"56048777",
+         "dossiernummer":"56048777",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/rechtspersoon-56048777-badman-holding-bv",
+         "id":"rechtspersoon-56048777-badman-holding-bv",
+         "handelsnaam":"Badman Holding B.V.",
+         "plaats":"Heiloo"
+      },
+      {
+         "text":"56048785",
+         "dossiernummer":"56048785",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/rechtspersoon-56048785-onestein-bv",
+         "id":"rechtspersoon-56048785-onestein-bv",
+         "handelsnaam":"Onestein B.V.",
+         "plaats":"Heiloo"
+      },
+      {
+         "text":"56048785",
+         "dossiernummer":"56048785",
+         "subdossiernummer":"0000",
+         "link":"\/openkvk\/hoofdvestiging-56048785-0000-onestein-bv",
+         "id":"hoofdvestiging-56048785-0000-onestein-bv",
+         "handelsnaam":"Onestein B.V.",
+         "plaats":"Breda"
+      }
+   ]
+}
