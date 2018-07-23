@@ -1,0 +1,20 @@
+{
+   "dossiernummer":[
+      {
+         "text":"56048785",
+         "dossiernummer":"56048785",
+         "link":"\/openkvk\/rechtspersoon-56048785-onestein-bv",
+         "id":"rechtspersoon-56048785-onestein-bv",
+         "handelsnaam":"Onestein B.V."
+      },
+      {
+         "text":"56048785",
+         "dossiernummer":"56048785",
+         "link":"\/openkvk\/hoofdvestiging-56048785-0000-onestein-bv",
+         "id":"hoofdvestiging-56048785-0000-onestein-bv",
+         "handelsnaam":"Onestein B.V.",
+         "subdossiernummer":"0000",
+         "plaats":"Breda"
+      }
+   ]
+}

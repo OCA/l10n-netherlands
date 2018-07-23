@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_openkvk" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="l10n_nl_kvk.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='l10n_nl_kvk_api_setting']" position="after">
+                <div class="content-group" attrs="{'invisible': [('l10n_nl_kvk_service', '!=', 'openkvk')]}">
+                    <div class="mt16">
+                        <a href="https://overheid.io/abonnementen" target="_blank">
+                            <i class="fa fa-arrow-right"></i> Register to get the API Key
+                        </a>
+                    </div>
+                    <div class="row mt16">
+                        <label class="col-md-3 o_light_label" string="OpenKvK Key Value" for="l10n_nl_openkvk_api_value"/>
+                        <field name="l10n_nl_openkvk_api_value" placeholder="OPENKVKXXXXXXXXY"
+                            attrs="{'required': [('l10n_nl_kvk_service', '=', 'openkvk')]}"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
