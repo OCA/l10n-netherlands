@@ -72,10 +72,16 @@ class XafAuditfileExport(models.Model):
                     _('Starting date must be anterior ending date!'))
 
     @api.multi
+    def _get_auditfile_template(self):
+        '''return the qweb template to be rendered'''
+        return "l10n_nl_xaf_auditfile_export.auditfile_template"
+
+    @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
+        auditfile_template = self._get_auditfile_template()
         xml = self.env['ir.ui.view'].render_template(
-            "l10n_nl_xaf_auditfile_export.auditfile_template",
+            auditfile_template,
             values={
                 'self': self,
             },
