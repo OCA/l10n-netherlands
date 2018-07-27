@@ -1,6 +1,10 @@
 # Copyright 2018 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import base64
+from io import BytesIO
+from zipfile import ZipFile
+
 from odoo.tests.common import TransactionCase
 
 
@@ -33,6 +37,12 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_end)
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
+
+        zf = BytesIO(base64.b64decode(record.auditfile))
+        with ZipFile(zf, 'r') as archive:
+            filelist = archive.filelist
+            contents = archive.read(filelist[-1]).decode()
+        self.assertTrue(contents.startswith('<?xml '))
 
     def test_03_export_error(self):
         ''' Failure to export an auditfile '''
