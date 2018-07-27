@@ -1,1 +1,1 @@
-* encrypted and compressed files would be nice
+* encrypted files would be nice
