@@ -21,7 +21,6 @@
 #
 ##############################################################################
 
-from lxml import etree
 from odoo import models, api, exceptions, _
 from odoo.tools import ormcache
 
@@ -80,31 +79,3 @@ class ResPartner(models.Model):
         self.street_name = pc_info.street
         self.city = pc_info.town
         self.state_id = self.get_province(pc_info.province)
-
-    @api.model
-    def fields_view_get(
-            self, view_id=None, view_type='form',
-            toolbar=False, submenu=False):
-        """ Address fields can be all over the place due to module
-        interaction. For improved compatibility add the onchange method here,
-        not in a view."""
-        res = super(ResPartner, self).fields_view_get(
-            view_id=view_id, view_type=view_type,
-            toolbar=toolbar, submenu=submenu)
-        if view_type != 'form':
-            return res
-
-        def inject_onchange(arch):
-            arch = etree.fromstring(arch)
-            for field in ['zip', 'street_number', 'country_id']:
-                for node in arch.xpath('//field[@name="%s"]' % field):
-                    node.attrib['on_change'] = "1"
-            return etree.tostring(arch, encoding='utf-8')
-
-        res['arch'] = inject_onchange(res['arch'])
-        # Inject in the embedded contacts view as well
-        if res['fields'].get('child_ids', {}).get('views', {}).get('form'):
-            res['fields']['child_ids']['views']['form']['arch'] = \
-                inject_onchange(
-                    res['fields']['child_ids']['views']['form']['arch'])
-        return res
