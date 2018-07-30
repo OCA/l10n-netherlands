@@ -5,6 +5,7 @@ import base64
 from io import BytesIO
 from zipfile import ZipFile
 
+from odoo.tools import mute_logger
 from odoo.tests.common import TransactionCase
 
 
@@ -44,6 +45,9 @@ class TestXafAuditfileExport(TransactionCase):
             contents = archive.read(filelist[-1]).decode()
         self.assertTrue(contents.startswith('<?xml '))
 
+    @mute_logger(
+        'odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export'
+    )
     def test_03_export_error(self):
         ''' Failure to export an auditfile '''
         record = self.env['xaf.auditfile.export'].create({})
