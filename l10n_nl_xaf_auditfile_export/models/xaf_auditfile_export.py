@@ -9,6 +9,8 @@ import os
 import psutil
 import shutil
 from tempfile import mkdtemp
+from io import BytesIO
+import zipfile
 import time
 from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
@@ -37,10 +39,15 @@ class XafAuditfileExport(models.Model):
     _inherit = ['mail.thread']
     _order = 'date_start desc'
 
-    @api.depends('name')
+    @api.depends('name', 'auditfile')
     def _compute_auditfile_name(self):
         for item in self:
             item.auditfile_name = '%s.xaf' % item.name
+            if item.auditfile:
+                auditfile = base64.b64decode(item.auditfile)
+                zf = BytesIO(auditfile)
+                if zipfile.is_zipfile(zf):
+                    item.auditfile_name += '.zip'
 
     @api.multi
     def _compute_fiscalyear_name(self):
