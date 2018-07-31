@@ -104,12 +104,13 @@ class XafAuditfileExport(models.Model):
             defaults.setdefault('period_end', fiscalyear.period_ids[-1].id)
         return defaults
 
-    @api.one
+    @api.multi
     @api.constrains('period_start', 'period_end')
     def check_periods(self):
-        if self.period_start.date_start > self.period_end.date_start:
-            raise exceptions.ValidationError(
-                _('You need to choose consecutive periods!'))
+        for xaf in self:
+            if xaf.period_start.date_start > xaf.period_end.date_start:
+                raise exceptions.ValidationError(
+                    _('You need to choose consecutive periods!'))
 
     @api.multi
     def button_generate(self):
