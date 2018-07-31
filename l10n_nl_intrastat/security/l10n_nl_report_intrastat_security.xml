@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="l10n_nl_report_intrastat_comp_rule" model="ir.rule">
+        <field name="name">Intra-Community transactions (ICP) multi company rule</field>
+        <field name="model_id" ref="model_l10n_nl_report_intrastat"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+</odoo>
