@@ -30,6 +30,8 @@
                             <field name="date_end" attrs="{'readonly': [('auditfile', '!=', False)]}" />
                         </group>
                     </group>
+                    <group name="input_options">
+                    </group>
                     <group name="output_data" attrs="{'invisible': [('auditfile', '=', False)]}">
                         <field name="date_generated" />
                         <field name="auditfile" filename="auditfile_name" />
