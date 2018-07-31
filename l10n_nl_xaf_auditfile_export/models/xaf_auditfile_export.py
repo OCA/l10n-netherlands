@@ -8,6 +8,8 @@ from lxml import etree
 import os
 import psutil
 import shutil
+import zipfile
+from StringIO import StringIO
 from tempfile import mkdtemp
 import time
 
@@ -35,9 +37,15 @@ class XafAuditfileExport(models.Model):
     _inherit = ['mail.thread']
     _order = 'period_start desc'
 
-    @api.depends('name')
-    def _auditfile_name_get(self):
-        self.auditfile_name = '%s.xaf.zip' % self.name
+    @api.depends('name', 'auditfile')
+    def _compute_auditfile_name(self):
+        for item in self:
+            item.auditfile_name = '%s.xaf' % item.name
+            if item.auditfile:
+                auditfile = base64.b64decode(item.auditfile)
+                zf = StringIO(auditfile)
+                if zipfile.is_zipfile(zf):
+                    item.auditfile_name += '.zip'
 
     name = fields.Char('Name')
     period_start = fields.Many2one(
@@ -46,7 +54,10 @@ class XafAuditfileExport(models.Model):
         'account.period', 'End period', required=True)
     auditfile = fields.Binary('Auditfile', readonly=True, copy=False)
     auditfile_name = fields.Char(
-        'Auditfile filename', compute=_auditfile_name_get)
+        'Auditfile filename',
+        compute='_compute_auditfile_name',
+        store=True
+    )
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     data_export = fields.Selection(
