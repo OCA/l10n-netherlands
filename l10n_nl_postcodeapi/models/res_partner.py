@@ -16,7 +16,7 @@ class ResPartner(models.Model):
             'l10n_nl_postcodeapi.apikey', '').strip()
         if not apikey or apikey == 'Your API key':
             return False
-        from .pypostcodelib import Api
+        from pyPostcode import Api
         return Api(apikey, (2, 0, 0))
 
     def _postcodeapi_check_valid_provider(self, provider):
