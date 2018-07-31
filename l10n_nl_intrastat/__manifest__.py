@@ -5,7 +5,7 @@
 
 {
     'name': 'Intra-Community transactions declaration (ICP)',
-    'version': '10.0.1.0.1',
+    'version': '10.0.1.0.2',
     'category': 'Localisation/Report Intrastat',
     'license': 'AGPL-3',
     'summary': 'Intracom Tax Report for the Netherlands',
@@ -17,6 +17,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/l10n_nl_report_intrastat_security.xml',
         'data/report_layouts.xml',
         'report/reports.xml',
         'report/l10n_nl_intrastat.xml',
