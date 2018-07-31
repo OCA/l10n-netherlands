@@ -24,8 +24,9 @@ class XafAuditfileExport(models.Model):
     _order = 'date_start desc'
 
     @api.depends('name')
-    def _auditfile_name_get(self):
-        self.auditfile_name = '%s.xaf' % self.name
+    def _compute_auditfile_name(self):
+        for item in self:
+            item.auditfile_name = '%s.xaf' % item.name
 
     @api.multi
     def _compute_fiscalyear_name(self):
@@ -39,7 +40,10 @@ class XafAuditfileExport(models.Model):
     fiscalyear_name = fields.Char(compute='_compute_fiscalyear_name')
     auditfile = fields.Binary('Auditfile', readonly=True, copy=False)
     auditfile_name = fields.Char(
-        'Auditfile filename', compute=_auditfile_name_get)
+        'Auditfile filename',
+        compute='_compute_auditfile_name',
+        store=True
+    )
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
@@ -72,10 +76,16 @@ class XafAuditfileExport(models.Model):
                     _('Starting date must be anterior ending date!'))
 
     @api.multi
+    def _get_auditfile_template(self):
+        '''return the qweb template to be rendered'''
+        return "l10n_nl_xaf_auditfile_export.auditfile_template"
+
+    @api.multi
     def button_generate(self):
         self.date_generated = fields.Datetime.now(self)
+        auditfile_template = self._get_auditfile_template()
         xml = self.env['ir.ui.view'].render_template(
-            "l10n_nl_xaf_auditfile_export.auditfile_template",
+            auditfile_template,
             values={
                 'self': self,
             },
