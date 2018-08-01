@@ -64,6 +64,12 @@ class IrQwebAuditfileStringWidget30(models.AbstractModel):
     _max_length = 30
 
 
+class IrQwebAuditfileStringWidget35(models.AbstractModel):
+    _name = 'ir.qweb.field.auditfile.string35'
+    _inherit = 'ir.qweb.field.auditfile.string999'
+    _max_length = 35
+
+
 class IrQwebAuditfileStringWidget50(models.AbstractModel):
     _name = 'ir.qweb.field.auditfile.string50'
     _inherit = 'ir.qweb.field.auditfile.string999'
