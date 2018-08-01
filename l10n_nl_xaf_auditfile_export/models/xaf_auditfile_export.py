@@ -69,6 +69,18 @@ class XafAuditfileExport(models.Model):
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
 
+    unit4 = fields.Boolean(
+        help="The Unit4 system expects a value for "
+             "`<xsd:element name=\"docRef\" ..>` of maximum 35 characters, "
+             "infringing the official standard. In case the value exceeds 35 "
+             "characters, an error is raised by Unit4 while importing the "
+             "audit file. By setting this flag to true, the `docRef` value "
+             "is simply truncated to 35 characters so that the auditfile can "
+             "be successfully imported into Unit4.\n"
+             "If you want to export an auditfile with the official standard "
+             "(missing the Unit4 compatibility) just set this flag to False."
+    )
+
     @api.model
     def default_get(self, fields_list):
         defaults = super(XafAuditfileExport, self).default_get(fields_list)
