@@ -144,7 +144,7 @@
                     <trLine t-foreach="m.line_ids" t-as="l">
                         <nr><t t-esc="l.id" /></nr>
                         <accID><t t-esc="l.account_id.code" /></accID>
-                        <docRef><t t-esc="l.ref" t-options='{"widget": "auditfile.string999"}' /></docRef>
+                        <docRef><t t-esc="l.ref and l.ref[:35] if self.unit4 == True else l.ref" t-options='{"widget": "auditfile.string999"}' /></docRef>
                         <effDate><t t-esc="l.date" /></effDate>
                         <desc><t t-esc="l.name" /></desc>
                         <amnt><t t-esc="abs(l.balance)" /></amnt>
