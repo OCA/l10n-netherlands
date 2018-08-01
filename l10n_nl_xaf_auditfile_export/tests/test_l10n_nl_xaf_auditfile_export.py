@@ -24,6 +24,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_end)
         self.assertFalse(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
+        self.assertFalse(record.unit4)
 
     def test_02_export_success(self):
         ''' Do a basic auditfile export '''
@@ -38,6 +39,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_end)
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
+        self.assertFalse(record.unit4)
 
         zf = BytesIO(base64.b64decode(record.auditfile))
         with ZipFile(zf, 'r') as archive:
@@ -63,3 +65,27 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_end)
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
+        self.assertFalse(record.unit4)
+
+    def test_04_export_success_unit4(self):
+        ''' Do a basic auditfile export (no Unit4) '''
+        record = self.env['xaf.auditfile.export'].create({})
+        record.unit4 = True
+        record.button_generate()
+
+        self.assertTrue(record.name)
+        self.assertTrue(record.auditfile)
+        self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.company_id)
+        self.assertTrue(record.date_start)
+        self.assertTrue(record.date_end)
+        self.assertTrue(record.date_generated)
+        self.assertTrue(record.fiscalyear_name)
+        self.assertTrue(record.unit4)
+
+        if record.auditfile_name[-4:] == '.zip':
+            zf = BytesIO(base64.b64decode(record.auditfile))
+            with ZipFile(zf, 'r') as archive:
+                filelist = archive.filelist
+                contents = archive.read(filelist[-1]).decode()
+            self.assertTrue(contents.startswith('<?xml '))
