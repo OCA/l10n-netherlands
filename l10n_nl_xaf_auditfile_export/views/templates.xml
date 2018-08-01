@@ -4,27 +4,27 @@
         <template id="auditfile_template">
 <auditfile>
     <header>
-        <fiscalYear><t t-esc="self.fiscalyear_name" t-esc-options='{"widget": "auditfile.string9"}' /></fiscalYear>
+        <fiscalYear><t t-esc="self.fiscalyear_name" t-options='{"widget": "auditfile.string9"}' /></fiscalYear>
         <startDate><t t-esc="self.date_start" /></startDate>
         <endDate><t t-esc="self.date_end" /></endDate>
         <curCode><t t-esc="self.company_id.currency_id.name" /></curCode>
         <dateCreated><t t-esc="self.date_generated[:10]" /></dateCreated>
         <softwareDesc>Odoo</softwareDesc>
-        <softwareVersion><t t-esc="self.get_odoo_version()" t-esc-options='{"widget": "auditfile.string20"}' /></softwareVersion>
+        <softwareVersion><t t-esc="self.get_odoo_version()" t-options='{"widget": "auditfile.string20"}' /></softwareVersion>
     </header>
     <company>
-        <companyIdent><t t-esc="self.company_id.company_registry" t-esc-options='{"widget": "auditfile.string35"}' /></companyIdent>
-        <companyName><t t-esc="self.company_id.name" t-esc-options='{"widget": "auditfile.string999"}' /></companyName>
+        <companyIdent><t t-esc="self.company_id.company_registry" t-options='{"widget": "auditfile.string35"}' /></companyIdent>
+        <companyName><t t-esc="self.company_id.name" t-options='{"widget": "auditfile.string999"}' /></companyName>
         <taxRegistrationCountry><t t-esc="self.company_id.country_id.code" /></taxRegistrationCountry>
-        <taxRegIdent><t t-esc="self.company_id.vat" t-esc-options='{"widget": "auditfile.string30"}' /></taxRegIdent>
+        <taxRegIdent><t t-esc="self.company_id.vat" t-options='{"widget": "auditfile.string30"}' /></taxRegIdent>
         <streetAddress>
-            <streetname><t t-esc="self.company_id.street" t-esc-options='{"widget": "auditfile.string999"}' /></streetname>
+            <streetname><t t-esc="self.company_id.street" t-options='{"widget": "auditfile.string999"}' /></streetname>
             <number />
             <numberExtension />
             <property />
-            <city><t t-esc="self.company_id.city" t-esc-options='{"widget": "auditfile.string50"}' /></city>
-            <postalCode><t t-esc="self.company_id.zip" t-esc-options='{"widget": "auditfile.string15"}' /></postalCode>
-            <region><t t-esc="self.company_id.state_id.name" t-esc-options='{"widget": "auditfile.string50"}' /></region>
+            <city><t t-esc="self.company_id.city" t-options='{"widget": "auditfile.string50"}' /></city>
+            <postalCode><t t-esc="self.company_id.zip" t-options='{"widget": "auditfile.string15"}' /></postalCode>
+            <region><t t-esc="self.company_id.state_id.name" t-options='{"widget": "auditfile.string50"}' /></region>
             <country t-if="self.company_id.country_id"><t t-esc="self.company_id.country_id.code" /></country>
         </streetAddress>
         <!-- we might look at self.company_id.address_get(adr_pref)
@@ -33,15 +33,15 @@
         <customersSuppliers>
             <customerSupplier t-foreach="self.get_partners()" t-as="p">
                 <custSupID><t t-esc="p.id" /></custSupID>
-                <custSupName><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></custSupName>
-                <contact t-if="p.is_company and p.child_ids"><t t-esc="p.child_ids[0].name" t-esc-options='{"widget": "auditfile.string50"}' /></contact>
-                <telephone><t t-esc="p.phone" t-esc-options='{"widget": "auditfile.string30"}' /></telephone>
+                <custSupName><t t-esc="p.name" t-options='{"widget": "auditfile.string50"}' /></custSupName>
+                <contact t-if="p.is_company and p.child_ids"><t t-esc="p.child_ids[0].name" t-options='{"widget": "auditfile.string50"}' /></contact>
+                <telephone><t t-esc="p.phone" t-options='{"widget": "auditfile.string30"}' /></telephone>
                 <eMail><t t-esc="p.email" /></eMail>
                 <website><t t-esc="p.website" /></website>
                 <!-- not in standard data model
                 <commerceNr /> /-->
                 <taxRegistrationCountry t-if="p.country_id"><t t-esc="p.country_id.code" /></taxRegistrationCountry>
-                <taxRegIdent><t t-esc="p.vat" t-esc-options='{"widget": "auditfile.string30"}' /></taxRegIdent>
+                <taxRegIdent><t t-esc="p.vat" t-options='{"widget": "auditfile.string30"}' /></taxRegIdent>
                 <custSupTp><t t-esc="'B' if p.customer and p.supplier else 'C' if p.customer else 'S' if p.supplier else 'O'" /></custSupTp>
                 <!-- those need to be defined in <basics/> and are not required
                      labels might be used here
@@ -50,13 +50,13 @@
                 <custCreditLimit t-if="p.customer and p.credit_limit"><t t-esc="p.credit_limit" /></custCreditLimit>
                 <supplierLimit t-if="p.supplier and p.credit_limit"><t t-esc="p.credit_limit" /></supplierLimit>
                 <streetAddress>
-                    <streetname><t t-esc="p.street" t-esc-options='{"widget": "auditfile.string999"}' /></streetname>
+                    <streetname><t t-esc="p.street" t-options='{"widget": "auditfile.string999"}' /></streetname>
                     <number />
                     <numberExtension />
                     <property />
-                    <city><t t-esc="p.city" t-esc-options='{"widget": "auditfile.string50"}' /></city>
-                    <postalCode><t t-esc="p.zip" t-esc-options='{"widget": "auditfile.string10"}' /></postalCode>
-                    <region><t t-esc="p.state_id.name" t-esc-options='{"widget": "auditfile.string50"}' /></region>
+                    <city><t t-esc="p.city" t-options='{"widget": "auditfile.string50"}' /></city>
+                    <postalCode><t t-esc="p.zip" t-options='{"widget": "auditfile.string10"}' /></postalCode>
+                    <region><t t-esc="p.state_id.name" t-options='{"widget": "auditfile.string50"}' /></region>
                     <country t-if="p.country_id"><t t-esc="p.country_id.code" /></country>
                 </streetAddress>
                 <bankAccount t-foreach="p.bank_ids" t-as="bank">
@@ -74,7 +74,7 @@
         <generalLedger>
             <ledgerAccount t-foreach="self.get_accounts()" t-as="a">
                 <accID><t t-esc="a.code" /></accID>
-                <accDesc><t t-esc="a.name" t-esc-options='{"widget": "auditfile.string999"}' /></accDesc>
+                <accDesc><t t-esc="a.name" t-options='{"widget": "auditfile.string999"}' /></accDesc>
                 <accTp><t t-esc="'P' if a.user_type_id.type in ['income', 'expense'] else 'B' if a.user_type_id.type in ['asset', 'liability'] else 'M'" /></accTp>
                 <!-- don't export the following for now
                 <leadCode>String</leadCode>
@@ -106,7 +106,7 @@
         <vatCodes>
             <vatCode t-foreach="self.get_taxes()" t-as="t">
                 <vatID><t t-esc="t.id" /></vatID>
-                <vatDesc><t t-esc="t.name" t-esc-options='{"widget": "auditfile.string999"}' /></vatDesc>
+                <vatDesc><t t-esc="t.name" t-options='{"widget": "auditfile.string999"}' /></vatDesc>
                 <vatToPayAccID><t t-esc="t.refund_account_id.code" /></vatToPayAccID>
                 <vatToClaimAccID><t t-esc="t.account_id.code" /></vatToClaimAccID>
             </vatCode>
@@ -114,7 +114,7 @@
         <periods>
             <period t-foreach="self.get_periods()" t-as="p">
                 <periodNumber><t t-esc="p.number" /></periodNumber>
-                <periodDesc><t t-esc="p.name" t-esc-options='{"widget": "auditfile.string50"}' /></periodDesc>
+                <periodDesc><t t-esc="p.name" t-options='{"widget": "auditfile.string50"}' /></periodDesc>
                 <startDatePeriod><t t-esc="p.date_start" /></startDatePeriod>
                 <endDatePeriod><t t-esc="p.date_end" /></endDatePeriod>
             </period>
@@ -144,14 +144,14 @@
                     <trLine t-foreach="m.line_ids" t-as="l">
                         <nr><t t-esc="l.id" /></nr>
                         <accID><t t-esc="l.account_id.code" /></accID>
-                        <docRef><t t-esc="l.ref" t-esc-options='{"widget": "auditfile.string999"}' /></docRef>
+                        <docRef><t t-esc="l.ref" t-options='{"widget": "auditfile.string999"}' /></docRef>
                         <effDate><t t-esc="l.date" /></effDate>
                         <desc><t t-esc="l.name" /></desc>
                         <amnt><t t-esc="abs(l.balance)" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
                         <recRef t-if="l.full_reconcile_id"><t t-esc="l.full_reconcile_id.name" /></recRef>
                         <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
-                        <invRef t-if="l.invoice_id"><t t-esc="l.invoice_id.number" t-esc-options='{"widget": "auditfile.string999"}' /></invRef>
+                        <invRef t-if="l.invoice_id"><t t-esc="l.invoice_id.number" t-options='{"widget": "auditfile.string999"}' /></invRef>
                         <!-- future extensions
                         <matchKeyID />
                         <orderRef />
