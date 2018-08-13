@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
 
 
 class TestDutchCountryStates(TransactionCase):
@@ -22,6 +21,35 @@ class TestDutchCountryStates(TransactionCase):
         partner.write({
             'country_id': self.env.ref('base.nl').id,
             'zip': '9711LM'})
+        self.assertEqual(
+            partner.state_id,
+            self.env.ref('l10n_nl_country_states.state_groningen'))
+
+    def test_onchange_zip(self):
+        # Partner with country Netherlands and Dutch zip
+        partner = self.env['res.partner'].create({
+            'name': 'Any Company',
+            'country_id': self.env.ref('base.nl').id,
+            'zip': '1053 NJ'})
+        self.assertEqual(
+            partner.state_id,
+            self.env.ref('l10n_nl_country_states.state_noordholland'))
+
+        # Onchange zip, state should be updated
+        partner.zip = '9711LM'
+        partner.onchange_zip_country_id()
+        self.assertEqual(
+            partner.state_id,
+            self.env.ref('l10n_nl_country_states.state_groningen'))
+
+        # Onchange country to Belgium, state should be cleared
+        partner.country_id = self.env.ref('base.be')
+        partner.onchange_zip_country_id()
+        self.assertFalse(partner.state_id)
+
+        # Onchange country back to Netherlands, state should be set
+        partner.country_id = self.env.ref('base.nl')
+        partner.onchange_zip_country_id()
         self.assertEqual(
             partner.state_id,
             self.env.ref('l10n_nl_country_states.state_groningen'))
