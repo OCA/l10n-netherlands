@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# this script is compatible with a python2 interpreter
 # this script generates the data file for postcode state mapping
 # TODO: this could be much more efficient if we actually used min/max
 import argparse
