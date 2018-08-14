@@ -25,6 +25,24 @@ class TestDutchCountryStates(TransactionCase):
             partner.state_id,
             self.env.ref('l10n_nl_country_states.state_groningen'))
 
+    def test_dutch_country_states_noop(self):
+        # Partner with Dutch province but other country
+        n_brabant = self.env.ref('l10n_nl_country_states.state_noordbrabant')
+        partner = self.env['res.partner'].create({
+            'name': 'Onestein',
+            'country_id': self.env.ref('base.be').id,
+            'state_id': n_brabant.id,
+            'zip': '4814 DC'})
+        self.assertFalse(partner.state_id)
+
+        # Partner with foreign province and country
+        florida = self.env.ref('base.state_us_10')
+        partner.write({
+            'country_id': self.env.ref('base.us').id,
+            'state_id': florida.id,
+            'zip': '4814 DC'})
+        self.assertEqual(partner.state_id, florida)
+
     def test_onchange_zip(self):
         # Partner with country Netherlands and Dutch zip
         partner = self.env['res.partner'].create({
