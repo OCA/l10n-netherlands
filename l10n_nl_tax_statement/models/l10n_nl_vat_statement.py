@@ -331,7 +331,6 @@ class VatStatement(models.Model):
             config.tag_4b_omzet.id: ('4b', 'omzet'),
             config.tag_4b_btw.id: ('4b', 'btw'),
             config.tag_5b_btw.id: ('5b', 'btw'),
-            config.tag_5b_btw_bis.id: ('5b', 'btw'),
         }
 
     @api.multi

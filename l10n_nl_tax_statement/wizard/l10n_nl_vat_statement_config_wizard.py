@@ -26,7 +26,6 @@ class VatStatementConfigWizard(models.TransientModel):
     tag_4b_omzet = fields.Many2one('account.account.tag')
     tag_4b_btw = fields.Many2one('account.account.tag')
     tag_5b_btw = fields.Many2one('account.account.tag')
-    tag_5b_btw_bis = fields.Many2one('account.account.tag')
 
     @api.model
     def default_get(self, fields_list):
@@ -56,7 +55,6 @@ class VatStatementConfigWizard(models.TransientModel):
             defv.setdefault('tag_4b_omzet', config.tag_4b_omzet.id)
             defv.setdefault('tag_4b_btw', config.tag_4b_btw.id)
             defv.setdefault('tag_5b_btw', config.tag_5b_btw.id)
-            defv.setdefault('tag_5b_btw_bis', config.tag_5b_btw_bis.id)
             return defv
 
         is_l10n_nl_coa = self.env.ref('l10n_nl.l10nnl_chart_template', False)
@@ -83,7 +81,6 @@ class VatStatementConfigWizard(models.TransientModel):
         defv.setdefault('tag_4b_omzet', self.env.ref('l10n_nl.tag_nl_17').id)
         defv.setdefault('tag_4b_btw', self.env.ref('l10n_nl.tag_nl_30').id)
         defv.setdefault('tag_5b_btw', self.env.ref('l10n_nl.tag_nl_33').id)
-        defv.setdefault('tag_5b_btw_bis', self.env.ref('l10n_nl.tag_nl_34').id)
         return defv
 
     @api.multi
@@ -119,7 +116,6 @@ class VatStatementConfigWizard(models.TransientModel):
             'tag_4b_omzet': self.tag_4b_omzet.id,
             'tag_4b_btw': self.tag_4b_btw.id,
             'tag_5b_btw': self.tag_5b_btw.id,
-            'tag_5b_btw_bis': self.tag_5b_btw_bis.id,
         })
 
         action_name = 'l10n_nl_tax_statement.action_account_vat_statement_nl'
