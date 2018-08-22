@@ -32,4 +32,3 @@ class VatStatementConfig(models.Model):
     tag_4b_omzet = fields.Many2one('account.account.tag')
     tag_4b_btw = fields.Many2one('account.account.tag')
     tag_5b_btw = fields.Many2one('account.account.tag')
-    tag_5b_btw_bis = fields.Many2one('account.account.tag')
