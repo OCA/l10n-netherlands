@@ -87,10 +87,6 @@
                     <div>
                         <field name="tag_5b_btw" class="oe_inline" placeholder="BTW"/>
                     </div>
-                    <label for="id" string="5b bis"/>
-                    <div>
-                        <field name="tag_5b_btw_bis" class="oe_inline" placeholder="BTW"/>
-                    </div>
                 </group>
             </form>
         </field>
