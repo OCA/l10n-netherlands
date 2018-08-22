@@ -95,11 +95,6 @@ msgid "5b"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
-msgid "5b bis"
-msgstr ""
-
-#. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_format_btw_total
 msgid "5g - Total"
 msgstr ""
@@ -540,12 +535,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_config_tag_5b_btw
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_config_wizard_tag_5b_btw
 msgid "Tag 5B Btw"
-msgstr ""
-
-#. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_config_tag_5b_btw_bis
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_config_wizard_tag_5b_btw_bis
-msgid "Tag 5B Btw Bis"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
