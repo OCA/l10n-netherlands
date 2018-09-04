@@ -13,6 +13,9 @@
         'base',
         'account',
     ],
+    "demo": [
+        "demo/res_partner.xml"
+    ],
     "data": [
         "demo/res_partner.xml",
         "views/xaf_auditfile_export.xml",
