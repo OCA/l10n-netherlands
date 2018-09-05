@@ -23,11 +23,11 @@ addon | version | summary
 [l10n_nl_partner_salutation](l10n_nl_partner_salutation/) | 8.0.1.0.0 | Full salutation for partners, Dutch style
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 8.0.0.2.0 | Autocomplete Dutch addresses using PostcodeApi.nu
 [l10n_nl_tax_declaration_reporting](l10n_nl_tax_declaration_reporting/) | 8.0.1.0.0 | VAT Report Netherlands
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 8.0.2.0.0 | Export XAF auditfiles for Dutch tax authorities
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 8.0.2.0.1 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
 Translation status
 ------------------
 
-[![Transifex Status](https://www.transifex.com/projects/p/OCA-l10n-netherlands-8-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-l10n-netherlands-8-0)
+[![OCA Weblate Status](https://translation.odoo-community.org/widgets/l10n-netherlands-8-0/-/svg-badge.svg)](https://translation.odoo-community.org/projects/l10n-netherlands-8-0/)

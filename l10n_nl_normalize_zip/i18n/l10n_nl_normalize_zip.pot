@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_nl_partner_name
+#	* l10n_nl_normalize_zip
 #
 msgid ""
 msgstr ""
@@ -13,18 +13,8 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: l10n_nl_partner_name
-#: field:res.partner,infix:0
-msgid "Infix"
-msgstr ""
-
-#. module: l10n_nl_partner_name
-#: field:res.partner,initials:0
-msgid "Initials"
-msgstr ""
-
-#. module: l10n_nl_partner_name
-#: model:ir.model,name:l10n_nl_partner_name.model_res_partner
+#. module: l10n_nl_normalize_zip
+#: model:ir.model,name:l10n_nl_normalize_zip.model_res_partner
 msgid "Partner"
 msgstr ""
 

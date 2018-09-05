@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-20 09:43+0000\n"
-"PO-Revision-Date: 2015-02-20 09:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +14,40 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,exclude_account_ids:0
+msgid "Accounts that should not be shown on the report"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,exclude_account_ids:0
+msgid "Accounts to exclude"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: selection:xaf.auditfile.export,data_export:0
+msgid "All"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,auditfile:0
 msgid "Auditfile"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:73
+#, python-format
+msgid "Auditfile %s %s"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
 #: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.menu_auditfiles
 msgid "Auditfile export"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,auditfile_name:0
+msgid "Auditfile filename"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
@@ -42,6 +66,11 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
+#: field:xaf.auditfile.export,data_export:0
+msgid "Data record info"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,date_generated:0
 msgid "Date generated"
 msgstr ""
@@ -49,6 +78,23 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: help:xaf.auditfile.export,message_last_post:0
 msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: selection:xaf.auditfile.export,data_export:0
+msgid "Default"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: field:ir.qweb.widget.auditfile.string10,display_name:0
+#: field:ir.qweb.widget.auditfile.string15,display_name:0
+#: field:ir.qweb.widget.auditfile.string20,display_name:0
+#: field:ir.qweb.widget.auditfile.string30,display_name:0
+#: field:ir.qweb.widget.auditfile.string50,display_name:0
+#: field:ir.qweb.widget.auditfile.string9,display_name:0
+#: field:ir.qweb.widget.auditfile.string999,display_name:0
+#: field:xaf.auditfile.export,display_name:0
+msgid "Display Name"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
@@ -62,7 +108,7 @@ msgid "Followers"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: view:xaf.auditfile.export:4
+#: view:xaf.auditfile.export:l10n_nl_xaf_auditfile_export.form_xaf_auditfile_export
 msgid "Generate auditfile"
 msgstr ""
 
@@ -99,6 +145,18 @@ msgid "Last Message Date"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
+#: field:ir.qweb.widget.auditfile.string10,__last_update:0
+#: field:ir.qweb.widget.auditfile.string15,__last_update:0
+#: field:ir.qweb.widget.auditfile.string20,__last_update:0
+#: field:ir.qweb.widget.auditfile.string30,__last_update:0
+#: field:ir.qweb.widget.auditfile.string50,__last_update:0
+#: field:ir.qweb.widget.auditfile.string9,__last_update:0
+#: field:ir.qweb.widget.auditfile.string999,__last_update:0
+#: field:xaf.auditfile.export,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: field:xaf.auditfile.export,write_uid:0
 msgid "Last Updated by"
 msgstr ""
@@ -109,8 +167,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: view:False:68
-#: view:False:97
+#: view:website:l10n_nl_xaf_auditfile_export.xaf_template_all
 msgid "Last write"
 msgstr ""
 
@@ -130,8 +187,13 @@ msgid "Name"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: view:False:10
+#: view:website:l10n_nl_xaf_auditfile_export.xaf_template_all
 msgid "Odoo"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: help:xaf.auditfile.export,data_export:0
+msgid "Select 'All' in order to include optional partner details and general account history information in the exported XAF File. "
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
@@ -155,37 +217,13 @@ msgid "XAF auditfile export"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string10
-msgid "ir.qweb.widget.auditfile.string10"
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:88
+#, python-format
+msgid "You need to choose consecutive periods!"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string15
-msgid "ir.qweb.widget.auditfile.string15"
-msgstr ""
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string20
-msgid "ir.qweb.widget.auditfile.string20"
-msgstr ""
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string30
-msgid "ir.qweb.widget.auditfile.string30"
-msgstr ""
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string50
-msgid "ir.qweb.widget.auditfile.string50"
-msgstr ""
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string9
-msgid "ir.qweb.widget.auditfile.string9"
-msgstr ""
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_widget_auditfile_string999
-msgid "ir.qweb.widget.auditfile.string999"
+#: view:website:l10n_nl_xaf_auditfile_export.xaf_template_default
+msgid "l10n_nl_xaf_auditfile_export.xaf_template_default"
 msgstr ""
 

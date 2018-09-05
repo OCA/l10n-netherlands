@@ -4,7 +4,7 @@
 
 {
     "name": "XAF auditfile export",
-    "version": "8.0.2.0.1",
+    "version": "8.0.2.0.3",
     "author": "Therp BV, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Accounting & Finance",
@@ -13,8 +13,10 @@
         'base',
         'account',
     ],
+    "demo": [
+        "demo/res_partner.xml"
+    ],
     "data": [
-        "demo/res_partner.xml",
         "views/xaf_auditfile_export.xml",
         "views/menu.xml",
         'views/xaf_template_all.xml',
