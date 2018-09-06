@@ -20,6 +20,7 @@ class VatStatementConfigWizard(models.TransientModel):
     tag_2a_btw = fields.Many2one('account.account.tag')
     tag_3a_omzet = fields.Many2one('account.account.tag')
     tag_3b_omzet = fields.Many2one('account.account.tag')
+    tag_3b_omzet_d = fields.Many2one('account.account.tag')
     tag_3c_omzet = fields.Many2one('account.account.tag')
     tag_4a_omzet = fields.Many2one('account.account.tag')
     tag_4a_btw = fields.Many2one('account.account.tag')
@@ -49,6 +50,7 @@ class VatStatementConfigWizard(models.TransientModel):
             defv.setdefault('tag_2a_btw', config.tag_2a_btw.id)
             defv.setdefault('tag_3a_omzet', config.tag_3a_omzet.id)
             defv.setdefault('tag_3b_omzet', config.tag_3b_omzet.id)
+            defv.setdefault('tag_3b_omzet_d', config.tag_3b_omzet_d.id)
             defv.setdefault('tag_3c_omzet', config.tag_3c_omzet.id)
             defv.setdefault('tag_4a_omzet', config.tag_4a_omzet.id)
             defv.setdefault('tag_4a_btw', config.tag_4a_btw.id)
@@ -110,6 +112,7 @@ class VatStatementConfigWizard(models.TransientModel):
             'tag_2a_btw': self.tag_2a_btw.id,
             'tag_3a_omzet': self.tag_3a_omzet.id,
             'tag_3b_omzet': self.tag_3b_omzet.id,
+            'tag_3b_omzet_d': self.tag_3b_omzet_d.id,
             'tag_3c_omzet': self.tag_3c_omzet.id,
             'tag_4a_omzet': self.tag_4a_omzet.id,
             'tag_4a_btw': self.tag_4a_btw.id,
