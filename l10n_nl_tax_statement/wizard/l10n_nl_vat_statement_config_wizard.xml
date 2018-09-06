@@ -57,9 +57,14 @@
                         <field name="tag_3a_omzet" class="oe_inline" placeholder="Omzet"/>
                         <span style="margin-right:5px;"></span>
                     </div>
-                    <label for="id" string="3b"/>
+                    <label for="id" string="3b Leveringen"/>
                     <div>
-                        <field name="tag_3b_omzet" class="oe_inline" placeholder="Omzet"/>
+                        <field name="tag_3b_omzet" class="oe_inline" placeholder="Omzet product"/>
+                        <span style="margin-right:5px;"></span>
+                    </div>
+                    <label for="id" string="3b Diensten"/>
+                    <div>
+                        <field name="tag_3b_omzet_d" class="oe_inline" placeholder="Omzet service"/>
                         <span style="margin-right:5px;"></span>
                     </div>
                     <label for="id" string="3c"/>
