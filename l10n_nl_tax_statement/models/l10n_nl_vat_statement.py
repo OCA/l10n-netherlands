@@ -325,6 +325,7 @@ class VatStatement(models.Model):
             config.tag_2a_btw.id: ('2a', 'btw'),
             config.tag_3a_omzet.id: ('3a', 'omzet'),
             config.tag_3b_omzet.id: ('3b', 'omzet'),
+            config.tag_3b_omzet_d.id: ('3b', 'omzet'),
             config.tag_3c_omzet.id: ('3c', 'omzet'),
             config.tag_4a_omzet.id: ('4a', 'omzet'),
             config.tag_4a_btw.id: ('4a', 'btw'),

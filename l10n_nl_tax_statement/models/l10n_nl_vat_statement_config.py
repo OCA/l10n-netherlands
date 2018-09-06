@@ -26,6 +26,7 @@ class VatStatementConfig(models.Model):
     tag_2a_btw = fields.Many2one('account.account.tag')
     tag_3a_omzet = fields.Many2one('account.account.tag')
     tag_3b_omzet = fields.Many2one('account.account.tag')
+    tag_3b_omzet_d = fields.Many2one('account.account.tag')
     tag_3c_omzet = fields.Many2one('account.account.tag')
     tag_4a_omzet = fields.Many2one('account.account.tag')
     tag_4a_btw = fields.Many2one('account.account.tag')
