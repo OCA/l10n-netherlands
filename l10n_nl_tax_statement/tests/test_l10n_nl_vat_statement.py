@@ -30,9 +30,16 @@ class TestVatStatement(TransactionCase):
             'name': 'Tag 1',
             'applicability': 'taxes',
         })
-
         self.tag_2 = self.Tag.create({
             'name': 'Tag 2',
+            'applicability': 'taxes',
+        })
+        self.tag_3 = self.Tag.create({
+            'name': 'Tag 3',
+            'applicability': 'taxes',
+        })
+        self.tag_4 = self.Tag.create({
+            'name': 'Tag 4',
             'applicability': 'taxes',
         })
 
@@ -52,6 +59,8 @@ class TestVatStatement(TransactionCase):
             'company_id': self.env.user.company_id.id,
             'tag_1a_omzet': self.tag_1.id,
             'tag_1a_btw': self.tag_2.id,
+            'tag_3b_omzet': self.tag_3.id,
+            'tag_3b_omzet_d': self.tag_4.id,
         })
 
         self.daterange_type = self.DateRangeType.create({'name': 'Type 1'})
