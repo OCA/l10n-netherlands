@@ -21,9 +21,5 @@
             <field name="name">Madam</field>
             <field name="salutation">Madam</field>
         </record>
-        <record id="res_partner_title_sir" model="res.partner.title">
-            <field name="name">Sir</field>
-            <field name="salutation">Sir</field>
-        </record>
     </data>
 </odoo>
