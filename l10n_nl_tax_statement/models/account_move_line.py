@@ -11,7 +11,7 @@ class AccountMoveLine(models.Model):
         related='move_id.l10n_nl_vat_statement_id',
         store=True,
         readonly=True,
-        string='Statement'
+        string='Related Move Statement'
     )
     l10n_nl_vat_statement_include = fields.Boolean(
         related='move_id.l10n_nl_vat_statement_include',

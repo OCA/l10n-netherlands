@@ -79,7 +79,7 @@
                         <page name="entry_lines" string="Past Undeclared Invoices" attrs="{'invisible':[('state','!=','draft')]}">
                             <group name="unreported_move_filter" string="Include Undeclared Invoices">
                                 <group>
-                                    <field name="unreported_move_from_date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
+                                    <field name="unreported_move_from_date" string="From Date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
                                 </group>
                                 <group>
                                 </group>
