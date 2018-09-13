@@ -6,6 +6,7 @@ from odoo import api, fields, models
 
 class VatStatementConfigWizard(models.TransientModel):
     _name = 'l10n.nl.vat.statement.config.wizard'
+    _description = 'Netherlands Vat Statement Configuration Wizard'
 
     tag_1a_omzet = fields.Many2one('account.account.tag')
     tag_1a_btw = fields.Many2one('account.account.tag')

@@ -12,6 +12,7 @@ from odoo.tools.misc import formatLang
 
 class VatStatement(models.Model):
     _name = 'l10n.nl.vat.statement'
+    _description = 'Netherlands Vat Statement'
 
     name = fields.Char(
         string='Tax Statement',
@@ -126,7 +127,7 @@ class VatStatement(models.Model):
         string="Unreported Journal Entries",
         compute='_compute_unreported_move_ids'
     )
-    unreported_move_from_date = fields.Date('From Date')
+    unreported_move_from_date = fields.Date()
 
     @api.multi
     def _compute_is_invoice_basis(self):

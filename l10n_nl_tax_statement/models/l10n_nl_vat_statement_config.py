@@ -6,6 +6,7 @@ from odoo import fields, models
 
 class VatStatementConfig(models.Model):
     _name = 'l10n.nl.vat.statement.config'
+    _description = 'Netherlands Vat Statement Configuration'
 
     company_id = fields.Many2one(
         'res.company',
