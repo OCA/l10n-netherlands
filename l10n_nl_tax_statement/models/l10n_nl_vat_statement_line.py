@@ -30,6 +30,7 @@ EDITABLE_DISPLAY = (
 
 class VatStatementLine(models.Model):
     _name = 'l10n.nl.vat.statement.line'
+    _description = 'Netherlands Vat Statement Line'
     _order = 'code'
 
     name = fields.Char()
@@ -53,8 +54,6 @@ class VatStatementLine(models.Model):
     is_group = fields.Boolean(compute='_compute_is_group')
     is_readonly = fields.Boolean(compute='_compute_is_readonly')
 
-    state = fields.Selection(related='statement_id.state')
-
     @api.multi
     @api.depends('omzet', 'btw', 'code')
     def _compute_amount_format(self):
@@ -76,7 +75,7 @@ class VatStatementLine(models.Model):
     @api.depends('code')
     def _compute_is_readonly(self):
         for line in self:
-            if line.state == 'draft':
+            if line.statement_id.state == 'draft':
                 line.is_readonly = line.code not in EDITABLE_DISPLAY
             else:
                 line.is_readonly = True
