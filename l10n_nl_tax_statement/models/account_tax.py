@@ -15,7 +15,7 @@ class AccountTax(models.Model):
             company_id
         )
 
-        if self._context.get('skip_invoice_basis_domain'):
+        if self.env.context.get('skip_invoice_basis_domain'):
             company = self.env['res.company'].browse(company_id)
             is_nl = company.country_id == self.env.ref('base.nl')
             if is_nl:
@@ -29,19 +29,19 @@ class AccountTax(models.Model):
 
     @api.model
     def _get_move_line_tax_date_range_domain(self, from_date):
-        unreported_from_date = self._context.get('unreported_move_from_date')
-        if self._context.get('is_invoice_basis'):
-            if unreported_from_date:
+        unreported_date = self.env.context.get('unreported_move_from_date')
+        if self.env.context.get('is_invoice_basis'):
+            if unreported_date:
                 res = [
                     '|',
                     '&', '&',
                     ('l10n_nl_date_invoice', '=', False),
                     ('date', '<', from_date),
-                    ('date', '>=', unreported_from_date),
+                    ('date', '>=', unreported_date),
                     '&', '&',
                     ('l10n_nl_date_invoice', '!=', False),
                     ('l10n_nl_date_invoice', '<', from_date),
-                    ('l10n_nl_date_invoice', '>=', unreported_from_date),
+                    ('l10n_nl_date_invoice', '>=', unreported_date),
                 ]
             else:
                 res = [
@@ -57,8 +57,8 @@ class AccountTax(models.Model):
             res = [
                 ('date', '<', from_date),
             ]
-            if unreported_from_date:
+            if unreported_date:
                 res += [
-                    ('date', '>=', unreported_from_date),
+                    ('date', '>=', unreported_date),
                 ]
         return res
