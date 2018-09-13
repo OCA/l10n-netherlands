@@ -126,7 +126,7 @@ class VatStatement(models.Model):
         string="Unreported Journal Entries",
         compute='_compute_unreported_move_ids'
     )
-    unreported_move_from_date = fields.Date('From Date')
+    unreported_move_from_date = fields.Date()
 
     @api.multi
     def _compute_is_invoice_basis(self):
