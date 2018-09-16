@@ -21,11 +21,11 @@
         <t t-raw="0" />
         <div class="footer">
             <div class="row">
-                <div class="col-xs-6 custom_footer">
+                <div class="col-xs-6 nl_intra_custom_footer">
                     <span>Printed: </span>
                     <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
                 </div>
-                <div class="col-xs-6 text-right custom_footer">
+                <div class="col-xs-6 text-right nl_intra_custom_footer">
                     <ul class="list-inline">
                         <li><span class="page"/></li>
                         <li>/</li>
