@@ -35,11 +35,19 @@ class TestDutchCountryStates(TransactionCase):
             'zip': '4814 DC'})
         self.assertFalse(partner.state_id)
 
+        partner.write({
+            'zip': '4814 DC'})
+        self.assertFalse(partner.state_id)
+
         # Partner with foreign province and country
         florida = self.env.ref('base.state_us_10')
         partner.write({
             'country_id': self.env.ref('base.us').id,
             'state_id': florida.id,
+            'zip': '4814 DC'})
+        self.assertEqual(partner.state_id, florida)
+
+        partner.write({
             'zip': '4814 DC'})
         self.assertEqual(partner.state_id, florida)
 
