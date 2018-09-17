@@ -7,6 +7,27 @@ from odoo.tests.common import TransactionCase
 
 class TestNlPostcodeapi(TransactionCase):
 
+    def setUp(self):
+        super(TestNlPostcodeapi, self).setUp()
+
+        # this block of code removes the existing provinces
+        # eventually already created by module l10n_nl_country_states
+        # to avoid conflicts with tests of l10n_nl_country_states
+        is_l10n_nl_country_states_installed = self.env['ir.model']._get(
+            'res.country.state.nl.zip'
+        )
+        if is_l10n_nl_country_states_installed:
+            NlZipStateModel = self.env['res.country.state.nl.zip']
+            NlZipStateModel.search([]).unlink()
+            country_nl = self.env['res.country'].search([
+                ('code', 'like', 'NL')
+            ], limit=1)
+            self.assertTrue(country_nl)
+            states = self.env['res.country.state'].search([
+                ('country_id', '=', country_nl.id)
+            ])
+            states.unlink()
+
     def load_nl_provinces(self):
         csv_resource = get_module_resource(
             'l10n_nl_postcodeapi',
