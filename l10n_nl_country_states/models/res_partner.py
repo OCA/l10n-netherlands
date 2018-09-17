@@ -13,13 +13,16 @@ class ResPartner(models.Model):
         If not Netherlands, just return present state, unless state is
         in the Netherlands. In that case state will be False.
         """
+        country_nl = self.env.ref('base.nl')
         StateModel = self.env['res.country.state.nl.zip']
-
-        if country_id and country_id != self.env.ref('base.nl').id:
-            if not state_id:
-                return False
-            if StateModel.search([('state_id', '=', state_id)], limit=1):
-                return False
+        state_model = self.env['res.country.state']
+        no_state = state_model.browse([])
+        if country_id and country_id != country_nl:
+            if state_id:
+                dutch_state = StateModel.search([
+                    ('state_id', '=', state_id.id)], limit=1)
+                if dutch_state:
+                    return no_state
             return state_id
         # Assume netherlands
         # Check whether we can find state for zip, if we find one, any
@@ -31,29 +34,30 @@ class ResPartner(models.Model):
             return state_id
         return StateModel.search([
             ('min_zip', '<=', zip_digits),
-            ('max_zip', '>=', zip_digits)], limit=1).state_id.id
+            ('max_zip', '>=', zip_digits)], limit=1).state_id
 
-    @api.model
-    def _set_state_from_zip(self, vals):
+    @api.multi
+    def _set_state_from_zip(self):
         """If country is not set, we assume it to be the Netherlands."""
-        if vals.get('zip') or 'country_id' in vals:
-            vals['state_id'] = self._get_state_for_zip(
-                vals.get('country_id'), vals.get('state_id'), vals.get('zip'))
+        for this in self:
+            state_id = self._get_state_for_zip(
+                this.country_id, this.state_id, this.zip)
+            if state_id != this.state_id:
+                super(ResPartner, this).write({'state_id': state_id.id})
 
     @api.model
     def create(self, vals):
-        self._set_state_from_zip(vals)
-        return super(ResPartner, self).create(vals)
+        result = super(ResPartner, self).create(vals)
+        result._set_state_from_zip()
+        return result
 
     @api.multi
     def write(self, vals):
-        self._set_state_from_zip(vals)
-        return super(ResPartner, self).write(vals)
+        result = super(ResPartner, self).write(vals)
+        self._set_state_from_zip()
+        return result
 
     @api.onchange('zip')
     def onchange_zip_country_id(self):
-        state_id = self._get_state_for_zip(
-            self.country_id.id, self.state_id.id, self.zip)
-        self.update({
-            'state_id': state_id,
-        })
+        self.state_id = self._get_state_for_zip(
+            self.country_id, self.state_id, self.zip)
