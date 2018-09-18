@@ -81,12 +81,6 @@ msgid "Shortcut male"
 msgstr ""
 
 #. module: l10n_nl_partner_salutation
-#: model:res.partner.title,name:l10n_nl_partner_salutation.res_partner_title_sir
-#: model:res.partner.title,salutation:l10n_nl_partner_salutation.res_partner_title_sir
-msgid "Sir"
-msgstr ""
-
-#. module: l10n_nl_partner_salutation
 #: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner_title
 msgid "res.partner.title"
 msgstr ""
