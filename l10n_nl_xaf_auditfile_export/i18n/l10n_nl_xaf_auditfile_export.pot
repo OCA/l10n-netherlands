@@ -34,7 +34,7 @@ msgid "Auditfile"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:73
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:97
 #, python-format
 msgid "Auditfile %s %s"
 msgstr ""
@@ -217,7 +217,7 @@ msgid "XAF auditfile export"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:88
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:113
 #, python-format
 msgid "You need to choose consecutive periods!"
 msgstr ""
