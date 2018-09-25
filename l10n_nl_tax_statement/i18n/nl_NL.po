@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-16 06:04+0000\n"
-"PO-Revision-Date: 2018-01-16 06:04+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/"
-"teams/23907/nl_NL/)\n"
+"PO-Revision-Date: 2018-09-26 14:12+0000\n"
+"Last-Translator: Yung-Wa <yw.ng@onestein.nl>\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/"
+"23907/nl_NL/)\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.1.1\n"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -103,7 +104,7 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_format_btw_total
 msgid "5g - Total"
-msgstr ""
+msgstr "5g - Totaal"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_btw_total
