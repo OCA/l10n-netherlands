@@ -3,7 +3,7 @@
 
 {
     'name': 'Dutch postcode validation for Partners',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Localization',
     'author': 'Onestein,Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/l10n-netherlands',
