@@ -1,12 +1,12 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import base64
 from io import BytesIO
 from zipfile import ZipFile
 
-from odoo.tools import mute_logger
 from odoo.tests.common import TransactionCase
+from odoo.tools import mute_logger
 
 
 class TestXafAuditfileExport(TransactionCase):
