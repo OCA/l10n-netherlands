@@ -3,19 +3,20 @@
 
 import base64
 import collections
-from lxml import etree
 import logging
 import os
-import psutil
 import shutil
-from tempfile import mkdtemp
-from io import BytesIO
-import zipfile
 import time
+import zipfile
 from datetime import datetime, timedelta
-from dateutil.rrule import rrule, MONTHLY
+from io import BytesIO
+from tempfile import mkdtemp
 
-from odoo import _, models, fields, api, exceptions, release, modules
+import psutil
+from dateutil.rrule import MONTHLY, rrule
+from lxml import etree
+
+from odoo import _, api, exceptions, fields, models, modules, release
 
 
 def chunks(l, n=None):
@@ -53,7 +54,7 @@ class XafAuditfileExport(models.Model):
     def _compute_fiscalyear_name(self):
         for auditfile in self:
             if auditfile.date_start:
-                auditfile.fiscalyear_name = auditfile.date_start[0:4]
+                auditfile.fiscalyear_name = auditfile.date_start.year
 
     name = fields.Char('Name')
     date_start = fields.Date('Start date', required=True)
@@ -117,7 +118,7 @@ class XafAuditfileExport(models.Model):
     def button_generate(self):
         t0 = time.time()
         m0 = memory_info()
-        self.date_generated = fields.Datetime.now(self)
+        self.date_generated = fields.Datetime.now()
         auditfile_template = self._get_auditfile_template()
         xml = self.env['ir.ui.view'].render_template(
             auditfile_template,
@@ -200,8 +201,9 @@ class XafAuditfileExport(models.Model):
 
     @api.model
     def get_period_number(self, date):
-        period_id = date[3:4] + date[5:7]
-        return period_id
+        year = date.strftime('%Y')[-1:]
+        month = date.strftime('%m')
+        return year + month
 
     @api.multi
     def get_periods(self):
@@ -220,8 +222,8 @@ class XafAuditfileExport(models.Model):
         self.ensure_one()
         months = rrule(
             freq=MONTHLY, bymonth=(),
-            dtstart=fields.Date.from_string(self.date_start),
-            until=fields.Date.from_string(self.date_end)
+            dtstart=self.date_start,
+            until=self.date_end
         )
 
         Period = collections.namedtuple(
@@ -230,8 +232,8 @@ class XafAuditfileExport(models.Model):
         )
         periods = []
         for dt_start in list(months):
-            date_start = fields.Date.to_string(dt_start.date())
-            date_end = fields.Date.to_string(month_end_date(dt_start.date()))
+            date_start = dt_start.date()
+            date_end = month_end_date(dt_start.date())
             periods.append(Period(
                 number=self.get_period_number(date_start),
                 name=dt_start.strftime('%B') + ' ' + self.fiscalyear_name,
