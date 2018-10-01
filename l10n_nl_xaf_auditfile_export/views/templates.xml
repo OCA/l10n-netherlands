@@ -8,7 +8,7 @@
         <startDate><t t-esc="self.date_start" /></startDate>
         <endDate><t t-esc="self.date_end" /></endDate>
         <curCode><t t-esc="self.company_id.currency_id.name" /></curCode>
-        <dateCreated><t t-esc="self.date_generated[:10]" /></dateCreated>
+        <dateCreated><t t-esc="self.date_generated.date().isoformat()" /></dateCreated>
         <softwareDesc>Odoo</softwareDesc>
         <softwareVersion><t t-esc="self.get_odoo_version()" t-options='{"widget": "auditfile.string20"}' /></softwareVersion>
     </header>
@@ -65,7 +65,7 @@
                 </bankAccount>
                 <changeInfo t-if="p.write_uid">
                     <userID><t t-esc="p.write_uid.id" /></userID>
-                    <changeDateTime><t t-esc="p.write_date[:10]" />T<t t-esc="p.write_date[-8:]" /></changeDateTime>
+                    <changeDateTime><t t-esc="p.write_date.date().isoformat()" />T<t t-esc="p.write_date.time().strftime('%H:%M:%S')" /></changeDateTime>
                     <changeDescription>Last write</changeDescription>
                 </changeInfo>
                 <customerSupplierHistory/>
@@ -94,7 +94,7 @@
                 /-->
                 <changeInfo t-if="a.write_uid">
                     <userID><t t-esc="a.write_uid.id" /></userID>
-                    <changeDateTime><t t-esc="a.write_date[:10]" />T<t t-esc="a.write_date[-8:]" /></changeDateTime>
+                    <changeDateTime><t t-esc="a.write_date.date().isoformat()" />T<t t-esc="a.write_date.time().strftime('%H:%M:%S')" /></changeDateTime>
                     <changeDescription>Last write</changeDescription>
                 </changeInfo>
                 <glAccountHistory />
