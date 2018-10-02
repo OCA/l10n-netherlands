@@ -3,11 +3,11 @@
 {
     "name": "Dutch banks list",
     "summary": "Import all Dutch banks with BIC code",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Localisation",
     "license": "AGPL-3",
     "author": "Odoo Experts, Odoo Community Association (OCA)",
-    "website": "https://www.odooexperts.nl",
+    "website": "https://github.com/OCA/l10n-netherlands",
     "depends": [
         "base",
     ],
