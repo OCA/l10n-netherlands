@@ -1,11 +1,12 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
 
 
 class VatStatementConfigWizard(models.TransientModel):
     _name = 'l10n.nl.vat.statement.config.wizard'
+    _description = 'Netherlands Vat Statement Configuration Wizard'
 
     tag_1a_omzet = fields.Many2one('account.account.tag')
     tag_1a_btw = fields.Many2one('account.account.tag')
@@ -76,7 +77,8 @@ class VatStatementConfigWizard(models.TransientModel):
         defv.setdefault('tag_2a_omzet', self.env.ref('l10n_nl.tag_nl_10').id)
         defv.setdefault('tag_2a_btw', self.env.ref('l10n_nl.tag_nl_27').id)
         defv.setdefault('tag_3a_omzet', self.env.ref('l10n_nl.tag_nl_12').id)
-        defv.setdefault('tag_3b_omzet', self.env.ref('l10n_nl.tag_nl_13').id)
+        defv.setdefault('tag_3b_omzet', self.env.ref('l10n_nl.tag_nl_40').id)
+        defv.setdefault('tag_3b_omzet_d', self.env.ref('l10n_nl.tag_nl_41').id)
         defv.setdefault('tag_3c_omzet', self.env.ref('l10n_nl.tag_nl_14').id)
         defv.setdefault('tag_4a_omzet', self.env.ref('l10n_nl.tag_nl_16').id)
         defv.setdefault('tag_4a_btw', self.env.ref('l10n_nl.tag_nl_29').id)
