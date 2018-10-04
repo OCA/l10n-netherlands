@@ -1,11 +1,12 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
 
 
 class VatStatementConfig(models.Model):
     _name = 'l10n.nl.vat.statement.config'
+    _description = 'Netherlands Vat Statement Configuration'
 
     company_id = fields.Many2one(
         'res.company',
