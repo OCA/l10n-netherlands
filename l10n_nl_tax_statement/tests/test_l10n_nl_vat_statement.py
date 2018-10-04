@@ -1,13 +1,13 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from datetime import datetime
+import datetime
 from dateutil.relativedelta import relativedelta
 
+import odoo
 from odoo import fields
 from odoo.exceptions import UserError
-from odoo.tests.common import TransactionCase, at_install, post_install
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+from odoo.tests.common import TransactionCase
 
 
 class TestVatStatement(TransactionCase):
@@ -120,21 +120,23 @@ class TestVatStatement(TransactionCase):
     def test_01_onchange(self):
         self.statement_1.write({'date_range_id': self.daterange_1.id})
         self.statement_1.onchange_date_range_id()
-        self.assertEqual(self.statement_1.from_date, '2016-01-01')
-        self.assertEqual(self.statement_1.to_date, '2016-12-31')
+        from_date = datetime.date(2016, 1, 1)
+        to_date = datetime.date(2016, 12, 31)
+        self.assertEqual(self.statement_1.from_date, from_date)
+        self.assertEqual(self.statement_1.to_date, to_date)
 
         self.statement_1.onchange_date()
         check_name = self.statement_1.company_id.name
-        check_name += ': ' + ' '.join(
-            [self.statement_1.from_date, self.statement_1.to_date])
+        str_from_date = fields.Date.to_string(self.statement_1.from_date)
+        str_to_date = fields.Date.to_string(self.statement_1.to_date)
+        check_name += ': ' + ' '.join([str_from_date, str_to_date])
         self.assertEqual(self.statement_1.name, check_name)
 
         self.statement_1.onchange_date_from_date()
-        d_from = datetime.strptime(self.statement_1.from_date, DF)
+        d_from = self.statement_1.from_date
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
-        d_from_2months = d_from + relativedelta(months=-3, day=1)
-        new_date = fields.Date.to_string(d_from_2months)
+        new_date = d_from + relativedelta(months=-3, day=1)
         self.assertEqual(self.statement_1.unreported_move_from_date, new_date)
 
         self.assertEqual(self.statement_1.btw_total, 0.)
@@ -314,8 +316,7 @@ class TestVatStatement(TransactionCase):
         for line in self.statement_1.line_ids:
             self.assertFalse(line.is_readonly)
 
-    @at_install(False)
-    @post_install(True)
+    @odoo.tests.tagged('post_install', '-at_install')
     def test_14_is_invoice_basis(self):
         company = self.statement_1.company_id
         has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
@@ -336,8 +337,7 @@ class TestVatStatement(TransactionCase):
         for line in self.statement_1.line_ids:
             self.assertTrue(line.is_readonly)
 
-    @at_install(False)
-    @post_install(True)
+    @odoo.tests.tagged('post_install', '-at_install')
     def test_15_invoice_basis_undeclared_invoice(self):
         self.invoice_1._onchange_invoice_line_ids()
         self.invoice_1.action_invoice_open()
@@ -357,9 +357,7 @@ class TestVatStatement(TransactionCase):
             self.statement_1.company_id.country_id = self.env.ref('base.nl')
 
             invoice2 = self.invoice_1.copy()
-            d_date = datetime.strptime(fields.Date.today(), DF)
-            d_date = d_date + relativedelta(months=-4, day=1)
-            old_date = fields.Date.to_string(d_date)
+            old_date = fields.Date.today() + relativedelta(months=-4, day=1)
             invoice2.date_invoice = old_date
             invoice2.action_invoice_open()
 

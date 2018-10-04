@@ -8,3 +8,5 @@ After that, go to go to menu: `Invoicing -> Configuration -> Accounting -> NL BT
 
 If your Company adopts the *Factuurstelsel* system for the accounting, also install the module ``l10n_nl_tax_invoice_basis``
 (for more information about the installation and configuration of that module, check the README file).
+
+The user must belong to the *Show Full Accounting Features* group, to be able to access the `Invoicing -> Configuration -> Accounting -> NL BTW Tags` menu.

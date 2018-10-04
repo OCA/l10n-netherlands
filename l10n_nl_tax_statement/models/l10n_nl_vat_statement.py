@@ -1,17 +1,17 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from odoo.tools.misc import formatLang
 
 
 class VatStatement(models.Model):
     _name = 'l10n.nl.vat.statement'
+    _description = 'Netherlands Vat Statement'
 
     name = fields.Char(
         string='Tax Statement',
@@ -174,16 +174,16 @@ class VatStatement(models.Model):
     def onchange_date(self):
         display_name = self.company_id.name
         if self.from_date and self.to_date:
-            display_name += ': ' + ' '.join([self.from_date, self.to_date])
+            from_date = fields.Date.to_string(self.from_date)
+            to_date = fields.Date.to_string(self.to_date)
+            display_name += ': ' + ' '.join([from_date, to_date])
         self.name = display_name
 
     @api.onchange('from_date')
     def onchange_date_from_date(self):
-        d_from = datetime.strptime(self.from_date, DF)
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
-        d_from_2months = d_from + relativedelta(months=-3, day=1)
-        date_from = fields.Date.to_string(d_from_2months)
+        date_from = self.from_date + relativedelta(months=-3, day=1)
         self.unreported_move_from_date = date_from
 
     @api.onchange('unreported_move_from_date')
