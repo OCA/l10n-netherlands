@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo11-addon-l10n_nl_account_tax_unece',
         'odoo11-addon-l10n_nl_bank',
         'odoo11-addon-l10n_nl_bsn',
+        'odoo11-addon-l10n_nl_cbs_export',
         'odoo11-addon-l10n_nl_postcode',
         'odoo11-addon-l10n_nl_postcodeapi',
         'odoo11-addon-l10n_nl_tax_invoice_basis',
