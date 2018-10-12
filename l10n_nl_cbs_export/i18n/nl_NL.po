@@ -1,0 +1,213 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_nl_cbs_export
+# 
+# Translators:
+# Peter Hageman <hageman.p@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-26 11:35+0000\n"
+"PO-Revision-Date: 2017-07-26 11:35+0000\n"
+"Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_nl_cbs_export
+#: code:addons/l10n_nl_cbs_export/models/cbs_export_file.py:69
+#: sql_constraint:cbs.export.file:0
+#, python-format
+msgid ""
+"A CBS export already exists with the same month and year for this company!"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_account_invoice_ids
+msgid "Account invoice ids"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "April"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "August"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.actions.act_window,name:l10n_nl_cbs_export.act_open_cbs_export_file_view
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_account_invoice_cbs_export_id
+#: model:ir.ui.menu,name:l10n_nl_cbs_export.menu_cbs_export_file
+msgid "CBS Export"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_cbs_export_invoice
+msgid "CBS Export File"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: code:addons/l10n_nl_cbs_export/models/cbs_export_file.py:170
+#, python-format
+msgid "CBS Export is created for month %s in year %s"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_company_id
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: l10n_nl_cbs_export
+#: model:ir.ui.view,arch_db:l10n_nl_cbs_export.view_cbs_export_file_form
+msgid "Customer"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "December"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.ui.menu,name:l10n_nl_cbs_export.account_cbs_export_file_menu
+msgid "Export files"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "February"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_filename
+msgid "Filename"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model,name:l10n_nl_cbs_export.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.ui.view,arch_db:l10n_nl_cbs_export.view_cbs_export_file_form
+msgid "Invoices"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "January"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "July"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "June"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.ui.view,arch_db:l10n_nl_cbs_export.view_cbs_export_file_form
+msgid "Manual CBS Export"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "March"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "May"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_month
+msgid "Month"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "November"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "October"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: code:addons/l10n_nl_cbs_export/models/cbs_export_file.py:95
+#: code:addons/l10n_nl_cbs_export/models/cbs_export_file.py:101
+#, python-format
+msgid "Please insert a valid Year"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: selection:cbs.export.file,month:0
+msgid "September"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: code:addons/l10n_nl_cbs_export/models/cbs_export_file.py:84
+#, python-format
+msgid "There are no invoice lines for CBS Export during month %s in year %s"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model.fields,field_description:l10n_nl_cbs_export.field_cbs_export_file_year
+msgid "Year"
+msgstr ""
+
+#. module: l10n_nl_cbs_export
+#: model:ir.model,name:l10n_nl_cbs_export.model_cbs_export_file
+msgid "cbs.export.file"
+msgstr ""
