@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="template_gdpr_processor_agreement" model="py3o.template">
+        <field name="name">GDPR processor agreement</field>
+        <field name="filetype">odt</field>
+        <field name="py3o_template_data" type="base64" file="l10n_nl_gdpr_processor_agreement/data/gdpr_processor_agreement.odt" />
+    </record>
+    <record id="report_gdpr_processor_agreement" model="ir.actions.report.xml">
+        <field name="name">GDPR processor agreement</field>
+        <field name="model">res.partner</field>
+        <field name="report_name">res.partner.gdpr.processor.agreement</field>
+        <field name="report_type">py3o</field>
+        <field name="py3o_filetype">pdf</field>
+        <field name="py3o_template_id" ref="template_gdpr_processor_agreement" />
+    </record>
+    <record id="button_partner_summary_report" model="ir.values">
+        <field name="key2">client_print_multi</field>
+        <field name="model">res.partner</field>
+        <field name="name">GDPR processor agreement</field>
+        <field name="value" eval="'ir.actions.report.xml,%d' % ref('report_gdpr_processor_agreement')" />
+  </record>
+</odoo>

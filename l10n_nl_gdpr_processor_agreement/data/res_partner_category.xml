@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_category_data_protection_officer" model="res.partner.category" forcecreate="True">
+        <field name="name">Data protection officer</field>
+    </record>
+</odoo>

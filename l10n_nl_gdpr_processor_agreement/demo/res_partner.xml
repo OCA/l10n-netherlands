@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="base.res_partner_main1" model="res.partner">
+        <field name="category_id" eval="[(4, ref('res_partner_category_data_protection_officer'))]" />
+    </record>
+</odoo>
