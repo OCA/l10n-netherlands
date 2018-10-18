@@ -17,7 +17,7 @@ Dutch banks list
     :target: https://github.com/OCA/l10n-netherlands/tree/12.0/l10n_nl_bank
     :alt: OCA/l10n-netherlands
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-netherlands-11-0/l10n-netherlands-11-0-l10n_nl_bank
+    :target: https://translation.odoo-community.org/projects/l10n-netherlands-12-0/l10n-netherlands-12-0-l10n_nl_bank
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/176/12.0
