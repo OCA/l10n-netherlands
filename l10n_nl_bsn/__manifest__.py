@@ -4,8 +4,10 @@
 {
     'name': 'Burgerservicenummer (BSN) for Partners',
     'version': '12.0.1.0.0',
+    'development_status': 'Production/Stable',
     'category': 'Localization',
     'author': 'Onestein, Odoo Community Association (OCA)',
+    'maintainers': ['astirpe'],
     'website': 'https://github.com/OCA/l10n-netherlands',
     'license': 'AGPL-3',
     'depends': [
