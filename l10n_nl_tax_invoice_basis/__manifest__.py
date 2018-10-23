@@ -1,13 +1,15 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
     'name': 'NL Tax Invoice Basis (Factuurstelsel)',
     'summary': 'Enable invoice basis on tax according to the Dutch law',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
+    'development_status': 'Production/Stable',
     'category': 'Localization',
     'author': 'Onestein, Odoo Community Association (OCA)',
-    'website': 'http://www.onestein.eu',
+    'maintainers': ['astirpe'],
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'license': 'AGPL-3',
     'depends': [
         'account',

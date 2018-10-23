@@ -1,0 +1,1 @@
+* This module extends the OCA module ``account_tax_balance``: only the TAX reports made with modules depending on ``account_tax_balance`` will comply with Factuurstelsel. Standard Odoo TAX reports are actually not compliant with Factuurstelsel.
