@@ -1,5 +1,5 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
 
@@ -10,9 +10,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def finalize_invoice_move_lines(self, move_lines):
         self.ensure_one()
-        move_lines = super(AccountInvoice, self).finalize_invoice_move_lines(
-            move_lines
-        )
+        move_lines = super().finalize_invoice_move_lines(move_lines)
         is_invoice_basis = self.company_id.l10n_nl_tax_invoice_basis
         is_nl = self.company_id.country_id == self.env.ref('base.nl')
         if is_nl and is_invoice_basis:
