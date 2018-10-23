@@ -1,5 +1,5 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
 
@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class TestTaxInvoiceBasis(TransactionCase):
 
     def setUp(self):
-        super(TestTaxInvoiceBasis, self).setUp()
+        super().setUp()
         self.env.user.company_id.country_id = self.env.ref('base.nl')
 
         tax_account_id = self.env['account.account'].search(
@@ -58,7 +58,7 @@ class TestTaxInvoiceBasis(TransactionCase):
 
         company = self.env.user.company_id
         # Factuurstelsel enabled by default
-        self.assertEqual(company.l10n_nl_tax_invoice_basis, True)
+        self.assertTrue(company.l10n_nl_tax_invoice_basis)
 
         # Validate invoice
         self.invoice.action_invoice_open()
@@ -112,6 +112,34 @@ class TestTaxInvoiceBasis(TransactionCase):
         update_ctx = {'skip_invoice_basis_domain': True}
         self.period_july.update(update_ctx)
         self.period_august.update(update_ctx)
+
+        # Validate invoice
+        self.invoice.action_invoice_open()
+
+        tax_july = self.tax.with_context(self.period_july)
+        tax_august = self.tax.with_context(self.period_august)
+
+        self.assertEqual(tax_july.base_balance, -100.)
+        self.assertEqual(tax_july.balance, -21.)
+        self.assertEqual(tax_july.base_balance_regular, 0.)
+        self.assertEqual(tax_july.balance_regular, 0.)
+        self.assertEqual(tax_july.base_balance_refund, -100.)
+        self.assertEqual(tax_july.balance_refund, -21.)
+
+        self.assertEqual(tax_august.base_balance, 0.)
+        self.assertEqual(tax_august.balance, 0.)
+        self.assertEqual(tax_august.base_balance_regular, 0.)
+        self.assertEqual(tax_august.balance_regular, 0.)
+        self.assertEqual(tax_august.base_balance_refund, 0.)
+        self.assertEqual(tax_august.balance_refund, 0.)
+
+    def test_tax_no_nl(self):
+        # company is not Netherlands
+        self.env.user.company_id.country_id = self.env.ref('base.be')
+
+        company = self.env.user.company_id
+        # Factuurstelsel enabled by default
+        self.assertTrue(company.l10n_nl_tax_invoice_basis)
 
         # Validate invoice
         self.invoice.action_invoice_open()
