@@ -7,7 +7,7 @@
     'category': 'Localization',
     'license': 'AGPL-3',
     'author': 'Onestein, Odoo Community Association (OCA)',
-    'website': 'http://www.onestein.eu',
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'depends': [
         'account_tax_balance',
     ],
