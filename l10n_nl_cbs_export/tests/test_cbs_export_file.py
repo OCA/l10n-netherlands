@@ -189,8 +189,8 @@ class TestCbsExportFile(TransactionCase):
         # Check line boundary '\r\n'
         i = 1
         while 117*i <= len(result_file):
-            self.assertEqual(result_file[117*i-2], 13)  # '\r'
-            self.assertEqual(result_file[117*i-1], 10)  # '\n'
+            self.assertEqual(result_file[117*i-2], '\r')
+            self.assertEqual(result_file[117*i-1], '\n')
             i += 1
 
     def test_04_run_cron_job(self):
