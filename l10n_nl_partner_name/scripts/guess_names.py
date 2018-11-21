@@ -1,6 +1,6 @@
 #!/usr/bin/python
-# © 2017 Therp BV <http://therp.nl>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017 Therp BV <https://therp.nl>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import argparse
 import xmlrpclib
@@ -58,7 +58,7 @@ while True:
     for partner in odoo_execute(
             'res.partner', 'read', ids,
             ['lastname', 'firstname', 'initials', 'infix']):
-        print partner['lastname']
+        print(partner['lastname'])
 
         have_infix = False
         tokens = partner['lastname'].split()
@@ -76,7 +76,7 @@ while True:
                 add_token(partner, 'firstname', token)
         partner['lastname'] = ' '.join(tokens)
 
-        print partner
+        print(partner)
         odoo_execute('res.partner', 'write', partner['id'], partner)
 
     offset += limit
