@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
-# © 2016 Therp BV <http://therp.nl>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2016 Therp BV <https://therp.nl>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo.tests.common import TransactionCase
 
 
 class TestL10nNlPartnerName(TransactionCase):
+
     def test_l10n_nl_partner_name(self):
         partner = self.env['res.partner'].create({
             'name': 'Mark Rutte',
@@ -22,13 +22,7 @@ class TestL10nNlPartnerName(TransactionCase):
         })
         self.assertEqual(partner.firstname, 'Willem-Alexander')
         self.assertEqual(partner.lastname, 'van Oranje-Nassau')
-        onchange_vals = {
-            'lastname': 'Oranje-Nassau',
-            'infix': 'van',
-        }
-        partner.onchange(
-            onchange_vals, ['lastname', 'infix'], partner._onchange_spec(),
-        )
+        partner._onchange_subnames()
         self.assertEqual(
             partner.name,
             'Willem-Alexander van Oranje-Nassau'
