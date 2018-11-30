@@ -3,14 +3,24 @@
 
 import datetime
 from dateutil.relativedelta import relativedelta
+from mock import patch
 
 import odoo
 from odoo import fields
+from odoo.tools import convert_file
+from odoo.modules.module import get_module_resource
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
 class TestVatStatement(TransactionCase):
+
+    def _load(self, module, *args):
+        convert_file(
+            self.cr,
+            'l10n_nl',
+            get_module_resource(module, *args),
+            {}, 'init', False, 'test', self.registry._assertion_report)
 
     def setUp(self):
         super().setUp()
@@ -454,3 +464,26 @@ class TestVatStatement(TransactionCase):
 
         for line in self.statement_1.line_ids:
             self.assertTrue(line.is_readonly)
+
+    def test_18_default_config_l10n_nl_tags(self):
+        self._load('l10n_nl', 'data', 'account_account_tag.xml')
+        config = self.env['l10n.nl.vat.statement.config'].search([])
+        config.unlink()
+
+        path_addon = 'odoo.addons.l10n_nl_tax_statement.'
+        path_file = 'wizard.l10n_nl_vat_statement_config_wizard.'
+        path_class = 'VatStatementConfigWizard.'
+        method = path_addon + path_file + path_class + '_is_l10n_nl_coa'
+        with patch(method) as my_mock:
+            my_mock.return_value = True
+
+            wizard = self.Wizard.create({})
+            self.assertTrue(wizard)
+
+    def test_19_skip_invoice_basis_domain(self):
+        self.invoice_1._onchange_invoice_line_ids()
+        self.invoice_1.with_context(
+            skip_invoice_basis_domain=True
+        ).action_invoice_open()
+        self.statement_1.statement_update()
+        self.assertEqual(len(self.statement_1.line_ids.ids), 22)
