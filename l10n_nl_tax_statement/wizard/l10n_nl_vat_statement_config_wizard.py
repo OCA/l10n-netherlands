@@ -60,9 +60,7 @@ class VatStatementConfigWizard(models.TransientModel):
             defv.setdefault('tag_5b_btw', config.tag_5b_btw.id)
             return defv
 
-        is_l10n_nl_coa = self.env.ref('l10n_nl.l10nnl_chart_template', False)
-        company_coa = self.env.user.company_id.chart_template_id
-        if company_coa != is_l10n_nl_coa:
+        if not self._is_l10n_nl_coa():
             return defv
 
         defv.setdefault('tag_1a_omzet', self.env.ref('l10n_nl.tag_nl_03').id)
@@ -86,6 +84,11 @@ class VatStatementConfigWizard(models.TransientModel):
         defv.setdefault('tag_4b_btw', self.env.ref('l10n_nl.tag_nl_30').id)
         defv.setdefault('tag_5b_btw', self.env.ref('l10n_nl.tag_nl_33').id)
         return defv
+
+    def _is_l10n_nl_coa(self):
+        is_l10n_nl_coa = self.env.ref('l10n_nl.l10nnl_chart_template', False)
+        company_coa = self.env.user.company_id.chart_template_id
+        return company_coa == is_l10n_nl_coa
 
     @api.multi
     def execute(self):
