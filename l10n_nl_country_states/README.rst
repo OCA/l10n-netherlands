@@ -27,7 +27,7 @@ Dutch country states (Provincies)
 
 This module adds the Dutch country states (Provincies).
 
-.. image:: /l10n_nl_country_states/static/description/screenshot.png
+.. image:: https://raw.githubusercontent.com/l10n_nl_country_states/static/description/screenshot.png
     :alt: Screenshot
 
 ISO standard can be found on https://en.wikipedia.org/wiki/ISO_3166-2:NL
