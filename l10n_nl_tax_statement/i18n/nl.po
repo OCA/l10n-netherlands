@@ -11,14 +11,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-25 15:47+0000\n"
-"PO-Revision-Date: 2018-01-25 15:47+0000\n"
-"Last-Translator: Frank Schellenberg <opensource@schellenberg.nl>, 2018\n"
+"PO-Revision-Date: 2018-12-04 14:09+0000\n"
+"Last-Translator: Yung-Wa <yw.ng@onestein.nl>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.3\n"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -74,12 +75,12 @@ msgstr "3a"
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "3b Diensten"
-msgstr ""
+msgstr "3b Diensten"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "3b Leveringen"
-msgstr ""
+msgstr "3b Leveringen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
@@ -119,12 +120,12 @@ msgstr "Aangifte omzetbelasting"
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move
 msgid "Account Entry"
-msgstr ""
+msgstr "Boeking"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Add Invoice"
-msgstr ""
+msgstr "Toevoegen Factuur"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -132,6 +133,9 @@ msgid ""
 "Add/Remove the Undeclared Invoices listed below. Afterwards press the Update "
 "button in order to recompute the statement lines!"
 msgstr ""
+"Voeg de hieronder vermelde niet opgegeven facturen toe of verwijder deze. "
+"Daarna drukt u op de knop Bijwerken om de aangifte regels opnieuw te "
+"berekenen!"
 
 #. module: l10n_nl_tax_statement
 #: selection:l10n.nl.vat.statement,target_move:0
@@ -156,13 +160,11 @@ msgstr "BTW"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "BTW Statement"
 msgstr "BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "BTW Statement lines"
 msgstr "BTW-aangifte"
 
@@ -251,19 +253,18 @@ msgstr "Concept"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_move_line_ids
-#, fuzzy
 msgid "Entry Lines"
 msgstr "Alle boekingen"
 
 #. module: l10n_nl_tax_statement
 #: selection:l10n.nl.vat.statement,state:0
 msgid "Final"
-msgstr ""
+msgstr "Definitief"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Finalize"
-msgstr ""
+msgstr "Definitief maken"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_format_btw
@@ -301,18 +302,19 @@ msgid ""
 "If you confirm, it will be not possible to modify this Statement or reset it "
 "back to draft anymore. Do you confirm?"
 msgstr ""
+"Als u dit bevestigt, is het niet mogelijk om deze Aangifte aan te passen of "
+"deze terug naar concept te zetten. Bevestigen?"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Include Undeclared Invoices"
-msgstr ""
+msgstr "Inclusief niet-aangegeven facturen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line_l10n_nl_vat_statement_include
-#, fuzzy
 msgid "Include in VAT Statement"
-msgstr "BTW-aangifte"
+msgstr "Opnemen in BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:237
@@ -333,7 +335,7 @@ msgstr "Is Alleen Lezen"
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Boekingsregel"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement___last_update
@@ -436,7 +438,7 @@ msgstr "BTW labels"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_is_invoice_basis
 msgid "NL Tax Invoice Basis"
-msgstr ""
+msgstr "NL Factuurstelsel"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement
@@ -450,24 +452,23 @@ msgstr "Naam"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement
-#, fuzzy
 msgid "Netherlands Vat Statement"
-msgstr "BTW-aangifte"
+msgstr "Nederland BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_config
 msgid "Netherlands Vat Statement Configuration"
-msgstr ""
+msgstr "Nederland Btw-configuratie"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_config_wizard
 msgid "Netherlands Vat Statement Configuration Wizard"
-msgstr ""
+msgstr "Nederland Btw-configuratie Wizard"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_line
 msgid "Netherlands Vat Statement Line"
-msgstr ""
+msgstr "Nederland Btw Aangifte regel"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_omzet
@@ -479,17 +480,17 @@ msgstr "Omzet"
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "Omzet product"
-msgstr ""
+msgstr "Omzet product"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "Omzet service"
-msgstr ""
+msgstr "Omzet diensten"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Past Undeclared Invoices"
-msgstr ""
+msgstr "Historische niet-aangegeven facturen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -504,18 +505,17 @@ msgstr "Ingediend"
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Press the Update button in order to recompute the statement lines!"
-msgstr ""
+msgstr "Druk op de knop Bijwerken om de aangifteregels opnieuw te berekenen!"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line_l10n_nl_vat_statement_id
-#, fuzzy
 msgid "Related Move Statement"
-msgstr "BTW-aangifte"
+msgstr "Gerelateerde aangifte beweging"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Remove Invoice"
-msgstr ""
+msgstr "Verwijder factuur"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -632,7 +632,6 @@ msgstr "Tag 3B Omzet"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_config_tag_3b_omzet_d
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_config_wizard_tag_3b_omzet_d
-#, fuzzy
 msgid "Tag 3B Omzet D"
 msgstr "Tag 3B Omzet"
 
@@ -695,7 +694,7 @@ msgstr "Doel boekingen"
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "BTW"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_name
@@ -710,12 +709,12 @@ msgstr "Tot Datum"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_unreported_move_ids
 msgid "Unreported Journal Entries"
-msgstr ""
+msgstr "Niet-aangegeven boekingen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_unreported_move_from_date
 msgid "Unreported Move From Date"
-msgstr ""
+msgstr "Niet-aangegeven Boekingen Datum Vanaf"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -777,11 +776,9 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:507
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot delete a statement set as final!"
-msgstr ""
-"U kunt een ingediende aangifte niet verwijderen! Zet de aangifte eerst terug "
-"naar concept."
+msgstr "U kunt een ingediende aangifte niet verwijderen!"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:88
@@ -795,11 +792,9 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:92
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot delete lines of a statement set as final!"
-msgstr ""
-"U kunt lijnen van een ingediende aangifte niet verwijderen! Zet de aangifte "
-"eerst terug naar concept."
+msgstr "U kunt lijnen van een ingediende aangifte niet verwijderen!"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:344
@@ -818,7 +813,7 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:488
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a statement set as final!"
 msgstr "U kunt een ingediende aangifte niet aanpassen!"
 
@@ -829,6 +824,8 @@ msgid ""
 "You cannot post a statement if all the previous statements are not yet "
 "posted! Please Post all the other statements first."
 msgstr ""
+"U kunt geen aangifte plaatsen als alle eerdere aangiftes nog niet zijn "
+"geboekt! Boek alsjeblieft eerst alle andere aangiftes."
 
 #~ msgid "3b"
 #~ msgstr "3b"
