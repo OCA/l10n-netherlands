@@ -64,3 +64,27 @@ class AccountTax(models.Model):
                     ('date', '>=', unreported_date),
                 ]
         return res
+
+    def get_balance_domain(self, state_list, type_list):
+        res = super().get_balance_domain(state_list, type_list)
+        tax_ids = self.env.context.get('l10n_nl_statement_tax_ids')
+        if tax_ids:
+            for item in res:
+                if item[0] == 'tax_line_id':
+                    res.remove(item)
+            res.append(
+                ('tax_line_id', 'in', tax_ids)
+            )
+        return res
+
+    def get_base_balance_domain(self, state_list, type_list):
+        res = super().get_base_balance_domain(state_list, type_list)
+        tax_ids = self.env.context.get('l10n_nl_statement_tax_ids')
+        if tax_ids:
+            for item in res:
+                if item[0] == 'tax_ids':
+                    res.remove(item)
+            res.append(
+                ('tax_ids', 'in', tax_ids)
+            )
+        return res

@@ -1,3 +1,9 @@
+11.0.2.1.0
+~~~~~~~~~~
+
+* Added new feature: allow to see the list of movements from selected lines
+  https://github.com/OCA/l10n-netherlands/pull/212
+
 11.0.2.0.0
 ~~~~~~~~~~
 

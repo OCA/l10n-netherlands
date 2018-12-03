@@ -1,14 +1,24 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from dateutil.relativedelta import relativedelta
+from mock import patch
 
 from odoo import fields
+from odoo.tools import convert_file
+from odoo.modules.module import get_module_resource
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase, at_install, post_install
 
 
 class TestVatStatement(TransactionCase):
+
+    def _load(self, module, *args):
+        convert_file(
+            self.cr,
+            'l10n_nl',
+            get_module_resource(module, *args),
+            {}, 'init', False, 'test', self.registry._assertion_report)
 
     def setUp(self):
         super().setUp()
@@ -129,11 +139,22 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.btw_total, 0.)
 
     def test_02_post_final(self):
+        # in draft
+        self.assertEqual(self.statement_1.state, 'draft')
+        self.statement_1.statement_update()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
+
         # first post
         self.statement_1.statement_update()
         self.statement_1.post()
         self.assertEqual(self.statement_1.state, 'posted')
         self.assertTrue(self.statement_1.date_posted)
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         # then finalize
         self.statement_1.finalize()
@@ -149,6 +170,8 @@ class TestVatStatement(TransactionCase):
         with self.assertRaises(UserError):
             self.statement_1.unlink()
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             with self.assertRaises(UserError):
                 line.unlink()
 
@@ -160,6 +183,11 @@ class TestVatStatement(TransactionCase):
         self.assertFalse(self.statement_1.date_posted)
 
         self.assertEqual(self.statement_1.btw_total, 0.)
+
+        self.statement_1.statement_update()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
     def test_04_write(self):
         self.statement_1.post()
@@ -225,6 +253,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.btw_total, 10.5)
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
             with self.assertRaises(UserError):
                 line.unlink()
@@ -274,7 +304,14 @@ class TestVatStatement(TransactionCase):
 
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
         self.statement_1.post()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         invoice2 = self.invoice_1.copy()
         invoice2._onchange_invoice_line_ids()
@@ -291,6 +328,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     def test_13_no_previous_statement_posted(self):
@@ -305,6 +344,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '0.00')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertFalse(line.is_readonly)
 
     @at_install(False)
@@ -327,6 +368,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '0.00')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     @at_install(False)
@@ -336,9 +379,17 @@ class TestVatStatement(TransactionCase):
         self.invoice_1.action_invoice_open()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
+
         self.statement_1.with_context(
             skip_check_config_tag_3b_omzet=True
         ).post()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
             ('model', '=', 'res.company'),
@@ -373,6 +424,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     @at_install(False)
@@ -386,6 +439,10 @@ class TestVatStatement(TransactionCase):
         self.statement_1.with_context(
             skip_check_config_tag_3b_omzet=True
         ).post()
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
         self.statement_1.company_id.country_id = self.env.ref('base.nl')
@@ -414,6 +471,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     @at_install(False)
@@ -455,4 +514,29 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
+
+    def test_18_default_config_l10n_nl_tags(self):
+        self._load('l10n_nl', 'data', 'account_account_tag.xml')
+        config = self.env['l10n.nl.vat.statement.config'].search([])
+        config.unlink()
+
+        path_addon = 'odoo.addons.l10n_nl_tax_statement.'
+        path_file = 'wizard.l10n_nl_vat_statement_config_wizard.'
+        path_class = 'VatStatementConfigWizard.'
+        method = path_addon + path_file + path_class + '_is_l10n_nl_coa'
+        with patch(method) as my_mock:
+            my_mock.return_value = True
+
+            wizard = self.Wizard.create({})
+            self.assertTrue(wizard)
+
+    def test_19_skip_invoice_basis_domain(self):
+        self.invoice_1._onchange_invoice_line_ids()
+        self.invoice_1.with_context(
+            skip_invoice_basis_domain=True
+        ).action_invoice_open()
+        self.statement_1.statement_update()
+        self.assertEqual(len(self.statement_1.line_ids.ids), 22)
