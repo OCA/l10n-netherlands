@@ -143,11 +143,22 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.btw_total, 0.)
 
     def test_02_post_final(self):
+        # in draft
+        self.assertEqual(self.statement_1.state, 'draft')
+        self.statement_1.statement_update()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
+
         # first post
         self.statement_1.statement_update()
         self.statement_1.post()
         self.assertEqual(self.statement_1.state, 'posted')
         self.assertTrue(self.statement_1.date_posted)
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         # then finalize
         self.statement_1.finalize()
@@ -163,6 +174,8 @@ class TestVatStatement(TransactionCase):
         with self.assertRaises(UserError):
             self.statement_1.unlink()
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             with self.assertRaises(UserError):
                 line.unlink()
 
@@ -174,6 +187,11 @@ class TestVatStatement(TransactionCase):
         self.assertFalse(self.statement_1.date_posted)
 
         self.assertEqual(self.statement_1.btw_total, 0.)
+
+        self.statement_1.statement_update()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
     def test_04_write(self):
         self.statement_1.post()
@@ -239,6 +257,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.btw_total, 10.5)
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
             with self.assertRaises(UserError):
                 line.unlink()
@@ -288,7 +308,14 @@ class TestVatStatement(TransactionCase):
 
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
         self.statement_1.post()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         invoice2 = self.invoice_1.copy()
         invoice2._onchange_invoice_line_ids()
@@ -305,6 +332,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     def test_13_no_previous_statement_posted(self):
@@ -319,6 +348,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '0.00')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertFalse(line.is_readonly)
 
     @odoo.tests.tagged('post_install', '-at_install')
@@ -340,6 +371,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '0.00')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     @odoo.tests.tagged('post_install', '-at_install')
@@ -348,9 +381,17 @@ class TestVatStatement(TransactionCase):
         self.invoice_1.action_invoice_open()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
+
         self.statement_1.with_context(
             skip_check_config_tag_3b_omzet=True
         ).post()
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
             ('model', '=', 'res.company'),
@@ -384,6 +425,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     @odoo.tests.tagged('post_install', '-at_install')
@@ -396,6 +439,10 @@ class TestVatStatement(TransactionCase):
         self.statement_1.with_context(
             skip_check_config_tag_3b_omzet=True
         ).post()
+
+        for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
 
         self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
         self.statement_1.company_id.country_id = self.env.ref('base.nl')
@@ -424,6 +471,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     @odoo.tests.tagged('post_install', '-at_install')
@@ -463,6 +512,8 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
 
         for line in self.statement_1.line_ids:
+            self.assertTrue(line.view_base_lines())
+            self.assertTrue(line.view_tax_lines())
             self.assertTrue(line.is_readonly)
 
     def test_18_default_config_l10n_nl_tags(self):
