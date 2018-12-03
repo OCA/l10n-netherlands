@@ -58,13 +58,16 @@
                                 </form>
                                 <tree decoration-muted="is_group" editable="bottom" create="false" delete="false">
                                     <field name="is_group" invisible="1"/>
+                                    <field name="is_total" invisible="1"/>
                                     <field name="is_readonly" invisible="1"/>
                                     <field name="code" readonly="1"/>
                                     <field name="name" readonly="1"/>
                                     <field name="format_omzet" invisible="1"/>
                                     <field name="format_btw" invisible="1"/>
                                     <field name="omzet" attrs="{'invisible': [('format_omzet', '=', False)],'readonly': [('is_readonly', '=', True)]}"/>
+                                    <button name="view_base_lines" type="object" string="View base lines" icon="fa-search-plus" attrs="{'invisible': ['|',('format_omzet', '=', False),('is_total', '=', True)]}"/>
                                     <field name="btw" attrs="{'invisible': [('format_btw', '=', False)],'readonly': [('is_readonly', '=', True)]}"/>
+                                    <button name="view_tax_lines" type="object" string="View tax lines" icon="fa-search-plus" attrs="{'invisible': ['|',('format_btw', '=', False),('is_total', '=', True)]}"/>
                                 </tree>
                             </field>
                             <group>
