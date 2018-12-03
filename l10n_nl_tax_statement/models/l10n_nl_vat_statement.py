@@ -347,8 +347,9 @@ class VatStatement(models.Model):
 
         # calculate lines
         lines = self._prepare_lines()
-        self._compute_lines(lines)
-        self._compute_past_invoices_lines(lines)
+        taxes = self._compute_taxes()
+        taxes |= self._compute_past_invoices_taxes()
+        self._set_statement_lines(lines, taxes)
         self._finalize_lines(lines)
 
         # create lines
@@ -359,7 +360,7 @@ class VatStatement(models.Model):
             )
         self.date_update = fields.Datetime.now()
 
-    def _compute_past_invoices_lines(self, lines):
+    def _compute_past_invoices_taxes(self):
         self.ensure_one()
         ctx = {
             'from_date': self.from_date,
@@ -376,9 +377,9 @@ class VatStatement(models.Model):
                 if move_line.tax_exigible:
                     if move_line.tax_line_id:
                         taxes |= move_line.tax_line_id
-        self._set_statement_lines(lines, taxes)
+        return taxes
 
-    def _compute_lines(self, lines):
+    def _compute_taxes(self):
         self.ensure_one()
         ctx = {
             'from_date': self.from_date,
@@ -388,7 +389,7 @@ class VatStatement(models.Model):
         }
         domain = self._get_taxes_domain()
         taxes = self.env['account.tax'].with_context(ctx).search(domain)
-        self._set_statement_lines(lines, taxes)
+        return taxes
 
     def _set_statement_lines(self, lines, taxes):
         self.ensure_one()
