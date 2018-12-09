@@ -20,6 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_country_states
+#: model:ir.model,name:l10n_nl_country_states.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_nl_country_states
 #: model:ir.model.fields,field_description:l10n_nl_country_states.field_res_country_state_nl_zip_create_uid
 msgid "Created by"
 msgstr "Aangemaakt door"
@@ -70,11 +75,6 @@ msgid "Map zip code areas to states"
 msgstr ""
 
 #. module: l10n_nl_country_states
-#: model:ir.model,name:l10n_nl_country_states.model_res_partner
-msgid "Partner"
-msgstr ""
-
-#. module: l10n_nl_country_states
 #: model:ir.model.fields,field_description:l10n_nl_country_states.field_res_country_state_nl_zip_state_id
-msgid "State id"
+msgid "State"
 msgstr ""
