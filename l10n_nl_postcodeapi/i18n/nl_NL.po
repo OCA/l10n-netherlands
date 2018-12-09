@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_postcodeapi
-#: code:addons/l10n_nl_postcodeapi/models/res_partner.py:44
+#: code:addons/l10n_nl_postcodeapi/models/res_partner.py:43
 #, python-format
 msgid ""
 "Could not verify the connection with the address lookup service (if you want "
