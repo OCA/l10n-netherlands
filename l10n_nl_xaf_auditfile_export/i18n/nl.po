@@ -63,6 +63,7 @@ msgstr "Datum gegenereerd"
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15_display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20_display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35_display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50_display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999_display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9_display_name
@@ -90,6 +91,7 @@ msgstr "Genereer auditfile"
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15_id
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20_id
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35_id
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50_id
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999_id
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9_id
@@ -102,6 +104,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15___last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20___last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30___last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35___last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50___last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999___last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9___last_update
@@ -168,6 +171,12 @@ msgstr "ir.qweb.field.auditfile.string20"
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string30
 msgid "ir.qweb.field.auditfile.string30"
+msgstr "ir.qweb.field.auditfile.string30"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string35
+#, fuzzy
+msgid "ir.qweb.field.auditfile.string35"
 msgstr "ir.qweb.field.auditfile.string30"
 
 #. module: l10n_nl_xaf_auditfile_export
