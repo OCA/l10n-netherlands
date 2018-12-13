@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record id="credit_control_policy_form" model="ir.ui.view">
+        <field name="model">credit.control.policy</field>
+        <field name="inherit_id" ref="account_credit_control.credit_control_policy_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Fees">
+                    <group>
+                        <field name="fee_tax_ids"  widget="many2many_tags"/>
+                        <field name="min_fee"/>
+                        <field name="max_fee"/>
+                    </group>
+                    <field name="fee_ids">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="amount"/>
+                            <field name="fee"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//notebook//form//page[2]" position="inside">
+                <group string="Legend (for the custom text fields)">
+                    <ul>
+                        <li><b>#FEE#: </b>to print the fee with tax.</li>
+                        <li><b>#FEENOTAX#: </b>to print the fee without tax.</li>
+                        <li><b>#FEETAX#: </b>to print the fee tax amount.</li>
+                    </ul>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="credit_mangement_policy_level_form" model="ir.ui.view">
+        <field name="model">credit.control.policy.level</field>
+        <field name="inherit_id" ref="account_credit_control.credit_mangement_policy_level_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='custom_text']" position="after">
+                <group string="Legend (for the custom text fields)">
+                    <ul>
+                        <li><b>#FEE#: </b>to print the fee with tax.</li>
+                        <li><b>#FEENOTAX#: </b>to print the fee without tax.</li>
+                        <li><b>#FEETAX#: </b>to print the fee tax amount.</li>
+                    </ul>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
