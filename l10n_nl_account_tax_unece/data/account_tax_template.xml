@@ -14,6 +14,10 @@
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
+    <record id="l10n_nl.btw_9" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
     <record id="l10n_nl.btw_21" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_h')"/>
@@ -28,6 +32,10 @@
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_z')"/>
     </record>
     <record id="l10n_nl.btw_6_d" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_9_d" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
@@ -48,6 +56,14 @@
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
+    <record id="l10n_nl.btw_9_buy" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_9_buy_incl" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
     <record id="l10n_nl.btw_21_buy" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_h')"/>
@@ -62,6 +78,10 @@
     </record>
 <!--Inkoop BTW diensten -->
     <record id="l10n_nl.btw_6_buy_d" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_9_buy_d" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
@@ -101,6 +121,18 @@
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
     <record id="l10n_nl.btw_I_6" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_I_9_1" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_I_9_2" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_I_9" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
@@ -150,6 +182,18 @@
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
+    <record id="l10n_nl.btw_I_9_d_1" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_I_9_d_2" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_I_9_d" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
     <record id="l10n_nl.btw_I_21_d_1" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_h')"/>
@@ -186,6 +230,18 @@
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
     <record id="l10n_nl.btw_E1" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_E1_1_9" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_E1_2_9" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_E1_9" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
@@ -232,6 +288,18 @@
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
     <record id="l10n_nl.btw_E1_d" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_E1_d_1_9" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_E1_d_2_9" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
+    </record>
+    <record id="l10n_nl.btw_E1_d_9" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')"/>
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_aa')"/>
     </record>
