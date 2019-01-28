@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: l10n_nl_partner_name
+#: model:ir.model,name:l10n_nl_partner_name.model_res_partner
+msgid "Contact"
+msgstr ""
 
 #. module: l10n_nl_partner_name
 #: model:ir.ui.view,arch_db:l10n_nl_partner_name.view_partner_form_firstname
@@ -39,10 +44,5 @@ msgstr ""
 #: model:ir.ui.view,arch_db:l10n_nl_partner_name.view_partner_form_firstname
 #: model:ir.ui.view,arch_db:l10n_nl_partner_name.view_partner_simple_form_firstname
 msgid "Last name"
-msgstr ""
-
-#. module: l10n_nl_partner_name
-#: model:ir.model,name:l10n_nl_partner_name.model_res_partner
-msgid "Partner"
 msgstr ""
 
