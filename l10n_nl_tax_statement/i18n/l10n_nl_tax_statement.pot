@@ -316,6 +316,11 @@ msgid "Is Readonly"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_is_total
+msgid "Is Total"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move_line
 msgid "Journal Item"
 msgstr ""
@@ -737,6 +742,16 @@ msgid "Verwerving van goederen uit landen binnen de EU"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "View base lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "View tax lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:249
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:255
 #: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
@@ -745,25 +760,25 @@ msgid "Voorbelasting"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:503
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:504
 #, python-format
 msgid "You cannot delete a posted statement! Reset the statement to draft first."
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:507
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:508
 #, python-format
 msgid "You cannot delete a statement set as final!"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:88
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:95
 #, python-format
 msgid "You cannot delete lines of a posted statement! Reset the statement to draft first."
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:92
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:99
 #, python-format
 msgid "You cannot delete lines of a statement set as final!"
 msgstr ""
@@ -775,19 +790,19 @@ msgid "You cannot modify a posted statement!"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:494
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:495
 #, python-format
 msgid "You cannot modify a posted statement! Reset the statement to draft first."
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:488
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:489
 #, python-format
 msgid "You cannot modify a statement set as final!"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:426
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:427
 #, python-format
 msgid "You cannot post a statement if all the previous statements are not yet posted! Please Post all the other statements first."
 msgstr ""
