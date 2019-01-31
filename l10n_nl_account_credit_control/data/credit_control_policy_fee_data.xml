@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="1">
+    <record id="fee_1" model="credit.control.policy.fee">
+        <field name="credit_control_policy_id"
+               ref="account_credit_control.credit_control_3_time" />
+        <field name="sequence">0</field>
+        <field name="amount">2500</field>
+        <field name="fee">15</field>
+    </record>
+
+    <record id="fee_2" model="credit.control.policy.fee">
+        <field name="credit_control_policy_id"
+               ref="account_credit_control.credit_control_3_time" />
+        <field name="sequence">1</field>
+        <field name="amount">2500</field>
+        <field name="fee">10</field>
+    </record>
+
+    <record id="fee_3" model="credit.control.policy.fee">
+        <field name="credit_control_policy_id"
+               ref="account_credit_control.credit_control_3_time" />
+        <field name="sequence">2</field>
+        <field name="amount">5000</field>
+        <field name="fee">5</field>
+    </record>
+
+    <record id="fee_4" model="credit.control.policy.fee">
+        <field name="credit_control_policy_id"
+               ref="account_credit_control.credit_control_3_time" />
+        <field name="sequence">3</field>
+        <field name="amount">190000</field>
+        <field name="fee">1</field>
+    </record>
+
+    <record id="fee_5" model="credit.control.policy.fee">
+        <field name="credit_control_policy_id"
+               ref="account_credit_control.credit_control_3_time" />
+        <field name="sequence">4</field>
+        <field name="amount">800000</field>
+        <field name="fee">0.5</field>
+    </record>
+</odoo>

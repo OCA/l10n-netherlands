@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <template id="report_credit_control_summary_document"
+              inherit_id="account_credit_control.report_credit_control_summary_document">
+        <!-- Replace custom_text -->
+        <xpath expr="//span[@t-field='doc.current_policy_level.custom_text']" position="attributes">
+            <attribute name="class">hidden</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='doc.current_policy_level.custom_text']" position="after">
+            <span t-field="doc.custom_text" />
+        </xpath>
+
+        <!-- Replace custom_text_after_details -->
+        <xpath expr="//p[@t-field='doc.current_policy_level.custom_text_after_details']" position="attributes">
+            <attribute name="class">hidden</attribute>
+        </xpath>
+        <xpath expr="//p[@t-field='doc.current_policy_level.custom_text_after_details']" position="after">
+            <span t-field="doc.custom_text_after_details" />
+        </xpath>
+    </template>
+</odoo>

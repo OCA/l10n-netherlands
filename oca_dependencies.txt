@@ -2,4 +2,5 @@ account-financial-reporting
 server-ux
 community-data-files
 partner-contact
+account-financial-tools
 server-tools
