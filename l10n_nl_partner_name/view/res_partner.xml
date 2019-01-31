@@ -1,0 +1,70 @@
+<odoo>
+    <record id="view_partner_simple_form_firstname" model="ir.ui.view">
+      <field name="name">res.partner.simplified.form.firstname</field>
+      <field name="model">res.partner</field>
+      <field
+          name="inherit_id"
+          ref="partner_firstname.view_partner_simple_form_firstname"
+      />
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='name']/ancestor::h1[1]" position="inside">
+              <div name="partner_name_dutch" attrs="{'invisible': [('is_company', '=', True)]}">
+              </div>
+          </xpath>
+          <xpath expr="//field[@name='firstname']" position="move" target="//field[@name='name']/ancestor::h1[1]/div[@name='partner_name_dutch']" />
+          <xpath expr="//field[@name='lastname']" position="move" target="//field[@name='name']/ancestor::h1[1]/div[@name='partner_name_dutch']" />
+          <xpath expr="//field[@name='lastname']" position="attributes">
+              <attribute name="placeholder">Last name</attribute>
+              <attribute name="style">max-width: calc(50% - 2.1em)</attribute>
+          </xpath>
+          <xpath expr="//field[@name='firstname']" position="attributes">
+              <attribute name="placeholder">First name</attribute>
+              <attribute name="style">max-width: calc(50% - 2.1em)</attribute>
+              <attribute name="default_focus">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='firstname']" position="after">
+              <field name="initials" placeholder="Initials" class="oe_inline" style="max-width: 2em" />
+          </xpath>
+          <xpath expr="//field[@name='lastname']" position="before">
+              <field name="infix" placeholder="Infix" class="oe_inline" style="max-width: 2em" />
+          </xpath>
+      </field>
+    </record>
+    <record id="view_partner_form_firstname" model="ir.ui.view">
+      <field name="name">res.partner.form.firstname</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='firstname']" position="move" target="//field[@name='lastname']/ancestor::group[1]/ancestor::div[1]" />
+          <xpath expr="//field[@name='lastname']" position="move" target="//field[@name='lastname']/ancestor::group[1]/ancestor::div[1]" />
+          <xpath expr="//field[@name='lastname']/ancestor::div[1]/group" position="attributes">
+              <attribute name="invisible">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='lastname']/ancestor::div[1]" position="attributes">
+              <attribute name="attrs">{'invisible': [('is_company', '=', True)]}</attribute>
+          </xpath>
+          <xpath expr="//field[@name='lastname']" position="attributes">
+              <attribute name="placeholder">Last name</attribute>
+              <attribute name="style">max-width: calc(50% - 2.1em)</attribute>
+          </xpath>
+          <xpath expr="//field[@name='firstname']" position="attributes">
+              <attribute name="placeholder">First name</attribute>
+              <attribute name="style">max-width: calc(50% - 2.1em)</attribute>
+              <attribute name="default_focus">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='firstname']" position="after">
+              <field name="initials" placeholder="Initials" class="oe_inline" style="max-width: 2em" />
+          </xpath>
+          <xpath expr="//field[@name='lastname']" position="before">
+              <field name="infix" placeholder="Infix" class="oe_inline" style="max-width: 2em" />
+          </xpath>
+          <xpath
+              expr="//field[@name='child_ids']/form/sheet//group/field[@name='lastname']"
+              position="after"
+          >
+              <field name="initials"/>
+              <field name="infix"/>
+          </xpath>
+      </field>
+    </record>
+</odoo>
