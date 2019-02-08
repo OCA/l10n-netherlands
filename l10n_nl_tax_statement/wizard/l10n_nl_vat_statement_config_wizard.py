@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
@@ -31,7 +31,7 @@ class VatStatementConfigWizard(models.TransientModel):
 
     @api.model
     def default_get(self, fields_list):
-        defv = super(VatStatementConfigWizard, self).default_get(fields_list)
+        defv = super().default_get(fields_list)
 
         company_id = self.env.user.company_id.id
         config = self.env['l10n.nl.vat.statement.config'].search([
@@ -86,11 +86,10 @@ class VatStatementConfigWizard(models.TransientModel):
         return defv
 
     def _is_l10n_nl_coa(self):
-        is_l10n_nl_coa = self.env.ref('l10n_nl.l10nnl_chart_template', False)
+        l10n_nl_coa = self.env.ref('l10n_nl.l10nnl_chart_template', False)
         company_coa = self.env.user.company_id.chart_template_id
-        return company_coa == is_l10n_nl_coa
+        return company_coa == l10n_nl_coa
 
-    @api.multi
     def execute(self):
         self.ensure_one()
 

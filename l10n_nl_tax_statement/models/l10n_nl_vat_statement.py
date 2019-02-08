@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
@@ -47,7 +47,6 @@ class VatStatement(models.Model):
     currency_id = fields.Many2one(
         'res.currency',
         related='company_id.currency_id',
-        readonly=True
     )
     target_move = fields.Selection([
         ('posted', 'All Posted Entries'),
@@ -74,14 +73,13 @@ class VatStatement(models.Model):
         readonly=True,
     )
 
-    @api.multi
     def _compute_unreported_move_ids(self):
         for statement in self:
             domain = statement._get_unreported_move_domain()
-            move_line_ids = self.env['account.move.line'].search(domain)
-            statement.unreported_move_ids = move_line_ids.mapped('move_id')
+            move_lines = self.env['account.move.line'].search(domain)
+            moves = move_lines.mapped('move_id').sorted('date')
+            statement.unreported_move_ids = moves
 
-    @api.multi
     def _get_unreported_move_domain(self):
         self.ensure_one()
         domain = [
@@ -128,7 +126,6 @@ class VatStatement(models.Model):
     )
     unreported_move_from_date = fields.Date()
 
-    @api.multi
     def _compute_is_invoice_basis(self):
         self.is_invoice_basis = False
         has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
@@ -143,7 +140,6 @@ class VatStatement(models.Model):
         compute='_compute_is_invoice_basis',
     )
 
-    @api.multi
     @api.depends('btw_total')
     def _compute_amount_format_btw_total(self):
         for statement in self:
@@ -152,13 +148,11 @@ class VatStatement(models.Model):
 
     @api.model
     def default_get(self, fields_list):
-        defaults = super(VatStatement, self).default_get(fields_list)
+        defaults = super().default_get(fields_list)
         company = self.env.user.company_id
         fy_dates = company.compute_fiscalyear_dates(datetime.now())
-        from_date = fields.Date.to_string(fy_dates['date_from'])
-        to_date = fields.Date.to_string(fy_dates['date_to'])
-        defaults.setdefault('from_date', from_date)
-        defaults.setdefault('to_date', to_date)
+        defaults.setdefault('from_date', fy_dates['date_from'])
+        defaults.setdefault('to_date', fy_dates['date_to'])
         defaults.setdefault('name', company.name)
         return defaults
 
@@ -334,13 +328,11 @@ class VatStatement(models.Model):
             config.tag_5b_btw.id: ('5b', 'btw'),
         }
 
-    @api.multi
     def statement_update(self):
         self.ensure_one()
 
         if self.state in ['posted', 'final']:
-            raise UserError(
-                _('You cannot modify a posted statement!'))
+            raise UserError(_('You cannot modify a posted statement!'))
 
         # clean old lines
         self.line_ids.unlink()
@@ -348,17 +340,16 @@ class VatStatement(models.Model):
         # calculate lines
         lines = self._prepare_lines()
         taxes = self._compute_taxes()
-        taxes |= self._compute_past_invoices_taxes()
+        self._set_statement_lines(lines, taxes)
+        taxes = self._compute_past_invoices_taxes()
         self._set_statement_lines(lines, taxes)
         self._finalize_lines(lines)
 
         # create lines
-        for line in lines:
-            lines[line].update({'statement_id': self.id})
-            self.env['l10n.nl.vat.statement.line'].create(
-                lines[line]
-            )
-        self.date_update = fields.Datetime.now()
+        self.write({
+            'line_ids': [(0, 0, line) for line in lines.values()],
+            'date_update': fields.Datetime.now(),
+        })
 
     def _compute_past_invoices_taxes(self):
         self.ensure_one()
@@ -368,15 +359,19 @@ class VatStatement(models.Model):
             'target_move': self.target_move,
             'company_id': self.company_id.id,
             'skip_invoice_basis_domain': True,
+            'unreported_move': True,
             'is_invoice_basis': self.is_invoice_basis,
             'unreported_move_from_date': self.unreported_move_from_date
         }
         taxes = self.env['account.tax'].with_context(ctx)
-        for move in self.unreported_move_ids:
-            for move_line in move.line_ids:
-                if move_line.tax_exigible:
-                    if move_line.tax_line_id:
-                        taxes |= move_line.tax_line_id
+        moves_to_include = self.unreported_move_ids.filtered(
+            lambda m: m.l10n_nl_vat_statement_include)
+        for move_line in moves_to_include.mapped('line_ids'):
+            if move_line.tax_exigible:
+                if move_line.tax_line_id:
+                    taxes |= move_line.tax_line_id
+                if move_line.tax_ids:
+                    taxes |= move_line.tax_ids
         return taxes
 
     def _compute_taxes(self):
@@ -398,21 +393,18 @@ class VatStatement(models.Model):
             for tag in tax.tag_ids:
                 tag_map = tags_map.get(tag.id)
                 if tag_map:
-                    column = tag_map[1]
-                    code = tag_map[0]
+                    code, column = tag_map
                     if column == 'omzet':
                         lines[code][column] += tax.base_balance
                     else:
                         lines[code][column] += tax.balance
 
-    @api.multi
     def finalize(self):
         self.ensure_one()
         self.write({
             'state': 'final'
         })
 
-    @api.multi
     def post(self):
         self.ensure_one()
         prev_open_statements = self.search([
@@ -431,7 +423,9 @@ class VatStatement(models.Model):
             'state': 'posted',
             'date_posted': fields.Datetime.now()
         })
-        self.unreported_move_ids.write({
+        self.unreported_move_ids.filtered(
+            lambda m: m.l10n_nl_vat_statement_include
+        ).write({
             'l10n_nl_vat_statement_id': self.id,
         })
         domain = [
@@ -461,7 +455,6 @@ class VatStatement(models.Model):
             'l10n_nl_vat_statement_id': self.id,
         })
 
-    @api.multi
     def reset(self):
         self.write({
             'state': 'draft',
@@ -480,7 +473,6 @@ class VatStatement(models.Model):
     def _modifiable_values_when_posted(self):
         return ['state']
 
-    @api.multi
     def write(self, values):
         for statement in self:
             if statement.state == 'final':
@@ -493,9 +485,8 @@ class VatStatement(models.Model):
                             raise UserError(
                                 _('You cannot modify a posted statement! '
                                   'Reset the statement to draft first.'))
-        return super(VatStatement, self).write(values)
+        return super().write(values)
 
-    @api.multi
     def unlink(self):
         for statement in self:
             if statement.state == 'posted':
@@ -505,13 +496,11 @@ class VatStatement(models.Model):
             if statement.state == 'final':
                 raise UserError(
                     _('You cannot delete a statement set as final!'))
-        super(VatStatement, self).unlink()
+        super().unlink()
 
     @api.depends('line_ids.btw')
     def _compute_btw_total(self):
         for statement in self:
-            total = 0.0
-            for line in statement.line_ids:
-                if line.code in ['5c', '5d']:
-                    total += line.btw
-            statement.btw_total = total
+            lines = statement.line_ids
+            total_lines = lines.filtered(lambda l: l.code in ['5c', '5d'])
+            statement.btw_total = sum(line.btw for line in total_lines)
