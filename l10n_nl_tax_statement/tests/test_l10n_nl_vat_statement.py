@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import datetime
@@ -299,14 +299,17 @@ class TestVatStatement(TransactionCase):
     def test_12_undeclared_invoice(self):
         self.invoice_1._onchange_invoice_line_ids()
         self.invoice_1.action_invoice_open()
-        self.invoice_1.move_id.add_move_in_statement()
+        move = self.invoice_1.move_id.with_context(params={
+            'model': 'l10n.nl.vat.statement',
+            'id': self.statement_1.id
+        })
+        move.l10n_nl_add_move_in_statement()
         for line in self.invoice_1.move_id.line_ids:
             self.assertTrue(line.l10n_nl_vat_statement_include)
-        self.invoice_1.move_id.unlink_move_from_statement()
+        move.l10n_nl_unlink_move_from_statement()
         for line in self.invoice_1.move_id.line_ids:
             self.assertFalse(line.l10n_nl_vat_statement_include)
 
-        self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
 
         for line in self.statement_1.line_ids:
@@ -398,28 +401,30 @@ class TestVatStatement(TransactionCase):
             ('name', '=', 'l10n_nl_tax_invoice_basis')
         ])
         if has_invoice_basis:
-
             self.statement_1.company_id.l10n_nl_tax_invoice_basis = True
-            self.statement_1.company_id.country_id = self.env.ref('base.nl')
+        else:
+            self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
+        self.statement_1.company_id.country_id = self.env.ref('base.nl')
 
-            invoice2 = self.invoice_1.copy()
-            old_date = fields.Date.today() + relativedelta(months=-4, day=1)
-            invoice2.date_invoice = old_date
-            invoice2.action_invoice_open()
+        invoice2 = self.invoice_1.copy()
+        old_date = fields.Date.from_string('2018-12-07')
+        invoice2.date_invoice = old_date
+        invoice2.action_invoice_open()
 
-            statement2 = self.env['l10n.nl.vat.statement'].create({
-                'name': 'Statement 2',
-            })
-            move_from_date = fields.Date.from_string('2015-07-07')
-            statement2.unreported_move_from_date = move_from_date
-            statement2.onchange_unreported_move_from_date()
-            statement2.statement_update()
-            statement2.with_context(
-                skip_check_config_tag_3b_omzet=True
-            ).post()
+        statement2 = self.env['l10n.nl.vat.statement'].create({
+            'name': 'Statement 2',
+        })
+        move_from_date = fields.Date.from_string('2015-07-07')
+        statement2.unreported_move_from_date = move_from_date
+        statement2.onchange_unreported_move_from_date()
+        statement2.unreported_move_ids.l10n_nl_add_move_in_statement()
+        statement2.statement_update()
+        self.assertTrue(statement2.unreported_move_ids)
+        self.assertEqual(len(statement2.unreported_move_ids), 1)
 
-            self.assertTrue(statement2.unreported_move_ids)
-            self.assertEqual(len(statement2.unreported_move_ids), 1)
+        statement2.with_context(
+            skip_check_config_tag_3b_omzet=True
+        ).post()
 
         self.assertEqual(self.statement_1.btw_total, 10.5)
         self.assertEqual(self.statement_1.format_btw_total, '10.50')
