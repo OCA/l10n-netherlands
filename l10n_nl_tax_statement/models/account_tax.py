@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
@@ -9,7 +9,7 @@ class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     def get_move_line_partial_domain(self, from_date, to_date, company_id):
-        res = super(AccountTax, self).get_move_line_partial_domain(
+        res = super().get_move_line_partial_domain(
             from_date,
             to_date,
             company_id
@@ -18,10 +18,11 @@ class AccountTax(models.Model):
         if not self.env.context.get('skip_invoice_basis_domain'):
             return res
 
-        company = self.env['res.company'].browse(company_id)
-        if company.country_id != self.env.ref('base.nl'):
+        if not self.env.context.get('unreported_move'):
             return res
 
+        # Both 'skip_invoice_basis_domain' and 'unreported_move' must be set
+        # in context, in order to get the domain for the unreported invoices
         return expression.AND([
             [('company_id', '=', company_id)],
             [('l10n_nl_vat_statement_id', '=', False)],
