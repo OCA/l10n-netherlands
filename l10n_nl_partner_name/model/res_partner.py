@@ -31,7 +31,8 @@ class ResPartner(models.Model):
             self.env.context.get(
                 'name_format',
                 "${firstname or initials or ''}"
-                "${(firstname or initials) and ' ' or ''}"
+                "${(firstname or initials) and (lastname or infix) "
+                "and ' ' or ''}"
                 "${infix or ''}${infix and ' ' or ''}${lastname or ''}"))
         name = name_template.render(**{
             'firstname': firstname,
