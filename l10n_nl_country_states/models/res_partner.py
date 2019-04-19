@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# pylint: disable=protected-access
 from openerp import api, models
 
 
@@ -8,8 +9,8 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.model
-    def _get_state_for_zip(self, country_id, state_id, zip):
-        """Get state for zip.
+    def _get_state_for_zip(self, country_id, state_id, zipcode):
+        """Get state for zipcode.
 
         If not Netherlands, just return present state, unless state is
         in the Netherlands. In that case state will be False.
@@ -29,12 +30,15 @@ class ResPartner(models.Model):
         # Check wether we can find state for zip, if we find one, any
         # state present in record will be overwritten
         zip_digits = int(
-            filter(unicode.isdigit, unicode(zip or '')) or 0)
+            filter(unicode.isdigit, unicode(zipcode or '')) or 0)
         if not zip_digits:
             return state_id
-        return dutch_state_model.search([
+        zip_state = dutch_state_model.search([
             ('min_zip', '<=', zip_digits),
-            ('max_zip', '>=', zip_digits)], limit=1).state_id
+            ('max_zip', '>=', zip_digits)], limit=1)
+        if not zip_state:
+            return state_id
+        return zip_state.state_id
 
     @api.multi
     def _set_state_from_zip(self):
@@ -47,17 +51,22 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
+        """Lookup state for zip, if state_id not passed in vals."""
         result = super(ResPartner, self).create(vals)
-        result._set_state_from_zip()
+        if 'state_id' not in vals:
+            result._set_state_from_zip()
         return result
 
     @api.multi
     def write(self, vals):
+        """Lookup state for zip, if state_id not passed in vals."""
         result = super(ResPartner, self).write(vals)
-        self._set_state_from_zip()
+        if 'state_id' not in vals:
+            self._set_state_from_zip()
         return result
 
     @api.onchange('zip')
     def onchange_zip_country_id(self):
+        """Change state if zip changes."""
         self.state_id = self._get_state_for_zip(
             self.country_id, self.state_id, self.zip)
