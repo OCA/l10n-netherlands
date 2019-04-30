@@ -165,7 +165,7 @@ class XafAuditfileExport(models.Model):
 
         except etree.XMLSyntaxError as e:
             logging.getLogger(__name__).error(e)
-            self.message_post(e)
+            self.message_post(body=e)
         finally:
             shutil.rmtree(tmpdir)
             shutil.rmtree(archivedir)
