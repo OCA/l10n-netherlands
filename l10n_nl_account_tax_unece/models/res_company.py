@@ -1,4 +1,4 @@
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
@@ -41,7 +41,6 @@ MAPPING = {
     'btw_I_overig_1': {'categ': 'tax_categ_s'},
     'btw_I_overig_2': {'categ': 'tax_categ_s'},
     'btw_I_overig': {'categ': 'tax_categ_s'},
-    'btw_X0': {'categ': 'tax_categ_e'},
     'btw_X0_producten': {'categ': 'tax_categ_e'},
     'btw_X0_diensten': {'categ': 'tax_categ_e'},
     'btw_X2': {'categ': 'tax_categ_e'},

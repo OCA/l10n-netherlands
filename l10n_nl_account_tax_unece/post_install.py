@@ -1,17 +1,15 @@
 # Copyright 2016-2017 Akretion (http://www.akretion.com)
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, SUPERUSER_ID
 
 
-def set_unece_on_taxes(cr, registry):
+def set_unece_on_taxes(cr, _):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        companies = env['res.company'].search([])
-        for company in companies:
-            if company.country_id and company.country_id != env.ref('base.nl'):
-                continue
+        for company in env['res.company'].search([
+            ("partner_id.country_id", "=", env.ref("base.nl").id),
+        ]):
             company._l10n_nl_set_unece_on_taxes()
-    return
