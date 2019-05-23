@@ -1,9 +1,10 @@
-# Copyright 2016-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2016-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import logging
 
 from odoo import api, fields, models, _
+from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 try:
@@ -17,33 +18,31 @@ class ResPartner(models.Model):
 
     bsn_number = fields.Char(
         string='BSN',
-        groups='hr.group_hr_user'
+        groups='hr.group_hr_user',
     )
 
-    @api.multi
     @api.onchange('bsn_number')
     def onchange_bsn_number(self):
         warning = {}
-        for partner in self:
-            if partner.bsn_number:
-                # properly format the entered BSN
-                partner.bsn_number = bsn.format(partner.bsn_number)
+        if self.bsn_number:
+            # properly format the entered BSN
+            self.bsn_number = bsn.format(self.bsn_number)
 
-                # check is valid, otherwise display a warning
-                warning = partner._warn_bsn_invalid()
+            # check is valid, otherwise display a warning
+            warning = self._warn_bsn_invalid()
 
-                # search for another partner with the same BSN
-                args = [('bsn_number', '=', partner.bsn_number),
-                        ('name', '!=', partner.name)]
+            # search for another partner with the same BSN
+            args = [('bsn_number', '=', self.bsn_number),
+                    ('name', '!=', self.name)]
 
-                # refine search in case of multicompany setting
-                if partner.company_id:
-                    args += [('company_id', '=', partner.company_id.id)]
-                other_partner = self.search(args, limit=1)
+            # refine search in case of multicompany setting
+            if self.company_id:
+                args += [('company_id', '=', self.company_id.id)]
+            other_partner = self.search(args, limit=1)
 
-                # if another partner exists, display a warning
-                if other_partner:
-                    warning = other_partner._warn_bsn_existing()
+            # if another partner exists, display a warning
+            if other_partner:
+                warning = other_partner._warn_bsn_existing()
         return {'warning': warning, }
 
     @api.multi
@@ -66,3 +65,34 @@ class ResPartner(models.Model):
             'message': msg % (self.name, self.bsn_number)
         }
         return warning
+
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        res_domain = []
+        for domain in args:
+            if (
+                len(domain) > 2
+                and domain[0] == "bsn_number"
+                and isinstance(domain[2], str)
+                and domain[2]
+                and domain[1] not in expression.NEGATIVE_TERM_OPERATORS
+                and not self.env.context.get("skip_formatted_bsn_number_search")
+            ):
+                operator = domain[1]
+                bsn_number = domain[2]
+                bsn_compact = bsn.compact(bsn_number)
+                bsn_domain = expression.OR([
+                    [('bsn_number', operator, bsn_number)],
+                    [('bsn_number', operator, bsn_compact)],
+                ])
+                if bsn.is_valid(bsn_number):
+                    bsn_format = bsn.format(bsn_number)
+                    bsn_domain = expression.OR([
+                        bsn_domain,
+                        [('bsn_number', operator, bsn_format)],
+                    ])
+                res_domain += bsn_domain
+            else:
+                res_domain.append(domain)
+        return super().search(
+            res_domain, offset=offset, limit=limit, order=order, count=count)
