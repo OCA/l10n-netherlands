@@ -1,9 +1,9 @@
-# Copyright 2016-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2016-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Burgerservicenummer (BSN) for Partners',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'development_status': 'Production/Stable',
     'category': 'Localization',
     'author': 'Onestein, Odoo Community Association (OCA)',
