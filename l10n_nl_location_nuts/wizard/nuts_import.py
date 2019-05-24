@@ -1,5 +1,5 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018-2019 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
 
@@ -38,7 +38,7 @@ class NutsImport(models.TransientModel):
 
     @api.model
     def state_mapping(self, data, node):
-        mapping = super(NutsImport, self).state_mapping(data, node)
+        mapping = super().state_mapping(data, node)
 
         # fill map _nl_state_ids with currently used ids
         nl_provinces = self.env['res.country.state'].search([
@@ -53,7 +53,7 @@ class NutsImport(models.TransientModel):
         code = data.get('code', '')
         if self._current_country.code == 'NL' and level in [3, 4]:
             code_ref = code if level == 3 else code[:-1]
-            external_ref = self._nl_state_map.get(code_ref, False)
+            external_ref = self._nl_state_map.get(code_ref)
             if external_ref and self._nl_state_ids[external_ref]:
                 mapping['state_id'] = self._nl_state_ids[external_ref]
 
