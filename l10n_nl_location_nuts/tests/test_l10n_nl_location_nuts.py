@@ -1,13 +1,14 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018-2019 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
+from ..hooks import post_init_hook
 
 
 class TestNlLocationNuts(TransactionCase):
 
     def setUp(self):
-        super(TestNlLocationNuts, self).setUp()
+        super().setUp()
 
         self.env['res.country.state'].create({
             'name': 'Noord-Brabant',
@@ -38,3 +39,13 @@ class TestNlLocationNuts(TransactionCase):
         self.assertEqual(
             self.nl_partner.state_id,
             self.nl_partner.nuts3_id.state_id)
+
+    def test_post_init_hook(self):
+        """
+        Tests the post_init_hook.
+        """
+        base_nl = self.env.ref('base.nl')
+        base_nl.state_level = False
+        self.assertFalse(base_nl.state_level)
+        post_init_hook(self.cr, self.env)
+        self.assertEqual(base_nl.state_level, 3)

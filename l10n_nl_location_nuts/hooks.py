@@ -1,13 +1,14 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018-2019 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+import logging
 
 from odoo import api, SUPERUSER_ID
-import logging
 
 _logger = logging.getLogger(__name__)
 
 
-def post_init_hook(cr, registry):
+def post_init_hook(cr, _):
     """Define Dutch specific configuration in res.country."""
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
