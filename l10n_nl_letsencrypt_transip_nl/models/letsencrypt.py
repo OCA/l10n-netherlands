@@ -11,7 +11,8 @@ _logger = logging.getLogger(__name__)
 try:
     from transip.service.objects import DnsEntry
     from transip.service.domain import DomainService
-    from cryptography.hazmat.primitives import serialization
+    import josepy as jose
+    from cryptography.hazmat.primitives import serialization, hashes
     from cryptography.hazmat.backends import default_backend
     from dns import resolver
 except ImportError as err:
@@ -21,7 +22,7 @@ except ImportError as err:
 class Letsencrypt(models.AbstractModel):
     _inherit = 'letsencrypt'
 
-    def _respond_challenge_dns_transip(self, challenge, domain):
+    def _respond_challenge_dns_transip(self, challenge, account_key, domain):
         """_respond_challenge_dns_transip Creates the TXT record on TransIP.
 
         :param challenge: An acme.challenges.Challenge object that contains
@@ -36,7 +37,8 @@ class Letsencrypt(models.AbstractModel):
             '_acme-challenge',
             86400,
             'TXT',
-            token.rstrip('='),
+            token.rstrip('=') + '.' + jose.b64encode(
+                account_key.thumbprint(hash_function=hashes.SHA256)).decode(),
         )
         key = serialization.load_pem_private_key(
             str(key),
