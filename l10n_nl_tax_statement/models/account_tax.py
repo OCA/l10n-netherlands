@@ -89,3 +89,42 @@ class AccountTax(models.Model):
                 ('tax_ids', 'in', tax_ids)
             )
         return res
+
+    def get_move_line_partial_domain(self, from_date, to_date, company_id):
+        if not self.env.context.get('fiscal_entities_ids'):
+            return super().get_move_line_partial_domain(
+                from_date, to_date, company_id)
+        return [
+            ('date', '<=', to_date),
+            ('date', '>=', from_date),
+            ('company_id', 'in', self.env.context.get('fiscal_entities_ids')),
+        ]
+
+    def _account_tax_ids_with_moves(self):
+        if not self.env.context.get('fiscal_entities_ids'):
+            return super()._account_tax_ids_with_moves()
+        from_date, to_date, _, target_move = self.get_context_values()
+        company_ids = tuple(self.env.context.get('fiscal_entities_ids'))
+        req = """
+            SELECT id
+            FROM account_tax at
+            WHERE
+            company_id in %s AND
+            EXISTS (
+              SELECT 1 FROM account_move_Line aml
+              WHERE
+                date >= %s AND
+                date <= %s AND
+                company_id in %s AND (
+                  tax_line_id = at.id OR
+                  EXISTS (
+                    SELECT 1 FROM account_move_line_account_tax_rel
+                    WHERE account_move_line_id = aml.id AND
+                      account_tax_id = at.id
+                  )
+                )
+            )
+        """
+        self.env.cr.execute(
+            req, (company_ids, from_date, to_date, company_ids))
+        return [r[0] for r in self.env.cr.fetchall()]
