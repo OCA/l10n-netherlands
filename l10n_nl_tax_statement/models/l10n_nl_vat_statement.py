@@ -127,13 +127,16 @@ class VatStatement(models.Model):
     unreported_move_from_date = fields.Date()
 
     def _compute_is_invoice_basis(self):
-        self.is_invoice_basis = False
         has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
             ('model', '=', 'res.company'),
             ('name', '=', 'l10n_nl_tax_invoice_basis')
         ])
-        if has_invoice_basis:
-            self.is_invoice_basis = self.company_id.l10n_nl_tax_invoice_basis
+        for statement in self:
+            if has_invoice_basis:
+                invoice_basis = statement.company_id.l10n_nl_tax_invoice_basis
+                statement.is_invoice_basis = invoice_basis
+            else:
+                statement.is_invoice_basis = False
 
     is_invoice_basis = fields.Boolean(
         string='NL Tax Invoice Basis',
