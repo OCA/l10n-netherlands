@@ -3,25 +3,22 @@
 
 import logging
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 try:
     from stdnum.nl import bsn
 except ImportError:
-    _logger.debug('Cannot `import stdnum.nl.bsn`.')
+    _logger.debug("Cannot `import stdnum.nl.bsn`.")
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
-    bsn_number = fields.Char(
-        string='BSN',
-        groups='hr.group_hr_user',
-    )
+    bsn_number = fields.Char(string="BSN", groups="hr.group_hr_user")
 
-    @api.onchange('bsn_number')
+    @api.onchange("bsn_number")
     def onchange_bsn_number(self):
         warning = {}
         if self.bsn_number:
@@ -32,37 +29,32 @@ class ResPartner(models.Model):
             warning = self._warn_bsn_invalid()
 
             # search for another partner with the same BSN
-            args = [('bsn_number', '=', self.bsn_number),
-                    ('name', '!=', self.name)]
+            args = [("bsn_number", "=", self.bsn_number), ("name", "!=", self.name)]
 
             # refine search in case of multicompany setting
             if self.company_id:
-                args += [('company_id', '=', self.company_id.id)]
+                args += [("company_id", "=", self.company_id.id)]
             other_partner = self.search(args, limit=1)
 
             # if another partner exists, display a warning
             if other_partner:
                 warning = other_partner._warn_bsn_existing()
-        return {'warning': warning, }
+        return {"warning": warning}
 
-    @api.multi
     def _warn_bsn_invalid(self):
         self.ensure_one()
         warning = {}
         if not bsn.is_valid(self.bsn_number):
-            msg = _('The BSN you entered (%s) is not valid.')
-            warning = {
-                'title': _('Warning!'),
-                'message': msg % self.bsn_number,
-            }
+            msg = _("The BSN you entered (%s) is not valid.")
+            warning = {"title": _("Warning!"), "message": msg % self.bsn_number}
         return warning
 
     def _warn_bsn_existing(self):
         self.ensure_one()
-        msg = _('Another person (%s) has the same BSN (%s).')
+        msg = _("Another person (%s) has the same BSN (%s).")
         warning = {
-            'title': _('Warning!'),
-            'message': msg % (self.name, self.bsn_number)
+            "title": _("Warning!"),
+            "message": msg % (self.name, self.bsn_number),
         }
         return warning
 
@@ -71,24 +63,28 @@ class ResPartner(models.Model):
         res_domain = []
         for domain in args:
             if (
-                    len(domain) > 2 and domain[0] == 'bsn_number' and
-                    isinstance(domain[2], str) and domain[2]
+                len(domain) > 2
+                and domain[0] == "bsn_number"
+                and isinstance(domain[2], str)
+                and domain[2]
             ):
                 operator = domain[1]
                 bsn_number = domain[2]
                 bsn_compact = bsn.compact(bsn_number)
-                bsn_domain = expression.OR([
-                    [('bsn_number', operator, bsn_number)],
-                    [('bsn_number', operator, bsn_compact)],
-                ])
+                bsn_domain = expression.OR(
+                    [
+                        [("bsn_number", operator, bsn_number)],
+                        [("bsn_number", operator, bsn_compact)],
+                    ]
+                )
                 if bsn.is_valid(bsn_number):
                     bsn_format = bsn.format(bsn_number)
-                    bsn_domain = expression.OR([
-                        bsn_domain,
-                        [('bsn_number', operator, bsn_format)],
-                    ])
+                    bsn_domain = expression.OR(
+                        [bsn_domain, [("bsn_number", operator, bsn_format)]]
+                    )
                 res_domain += bsn_domain
             else:
                 res_domain.append(domain)
         return super().search(
-            res_domain, offset=offset, limit=limit, order=order, count=count)
+            res_domain, offset=offset, limit=limit, order=order, count=count
+        )
