@@ -1,5 +1,5 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018-2019 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
@@ -38,7 +38,6 @@ class VatStatement(models.Model):
             statement.tag_3b_omzet = config.tag_3b_omzet
             statement.tag_3b_omzet_d = config.tag_3b_omzet_d
 
-    @api.multi
     def _compute_icp_lines(self):
         ''' Computes ICP lines for the report'''
         IcpLine = self.env['l10n.nl.vat.statement.icp.line']
@@ -66,29 +65,24 @@ class VatStatement(models.Model):
             'currency_id': partner_amounts['currency_id'],
         }
 
-    @api.multi
     def _is_3b_omzet_line(self, line):
         self.ensure_one()
 
         tag_3b_omzet = self.tag_3b_omzet
-        for tax in line.tax_ids:
-            if tax.tag_ids.filtered(
-                    lambda r: r == tag_3b_omzet):
-                return True
+        tags = line.tax_ids.mapped('tag_ids')
+        if any(tags.filtered(lambda r: r == tag_3b_omzet)):
+            return True
         return False
 
-    @api.multi
     def _is_3b_omzet_diensten_line(self, line):
         self.ensure_one()
 
         tag_3b_omzet_d = self.tag_3b_omzet_d
-        for tax in line.tax_ids:
-            if tax.tag_ids.filtered(
-                    lambda r: r == tag_3b_omzet_d):
-                return True
+        tags = line.tax_ids.mapped('tag_ids')
+        if any(tags.filtered(lambda r: r == tag_3b_omzet_d)):
+            return True
         return False
 
-    @api.multi
     def _get_partner_amounts_map(self):
         ''' Generate an internal data structure representing the ICP line'''
         self.ensure_one()
@@ -104,7 +98,6 @@ class VatStatement(models.Model):
                 self._update_partner_amounts_map(partner_amounts_map, vals)
         return partner_amounts_map
 
-    @api.multi
     def _check_config_tag_3b_omzet(self):
         ''' Checks the tag 3b Omzet, as configured for the BTW statement'''
         if self.env.context.get('skip_check_config_tag_3b_omzet'):
@@ -133,12 +126,11 @@ class VatStatement(models.Model):
             'amount_services': 0.0,
         }
 
-    @api.multi
     def _prepare_icp_line_from_move_line(self, line):
         ''' Gets move line details and prepares ICP report line data'''
         self.ensure_one()
 
-        balance = line.balance
+        balance = line.balance and -line.balance or 0
         if line.company_currency_id != self.currency_id:
             balance = line.company_currency_id.with_context(
                 date=line.date
@@ -158,31 +150,27 @@ class VatStatement(models.Model):
             'currency_id': self.currency_id.id,
         }
 
-    @api.multi
     def reset(self):
         ''' Removes ICP lines if reset to draft'''
-        for statement in self:
-            statement.icp_line_ids.unlink()
-        return super(VatStatement, self).reset()
+        self.mapped('icp_line_ids').unlink()
+        return super().reset()
 
-    @api.multi
     def post(self):
         ''' Checks configuration when validating the statement'''
         self.ensure_one()
         self._check_config_tag_3b_omzet()
-        res = super(VatStatement, self).post()
+        res = super().post()
         self._compute_icp_lines()
         return res
 
     @api.model
     def _modifiable_values_when_posted(self):
         ''' Returns the modifiable fields even when the statement is posted'''
-        res = super(VatStatement, self)._modifiable_values_when_posted()
+        res = super()._modifiable_values_when_posted()
         res.append('icp_line_ids')
         res.append('icp_total')
         return res
 
-    @api.multi
     def icp_update(self):
         ''' Update button'''
         self.ensure_one()
