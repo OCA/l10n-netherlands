@@ -1,9 +1,9 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Netherlands ICP Statement',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Localization',
     'license': 'AGPL-3',
     'author': 'Onestein, Odoo Community Association (OCA)',
