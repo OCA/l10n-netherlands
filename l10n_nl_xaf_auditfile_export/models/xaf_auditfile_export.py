@@ -20,6 +20,7 @@
 ##############################################################################
 import base64
 import collections
+import io
 from lxml import etree
 import logging
 import os
@@ -123,15 +124,16 @@ class XafAuditfileExport(models.Model):
         m0 = memory_info()
         self.date_generated = fields.Datetime.now(self)
         auditfile_template = self._get_auditfile_template()
-        xml = self.env.ref(auditfile_template).render(
+        xml = self.env['ir.ui.view'].render_template(
+            auditfile_template,
             values={
                 'self': self,
             })
         # the following is dealing with the fact that qweb templates don't like
         # namespaces, but we need the correct namespaces for validation
-        xml = xml.decode().strip().replace(
-            '<auditfile>',
-            '<?xml version="1.0" encoding="UTF-8"?>'
+        xml = xml.decode('utf-8').strip().replace(
+            u'<auditfile>',
+            u'<?xml version="1.0" encoding="UTF-8"?>'
             '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
             'xmlns="http://www.auditfiles.nl/XAF/3.2">', 1)
 
@@ -141,7 +143,7 @@ class XafAuditfileExport(models.Model):
         archivedir = mkdtemp()
         archive = os.path.join(archivedir, filename)
         try:
-            with open(auditfile, 'w+') as tmphandle:
+            with io.open(auditfile, 'w+', encoding='utf-8') as tmphandle:
                 tmphandle.write(xml)
             del xml
 
@@ -249,6 +251,45 @@ class XafAuditfileExport(models.Model):
         return self.env['account.tax'].search([
             ('company_id', '=', self.company_id.id),
         ])
+
+    @api.multi
+    def get_ob_totals(self):
+        '''return totals of opening balance'''
+        self.env.cr.execute(
+            'select sum(l.credit), sum(l.debit), count(distinct a.id) '
+            'from account_move_line l, account_account a, '
+            '     account_account_type t '
+            'where a.user_type_id = t.id '
+            'and l.account_id = a.id '
+            'and l.date < %s '
+            'and (l.company_id=%s or l.company_id is null) '
+            'and t.include_initial_balance = true ',
+            (self.date_start, self.company_id.id, ))
+        row = self.env.cr.fetchall()[0]
+        return dict(
+            credit=round(row[0] or 0.0, 2),
+            debit=round(row[1] or 0.0, 2),
+            count=row[2] or 0
+        )
+
+    @api.multi
+    def get_ob_lines(self):
+        '''return opening balance entries'''
+        self.env.cr.execute(
+            'select a.id, a.code, sum(l.balance) '
+            'from account_move_line l, account_account a, '
+            '     account_account_type t '
+            'where a.user_type_id = t.id '
+            'and a.id = l.account_id and l.date < %s '
+            'and (l.company_id=%s or l.company_id is null) '
+            'and t.include_initial_balance = true '
+            'group by a.id, a.code',
+            (self.date_start, self.company_id.id, ))
+        for result in self.env.cr.fetchall():
+            yield dict(
+                account_id=result[0],
+                account_code=result[1],
+                balance=round(result[2], 2))
 
     @api.multi
     def get_move_line_count(self):

@@ -42,7 +42,7 @@ class TestXafAuditfileExport(TransactionCase):
         zf = BytesIO(base64.b64decode(record.auditfile))
         with ZipFile(zf, 'r') as archive:
             filelist = archive.filelist
-            contents = archive.read(filelist[-1]).decode()
+            contents = archive.read(filelist[-1]).decode('utf8')
         self.assertTrue(contents.startswith('<?xml '))
 
     @mute_logger(
