@@ -10,7 +10,7 @@ import time
 import zipfile
 from datetime import datetime, timedelta
 from io import BytesIO
-from tempfile import mkdtemp
+from tempfile import mkdtemp, NamedTemporaryFile
 
 import psutil
 from dateutil.rrule import MONTHLY, rrule
@@ -136,22 +136,21 @@ class XafAuditfileExport(models.Model):
 
         filename = self.name + '.xaf'
         tmpdir = mkdtemp()
-        auditfile = os.path.join(tmpdir, filename)
         archivedir = mkdtemp()
         archive = os.path.join(archivedir, filename)
         try:
-            with open(auditfile, 'w+') as tmphandle:
+            with NamedTemporaryFile(mode='w+') as tmphandle:
                 tmphandle.write(xml)
-            del xml
+                del xml
 
-            # Validate the generated XML
-            xsd = etree.XMLParser(
-                schema=etree.XMLSchema(etree.parse(
-                    open(
-                        modules.get_module_resource(
-                            'l10n_nl_xaf_auditfile_export', 'data',
-                            'XmlAuditfileFinancieel3.2.xsd')))))
-            etree.parse(auditfile, parser=xsd)
+                # Validate the generated XML
+                xsd = etree.XMLParser(
+                    schema=etree.XMLSchema(etree.parse(
+                        open(
+                            modules.get_module_resource(
+                                'l10n_nl_xaf_auditfile_export', 'data',
+                                'XmlAuditfileFinancieel3.2.xsd')))))
+                etree.parse(tmphandle.name, parser=xsd)
             del xsd
 
             # Store in compressed format on the auditfile record
