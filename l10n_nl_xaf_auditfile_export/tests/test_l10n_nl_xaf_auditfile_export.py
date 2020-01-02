@@ -3,6 +3,7 @@
 
 import base64
 from io import BytesIO
+import os
 from zipfile import ZipFile
 
 from odoo.tests.common import TransactionCase
@@ -89,3 +90,10 @@ class TestXafAuditfileExport(TransactionCase):
                 filelist = archive.filelist
                 contents = archive.read(filelist[-1]).decode()
             self.assertTrue(contents.startswith('<?xml '))
+
+    def test_05_export_success(self):
+        ''' Export auditfile with / character in filename '''
+        record = self.env['xaf.auditfile.export'].create({})
+        record.name += '%s01' % os.sep
+        record.button_generate()
+        self.assertTrue(record)
