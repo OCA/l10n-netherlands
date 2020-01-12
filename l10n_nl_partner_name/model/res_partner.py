@@ -1,7 +1,7 @@
 # Copyright 2017 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from mako.template import Template
 from odoo import models, fields, api
+from odoo.addons.mail.models.mail_template import mako_safe_template_env
 
 
 class ResPartner(models.Model):
@@ -26,13 +26,13 @@ class ResPartner(models.Model):
     @api.model
     def _get_computed_name(self, lastname, firstname, initials=None,
                            infix=None):
-        name_template = Template(
+        name_template = mako_safe_template_env.from_string(
             self.env.context.get(
                 'name_format',
                 "${firstname or initials or ''}"
                 "${(firstname or initials) and ' ' or ''}"
                 "${infix or ''}${infix and ' ' or ''}${lastname or ''}"))
-        name = name_template.render(**{
+        name = name_template.render({
             'firstname': firstname,
             'lastname': lastname,
             'initials': initials,
