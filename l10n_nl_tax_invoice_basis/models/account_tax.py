@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import models
@@ -8,18 +8,21 @@ from odoo.osv import expression
 class AccountTax(models.Model):
     _inherit = "account.tax"
 
-    def get_move_line_partial_domain(self, from_date, to_date, company_id):
-        res = super().get_move_line_partial_domain(from_date, to_date, company_id)
+    def get_move_line_partial_domain(self, from_date, to_date, company_ids):
+        res = super().get_move_line_partial_domain(from_date, to_date, company_ids)
 
         if self.env.context.get("skip_invoice_basis_domain"):
             return res
 
-        company = self.env["res.company"].browse(company_id)
-        if company.country_id != self.env.ref("base.nl"):
+        companies = self.env["res.company"].browse(company_ids)
+        countries = companies.country_id
+        if any(country != self.env.ref("base.nl") for country in countries):
+            return res
+        if any(not company.l10n_nl_tax_invoice_basis for company in companies):
             return res
 
         domain_params = {
-            "company_id": company_id,
+            "company_ids": company_ids,
             "from_date": from_date,
             "to_date": to_date,
         }
@@ -30,7 +33,7 @@ class AccountTax(models.Model):
         return self._get_invoice_basis_domain(domain_params)
 
     def _get_invoice_basis_domain(self, domain_params):
-        domain_company = [("company_id", "=", domain_params["company_id"])]
+        domain_company = [("company_id", "in", domain_params["company_ids"])]
         domain_tax_date = self._get_tax_date_domain(domain_params)
         domain_account_date = self._get_accounting_date_domain(domain_params)
         domain_dates = expression.OR([domain_tax_date, domain_account_date])

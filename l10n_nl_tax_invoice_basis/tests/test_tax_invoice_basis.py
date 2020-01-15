@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
@@ -9,39 +9,8 @@ class TestTaxInvoiceBasis(TransactionCase):
         super().setUp()
         self.env.user.company_id.country_id = self.env.ref("base.nl")
 
-        tax_account_id = (
-            self.env["account.account"].search([("name", "=", "Tax Paid")], limit=1).id
-        )
         self.tax = self.env["account.tax"].create(
-            {
-                "name": "Tax 21.0%",
-                "amount": 21.0,
-                "amount_type": "percent",
-                "account_id": tax_account_id,
-            }
-        )
-        receivable_account_id = (
-            self.env["account.account"]
-            .search(
-                [
-                    (
-                        "user_type_id",
-                        "=",
-                        self.env.ref("account.data_account_type_receivable").id,
-                    )
-                ],
-                limit=1,
-            )
-            .id
-        )
-        invoice = self.env["account.invoice"].create(
-            {
-                "partner_id": self.env.ref("base.res_partner_4").id,
-                "account_id": receivable_account_id,
-                "date_invoice": "2017-08-18",
-                "date": "2017-07-01",
-                "type": "in_invoice",
-            }
+            {"name": "Tax 21.0%", "amount": 21.0, "amount_type": "percent"}
         )
         invoice_line_account_id = (
             self.env["account.account"]
@@ -57,35 +26,44 @@ class TestTaxInvoiceBasis(TransactionCase):
             )
             .id
         )
-        self.env["account.invoice.line"].create(
+        invoice = self.env["account.move"].create(
             {
-                "invoice_id": invoice.id,
-                "product_id": self.env.ref("product.product_product_4").id,
-                "name": "product that cost 100",
-                "account_id": invoice_line_account_id,
-                "quantity": 1.0,
-                "price_unit": 100.0,
-                "invoice_line_tax_ids": [(6, 0, [self.tax.id])],
+                "type": "in_invoice",
+                "partner_id": self.env.ref("base.res_partner_4").id,
+                "invoice_date": "2017-08-18",
+                "date": "2017-07-01",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.env.ref("base.res_partner_4").id,
+                            "quantity": 1.0,
+                            "price_unit": 100.0,
+                            "account_id": invoice_line_account_id,
+                            "tax_ids": [(6, 0, [self.tax.id])],
+                        },
+                    )
+                ],
             }
         )
-        invoice._onchange_invoice_line_ids()
-        invoice._convert_to_write(invoice._cache)
-
+        invoice.flush()
+        invoice.post()
         self.period_july = {"from_date": "2017-07-01", "to_date": "2017-07-31"}
         self.period_august = {"from_date": "2017-08-01", "to_date": "2017-08-31"}
         self.invoice = invoice
 
-    def test_tax_invoice_basis(self):
+    def test_01_tax_invoice_basis(self):
 
         company = self.env.user.company_id
         # Factuurstelsel enabled by default
         self.assertTrue(company.l10n_nl_tax_invoice_basis)
 
         # Validate invoice
-        self.invoice.action_invoice_open()
+        self.invoice.action_post()
 
         tax_july = self.tax.with_context(self.period_july)
-        tax_august = self.tax.with_context(self.period_august)
+        tax_july._compute_balance()
 
         self.assertEqual(tax_july.base_balance, 0.0)
         self.assertEqual(tax_july.balance, 0.0)
@@ -94,30 +72,35 @@ class TestTaxInvoiceBasis(TransactionCase):
         self.assertEqual(tax_july.base_balance_refund, 0.0)
         self.assertEqual(tax_july.balance_refund, 0.0)
 
+        tax_august = self.tax.with_context(self.period_august)
+        tax_august._compute_balance()
+
         self.assertEqual(tax_august.base_balance, -100.0)
         self.assertEqual(tax_august.balance, -21.0)
-        self.assertEqual(tax_august.base_balance_regular, 0.0)
-        self.assertEqual(tax_august.balance_regular, 0.0)
-        self.assertEqual(tax_august.base_balance_refund, -100.0)
-        self.assertEqual(tax_august.balance_refund, -21.0)
+        self.assertEqual(tax_august.base_balance_regular, -100.0)
+        self.assertEqual(tax_august.balance_regular, -21.0)
+        self.assertEqual(tax_august.base_balance_refund, 0.0)
+        self.assertEqual(tax_august.balance_refund, 0.0)
 
-    def test_tax_standard(self):
+    def test_02_tax_standard(self):
 
         # Factuurstelsel disabled
         self.env.user.company_id.l10n_nl_tax_invoice_basis = False
 
         # Validate invoice
-        self.invoice.action_invoice_open()
+        self.invoice.action_post()
 
         tax_july = self.tax.with_context(self.period_july)
-        tax_august = self.tax.with_context(self.period_august)
 
         self.assertEqual(tax_july.base_balance, -100.0)
         self.assertEqual(tax_july.balance, -21.0)
-        self.assertEqual(tax_july.base_balance_regular, 0.0)
-        self.assertEqual(tax_july.balance_regular, 0.0)
-        self.assertEqual(tax_july.base_balance_refund, -100.0)
-        self.assertEqual(tax_july.balance_refund, -21.0)
+        self.assertEqual(tax_july.base_balance_regular, -100.0)
+        self.assertEqual(tax_july.balance_regular, -21.0)
+        self.assertEqual(tax_july.base_balance_refund, 0.0)
+        self.assertEqual(tax_july.balance_refund, 0.0)
+
+        tax_august = self.tax.with_context(self.period_august)
+        tax_august._compute_balance()
 
         self.assertEqual(tax_august.base_balance, 0.0)
         self.assertEqual(tax_august.balance, 0.0)
@@ -126,7 +109,7 @@ class TestTaxInvoiceBasis(TransactionCase):
         self.assertEqual(tax_august.base_balance_refund, 0.0)
         self.assertEqual(tax_august.balance_refund, 0.0)
 
-    def test_skip_by_context(self):
+    def test_03_skip_by_context(self):
 
         # Factuurstelsel configured as enabled
         # but context is used to skip the functionality
@@ -135,17 +118,19 @@ class TestTaxInvoiceBasis(TransactionCase):
         self.period_august.update(update_ctx)
 
         # Validate invoice
-        self.invoice.action_invoice_open()
+        self.invoice.action_post()
 
         tax_july = self.tax.with_context(self.period_july)
-        tax_august = self.tax.with_context(self.period_august)
 
         self.assertEqual(tax_july.base_balance, -100.0)
         self.assertEqual(tax_july.balance, -21.0)
-        self.assertEqual(tax_july.base_balance_regular, 0.0)
-        self.assertEqual(tax_july.balance_regular, 0.0)
-        self.assertEqual(tax_july.base_balance_refund, -100.0)
-        self.assertEqual(tax_july.balance_refund, -21.0)
+        self.assertEqual(tax_july.base_balance_regular, -100.0)
+        self.assertEqual(tax_july.balance_regular, -21.0)
+        self.assertEqual(tax_july.base_balance_refund, 0.0)
+        self.assertEqual(tax_july.balance_refund, 0.0)
+
+        tax_august = self.tax.with_context(self.period_august)
+        tax_august._compute_balance()
 
         self.assertEqual(tax_august.base_balance, 0.0)
         self.assertEqual(tax_august.balance, 0.0)
@@ -154,7 +139,7 @@ class TestTaxInvoiceBasis(TransactionCase):
         self.assertEqual(tax_august.base_balance_refund, 0.0)
         self.assertEqual(tax_august.balance_refund, 0.0)
 
-    def test_tax_no_nl(self):
+    def test_04_tax_no_nl(self):
         # company is not Netherlands
         self.env.user.company_id.country_id = self.env.ref("base.be")
 
@@ -163,17 +148,19 @@ class TestTaxInvoiceBasis(TransactionCase):
         self.assertTrue(company.l10n_nl_tax_invoice_basis)
 
         # Validate invoice
-        self.invoice.action_invoice_open()
+        self.invoice.action_post()
 
         tax_july = self.tax.with_context(self.period_july)
-        tax_august = self.tax.with_context(self.period_august)
 
         self.assertEqual(tax_july.base_balance, -100.0)
         self.assertEqual(tax_july.balance, -21.0)
-        self.assertEqual(tax_july.base_balance_regular, 0.0)
-        self.assertEqual(tax_july.balance_regular, 0.0)
-        self.assertEqual(tax_july.base_balance_refund, -100.0)
-        self.assertEqual(tax_july.balance_refund, -21.0)
+        self.assertEqual(tax_july.base_balance_regular, -100.0)
+        self.assertEqual(tax_july.balance_regular, -21.0)
+        self.assertEqual(tax_july.base_balance_refund, 0.0)
+        self.assertEqual(tax_july.balance_refund, 0.0)
+
+        tax_august = self.tax.with_context(self.period_august)
+        tax_august._compute_balance()
 
         self.assertEqual(tax_august.base_balance, 0.0)
         self.assertEqual(tax_august.balance, 0.0)
