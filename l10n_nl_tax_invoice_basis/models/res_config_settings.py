@@ -5,10 +5,10 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
     l10n_nl_tax_invoice_basis = fields.Boolean(
-        string='NL Tax Invoice Basis',
-        related='company_id.l10n_nl_tax_invoice_basis',
+        string="NL Tax Invoice Basis",
+        related="company_id.l10n_nl_tax_invoice_basis",
         readonly=False,
     )

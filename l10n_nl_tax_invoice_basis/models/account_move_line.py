@@ -5,6 +5,6 @@ from odoo import fields, models
 
 
 class AccountMoveLine(models.Model):
-    _inherit = 'account.move.line'
+    _inherit = "account.move.line"
 
     l10n_nl_date_invoice = fields.Date()
