@@ -52,7 +52,6 @@
         <field name="name">Auditfile export</field>
         <field name="res_model">xaf.auditfile.export</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="tree_xaf_auditfile_export"/>
         <field name="target">current</field>
     </record>
