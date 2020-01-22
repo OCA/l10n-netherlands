@@ -7,7 +7,7 @@
           ref="partner_firstname.view_partner_simple_form_firstname"
       />
       <field name="arch" type="xml">
-          <xpath expr="//field[@name='firstname']/ancestor::group[1]" position="after">
+          <xpath expr="//field[@name='firstname']/ancestor::group[1]" position="inside">
               <div name="partner_name_dutch">
               </div>
           </xpath>
