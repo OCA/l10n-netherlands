@@ -20,18 +20,35 @@
 ##############################################################################
 import base64
 import collections
-from StringIO import StringIO
+import io
 from lxml import etree
+import logging
+import os
+import psutil
+import shutil
+from tempfile import mkdtemp
+from io import BytesIO
+import zipfile
+import time
 from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
+
 from odoo import _, models, fields, api, exceptions, release, modules
 
 
-MAX_RECORDS = 10000
-'''For possibly huge lists, only read chunks from the database in order to
-avoid oom exceptions.
-This is the default for ir.config_parameter
-"l10n_nl_xaf_auditfile_export.max_records"'''
+def chunks(l, n=None):
+    """Yield successive n-sized chunks from l."""
+    if n is None:
+        n = models.PREFETCH_MAX
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
+def memory_info():
+    """ Modified from odoo/server/service.py """
+    process = psutil.Process(os.getpid())
+    pmem = (getattr(process, 'memory_info', None) or process.get_memory_info)()
+    return pmem.vms
 
 
 class XafAuditfileExport(models.Model):
@@ -40,9 +57,15 @@ class XafAuditfileExport(models.Model):
     _inherit = ['mail.thread']
     _order = 'date_start desc'
 
-    @api.depends('name')
-    def _auditfile_name_get(self):
-        self.auditfile_name = '%s.xaf' % self.name
+    @api.depends('name', 'auditfile')
+    def _compute_auditfile_name(self):
+        for item in self:
+            item.auditfile_name = '%s.xaf' % item.name
+            if item.auditfile:
+                auditfile = base64.b64decode(item.auditfile)
+                zf = BytesIO(auditfile)
+                if zipfile.is_zipfile(zf):
+                    item.auditfile_name += '.zip'
 
     @api.multi
     def _compute_fiscalyear_name(self):
@@ -56,7 +79,10 @@ class XafAuditfileExport(models.Model):
     fiscalyear_name = fields.Char(compute='_compute_fiscalyear_name')
     auditfile = fields.Binary('Auditfile', readonly=True, copy=False)
     auditfile_name = fields.Char(
-        'Auditfile filename', compute=_auditfile_name_get)
+        'Auditfile filename',
+        compute='_compute_auditfile_name',
+        store=True
+    )
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
@@ -88,45 +114,64 @@ class XafAuditfileExport(models.Model):
                 _('Starting date must be anterior ending date!'))
 
     @api.multi
+    def _get_auditfile_template(self):
+        '''return the qweb template to be rendered'''
+        return "l10n_nl_xaf_auditfile_export.auditfile_template"
+
+    @api.multi
     def button_generate(self):
+        t0 = time.time()
+        m0 = memory_info()
         self.date_generated = fields.Datetime.now(self)
-        xml = self.env.ref('l10n_nl_xaf_auditfile_export.auditfile_template')\
-            .render(values={
+        auditfile_template = self._get_auditfile_template()
+        xml = self.env['ir.ui.view'].render_template(
+            auditfile_template,
+            values={
                 'self': self,
             })
         # the following is dealing with the fact that qweb templates don't like
         # namespaces, but we need the correct namespaces for validation
-        # we inject them at parse time in order not to traverse the document
-        # multiple times
-        default_namespace = 'http://www.auditfiles.nl/XAF/3.2'
-        iterparse = etree.iterparse(
-            StringIO(xml),
-            remove_blank_text=True, remove_comments=True)
-        for action, element in iterparse:
-            element.tag = '{%s}%s' % (default_namespace, element.tag)
-        del xml
-        xmldoc = etree.Element(
-            iterparse.root.tag,
-            nsmap={
-                None: default_namespace,
-                'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            })
-        for element in iterparse.root:
-            xmldoc.append(element)
-        del iterparse
+        xml = xml.decode('utf-8').strip().replace(
+            u'<auditfile>',
+            u'<?xml version="1.0" encoding="UTF-8"?>'
+            '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            'xmlns="http://www.auditfiles.nl/XAF/3.2">', 1)
 
-        xsd = etree.XMLSchema(
-            etree.parse(
-                file(
-                    modules.get_module_resource(
-                        'l10n_nl_xaf_auditfile_export', 'data',
-                        'XmlAuditfileFinancieel3.2.xsd'))))
-        if not xsd.validate(xmldoc):
-            self.message_post('<br><br>\n'.join(map(str, xsd.error_log)))
-            return
+        filename = self.name + '.xaf'
+        tmpdir = mkdtemp()
+        auditfile = os.path.join(tmpdir, filename)
+        archivedir = mkdtemp()
+        archive = os.path.join(archivedir, filename)
+        try:
+            with io.open(auditfile, 'w+', encoding='utf-8') as tmphandle:
+                tmphandle.write(xml)
+            del xml
 
-        self.auditfile = base64.b64encode(etree.tostring(
-            xmldoc, xml_declaration=True, encoding='UTF-8'))
+            # Validate the generated XML
+            xsd = etree.XMLParser(
+                schema=etree.XMLSchema(etree.parse(
+                    open(
+                        modules.get_module_resource(
+                            'l10n_nl_xaf_auditfile_export', 'data',
+                            'XmlAuditfileFinancieel3.2.xsd')))))
+            etree.parse(auditfile, parser=xsd)
+            del xsd
+
+            # Store in compressed format on the auditfile record
+            zip_path = shutil.make_archive(
+                archive, 'zip', tmpdir, verbose=True)
+            with open(zip_path, 'rb') as auditfile_zip:
+                self.auditfile = base64.b64encode(auditfile_zip.read())
+            logging.getLogger(__name__).debug(
+                'Created an auditfile in %ss, using %sk memory',
+                int(time.time() - t0), (memory_info() - m0) / 1024)
+
+        except etree.XMLSyntaxError as e:
+            logging.getLogger(__name__).error(e)
+            self.message_post(e)
+        finally:
+            shutil.rmtree(tmpdir)
+            shutil.rmtree(archivedir)
 
     @api.multi
     def get_odoo_version(self):
@@ -135,29 +180,20 @@ class XafAuditfileExport(models.Model):
 
     @api.multi
     def get_partners(self):
-        '''return a generator over partners and suppliers'''
-        offset = 0
-        while True:
-            results = self.env['res.partner'].search(
-                [
-                    '|',
-                    ('customer', '=', True),
-                    ('supplier', '=', True),
-                    '|',
-                    ('company_id', '=', False),
-                    ('company_id', '=', self.company_id.id),
-                ],
-                offset=offset,
-                limit=int(self.env['ir.config_parameter'].get_param(
-                    'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS)))
-            if not results:
-                break
-            offset += MAX_RECORDS
-            for result in results:
-                yield result
-            results.env.invalidate_all()
-            del results
+        '''return a generator over partners'''
+        partner_ids = self.env['res.partner'].search([
+            '|',
+            ('customer', '=', True),
+            ('supplier', '=', True),
+            '|',
+            ('company_id', '=', False),
+            ('company_id', '=', self.company_id.id),
+        ]).ids
+        self.invalidate_cache()
+        for chunk in chunks(partner_ids):
+            for partner in self.env['res.partner'].browse(chunk):
+                yield partner
+            self.invalidate_cache()
 
     @api.multi
     def get_accounts(self):
@@ -217,6 +253,45 @@ class XafAuditfileExport(models.Model):
         ])
 
     @api.multi
+    def get_ob_totals(self):
+        '''return totals of opening balance'''
+        self.env.cr.execute(
+            'select sum(l.credit), sum(l.debit), count(distinct a.id) '
+            'from account_move_line l, account_account a, '
+            '     account_account_type t '
+            'where a.user_type_id = t.id '
+            'and l.account_id = a.id '
+            'and l.date < %s '
+            'and (l.company_id=%s or l.company_id is null) '
+            'and t.include_initial_balance = true ',
+            (self.date_start, self.company_id.id, ))
+        row = self.env.cr.fetchall()[0]
+        return dict(
+            credit=round(row[0] or 0.0, 2),
+            debit=round(row[1] or 0.0, 2),
+            count=row[2] or 0
+        )
+
+    @api.multi
+    def get_ob_lines(self):
+        '''return opening balance entries'''
+        self.env.cr.execute(
+            'select a.id, a.code, sum(l.balance) '
+            'from account_move_line l, account_account a, '
+            '     account_account_type t '
+            'where a.user_type_id = t.id '
+            'and a.id = l.account_id and l.date < %s '
+            'and (l.company_id=%s or l.company_id is null) '
+            'and t.include_initial_balance = true '
+            'group by a.id, a.code',
+            (self.date_start, self.company_id.id, ))
+        for result in self.env.cr.fetchall():
+            yield dict(
+                account_id=result[0],
+                account_code=result[1],
+                balance=round(result[2], 2))
+
+    @api.multi
     def get_move_line_count(self):
         '''return amount of move lines'''
         self.env.cr.execute(
@@ -259,25 +334,15 @@ class XafAuditfileExport(models.Model):
     @api.multi
     def get_moves(self, journal):
         '''return moves for a journal, generator style'''
-        offset = 0
-        while True:
-            results = self.env['account.move'].search(
-                [
-                    ('date', '>=', self.date_start),
-                    ('date', '<=', self.date_end),
-                    ('journal_id', '=', journal.id),
-                ],
-                offset=offset,
-                limit=int(self.env['ir.config_parameter'].get_param(
-                    'l10n_nl_xaf_auditfile_export.max_records',
-                    default=MAX_RECORDS)))
-            if not results:
-                break
-            offset += MAX_RECORDS
-            for result in results:
-                yield result
-            results.env.invalidate_all()
-            del results
+        move_ids = self.env['account.move'].search([
+            ('date', '>=', self.date_start),
+            ('date', '<=', self.date_end),
+            ('journal_id', '=', journal.id)]).ids
+        self.invalidate_cache()
+        for chunk in chunks(move_ids):
+            for move in self.env['account.move'].browse(chunk):
+                yield move
+            self.invalidate_cache()
 
     @api.model
     def get_move_period_number(self, move):

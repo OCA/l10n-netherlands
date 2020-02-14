@@ -21,8 +21,6 @@ accordingly and the start date will be 12 months before the end date.
 Be aware that in case the OCA module `account_fiscal_year` is installed, then the calculus of the fiscal year dates is
 overridden, taking by default the date range defined for the actual fiscal year (check `Settings`/`Date Ranges`).
 
-This module works on huge amount of data, so there is a possibility to encounter out of memory exceptions. In this case. set the config parameter `l10n_nl_xaf_auditfile_export.max_records` to a value much lower than 10000.
-
 Usage
 =====
 
@@ -45,7 +43,7 @@ For further information, please visit:
 Known issues / Roadmap
 ======================
 
-* encrypted and compressed files would be nice
+* encrypted files would be nice
 
 
 Bug Tracker
@@ -64,6 +62,8 @@ Contributors
 
 * Holger Brunn <hbrunn@therp.nl>
 * Andrea Stirpe <a.stirpe@onestein.nl>
+* Stefan Rijnhart <stefan@opener.amsterdam>
+* Tom Blauwendraat <tom@sunflowerweb.nl>
 
 Icon
 ----
