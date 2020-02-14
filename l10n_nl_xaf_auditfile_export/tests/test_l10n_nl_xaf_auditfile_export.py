@@ -1,4 +1,4 @@
-# Copyright 2018 Onestein (<https://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import base64
@@ -6,11 +6,30 @@ import os
 from io import BytesIO
 from zipfile import ZipFile
 
-from odoo.tests.common import TransactionCase
+from odoo import fields
+from odoo.tests.common import Form, TransactionCase
 from odoo.tools import mute_logger
 
 
 class TestXafAuditfileExport(TransactionCase):
+    def setUp(self):
+        super().setUp()
+
+        self.env.user.company_id.country_id = (self.env.ref("base.nl").id,)
+
+        # create an invoice and post it, to ensure that there's some data to export
+        move_form = Form(
+            self.env["account.move"].with_context(default_type="out_invoice")
+        )
+        move_form.invoice_date = fields.Date().today()
+        move_form.partner_id = self.env["res.partner"].create({"name": "Partner Test"})
+        with move_form.invoice_line_ids.new() as line_form:
+            line_form.product_id = self.env["product.product"].create(
+                {"name": "product test", "standard_price": 800.0}
+            )
+        self.invoice = move_form.save()
+        self.invoice.post()
+
     def test_01_default_values(self):
         """ Check that the default values are filled on creation """
         record = self.env["xaf.auditfile.export"].create({})
