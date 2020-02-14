@@ -295,7 +295,7 @@ class XafAuditfileExport(models.Model):
             "select count(*) from account_move_line "
             "where date >= %s "
             "and date <= %s "
-            "and (company_id=%s or company_id is null)",
+            "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
         return self.env.cr.fetchall()[0][0]
@@ -306,10 +306,10 @@ class XafAuditfileExport(models.Model):
             "select sum(debit) from account_move_line "
             "where date >= %s "
             "and date <= %s "
-            "and (company_id=%s or company_id is null)",
+            "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
-        return round(self.env.cr.fetchall()[0][0], 2)
+        return round(self.env.cr.fetchall()[0][0] or 0.0, 2)
 
     def get_move_line_total_credit(self):
         """return total credit of move lines"""
@@ -317,10 +317,10 @@ class XafAuditfileExport(models.Model):
             "select sum(credit) from account_move_line "
             "where date >= %s "
             "and date <= %s "
-            "and (company_id=%s or company_id is null)",
+            "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
-        return round(self.env.cr.fetchall()[0][0], 2)
+        return round(self.env.cr.fetchall()[0][0] or 0.0, 2)
 
     def get_journals(self):
         """return journals"""
