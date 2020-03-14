@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
-
     <record id="ABNA" model="res.bank">
         <field name="name">ABN AMRO Bank N.V.</field>
         <field name="bic">ABNANL2A</field>
@@ -376,5 +375,4 @@
         <field name="bic">ZWLBNL21</field>
         <field name="country" ref="base.nl" />
     </record>
-
 </odoo>
