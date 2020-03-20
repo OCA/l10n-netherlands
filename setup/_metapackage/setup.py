@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo13-addon-l10n_nl_bank',
         'odoo13-addon-l10n_nl_bsn',
+        'odoo13-addon-l10n_nl_xaf_auditfile_export',
     ],
     classifiers=[
         'Programming Language :: Python',
