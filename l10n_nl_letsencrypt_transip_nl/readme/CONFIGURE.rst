@@ -1,10 +1,11 @@
-To configure this module, you need to:
+In addition to the dependencies of the ``letsencrypt`` module, this module
+requires ``transip`` to be installed using ``pip`` or similar.
 
-Go to Settings -> General Settings and fill the required fields under
-LetsEncrypt.
+To configure this module, go to Settings -> General Settings and fill the
+required fields under Let's Encrypt:
 
-Those fields are:
-    DNS Provider: Set this to TransIP
-    Login: Set this to the username you use to login to transip.nl
-    Key: Set this to the private key given to you by tranip.nl in order to use their APIs.
-    URL: Set the URL of the APIs. Usually api.transip.nl
+- DNS Provider: Set this to TransIP
+
+- TransIP login: The username you use to log in on transip.nl
+
+- TransIP key: The private key given to you by TransIP in order to use their APIs
