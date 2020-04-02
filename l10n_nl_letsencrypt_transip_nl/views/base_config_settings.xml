@@ -5,20 +5,20 @@
         <field name="model">base.config.settings</field>
         <field name="inherit_id" ref="base_setup.view_general_configuration"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='dns_provider']" position="after">
+            <xpath expr="//field[@name='letsencrypt_dns_provider']" position="after">
                 <field
                     name="letsencrypt_transip_login"
                     string="TransIP login"
                     attrs="{
-                        'required': [('dns_provider', '=', 'transip')],
-                        'invisible': [('dns_provider', '!=', 'transip')],
+                        'required': [('letsencrypt_dns_provider', '=', 'transip')],
+                        'invisible': [('letsencrypt_dns_provider', '!=', 'transip')],
                     }"/>
                 <field
                     name="letsencrypt_transip_key"
                     string="TransIP key"
                     attrs="{
-                        'required': [('dns_provider', '=', 'transip')],
-                        'invisible': [('dns_provider', '!=', 'transip')],
+                        'required': [('letsencrypt_dns_provider', '=', 'transip')],
+                        'invisible': [('letsencrypt_dns_provider', '!=', 'transip')],
                     }"/>
             </xpath>
         </field>
