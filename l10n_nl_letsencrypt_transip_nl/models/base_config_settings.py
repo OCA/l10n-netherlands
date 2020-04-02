@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class BaseConfigSettings(models.TransientModel):
     _inherit = 'base.config.settings'
 
-    dns_provider = fields.Selection(
+    letsencrypt_dns_provider = fields.Selection(
         selection_add=[('transip', 'TransIP')],
     )
     letsencrypt_transip_login = fields.Char()
