@@ -14,13 +14,13 @@ Letsencrypt Transip NL
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-netherlands/tree/11.0/l10n_nl_letsencrypt_transip_nl
+    :target: https://github.com/OCA/l10n-netherlands/tree/10.0/l10n_nl_letsencrypt_transip_nl
     :alt: OCA/l10n-netherlands
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-netherlands-11-0/l10n-netherlands-11-0-l10n_nl_letsencrypt_transip_nl
+    :target: https://translation.odoo-community.org/projects/l10n-netherlands-10-0/l10n-netherlands-10-0-l10n_nl_letsencrypt_transip_nl
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/176/11.0
+    :target: https://runbot.odoo-community.org/runbot/176/10.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -39,16 +39,17 @@ the relevant DNS record on your domain.
 Configuration
 =============
 
-To configure this module, you need to:
+In addition to the dependencies of the ``letsencrypt`` module, this module
+requires ``transip`` to be installed using ``pip`` or similar.
 
-Go to Settings -> General Settings and fill the required fields under
-LetsEncrypt.
+To configure this module, go to Settings -> General Settings and fill the
+required fields under Let's Encrypt:
 
-Those fields are:
-    DNS Provider: Set this to TransIP
-    Login: Set this to the username you use to login to transip.nl
-    Key: Set this to the private key given to you by tranip.nl in order to use their APIs.
-    URL: Set the URL of the APIs. Usually api.transip.nl
+- DNS Provider: Set this to TransIP
+
+- TransIP login: The username you use to log in on transip.nl
+
+- TransIP key: The private key given to you by TransIP in order to use their APIs
 
 Bug Tracker
 ===========
@@ -56,7 +57,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-netherlands/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_letsencrypt_transip_nl%0Aversion:%2011.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_letsencrypt_transip_nl%0Aversion:%2010.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -72,6 +73,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * George Daramouskas <gdaramouskas@therp.nl>  
+* Jan Verbeek <jverbeek@therp.nl>
 
 Maintainers
 ~~~~~~~~~~~
@@ -86,6 +88,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/11.0/l10n_nl_letsencrypt_transip_nl>`_ project on GitHub.
+This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/10.0/l10n_nl_letsencrypt_transip_nl>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

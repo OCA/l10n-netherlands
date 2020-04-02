@@ -16,6 +16,8 @@
     ],
     "application": False,
     "external_dependencies": {
-        'python': ["transip"],
+        "python": [
+            "transip",
+        ],
     },
 }
