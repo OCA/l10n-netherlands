@@ -3,7 +3,6 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.osv import expression
 from odoo.tools.misc import formatLang
 
 OMZET_DISPLAY = ("1a", "1b", "1c", "1d", "1e", "2a", "3a", "3b", "3c", "4a", "4b")
@@ -39,7 +38,7 @@ class VatStatementLine(models.Model):
     name = fields.Char()
     code = fields.Char()
 
-    statement_id = fields.Many2one("l10n.nl.vat.statement", "Statement")
+    statement_id = fields.Many2one("l10n.nl.vat.statement")
     currency_id = fields.Many2one(
         "res.currency",
         related="statement_id.company_id.currency_id",
@@ -59,6 +58,8 @@ class VatStatementLine(models.Model):
         for line in self:
             omzet = formatLang(self.env, line.omzet, monetary=True)
             btw = formatLang(self.env, line.btw, monetary=True)
+            line.format_omzet = False
+            line.format_btw = False
             if line.code in OMZET_DISPLAY:
                 line.format_omzet = omzet
             if line.code in BTW_DISPLAY:
@@ -110,45 +111,17 @@ class VatStatementLine(models.Model):
         return vals
 
     def _get_move_lines_domain(self, tax_or_base):
-        statement = self.statement_id
-        taxes = self._filter_taxes_by_code(statement._compute_taxes())
-        past_taxes = statement._compute_past_invoices_taxes()
-        past_taxes = self._filter_taxes_by_code(past_taxes)
-        if statement.state == "draft":
-            domain = self._get_domain_draft(taxes, tax_or_base)
-            past_domain = self._get_domain_draft(past_taxes, tax_or_base)
-        else:
-            domain = self._get_domain_posted(taxes, tax_or_base)
-            past_domain = self._get_domain_posted(past_taxes, tax_or_base)
-        curr_amls = self.env["account.move.line"].search(domain)
-        past_amls = self.env["account.move.line"].search(past_domain)
-        res = [("id", "in", past_amls.ids + curr_amls.ids)]
-        return res
-
-    def _filter_taxes_by_code(self, taxes):
-        self.ensure_one()
+        all_amls = self.statement_id._get_all_statement_move_lines()
+        domain_lines_ids = []
         tags_map = self.statement_id._get_tags_map()
-        filtered_taxes = self.env["account.tax"]
-        for tax in taxes:
-            for tag in tax.tag_ids:
-                tag_map = tags_map.get(tag.id)
-                if tag_map and tag_map[0] == self.code:
-                    filtered_taxes |= tax
-        return filtered_taxes.with_context(taxes.env.context)
-
-    def _get_domain_draft(self, taxes, tax_or_base):
-        self.ensure_one()
-        ctx = taxes.env.context.copy()
-        ctx.update({"l10n_nl_statement_tax_ids": taxes.ids})
-        AccountTax = self.env["account.tax"].with_context(ctx)
-        return AccountTax.get_move_lines_domain(tax_or_base=tax_or_base)
-
-    def _get_domain_posted(self, taxes, tax_or_base):
-        self.ensure_one()
-        statement = self.statement_id
-        domain = [("move_id.l10n_nl_vat_statement_id", "=", statement.id)]
-        if tax_or_base == "tax":
-            tax_domain = [("tax_line_id", "in", taxes.ids)]
-        else:
-            tax_domain = [("tax_ids", "in", taxes.ids)]
-        return expression.AND([domain, tax_domain])
+        for line in all_amls:
+            for tag in line.tag_ids:
+                tag_map = tags_map.get(tag.id, ("", ""))
+                code, column = tag_map
+                code = self.statement_id._strip_sign_in_tag_code(code)
+                if code == self.code:
+                    if (tax_or_base == "tax" and column == "btw") or (
+                        tax_or_base == "base" and column == "omzet"
+                    ):
+                        domain_lines_ids += [line.id]
+        return [("id", "in", domain_lines_ids)]
