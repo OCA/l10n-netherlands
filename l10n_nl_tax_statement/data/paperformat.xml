@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2017 Onestein (<http://www.onestein.eu>)
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
-
 <odoo>
-
     <record id="paperformat_nl_tax_statement" model="report.paperformat">
         <field name="name">Dutch Tax Statement qweb paperformat</field>
         <field name="default" eval="True" />
@@ -19,5 +17,4 @@
         <field name="header_spacing">10</field>
         <field name="dpi">110</field>
     </record>
-
 </odoo>
