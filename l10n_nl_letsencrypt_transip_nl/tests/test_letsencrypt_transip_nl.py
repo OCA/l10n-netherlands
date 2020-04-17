@@ -33,6 +33,7 @@ class TestLetsencryptTransip(TransactionCase):
         self.tmpdir = tempfile.mkdtemp()
 
     def tearDown(self):
+        super(TestLetsencryptTransip, self).tearDown()
         if os.path.isdir(self.tmpdir):
             shutil.rmtree(self.tmpdir)
 
