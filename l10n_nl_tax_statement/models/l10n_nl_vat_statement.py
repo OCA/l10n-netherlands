@@ -1,12 +1,13 @@
 # Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import re
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import formatLang
 
 
@@ -14,7 +15,13 @@ class VatStatement(models.Model):
     _name = "l10n.nl.vat.statement"
     _description = "Netherlands Vat Statement"
 
-    name = fields.Char(string="Tax Statement", required=True,)
+    name = fields.Char(
+        string="Tax Statement",
+        required=True,
+        compute="_compute_name",
+        store=True,
+        readonly=False,
+    )
     state = fields.Selection(
         [("draft", "Draft"), ("posted", "Posted"), ("final", "Final")],
         readonly=True,
@@ -28,12 +35,16 @@ class VatStatement(models.Model):
         "Company",
         required=True,
         readonly=True,
-        default=lambda self: self.env.user.company_id,
+        default=lambda self: self.env.company,
     )
-    from_date = fields.Date(required=True)
-    to_date = fields.Date(required=True)
-    date_range_id = fields.Many2one("date.range", "Date range",)
-    currency_id = fields.Many2one("res.currency", related="company_id.currency_id",)
+    from_date = fields.Date(
+        required=True, store=True, readonly=False, compute="_compute_date_range"
+    )
+    to_date = fields.Date(
+        required=True, store=True, readonly=False, compute="_compute_date_range"
+    )
+    date_range_id = fields.Many2one("date.range", "Date range")
+    currency_id = fields.Many2one("res.currency", related="company_id.currency_id")
     target_move = fields.Selection(
         [("posted", "All Posted Entries"), ("all", "All Entries")],
         "Target Moves",
@@ -56,7 +67,24 @@ class VatStatement(models.Model):
         string="Entry Lines",
         readonly=True,
     )
+    multicompany_fiscal_unit = fields.Boolean()
+    display_multicompany_fiscal_unit = fields.Boolean(
+        compute="_compute_display_multicompany_fiscal_unit"
+    )
+    fiscal_unit_company_ids = fields.Many2many("res.company")
+    parent_id = fields.Many2one(
+        "l10n.nl.vat.statement",
+        "Parent Statement",
+        compute="_compute_parent_statement_id",
+    )
 
+    @api.depends(
+        "unreported_move_from_date",
+        "company_id",
+        "is_invoice_basis",
+        "from_date",
+        "to_date",
+    )
     def _compute_unreported_move_ids(self):
         for statement in self:
             domain = statement._get_unreported_move_domain()
@@ -64,13 +92,54 @@ class VatStatement(models.Model):
             moves = move_lines.mapped("move_id").sorted("date")
             statement.unreported_move_ids = moves
 
+    @api.depends(
+        "company_id",
+        "company_id.child_ids",
+        "company_id.currency_id",
+        "company_id.country_id",
+    )
+    def _compute_display_multicompany_fiscal_unit(self):
+        for statement in self:
+            is_fiscal_entity = True
+            child_ids = statement.company_id.child_ids
+            if not child_ids:
+                is_fiscal_entity = False
+            currency = statement.company_id.currency_id
+            nl_country = self.env.ref("base.nl")
+            if all(c.currency_id != currency for c in child_ids):
+                is_fiscal_entity = False
+            if all(c.partner_id.country_id != nl_country for c in child_ids):
+                is_fiscal_entity = False
+            statement.display_multicompany_fiscal_unit = is_fiscal_entity
+
+    @api.depends("company_id", "from_date", "to_date")
+    def _compute_parent_statement_id(self):
+        for statement in self:
+            statement.parent_id = False
+            if statement.company_id.parent_id:
+                parent = self.sudo().search(
+                    [
+                        ("fiscal_unit_company_ids", "=", statement.company_id.id),
+                        ("company_id", "!=", statement.company_id.id),
+                        ("from_date", "=", statement.from_date),
+                        ("to_date", "=", statement.to_date),
+                    ]
+                )
+                statement.parent_id = parent
+
+    def _init_move_line_domain(self):
+        return [
+            ("company_id", "in", self._get_company_ids_full_list()),
+            ("l10n_nl_vat_statement_id", "=", False),
+            ("parent_state", "=", "posted"),
+            "|",
+            ("tax_ids", "!=", False),
+            ("tax_line_id", "!=", False),
+        ]
+
     def _get_unreported_move_domain(self):
         self.ensure_one()
-        domain = [
-            ("company_id", "=", self.company_id.id),
-            ("invoice_id", "!=", False),
-            ("l10n_nl_vat_statement_id", "=", False),
-        ]
+        domain = self._init_move_line_domain()
         if self.is_invoice_basis and not self.unreported_move_from_date:
             domain += [
                 "|",
@@ -96,22 +165,28 @@ class VatStatement(models.Model):
                 ("l10n_nl_date_invoice", ">=", self.unreported_move_from_date),
             ]
         else:
-            domain += [
-                ("date", "<", self.from_date),
-            ]
+            domain += [("date", "<", self.from_date)]
             if self.unreported_move_from_date:
-                domain += [
-                    ("date", ">=", self.unreported_move_from_date),
-                ]
+                domain += [("date", ">=", self.unreported_move_from_date)]
         return domain
+
+    def _get_company_ids_full_list(self):
+        self.ensure_one()
+        company_ids = [self.company_id.id]
+        if self.multicompany_fiscal_unit:
+            company_ids += self.fiscal_unit_company_ids.ids
+        return company_ids
 
     unreported_move_ids = fields.One2many(
         "account.move",
         string="Unreported Journal Entries",
         compute="_compute_unreported_move_ids",
     )
-    unreported_move_from_date = fields.Date()
+    unreported_move_from_date = fields.Date(
+        compute="_compute_unreported_move_from_date", store=True, readonly=False
+    )
 
+    @api.depends("company_id")
     def _compute_is_invoice_basis(self):
         has_invoice_basis = (
             self.env["ir.model.fields"]
@@ -131,7 +206,7 @@ class VatStatement(models.Model):
                 statement.is_invoice_basis = False
 
     is_invoice_basis = fields.Boolean(
-        string="NL Tax Invoice Basis", compute="_compute_is_invoice_basis",
+        string="NL Tax Invoice Basis", compute="_compute_is_invoice_basis"
     )
 
     @api.depends("btw_total")
@@ -143,48 +218,37 @@ class VatStatement(models.Model):
     @api.model
     def default_get(self, fields_list):
         defaults = super().default_get(fields_list)
-        company = self.env.user.company_id
-        fy_dates = company.compute_fiscalyear_dates(datetime.now())
+        fy_dates = self.env.company.compute_fiscalyear_dates(datetime.now())
         defaults.setdefault("from_date", fy_dates["date_from"])
         defaults.setdefault("to_date", fy_dates["date_to"])
-        defaults.setdefault("name", company.name)
+        defaults.setdefault("name", self.env.company.name)
         return defaults
 
-    @api.onchange("date_range_id")
-    def onchange_date_range_id(self):
-        if self.date_range_id and self.state == "draft":
-            self.update(
-                {
-                    "from_date": self.date_range_id.date_start,
-                    "to_date": self.date_range_id.date_end,
-                }
-            )
+    @api.depends("date_range_id")
+    def _compute_date_range(self):
+        for statement in self:
+            if statement.date_range_id and statement.state == "draft":
+                statement.from_date = statement.date_range_id.date_start
+                statement.to_date = statement.date_range_id.date_end
 
-    @api.onchange("from_date", "to_date")
-    def onchange_date(self):
-        display_name = self.company_id.name
-        if self.from_date and self.to_date:
-            from_date = fields.Date.to_string(self.from_date)
-            to_date = fields.Date.to_string(self.to_date)
-            display_name += ": " + " ".join([from_date, to_date])
-        self.name = display_name
+    @api.depends("from_date", "to_date")
+    def _compute_name(self):
+        for statement in self:
+            display_name = statement.company_id.name
+            if statement.from_date and statement.to_date:
+                from_date = fields.Date.to_string(statement.from_date)
+                to_date = fields.Date.to_string(statement.to_date)
+                display_name += ": " + " ".join([from_date, to_date])
+            statement.name = display_name
 
-    @api.onchange("from_date")
-    def onchange_date_from_date(self):
+    @api.depends("from_date")
+    def _compute_unreported_move_from_date(self):
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
-        date_from = self.from_date + relativedelta(months=-3, day=1)
-        self.unreported_move_from_date = date_from
+        for statement in self:
+            date_from = statement.from_date + relativedelta(months=-3, day=1)
+            statement.unreported_move_from_date = date_from
 
-    @api.onchange("unreported_move_from_date")
-    def onchange_unreported_move_from_date(self):
-        self._compute_unreported_move_ids()
-
-    @api.model
-    def _get_taxes_domain(self):
-        return [("has_moves", "=", True)]
-
-    @api.model
     def _prepare_lines(self):
         lines = {}
         lines["1"] = {"code": "1", "name": _("Leveringen en/of diensten binnenland")}
@@ -281,7 +345,6 @@ class VatStatement(models.Model):
         lines["5f"] = {"code": "5f", "btw": 0.0, "name": _("Schatting deze aangifte")}
         return lines
 
-    @api.model
     def _finalize_lines(self, lines):
         _1ab = lines["1a"]["btw"]
         _1bb = lines["1b"]["btw"]
@@ -316,41 +379,29 @@ class VatStatement(models.Model):
 
         return lines
 
-    @api.model
     def _get_tags_map(self):
-        company_id = self.env.user.company_id.id
-        config = self.env["l10n.nl.vat.statement.config"].search(
-            [("company_id", "=", company_id)], limit=1
+        country_nl = self.env.ref("base.nl")
+        nl_tags = self.env["account.account.tag"].search(
+            [("country_id", "=", country_nl.id), ("applicability", "=", "taxes")]
         )
-        if not config:
+        if not nl_tags:
             raise UserError(
                 _(
-                    "Tags mapping not configured for this Company! "
+                    "Tags mapping not configured for The Netherlands! "
                     "Check the NL BTW Tags Configuration."
                 )
             )
-        return {
-            config.tag_1a_omzet.id: ("1a", "omzet"),
-            config.tag_1a_btw.id: ("1a", "btw"),
-            config.tag_1b_omzet.id: ("1b", "omzet"),
-            config.tag_1b_btw.id: ("1b", "btw"),
-            config.tag_1c_omzet.id: ("1c", "omzet"),
-            config.tag_1c_btw.id: ("1c", "btw"),
-            config.tag_1d_omzet.id: ("1d", "omzet"),
-            config.tag_1d_btw.id: ("1d", "btw"),
-            config.tag_1e_omzet.id: ("1e", "omzet"),
-            config.tag_2a_omzet.id: ("2a", "omzet"),
-            config.tag_2a_btw.id: ("2a", "btw"),
-            config.tag_3a_omzet.id: ("3a", "omzet"),
-            config.tag_3b_omzet.id: ("3b", "omzet"),
-            config.tag_3b_omzet_d.id: ("3b", "omzet"),
-            config.tag_3c_omzet.id: ("3c", "omzet"),
-            config.tag_4a_omzet.id: ("4a", "omzet"),
-            config.tag_4a_btw.id: ("4a", "btw"),
-            config.tag_4b_omzet.id: ("4b", "omzet"),
-            config.tag_4b_btw.id: ("4b", "btw"),
-            config.tag_5b_btw.id: ("5b", "btw"),
-        }
+        pattern_code = re.compile(r"[+,-]?\d\w")
+        matching = {}
+        for tag in nl_tags:
+            res_code = pattern_code.match(tag.name)
+            if re.search("omzet", tag.name, re.IGNORECASE):
+                matching.update({tag.id: (res_code.group(0), "omzet")})
+            elif re.search("btw", tag.name, re.IGNORECASE):
+                matching.update({tag.id: (res_code.group(0), "btw")})
+            elif res_code:
+                matching.update({tag.id: (res_code.group(0), False)})
+        return matching
 
     def statement_update(self):
         self.ensure_one()
@@ -358,15 +409,18 @@ class VatStatement(models.Model):
         if self.state in ["posted", "final"]:
             raise UserError(_("You cannot modify a posted statement!"))
 
+        if self.parent_id:
+            return
+
         # clean old lines
         self.line_ids.unlink()
 
         # calculate lines
         lines = self._prepare_lines()
-        taxes = self._compute_taxes()
-        self._set_statement_lines(lines, taxes)
-        taxes = self._compute_past_invoices_taxes()
-        self._set_statement_lines(lines, taxes)
+        move_lines = self._compute_move_lines()
+        self._set_statement_lines(lines, move_lines)
+        move_lines = self._compute_past_invoices_move_lines()
+        self._set_statement_lines(lines, move_lines)
         self._finalize_lines(lines)
 
         # create lines
@@ -377,61 +431,39 @@ class VatStatement(models.Model):
             }
         )
 
-    def _compute_past_invoices_taxes(self):
+    def _compute_past_invoices_move_lines(self):
         self.ensure_one()
-        ctx = {
-            "from_date": self.from_date,
-            "to_date": self.to_date,
-            "target_move": self.target_move,
-            "company_id": self.company_id.id,
-            "skip_invoice_basis_domain": True,
-            "unreported_move": True,
-            "is_invoice_basis": self.is_invoice_basis,
-            "unreported_move_from_date": self.unreported_move_from_date,
-        }
-        taxes = self.env["account.tax"].with_context(ctx)
         moves_to_include = self.unreported_move_ids.filtered(
             lambda m: m.l10n_nl_vat_statement_include
         )
-        for move_line in moves_to_include.mapped("line_ids"):
-            if move_line.tax_exigible:
-                if move_line.tax_line_id:
-                    taxes |= move_line.tax_line_id
-                if move_line.tax_ids:
-                    taxes |= move_line.tax_ids
-        return taxes
+        return moves_to_include.line_ids
 
-    def _compute_taxes(self):
+    def _compute_move_lines(self):
         self.ensure_one()
-        ctx = {
-            "from_date": self.from_date,
-            "to_date": self.to_date,
-            "target_move": self.target_move,
-            "company_id": self.company_id.id,
-        }
-        domain = self._get_taxes_domain()
-        taxes = self.env["account.tax"].with_context(ctx).search(domain)
-        return taxes
+        domain = self._get_move_lines_domain()
+        return self.env["account.move.line"].search(domain)
 
-    def _set_statement_lines(self, lines, taxes):
+    def _set_statement_lines(self, lines, move_lines):
         self.ensure_one()
         tags_map = self._get_tags_map()
-        for tax in taxes:
-            for tag in tax.tag_ids:
+        for line in move_lines:
+            for tag in line.tag_ids:
                 tag_map = tags_map.get(tag.id)
                 if tag_map:
                     code, column = tag_map
-                    if column == "omzet":
-                        lines[code][column] += tax.base_balance
-                    else:
-                        lines[code][column] += tax.balance
+                    code = self._strip_sign_in_tag_code(code)
+                    if not column:
+                        if "tax" in lines[code]:
+                            column = "tax"
+                        else:
+                            column = "base"
+                    lines[code][column] -= line.balance
 
     def finalize(self):
         self.ensure_one()
         self.write({"state": "final"})
 
-    def post(self):
-        self.ensure_one()
+    def _check_prev_open_statements(self):
         prev_open_statements = self.search(
             [
                 ("company_id", "=", self.company_id.id),
@@ -450,16 +482,21 @@ class VatStatement(models.Model):
                 )
             )
 
+    def post(self):
+        self.ensure_one()
+        self._check_prev_open_statements()
+
         self.write({"state": "posted", "date_posted": fields.Datetime.now()})
         self.unreported_move_ids.filtered(
             lambda m: m.l10n_nl_vat_statement_include
-        ).write(
-            {"l10n_nl_vat_statement_id": self.id,}
-        )
-        domain = [
-            ("company_id", "=", self.company_id.id),
-            ("l10n_nl_vat_statement_id", "=", False),
-        ]
+        ).write({"l10n_nl_vat_statement_id": self.id})
+        self.unreported_move_ids.flush()
+        move_lines = self._compute_move_lines()
+        move_lines.move_id.write({"l10n_nl_vat_statement_id": self.id})
+        move_lines.move_id.flush()
+
+    def _get_move_lines_domain(self):
+        domain = self._init_move_line_domain()
         if self.is_invoice_basis:
             domain += [
                 "|",
@@ -475,15 +512,8 @@ class VatStatement(models.Model):
                 ("l10n_nl_date_invoice", ">=", self.from_date),
             ]
         else:
-            domain += [
-                ("date", "<=", self.to_date),
-                ("date", ">=", self.from_date),
-            ]
-        move_line_ids = self.env["account.move.line"].search(domain)
-        updated_move_ids = move_line_ids.mapped("move_id")
-        updated_move_ids.write(
-            {"l10n_nl_vat_statement_id": self.id,}
-        )
+            domain += [("date", "<=", self.to_date), ("date", ">=", self.from_date)]
+        return domain
 
     def reset(self):
         self.write({"state": "draft", "date_posted": None})
@@ -495,7 +525,6 @@ class VatStatement(models.Model):
         """
         self.env.cr.execute(req, (self.id,))
 
-    @api.model
     def _modifiable_values_when_posted(self):
         return ["state"]
 
@@ -534,3 +563,32 @@ class VatStatement(models.Model):
             lines = statement.line_ids
             total_lines = lines.filtered(lambda l: l.code in ["5c", "5d"])
             statement.btw_total = sum(line.btw for line in total_lines)
+
+    @api.constrains("fiscal_unit_company_ids")
+    def _check_fiscal_unit_company_ids(self):
+        for statement in self.sudo():
+            unit_companies = statement.fiscal_unit_company_ids
+            country_nl = self.env.ref("base.nl")
+            if any(u.country_id != country_nl for u in unit_companies):
+                raise ValidationError(
+                    _(
+                        "The Companies belonging to a fiscal unit "
+                        "must be in The Netherlands."
+                    )
+                )
+
+    def _get_all_statement_move_lines(self):
+        self.ensure_one()
+        if self.state == "draft":
+            curr_amls = self._compute_move_lines()
+            past_amls = self._compute_past_invoices_move_lines()
+            all_amls = curr_amls | past_amls
+        else:
+            all_amls = self.move_line_ids
+        return all_amls
+
+    @api.model
+    def _strip_sign_in_tag_code(self, code):
+        if code[0:1] in ["+", "-"]:
+            code = code[1:]
+        return code
