@@ -37,8 +37,7 @@ Use this module in combination with module ``l10n_nl_tax_invoice_basis`` if you 
 Installation
 ============
 
-* This module depends on module ``account_tax_balance`` available at https://github.com/OCA/account-financial-reporting.
-* This module also depends on module ``date_range``.
+* This module depends on module ``date_range``.
 
 Configuration
 =============
@@ -46,10 +45,9 @@ Configuration
 This module makes use of the tax tags (eg.: 1a, 1b, 1c, 1d, 2a...) as prescribed by the Dutch tax laws.
 
 If the default Odoo Dutch chart of accounts is installed (module ``l10n_nl``) then these tags are automatically present in the database.
-If this is the case, go to menu: `Invoicing -> Configuration -> Accounting -> NL BTW Tags`, and check that the tags are correctly set; click Apply to confirm.
 
 If a non-standard chart of accounts is installed, you have to manually create the tax tags and properly set them into the tax definition.
-After that, go to go to menu: `Invoicing -> Configuration -> Accounting -> NL BTW Tags`, and manually set the tags in the configuration form; click Apply to confirm.
+The name of the tags must be formatted this way: "+1a (omzet)", "+1a (btw)", "-1a (omzet)", "-1a (btw)", "+2a (omzet)", "+2a (btw)", etc...
 
 If your Company adopts the *Factuurstelsel* system for the accounting, also install the module ``l10n_nl_tax_invoice_basis``
 (for more information about the installation and configuration of that module, check the README file).
@@ -84,10 +82,23 @@ Printing a PDF report:
 
 #. If you need to print the report in PDF, open a statement form and click: `Print -> NL Tax Statement`
 
+Multicompany fiscal unit:
+
+#. According the Dutch Tax Authority, for all the companies belonging to a
+   fiscal unit, it's possible to declare one single tax statement.
+#. To create one tax statement for a fiscal unit, log in into the parent
+   company and select the child companies in the statement (be sure the user
+   belongs to the multicompany group).
+#. The child companies must have the same Tax codes labels (Tax Tags) as the
+   parent company, the same currency as the parent company and must be located
+   in The Netherlands.
+
 Known issues / Roadmap
 ======================
 
 * Exporting in SBR/XBLR format not yet available
+* Limit invoices to last 5 year based on fiscal year end date (legal requirement)
+* The unreported from date is calculate as 1 quarter, it should take 1 fiscal year based on fiscal year end date
 
 Changelog
 =========
