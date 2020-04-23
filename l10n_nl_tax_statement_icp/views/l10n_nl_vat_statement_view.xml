@@ -37,7 +37,7 @@
                             states="posted"
                         >Press the Update button in order to recompute the lines!</div>
                         <button
-                            name="button_box_icp_statement"
+                            name="icp_update"
                             string="Update"
                             states="posted"
                             type="object"
