@@ -9,29 +9,8 @@
             ref="l10n_nl_tax_statement.view_l10n_nl_vat_report_form"
         />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='statement']">
-                <group
-                    attrs="{'invisible': ['|',('state','!=','draft'),('parent_id','=',False)]}"
-                >
-                    <div
-                        states="draft"
-                    >Post the statement to create the ICP report!</div>
-                    <button
-                        name="post"
-                        string="Post"
-                        states="draft"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-arrow-right text-success"
-                    />
-                </group>
-            </xpath>
             <xpath expr="//notebook" position="inside">
-                <page
-                    name="icp_statement"
-                    string="ICP Statement"
-                    attrs="{'invisible':[('state','=','draft')]}"
-                >
+                <page name="icp_statement" string="ICP Statement">
                     <group name="icp_lines" string="ICP Statement lines">
                         <div
                             states="posted"

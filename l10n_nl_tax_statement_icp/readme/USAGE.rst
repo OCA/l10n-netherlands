@@ -1,7 +1,6 @@
 To use this module, you need to:
 
-#. Create a BTW Statement.
-#. Post the BTW Statement: a new tab *ICP Statement* will be displayed; the tab contains the lines of the ICP declaration report.
+#. Create a BTW Statement: a new tab *ICP Statement* will be displayed; the tab contains the lines of the ICP declaration report.
 #. In tab *ICP Statement* press the Update button in order to recompute the ICP statement lines.
 
 Printing a PDF report:
