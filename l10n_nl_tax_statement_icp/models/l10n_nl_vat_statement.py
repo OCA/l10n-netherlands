@@ -69,7 +69,9 @@ class VatStatement(models.Model):
         self.ensure_one()
 
         partner_amounts_map = {}
-        move_lines = self.move_line_ids | self.sudo().parent_id.move_line_ids
+        move_lines = self._get_all_statement_move_lines()
+        if not move_lines and self.sudo().parent_id:
+            move_lines = self.sudo().parent_id._get_all_statement_move_lines()
         move_lines = move_lines.sudo().filtered(
             lambda l: l.company_id == self.company_id
         )
@@ -152,8 +154,5 @@ class VatStatement(models.Model):
         if self.state in ["final"]:
             raise UserError(_("You cannot modify a final statement!"))
 
-        # clean old lines
-        self.icp_line_ids.unlink()
-
-        # create lines
+        # recreate lines
         self._create_icp_lines()
