@@ -337,6 +337,7 @@ class XafAuditfileExport(models.Model):
                     ("date", ">=", self.date_start),
                     ("date", "<=", self.date_end),
                     ("journal_id", "=", journal.id),
+                    ("state", "=", "posted"),
                 ]
             )
             .ids
