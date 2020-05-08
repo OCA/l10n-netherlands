@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Onestein (<https://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <report
+      id="action_report_tax_statement_icp"
+      model="l10n.nl.vat.statement"
+      string="NL ICP Statement"
+      report_type="qweb-pdf"
+      name="l10n_nl_tax_statement_icp.report_tax_statement_icp"
+      file="l10n_nl_tax_statement_icp.report_tax_statement_icp"
+      />
+
+    <record id="action_report_tax_statement_icp" model="ir.actions.report">
+        <field name="paperformat_id" ref="l10n_nl_tax_statement.paperformat_nl_tax_statement"/>
+    </record>
+
+</odoo>
