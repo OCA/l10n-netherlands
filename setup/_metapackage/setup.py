@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo12-addon-l10n_nl_postcode',
         'odoo12-addon-l10n_nl_tax_invoice_basis',
         'odoo12-addon-l10n_nl_tax_statement',
+        'odoo12-addon-l10n_nl_tax_statement_icp',
         'odoo12-addon-l10n_nl_xaf_auditfile_export',
     ],
     classifiers=[
