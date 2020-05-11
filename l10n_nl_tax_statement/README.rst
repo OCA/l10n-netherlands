@@ -84,6 +84,17 @@ Printing a PDF report:
 
 #. If you need to print the report in PDF, open a statement form and click: `Print -> NL Tax Statement`
 
+Multicompany fiscal unit:
+
+#. According the Dutch Tax Authority, for all the companies belonging to a
+   fiscal unit, it's possible to declare one single tax statement.
+#. To create one tax statement for a fiscal unit, log in into the parent
+   company and select the child companies in the statement (be sure the user
+   belongs to the multicompany group).
+#. The child companies must have the same Tax codes labels (Tax Tags) as the
+   parent company, the same currency as the parent company and must be located
+   in The Netherlands.
+
 Known issues / Roadmap
 ======================
 
