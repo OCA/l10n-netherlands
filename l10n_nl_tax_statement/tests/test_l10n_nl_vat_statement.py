@@ -8,8 +8,9 @@ from mock import patch
 import odoo
 from odoo import fields
 from odoo.tools import convert_file
-from odoo.modules.module import get_module_resource
-from odoo.exceptions import UserError
+from odoo.modules.module import get_resource_path
+from odoo.exceptions import UserError, ValidationError
+from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 
 
@@ -19,7 +20,7 @@ class TestVatStatement(TransactionCase):
         convert_file(
             self.cr,
             'l10n_nl',
-            get_module_resource(module, *args),
+            get_resource_path(module, *args),
             {}, 'init', False, 'test', self.registry._assertion_report)
 
     def setUp(self):
@@ -64,17 +65,6 @@ class TestVatStatement(TransactionCase):
             'tag_3b_omzet_d': self.tag_4.id,
         })
 
-        daterange_type = self.env['date.range.type'].create({
-            'name': 'Type 1'
-        })
-
-        self.daterange_1 = self.env['date.range'].create({
-            'name': 'Daterange 1',
-            'type_id': daterange_type.id,
-            'date_start': '2016-01-01',
-            'date_end': '2016-12-31',
-        })
-
         self.statement_1 = self.env['l10n.nl.vat.statement'].create({
             'name': 'Statement 1',
         })
@@ -92,7 +82,7 @@ class TestVatStatement(TransactionCase):
 
         account_receivable = self.env['account.account'].search([
             ('user_type_id', '=', type_account.id)
-        ], limit=1)
+        ], order='id asc', limit=1)
 
         invoice1_vals = [{
             'name': 'Test line',
@@ -119,28 +109,38 @@ class TestVatStatement(TransactionCase):
         })
 
     def test_01_onchange(self):
-        self.statement_1.write({'date_range_id': self.daterange_1.id})
-        self.statement_1.onchange_date_range_id()
-        from_date = datetime.date(2016, 1, 1)
-        to_date = datetime.date(2016, 12, 31)
-        self.assertEqual(self.statement_1.from_date, from_date)
-        self.assertEqual(self.statement_1.to_date, to_date)
+        daterange_type = self.env['date.range.type'].create({
+            'name': 'Type 1'
+        })
+        daterange = self.env['date.range'].create({
+            'name': 'Daterange 1',
+            'type_id': daterange_type.id,
+            'date_start': '2016-01-01',
+            'date_end': '2016-12-31',
+        })
+        form = Form(self.env['l10n.nl.vat.statement'].with_context({
+            'active_model': 'l10n.nl.vat.statement',
+            'active_ids': [self.statement_1.id],
+            'active_id': self.statement_1.id
+        }))
+        form.date_range_id = daterange
+        statement = form.save()
+        self.assertEqual(statement.from_date, datetime.date(2016, 1, 1))
+        self.assertEqual(statement.to_date, datetime.date(2016, 12, 31))
 
-        self.statement_1.onchange_date()
-        check_name = self.statement_1.company_id.name
-        str_from_date = fields.Date.to_string(self.statement_1.from_date)
-        str_to_date = fields.Date.to_string(self.statement_1.to_date)
+        check_name = statement.company_id.name
+        str_from_date = fields.Date.to_string(statement.from_date)
+        str_to_date = fields.Date.to_string(statement.to_date)
         check_name += ': ' + ' '.join([str_from_date, str_to_date])
-        self.assertEqual(self.statement_1.name, check_name)
+        self.assertEqual(statement.name, check_name)
 
-        self.statement_1.onchange_date_from_date()
-        d_from = self.statement_1.from_date
+        d_from = statement.from_date
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
         new_date = d_from + relativedelta(months=-3, day=1)
-        self.assertEqual(self.statement_1.unreported_move_from_date, new_date)
+        self.assertEqual(statement.unreported_move_from_date, new_date)
 
-        self.assertEqual(self.statement_1.btw_total, 0.)
+        self.assertEqual(statement.btw_total, 0.)
 
     def test_02_post_final(self):
         # in draft
@@ -543,3 +543,68 @@ class TestVatStatement(TransactionCase):
         ).action_invoice_open()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
+
+    def test_20_multicompany(self):
+        company_parent = self.env['res.company'].create({
+            'name': 'Parent Company',
+            'country_id': self.env.ref('base.nl').id,
+        })
+        company_child_1 = self.env['res.company'].create({
+            'name': 'Child 1 Company',
+            'country_id': self.env.ref('base.nl').id,
+            'parent_id': company_parent.id,
+        })
+        company_child_2 = self.env['res.company'].create({
+            'name': 'Child 2 Company',
+            'country_id': self.env.ref('base.be').id,
+            'parent_id': company_parent.id,
+        })
+        chart_template = self.env.user.company_id.chart_template_id
+        self.env.user.company_id = company_parent.id
+        chart_template.try_loading_for_current_company()
+        form = Form(self.env['l10n.nl.vat.statement'])
+        statement_parent = form.save()
+        self.assertFalse(statement_parent.multicompany_fiscal_unit)
+        self.assertTrue(statement_parent.display_multicompany_fiscal_unit)
+        self.assertFalse(statement_parent.fiscal_unit_company_ids)
+        self.assertFalse(statement_parent.parent_id)
+
+        self.env.user.company_id = company_child_1.id
+        chart_template.try_loading_for_current_company()
+        form = Form(self.env['l10n.nl.vat.statement'])
+        statement_child_1 = form.save()
+        self.assertFalse(statement_child_1.multicompany_fiscal_unit)
+        self.assertFalse(statement_child_1.display_multicompany_fiscal_unit)
+        self.assertFalse(statement_child_1.fiscal_unit_company_ids)
+        self.assertFalse(statement_child_1.parent_id)
+
+        self.env.user.company_id = company_child_2.id
+        chart_template.try_loading_for_current_company()
+        form = Form(self.env['l10n.nl.vat.statement'])
+        statement_child_2 = form.save()
+        self.assertFalse(statement_child_2.multicompany_fiscal_unit)
+        self.assertFalse(statement_child_2.display_multicompany_fiscal_unit)
+        self.assertFalse(statement_child_2.fiscal_unit_company_ids)
+        self.assertFalse(statement_child_2.parent_id)
+
+        statement_parent.multicompany_fiscal_unit = True
+        statement_parent.fiscal_unit_company_ids |= company_child_1
+
+        with self.assertRaises(ValidationError):
+            statement_parent.fiscal_unit_company_ids |= company_child_2
+
+        company_child_2.country_id = self.env.ref('base.nl')
+        statement_parent.fiscal_unit_company_ids |= company_child_2
+        statement_child_1._compute_parent_statement_id()
+        statement_child_2._compute_parent_statement_id()
+        self.assertFalse(statement_parent.parent_id)
+        self.assertTrue(statement_child_1.parent_id)
+        self.assertTrue(statement_child_2.parent_id)
+
+        statement_child_1.statement_update()
+        self.assertFalse(statement_child_1.line_ids)
+        statement_child_2.statement_update()
+        self.assertFalse(statement_child_1.line_ids)
+
+        company_ids_full_list = statement_parent._get_company_ids_full_list()
+        self.assertEqual(len(company_ids_full_list), 3)

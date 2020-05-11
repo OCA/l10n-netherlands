@@ -5,7 +5,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import formatLang
 
 
@@ -47,6 +47,7 @@ class VatStatement(models.Model):
     currency_id = fields.Many2one(
         'res.currency',
         related='company_id.currency_id',
+        readonly=True
     )
     target_move = fields.Selection([
         ('posted', 'All Posted Entries'),
@@ -72,6 +73,18 @@ class VatStatement(models.Model):
         string='Entry Lines',
         readonly=True,
     )
+    multicompany_fiscal_unit = fields.Boolean()
+    display_multicompany_fiscal_unit = fields.Boolean(
+        compute='_compute_display_multicompany_fiscal_unit',
+    )
+    fiscal_unit_company_ids = fields.Many2many(
+        'res.company',
+    )
+    parent_id = fields.Many2one(
+        'l10n.nl.vat.statement',
+        'Parent Statement',
+        compute='_compute_parent_statement_id',
+    )
 
     def _compute_unreported_move_ids(self):
         for statement in self:
@@ -80,10 +93,39 @@ class VatStatement(models.Model):
             moves = move_lines.mapped('move_id').sorted('date')
             statement.unreported_move_ids = moves
 
+    @api.depends('company_id')
+    def _compute_display_multicompany_fiscal_unit(self):
+        for statement in self:
+            is_fiscal_entity = True
+            child_ids = statement.company_id.child_ids
+            if not child_ids:
+                is_fiscal_entity = False
+            currency = statement.company_id.currency_id
+            nl_country = self.env.ref('base.nl')
+            if all(c.currency_id != currency for c in child_ids):
+                is_fiscal_entity = False
+            if all(c.partner_id.country_id != nl_country for c in child_ids):
+                is_fiscal_entity = False
+            statement.display_multicompany_fiscal_unit = is_fiscal_entity
+
+    @api.depends('company_id', 'from_date', 'to_date')
+    def _compute_parent_statement_id(self):
+        for statement in self:
+            statement.parent_id = False
+            if statement.company_id.parent_id:
+                parent = self.sudo().search([
+                    ('fiscal_unit_company_ids', '=', statement.company_id.id),
+                    ('company_id', '!=', statement.company_id.id),
+                    ('from_date', '=', statement.from_date),
+                    ('to_date', '=', statement.to_date),
+                ])
+                statement.parent_id = parent
+
     def _get_unreported_move_domain(self):
         self.ensure_one()
+        company_ids = self._get_company_ids_full_list()
         domain = [
-            ('company_id', '=', self.company_id.id),
+            ('company_id', 'in', company_ids),
             ('invoice_id', '!=', False),
             ('l10n_nl_vat_statement_id', '=', False),
         ]
@@ -118,6 +160,13 @@ class VatStatement(models.Model):
                     ('date', '>=', self.unreported_move_from_date),
                 ]
         return domain
+
+    def _get_company_ids_full_list(self):
+        self.ensure_one()
+        company_ids = [self.company_id.id]
+        if self.multicompany_fiscal_unit:
+            company_ids += self.fiscal_unit_company_ids.ids
+        return company_ids
 
     unreported_move_ids = fields.One2many(
         'account.move',
@@ -337,6 +386,9 @@ class VatStatement(models.Model):
         if self.state in ['posted', 'final']:
             raise UserError(_('You cannot modify a posted statement!'))
 
+        if self.parent_id:
+            return
+
         # clean old lines
         self.line_ids.unlink()
 
@@ -356,11 +408,13 @@ class VatStatement(models.Model):
 
     def _compute_past_invoices_taxes(self):
         self.ensure_one()
+        company_ids = self._get_company_ids_full_list()
         ctx = {
             'from_date': self.from_date,
             'to_date': self.to_date,
             'target_move': self.target_move,
             'company_id': self.company_id.id,
+            'fiscal_entities_ids': company_ids,
             'skip_invoice_basis_domain': True,
             'unreported_move': True,
             'is_invoice_basis': self.is_invoice_basis,
@@ -379,11 +433,13 @@ class VatStatement(models.Model):
 
     def _compute_taxes(self):
         self.ensure_one()
+        company_ids = self._get_company_ids_full_list()
         ctx = {
             'from_date': self.from_date,
             'to_date': self.to_date,
             'target_move': self.target_move,
             'company_id': self.company_id.id,
+            'fiscal_entities_ids': company_ids,
         }
         domain = self._get_taxes_domain()
         taxes = self.env['account.tax'].with_context(ctx).search(domain)
@@ -431,8 +487,9 @@ class VatStatement(models.Model):
         ).write({
             'l10n_nl_vat_statement_id': self.id,
         })
+        company_ids = self._get_company_ids_full_list()
         domain = [
-            ('company_id', '=', self.company_id.id),
+            ('company_id', 'in', company_ids),
             ('l10n_nl_vat_statement_id', '=', False),
         ]
         if self.is_invoice_basis:
@@ -507,3 +564,13 @@ class VatStatement(models.Model):
             lines = statement.line_ids
             total_lines = lines.filtered(lambda l: l.code in ['5c', '5d'])
             statement.btw_total = sum(line.btw for line in total_lines)
+
+    @api.constrains('fiscal_unit_company_ids')
+    def _check_fiscal_unit_company_ids(self):
+        for statement in self.sudo():
+            unit_companies = statement.fiscal_unit_company_ids
+            country_nl = self.env.ref('base.nl')
+            if any(u.country_id != country_nl for u in unit_companies):
+                raise ValidationError(
+                    _('The Companies belonging to a fiscal unit '
+                      'must be in The Netherlands.'))

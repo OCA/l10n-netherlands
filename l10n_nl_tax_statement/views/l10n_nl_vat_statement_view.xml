@@ -24,6 +24,10 @@
                     <group>
                         <group name="tax_report">
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            <field name="parent_id" attrs="{'invisible': [('parent_id', '=', False)]}" groups="base.group_multi_company"/>
+                            <field name="display_multicompany_fiscal_unit" invisible="1" groups="base.group_multi_company"/>
+                            <field name="multicompany_fiscal_unit" attrs="{'readonly': [('state','in',['posted','final'])],'invisible': [('display_multicompany_fiscal_unit', '=', False)]}" groups="base.group_multi_company"/>
+                            <field name="fiscal_unit_company_ids" widget="many2many_tags" domain="[('parent_id', '=', company_id)]" attrs="{'readonly': [('state','in',['posted','final'])],'invisible': [('multicompany_fiscal_unit', '=', False)]}" groups="base.group_multi_company"/>
                             <field name="date_range_id" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
                             <field name="from_date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
                             <field name="to_date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
@@ -37,13 +41,16 @@
                     </group>
                     <notebook name="notebook">
                         <page name="statement" string="BTW Statement">
-                            <group name="statement_lines" string="BTW Statement lines">
+                            <group attrs="{'invisible': [('parent_id','=',False)]}">
+                                <div>Check the statement of the parent Company.</div>
+                            </group>
+                            <group name="statement_lines" string="BTW Statement lines" attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}">
                                 <div states="draft">Press the Update button in order to recompute the statement lines!</div>
                                 <div class="oe_button_box" name="button_box">
                                     <button name="statement_update" string="Update" states="draft" type="object" class="oe_stat_button" icon="fa-repeat"/>
                                 </div>
                             </group>
-                            <field name="line_ids">
+                            <field name="line_ids" attrs="{'invisible': [('parent_id','!=',False)]}">
                                 <form>
                                     <group>
                                         <group>
@@ -70,7 +77,7 @@
                                     <button name="view_tax_lines" type="object" string="View tax lines" icon="fa-search-plus" attrs="{'invisible': ['|',('format_btw', '=', False),('is_total', '=', True)]}"/>
                                 </tree>
                             </field>
-                            <group>
+                            <group attrs="{'invisible': [('parent_id','!=',False)]}">
                                 <group>
                                 </group>
                                 <group>
@@ -79,7 +86,7 @@
                                 </group>
                             </group>
                         </page>
-                        <page name="entry_lines" string="Past Undeclared Invoices" attrs="{'invisible':[('state','!=','draft')]}">
+                        <page name="entry_lines" string="Past Undeclared Invoices" attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}">
                             <group name="unreported_move_filter" string="Include Undeclared Invoices">
                                 <group>
                                     <field name="unreported_move_from_date" string="From Date" attrs="{'readonly': [('state','in',['posted','final'])]}"/>
