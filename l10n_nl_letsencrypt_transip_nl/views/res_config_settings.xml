@@ -1,0 +1,27 @@
+<odoo>
+
+    <record id="view_general_configuration" model="ir.ui.view">
+        <field name="name">Let's Encrypt TransIP settings view</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//span[@id='letsencrypt_dns_provider_settings']" position="inside">
+                <div class="o_setting_right_pane"
+                     attrs="{'invisible': [('letsencrypt_dns_provider', '!=', 'transip')]}">
+                    <label for="letsencrypt_transip_login" />
+                    <div class="text-muted">The username you use to log in on transip.nl</div>
+                    <field name="letsencrypt_transip_login"
+                           attrs="{'required': [('letsencrypt_dns_provider', '=', 'transip')]}"/>
+                </div>
+                <div class="o_setting_right_pane"
+                     attrs="{'invisible': [('letsencrypt_dns_provider', '!=', 'transip')]}">
+                    <label for="letsencrypt_transip_key" />
+                    <div class="text-muted">The private API key given to you by TransIP</div>
+                    <field name="letsencrypt_transip_key"
+                           attrs="{'required': [('letsencrypt_dns_provider', '=', 'transip')]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
