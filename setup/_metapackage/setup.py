@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo11-addon-l10n_nl_bsn',
         'odoo11-addon-l10n_nl_cbs_export',
         'odoo11-addon-l10n_nl_country_states',
+        'odoo11-addon-l10n_nl_dutch_company_type',
         'odoo11-addon-l10n_nl_kvk',
         'odoo11-addon-l10n_nl_location_nuts',
         'odoo11-addon-l10n_nl_openkvk',
