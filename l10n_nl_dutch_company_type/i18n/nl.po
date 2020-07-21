@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_nl_dutch_company_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-01 12:56+0000\n"
+"PO-Revision-Date: 2018-02-01 12:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_association
+msgid "Association"
+msgstr "Vereniging"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_church
+msgid "Church"
+msgstr "Kerkgenootschap"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative
+msgid "Cooperative"
+msgstr "Coöperatie"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative_excluded
+msgid "Excluded liability cooperative"
+msgstr "Coöperatie met uitgesloten aansprakelijkheid"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_foundation
+msgid "Foundation"
+msgstr "Stichting"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_generalpartnership
+msgid "General partnership"
+msgstr "Vennootschap onder firma"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative_legal
+msgid "Legal liability cooperative"
+msgstr "Coöperatie met wettelijke aansprakelijkheid"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_cooperative_limited
+msgid "Limited liability cooperative"
+msgstr "Coöperatie met beperkte aansprakelijkheid"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_limitedpartnership
+msgid "Limited partnership"
+msgstr "Commanditaire vennootschap"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_mutual_assurance
+msgid "Mutual assurance company"
+msgstr "Onderlinge waarborgmaatschappij"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_privatelimitedcompany
+msgid "Private limited company"
+msgstr "Besloten vennootschap"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_professionalpartnership
+msgid "Professional partnership"
+msgstr "Maatschap"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_publiclimitedcompany
+msgid "Public limited company"
+msgstr "Naamloze vennootschap"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,name:l10n_nl_dutch_company_type.company_type_solepropietor
+msgid "Sole proprietor"
+msgstr "Eenmanszaak"
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_cooperative_limited
+msgid "ba"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_privatelimitedcompany
+msgid "bv"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_limitedpartnership
+msgid "cv"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_solepropietor
+msgid "ez"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_professionalpartnership
+msgid "mts"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_publiclimitedcompany
+msgid "nv"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_cooperative_excluded
+msgid "ua"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_generalpartnership
+msgid "vof"
+msgstr ""
+
+#. module: l10n_nl_dutch_company_type
+#: model:res.partner.company.type,shortcut:l10n_nl_dutch_company_type.company_type_cooperative_legal
+msgid "wa"
+msgstr ""

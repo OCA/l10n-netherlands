@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <!-- See: https://nl.wikipedia.org/wiki/Rechtsvorm -->
+
+    <!-- Only the official/legal shortcuts are set. -->
+    <!-- Eenmanszaak -->
+    <record
+        id="company_type_solepropietor"
+        model="res.partner.company.type">
+        <field name="name">Sole proprietor</field>
+        <field name="shortcut">ez</field>
+    </record>
+
+    <!-- Vereniging Onder Firma -->
+    <record
+        id="company_type_generalpartnership"
+        model="res.partner.company.type">
+        <field name="name">General partnership</field>
+        <field name="shortcut">vof</field>
+    </record>
+
+    <!-- Maatschap -->
+    <record
+        id="company_type_professionalpartnership"
+        model="res.partner.company.type">
+        <field name="name">Professional partnership</field>
+        <field name="shortcut">mts</field>
+    </record>
+
+    <!-- Commanditaire vennootschap -->
+    <record
+        id="company_type_limitedpartnership"
+        model="res.partner.company.type">
+        <field name="name">Limited partnership</field>
+        <field name="shortcut">cv</field>
+    </record>
+
+    <!-- Besloten vennootschap -->
+    <record
+        id="company_type_privatelimitedcompany"
+        model="res.partner.company.type">
+        <field name="name">Private limited company</field>
+        <field name="shortcut">bv</field>
+    </record>
+
+    <!-- Naamloze vennootschap -->
+    <record
+        id="company_type_publiclimitedcompany"
+        model="res.partner.company.type">
+        <field name="name">Public limited company</field>
+        <field name="shortcut">nv</field>
+    </record>
+
+    <!-- Vereniging -->
+    <record
+        id="company_type_association"
+        model="res.partner.company.type">
+        <field name="name">Association</field>
+    </record>
+
+    <!-- Actually there are now three types of cooperative, we keep
+         the general one, but also add the three specific types. -->
+    <!-- Coöperatie -->
+    <record
+        id="company_type_cooperative"
+        model="res.partner.company.type">
+        <field name="name">Cooperative</field>
+    </record>
+
+    <!-- Coöperatie met beperkte aansprakelijkheid  -->
+    <record
+        id="company_type_cooperative_limited"
+        model="res.partner.company.type">
+        <field name="name">Limited liability cooperative</field>
+        <field name="shortcut">ba</field>
+    </record>
+
+    <!-- Coöperatie met uitgesloten aansprakelijkheid  -->
+    <record
+        id="company_type_cooperative_excluded"
+        model="res.partner.company.type">
+        <field name="name">Excluded liability cooperative</field>
+        <field name="shortcut">ua</field>
+    </record>
+
+    <!-- Coöperatie met wettelijke aansprakelijkheid  -->
+    <record
+        id="company_type_cooperative_legal"
+        model="res.partner.company.type">
+        <field name="name">Legal liability cooperative</field>
+        <field name="shortcut">wa</field>
+    </record>
+
+    <!-- Stichting -->
+    <record
+        id="company_type_foundation"
+        model="res.partner.company.type">
+        <field name="name">Foundation</field>
+    </record>
+
+    <!-- Onderlinge waarborgmaatschappij -->
+    <record
+        id="company_type_mutual_assurance"
+        model="res.partner.company.type">
+        <field name="name">Mutual assurance company</field>
+    </record>
+
+    <!-- Kerkgenootschap -->
+    <record
+        id="company_type_church"
+        model="res.partner.company.type">
+        <field name="name">Church</field>
+    </record>
+
+</odoo>
