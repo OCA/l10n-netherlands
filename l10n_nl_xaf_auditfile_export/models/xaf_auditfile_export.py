@@ -19,12 +19,12 @@ from lxml import etree
 from odoo import _, api, exceptions, fields, models, modules, release
 
 
-def chunks(l, n=None):
-    """Yield successive n-sized chunks from l."""
+def chunks(items, n=None):
+    """Yield successive n-sized chunks from items."""
     if n is None:
         n = models.PREFETCH_MAX
-    for i in range(0, len(l), n):
-        yield l[i : i + n]
+    for i in range(0, len(items), n):
+        yield items[i : i + n]
 
 
 def memory_info():
