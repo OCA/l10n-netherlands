@@ -1,0 +1,4 @@
+.oe_mis_builder_content div.mis_builder_horizontal {
+    display: flex;
+    width: 100%;
+}
