@@ -178,24 +178,27 @@ class CbsExportFile(models.Model):
     @api.model
     def _format_header(self):
         company = self.company_id
+        month_period = datetime.now().replace(
+            month=int(self.month), year=int(self.year), day=1)
 
         cbs_export_data = \
             str('9801') + \
             str(company.vat or '').replace(' ', '')[2:].ljust(12) + \
-            str(datetime.now().strftime("%Y%m").ljust(6)) + \
+            str(month_period.strftime("%Y%m").ljust(6)) + \
             str(company.name or '').ljust(40) + \
             str(" " * 6) + \
             str(" " * 5) + \
             str(datetime.now().strftime("%Y%m%d").ljust(8)) + \
             str(datetime.now().strftime("%H%M%S").ljust(6)) + \
-            str(company.phone or '').replace(' ', '')[0:15].ljust(15) + \
-            str(" " * 13) + '\n'
+            str(company.phone or '').replace(
+                '+31', '0').replace(' ', '')[0:15].ljust(15) + \
+            str(" " * 13) + '\r\n'
 
         return cbs_export_data
 
-    @api.model
-    def _format_footer(self):
-        cbs_export_data = str('9899') + str(" " * 111)
+    @staticmethod
+    def _format_footer():
+        cbs_export_data = str('9899') + str(" " * 111) + '\r\n'
         return cbs_export_data
 
     @api.multi
@@ -203,6 +206,7 @@ class CbsExportFile(models.Model):
         self.ensure_one()
 
         line_counter = 1
+        invoice_line_number = 0
         cbs_export_data = ''
         invoices = self.account_invoice_ids
 
@@ -213,6 +217,8 @@ class CbsExportFile(models.Model):
                 sign_of_invoice_value = '+'
             if (invoice_line.quantity * invoice_line.product_id.weight) >= 0:
                 sign_of_weight = '+'
+            if invoice_line.price_subtotal < 0:
+                sign_of_invoice_value = '-'
 
             value = \
                 str(datetime.strptime(
@@ -234,17 +240,24 @@ class CbsExportFile(models.Model):
                 str('00') + \
                 str(sign_of_weight) + \
                 str(int(invoice_line.quantity * invoice_line.product_id.weight)
-                    ).zfill(10) + \
+                    ).replace('-', '').zfill(10) + \
                 str('+') + \
-                str('0000000000').zfill(10) + sign_of_invoice_value + \
-                str(int(invoice_line.price_subtotal)).zfill(10) + \
-                str('+') + \
-                str('0000000000').zfill(10)
+                str('0000000000').zfill(10) + sign_of_invoice_value
+
+            if invoice_line.price_subtotal == 0.0:
+                standard_price = invoice_line.product_id.standard_price
+                quantity = invoice_line.quantity
+                value += str(int(standard_price * quantity)).replace(
+                    '-', '').zfill(10)
+            else:
+                value += str(int(invoice_line.price_subtotal)).replace(
+                    '-', '').zfill(10)
+            value += str('+') + str('0000000000').zfill(10)
 
             if len(str(invoice_line.invoice_id.number or '')) < 8:
                 invoice_value = \
                     str(invoice_line.invoice_id.number) + \
-                    str(line_counter).zfill(2)
+                    str(invoice_line_number).zfill(2)
                 value += str(invoice_value).ljust(10)
             else:
                 value += str(
@@ -255,9 +268,12 @@ class CbsExportFile(models.Model):
                 str(" " * 3) + \
                 str(" " * 1) + \
                 str('000') + \
-                str(" " * 7) + '\n'
+                str(" " * 7) + '\r\n'
 
             line_counter += 1
+            invoice_line_number += 1
+            if invoice_line_number > 99:
+                invoice_line_number = 1
             cbs_export_data += value
 
         return cbs_export_data
