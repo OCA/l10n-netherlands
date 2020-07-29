@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo11-addon-l10n_nl_location_nuts',
         'odoo11-addon-l10n_nl_openkvk',
         'odoo11-addon-l10n_nl_partner_name',
+        'odoo11-addon-l10n_nl_partner_salutation',
         'odoo11-addon-l10n_nl_postcode',
         'odoo11-addon-l10n_nl_postcodeapi',
         'odoo11-addon-l10n_nl_tax_invoice_basis',
