@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo12-addon-l10n_nl_bank',
         'odoo12-addon-l10n_nl_bsn',
         'odoo12-addon-l10n_nl_location_nuts',
+        'odoo12-addon-l10n_nl_partner_name',
         'odoo12-addon-l10n_nl_postcode',
         'odoo12-addon-l10n_nl_tax_invoice_basis',
         'odoo12-addon-l10n_nl_tax_statement',
