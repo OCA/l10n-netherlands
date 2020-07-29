@@ -135,6 +135,7 @@ class XafAuditfileExport(models.Model):
             'xmlns="http://www.auditfiles.nl/XAF/3.2">', 1)
 
         filename = self.name + '.xaf'
+        filename = filename.replace(os.sep, ' ')
         tmpdir = mkdtemp()
         auditfile = os.path.join(tmpdir, filename)
         archivedir = mkdtemp()
