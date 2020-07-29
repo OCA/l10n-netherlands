@@ -1,5 +1,10 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 from odoo.modules.module import get_module_resource
 from odoo.tests.common import TransactionCase
@@ -16,17 +21,21 @@ class TestNlPostcodeapi(TransactionCase):
         is_l10n_nl_country_states_installed = self.env['ir.model']._get(
             'res.country.state.nl.zip'
         )
+        self.country_nl = self.env['res.country'].search([
+            ('code', 'like', 'NL')
+        ], limit=1)
+        self.assertTrue(self.country_nl)
         if is_l10n_nl_country_states_installed:
             NlZipStateModel = self.env['res.country.state.nl.zip']
             NlZipStateModel.search([]).unlink()
-            country_nl = self.env['res.country'].search([
-                ('code', 'like', 'NL')
-            ], limit=1)
-            self.assertTrue(country_nl)
             states = self.env['res.country.state'].search([
-                ('country_id', '=', country_nl.id)
+                ('country_id', '=', self.country_nl.id)
             ])
             states.unlink()
+        states = self.env['res.country.state'].search([
+            ('country_id', '=', self.country_nl.id)
+        ])
+        states.unlink()
 
     def load_nl_provinces(self):
         csv_resource = get_module_resource(
@@ -68,20 +77,13 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertEqual(config_parameter.value, 'KEYXXXXXXXXXXXNOTVALID')
 
     def test_02_res_country_state(self):
-        country_nl = self.env['res.country'].search([
-            ('code', 'like', 'NL')
-        ], limit=1)
-        states = self.env['res.country.state'].search([
-            ('country_id', '=', country_nl.id)
-        ])
-        self.assertFalse(states)
 
         # Load res.country.state.csv
         self.load_nl_provinces()
 
         # Verify res.country.state created
         states = self.env['res.country.state'].search([
-            ('country_id', '=', country_nl.id)
+            ('country_id', '=', self.country_nl.id)
         ])
         self.assertTrue(states)
 
@@ -107,20 +109,41 @@ class TestNlPostcodeapi(TransactionCase):
             'value': 'DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV'
         })
 
+        def _patched_api_connector(*args, **kwargs):
+            return False
+
+        def _patched_api_get_address(*args, **kwargs):
+            address = {
+                "_data": "test",
+                "street": "Claudius Prinsenlaan",
+                "town": "Breda",
+                "province": "Noord-Brabant"
+            }
+            return type('Address', tuple(), address)()
+
+        patch_api_connector = patch(
+            'odoo.addons.l10n_nl_postcodeapi.models.res_partner.ResPartner.'
+            '_postcodeapi_check_valid_provider', _patched_api_connector)
+        patch_api_get_address = patch(
+            'pyPostcode.Api.getaddress', _patched_api_get_address)
+        patch_api_connector.start()
+        patch_api_get_address.start()
+
         # Load res.country.state.csv
         self.load_nl_provinces()
 
-        country_nl = self.env['res.country'].search([
-            ('code', 'like', 'NL')
-        ], limit=1)
         partner = self.env['res.partner'].create({
             'name': 'test partner',
-            'country_id': country_nl.id,
+            'country_id': self.country_nl.id,
+            'street_number': '10',
+            'zip': 'test 4811dj',
         })
-        partner.street_number = '10'
-        partner.zip = '4811dj'
         res = partner.on_change_zip_street_number()
         self.assertFalse(res)
+
+        patch_api_get_address.stop()
+        patch_api_connector.stop()
+
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
         self.assertEqual(partner.city, 'Breda')
@@ -137,17 +160,38 @@ class TestNlPostcodeapi(TransactionCase):
             'value': 'DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV'
         })
 
-        country_nl = self.env['res.country'].search([
-            ('code', 'like', 'NL')
-        ], limit=1)
+        def _patched_api_connector(*args, **kwargs):
+            return False
+
+        def _patched_api_get_address(*args, **kwargs):
+            address = {
+                "_data": "test",
+                "street": "Claudius Prinsenlaan",
+                "town": "Breda",
+                "province": "Noord-Brabant"
+            }
+            return type('Address', tuple(), address)()
+
+        patch_api_connector = patch(
+            'odoo.addons.l10n_nl_postcodeapi.models.res_partner.ResPartner.'
+            '_postcodeapi_check_valid_provider', _patched_api_connector)
+        patch_api_get_address = patch(
+            'pyPostcode.Api.getaddress', _patched_api_get_address)
+        patch_api_connector.start()
+        patch_api_get_address.start()
+
         partner = self.env['res.partner'].create({
             'name': 'test partner',
-            'country_id': country_nl.id,
+            'country_id': self.country_nl.id,
+            'street_number': '10',
+            'zip': '4811dj',
         })
-        partner.street_number = '10'
-        partner.zip = '4811dj'
         res = partner.on_change_zip_street_number()
         self.assertFalse(res)
+
+        patch_api_get_address.stop()
+        patch_api_connector.stop()
+
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
         self.assertEqual(partner.city, 'Breda')
@@ -161,9 +205,9 @@ class TestNlPostcodeapi(TransactionCase):
         partner = self.env['res.partner'].create({
             'name': 'test partner',
             'country_id': country_it.id,
+            'street_number': '10',
+            'zip': '4811dj',
         })
-        partner.street_number = '10'
-        partner.zip = '4811dj'
         res = partner.on_change_zip_street_number()
         self.assertFalse(res)
         partner._convert_to_write(partner._cache)
@@ -173,14 +217,12 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertEqual(partner.street, '10')
 
     def test_06_res_partner_no_key(self):
-        country_nl = self.env['res.country'].search([
-            ('code', 'like', 'NL')
-        ], limit=1)
+
         partner = self.env['res.partner'].create({
             'name': 'test partner',
             'street_number': '10',
             'zip': '4811dj',
-            'country_id': country_nl.id,
+            'country_id': self.country_nl.id,
         })
         res = partner.on_change_zip_street_number()
         self.assertFalse(res)
