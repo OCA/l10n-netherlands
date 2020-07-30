@@ -21,6 +21,7 @@ addon | version | summary
 [l10n_nl_bsn](l10n_nl_bsn/) | 13.0.1.0.1 | Burgerservicenummer (BSN) for Partners
 [l10n_nl_location_nuts](l10n_nl_location_nuts/) | 13.0.1.0.0 | NUTS specific options for Netherlands
 [l10n_nl_postcode](l10n_nl_postcode/) | 13.0.1.0.0 | Dutch postcode validation for Partners
+[l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 13.0.1.0.0 | Enable invoice basis on tax according to the Dutch law
 [l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 13.0.1.0.1 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
