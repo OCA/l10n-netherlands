@@ -77,6 +77,9 @@ class VatStatement(models.Model):
         "Parent Statement",
         compute="_compute_parent_statement_id",
     )
+    display_button_add_all_undeclared_invoices = fields.Boolean(
+        compute="_compute_display_button_add_all_undeclared_invoices",
+    )
 
     @api.depends(
         "unreported_move_from_date",
@@ -91,6 +94,12 @@ class VatStatement(models.Model):
             move_lines = self.env["account.move.line"].search(domain)
             moves = move_lines.mapped("move_id").sorted("date")
             statement.unreported_move_ids = moves
+
+    def _search_unreported_move_ids(self, operator, value):
+        if operator == "in":
+            return [("id", operator, value)]
+        else:
+            raise ValueError(_("Unreported moves: unsupported search operator"))
 
     @api.depends(
         "company_id",
@@ -181,6 +190,7 @@ class VatStatement(models.Model):
         "account.move",
         string="Unreported Journal Entries",
         compute="_compute_unreported_move_ids",
+        search="_search_unreported_move_ids",
     )
     unreported_move_from_date = fields.Date(
         compute="_compute_unreported_move_from_date", store=True, readonly=False
@@ -464,14 +474,9 @@ class VatStatement(models.Model):
         self.write({"state": "final"})
 
     def _check_prev_open_statements(self):
-        prev_open_statements = self.search(
-            [
-                ("company_id", "=", self.company_id.id),
-                ("state", "=", "draft"),
-                ("id", "<", self.id),
-            ],
-            limit=1,
-        )
+        self.ensure_one()
+        domain = self._domain_check_prev_open_statements()
+        prev_open_statements = self.search(domain, limit=1)
 
         if prev_open_statements:
             raise UserError(
@@ -481,6 +486,14 @@ class VatStatement(models.Model):
                     "Please Post all the other statements first."
                 )
             )
+
+    def _domain_check_prev_open_statements(self):
+        self.ensure_one()
+        return [
+            ("company_id", "=", self.company_id.id),
+            ("state", "=", "draft"),
+            ("id", "<", self.id),
+        ]
 
     def post(self):
         self.ensure_one()
@@ -592,3 +605,19 @@ class VatStatement(models.Model):
         if code[0:1] in ["+", "-"]:
             code = code[1:]
         return code
+
+    def add_all_undeclared_invoices(self):
+        self.ensure_one()
+        self.unreported_move_ids.l10n_nl_add_move_in_statement()
+
+    @api.depends("unreported_move_ids.l10n_nl_vat_statement_include")
+    def _compute_display_button_add_all_undeclared_invoices(self):
+        for statement in self:
+            has_unreported = any(
+                not move.l10n_nl_vat_statement_include
+                for move in statement.unreported_move_ids
+            )
+            is_draft = statement.state == "draft"
+            statement.display_button_add_all_undeclared_invoices = (
+                is_draft and has_unreported
+            )
