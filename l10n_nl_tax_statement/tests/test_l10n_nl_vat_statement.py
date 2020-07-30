@@ -437,7 +437,7 @@ class TestVatStatement(TransactionCase):
         move_from_date = fields.Date.from_string("2015-07-07")
         statement2.unreported_move_from_date = move_from_date
         self.assertTrue(statement2.unreported_move_ids)
-        statement2.unreported_move_ids.l10n_nl_add_move_in_statement()
+        statement2.add_all_undeclared_invoices()
         statement2.statement_update()
         self.assertTrue(statement2.unreported_move_ids)
         self.assertEqual(len(statement2.unreported_move_ids), 1)
