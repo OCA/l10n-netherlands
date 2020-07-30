@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_nl_tax_invoice_basis
+#
+# Translators:
+# Frank Schellenberg <opensource@schellenberg.nl>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-16 06:23+0000\n"
+"PO-Revision-Date: 2018-01-16 06:23+0000\n"
+"Last-Translator: Frank Schellenberg <opensource@schellenberg.nl>, 2018\n"
+"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_res_company
+msgid "Companies"
+msgstr "Bedrijven"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
+msgid ""
+"If this checkbox is ticked, you will enable the Netherlands Tax Invoice "
+"Basis (Factuurstelsel)."
+msgstr "Als dit veld is geselecteerd zal het Factuurstelsel worden gebruikt."
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_account_invoice
+msgid "Invoice"
+msgstr "Factuur"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_account_move_line
+msgid "Journal Item"
+msgstr "Journaal Post"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_account_move_line_l10n_nl_date_invoice
+msgid "L10N Nl Date Invoice"
+msgstr "L10N Nl Datum Factuur"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_res_company_l10n_nl_tax_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_res_config_settings_l10n_nl_tax_invoice_basis
+msgid "NL Tax Invoice Basis"
+msgstr "NL Factuurstelsel"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
+msgid "NL Tax Invoice Basis (Factuurstelsel)"
+msgstr "NL Factuurstelsel"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_account_tax
+msgid "Tax"
+msgstr "Belasting"
+
+#. module: l10n_nl_tax_invoice_basis
+#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"
