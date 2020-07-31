@@ -67,6 +67,8 @@ class ResPartner(models.Model):
                 and domain[0] == "bsn_number"
                 and isinstance(domain[2], str)
                 and domain[2]
+                and domain[1] not in expression.NEGATIVE_TERM_OPERATORS
+                and not self.env.context.get("skip_formatted_bsn_number_search")
             ):
                 operator = domain[1]
                 bsn_number = domain[2]
