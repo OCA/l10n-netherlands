@@ -11,6 +11,7 @@ class TestBsn(TransactionCase):
 
         self.partner_bsn = self.env['res.partner'].create({
             'name': 'Partner with BSN',
+            'company_id': self.env.user.company_id.id,
         })
 
     def test_01_bsn_not_valid(self):
