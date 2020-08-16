@@ -33,7 +33,6 @@ msgstr "Bedrijven"
 #. module: l10n_nl_tax_invoice_basis
 #: model:ir.model,name:l10n_nl_tax_invoice_basis.model_res_config_settings
 #, fuzzy
-#| msgid "res.config.settings"
 msgid "Config Settings"
 msgstr "res.config.settings"
 
