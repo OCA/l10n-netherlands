@@ -21,6 +21,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_partner_salutation
+#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_use_manual_salutations
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_use_manual_salutations
 msgid "Enter salutations manually"
@@ -37,11 +42,6 @@ msgstr "Handmatige begroeting (adres)"
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_salutation_manual
 msgid "Manual salutation (letter)"
 msgstr "Handmatige begroeting (brief)"
-
-#. module: l10n_nl_partner_salutation
-#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner
-msgid "Partner"
-msgstr "Relatie"
 
 #. module: l10n_nl_partner_salutation
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_postnominal
@@ -88,12 +88,12 @@ msgid "Shortcut male"
 msgstr "Afkorting man"
 
 #. module: l10n_nl_partner_salutation
-#: model:res.partner.title,name:l10n_nl_partner_salutation.res_partner_title_sir
-#: model:res.partner.title,salutation:l10n_nl_partner_salutation.res_partner_title_sir
-msgid "Sir"
-msgstr "Heer"
-
-#. module: l10n_nl_partner_salutation
 #: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner_title
 msgid "res.partner.title"
 msgstr "res.partner.title"
+
+#~ msgid "Partner"
+#~ msgstr "Relatie"
+
+#~ msgid "Sir"
+#~ msgstr "Heer"
