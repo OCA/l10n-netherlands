@@ -309,7 +309,6 @@ msgstr "ir.qweb.field.auditfile.string30"
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string35
 #, fuzzy
-#| msgid "ir.qweb.field.auditfile.string30"
 msgid "ir.qweb.field.auditfile.string35"
 msgstr "ir.qweb.field.auditfile.string30"
 
