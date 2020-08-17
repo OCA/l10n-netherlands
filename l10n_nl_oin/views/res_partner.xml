@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Onestein (<https://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="nl_oin_display" invisible="1" />
+                <field
+                    name="nl_oin"
+                    attrs="{'invisible': [('nl_oin_display','!=', True)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
