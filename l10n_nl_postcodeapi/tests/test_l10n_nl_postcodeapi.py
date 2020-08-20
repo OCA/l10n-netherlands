@@ -107,9 +107,6 @@ class TestNlPostcodeapi(TransactionCase):
             "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
         )
 
-        def _patched_api_connector(*args, **kwargs):
-            return False
-
         def _patched_api_get_address(*args, **kwargs):
             return SimpleNamespace(
                 _data="test",
@@ -118,12 +115,8 @@ class TestNlPostcodeapi(TransactionCase):
                 province="Noord-Brabant"
             )
 
-        patch_api_connector = patch(
-            'odoo.addons.l10n_nl_postcodeapi.models.res_partner.ResPartner.'
-            '_postcodeapi_check_valid_provider', _patched_api_connector)
         patch_api_get_address = patch(
             'pyPostcode.Api.getaddress', _patched_api_get_address)
-        patch_api_connector.start()
         patch_api_get_address.start()
 
         # Load res.country.state.csv
@@ -139,7 +132,6 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertFalse(res)
 
         patch_api_get_address.stop()
-        patch_api_connector.stop()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
@@ -154,9 +146,6 @@ class TestNlPostcodeapi(TransactionCase):
             "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
         )
 
-        def _patched_api_connector(*args, **kwargs):
-            return False
-
         def _patched_api_get_address(*args, **kwargs):
             return SimpleNamespace(
                 _data="test",
@@ -165,12 +154,8 @@ class TestNlPostcodeapi(TransactionCase):
                 province="Noord-Brabant"
             )
 
-        patch_api_connector = patch(
-            'odoo.addons.l10n_nl_postcodeapi.models.res_partner.ResPartner.'
-            '_postcodeapi_check_valid_provider', _patched_api_connector)
         patch_api_get_address = patch(
             'pyPostcode.Api.getaddress', _patched_api_get_address)
-        patch_api_connector.start()
         patch_api_get_address.start()
 
         partner = self.env['res.partner'].create({
@@ -183,7 +168,6 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertFalse(res)
 
         patch_api_get_address.stop()
-        patch_api_connector.stop()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')

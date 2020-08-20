@@ -2,7 +2,7 @@
 # @autors: Stefan Rijnhart, Ronald Portier
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, _
+from odoo import api, models
 from odoo.tools import ormcache
 
 
@@ -18,15 +18,6 @@ class ResPartner(models.Model):
             return False
         from pyPostcode import Api
         return Api(apikey, (2, 0, 0))
-
-    def _postcodeapi_check_valid_provider(self, provider):
-        test = provider.getaddress('1053NJ', '334T')
-        if not test or not test._data:
-            return _('Could not verify the connection with the address '
-                     'lookup service (if you want to get rid of this '
-                     'message, please rename or delete the system parameter '
-                     '\'l10n_nl_postcodeapi.apikey\').')
-        return None
 
     @api.model
     @ormcache(skiparg=2)
@@ -56,14 +47,6 @@ class ResPartner(models.Model):
         provider_obj = self.get_provider_obj()
         if not provider_obj:
             return {}
-        err_msg = self._postcodeapi_check_valid_provider(provider_obj)
-        if err_msg:
-            return {
-                'warning': {
-                    'title': _("Warning"),
-                    'message': err_msg,
-                }
-            }
         pc_info = provider_obj.getaddress(postal_code, self.street_number)
         if not pc_info or not pc_info._data:
             return {}
