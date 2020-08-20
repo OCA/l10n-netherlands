@@ -1,4 +1,4 @@
-This module contains integration of the excellent and free address completion
+This module contains integration of the excellent address completion
 service 'PostcodeAPI'. The service allows lookups by zip code and house number,
 providing street name and city. The lookups will be triggered in the partner
 form views when a zip code or house number is entered or modified. Only
