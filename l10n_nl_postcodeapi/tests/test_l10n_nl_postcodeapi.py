@@ -1,10 +1,8 @@
 # Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from odoo.modules.module import get_module_resource
 from odoo.tests.common import TransactionCase
@@ -18,6 +16,7 @@ class TestNlPostcodeapi(TransactionCase):
         # this block of code removes the existing provinces
         # eventually already created by module l10n_nl_country_states
         # to avoid conflicts with tests of l10n_nl_country_states
+        # (note: not currently ported to 12.0)
         is_l10n_nl_country_states_installed = self.env['ir.model']._get(
             'res.country.state.nl.zip'
         )
@@ -58,7 +57,9 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertIsNone(result.get('error'))
         results = import_wizard.do(
             ['id', 'country_id', 'name', 'code'],
-            {'headers': True, 'separator': ',', 'quoting': '"'})
+            [],
+            {'headers': True, 'separator': ',', 'quoting': '"'}
+        )["messages"]
         self.assertFalse(
             results, "results should be empty on successful import")
 
@@ -101,25 +102,21 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertFalse(test_states)
 
     def test_03_res_partner_with_province(self):
-        # Set l10n_nl_postcodeapi.apikey
-        config_parameter = self.env['ir.config_parameter'].search([
-            ('key', '=', 'l10n_nl_postcodeapi.apikey')
-        ])
-        config_parameter.write({
-            'value': 'DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV'
-        })
+        self.env["ir.config_parameter"].set_param(
+            "l10n_nl_postcodeapi.apikey",
+            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
+        )
 
         def _patched_api_connector(*args, **kwargs):
             return False
 
         def _patched_api_get_address(*args, **kwargs):
-            address = {
-                "_data": "test",
-                "street": "Claudius Prinsenlaan",
-                "town": "Breda",
-                "province": "Noord-Brabant"
-            }
-            return type('Address', tuple(), address)()
+            return SimpleNamespace(
+                _data="test",
+                street="Claudius Prinsenlaan",
+                town="Breda",
+                province="Noord-Brabant"
+            )
 
         patch_api_connector = patch(
             'odoo.addons.l10n_nl_postcodeapi.models.res_partner.ResPartner.'
@@ -152,25 +149,21 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
 
     def test_04_res_partner_no_province(self):
-        # Set l10n_nl_postcodeapi.apikey
-        config_parameter = self.env['ir.config_parameter'].search([
-            ('key', '=', 'l10n_nl_postcodeapi.apikey')
-        ])
-        config_parameter.write({
-            'value': 'DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV'
-        })
+        self.env["ir.config_parameter"].set_param(
+            "l10n_nl_postcodeapi.apikey",
+            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
+        )
 
         def _patched_api_connector(*args, **kwargs):
             return False
 
         def _patched_api_get_address(*args, **kwargs):
-            address = {
-                "_data": "test",
-                "street": "Claudius Prinsenlaan",
-                "town": "Breda",
-                "province": "Noord-Brabant"
-            }
-            return type('Address', tuple(), address)()
+            return SimpleNamespace(
+                _data="test",
+                street="Claudius Prinsenlaan",
+                town="Breda",
+                province="Noord-Brabant"
+            )
 
         patch_api_connector = patch(
             'odoo.addons.l10n_nl_postcodeapi.models.res_partner.ResPartner.'

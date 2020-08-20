@@ -1,4 +1,4 @@
-# Copyright 2013-2015 Therp BV <https://therp.nl>
+# Copyright 2013-2020 Therp BV <https://therp.nl>
 # @autors: Stefan Rijnhart, Ronald Portier
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
