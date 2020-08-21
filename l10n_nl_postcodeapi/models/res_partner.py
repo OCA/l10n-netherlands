@@ -3,14 +3,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
-from odoo.tools import ormcache
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.model
-    @ormcache(skiparg=2)
     def get_provider_obj(self):
         apikey = self.env['ir.config_parameter'].sudo().get_param(
             'l10n_nl_postcodeapi.apikey', '').strip()
@@ -20,7 +18,6 @@ class ResPartner(models.Model):
         return Api(apikey, (3, 0, 0))
 
     @api.model
-    @ormcache(skiparg=2)
     def get_province(self, province):
         """ Return the province or empty recordset """
         if not province:
