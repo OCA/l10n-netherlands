@@ -111,7 +111,7 @@ class TestNlPostcodeapi(TransactionCase):
             return SimpleNamespace(
                 _data="test",
                 street="Claudius Prinsenlaan",
-                town="Breda",
+                city="Breda",
                 province="Noord-Brabant"
             )
 
@@ -150,7 +150,7 @@ class TestNlPostcodeapi(TransactionCase):
             return SimpleNamespace(
                 _data="test",
                 street="Claudius Prinsenlaan",
-                town="Breda",
+                city="Breda",
                 province="Noord-Brabant"
             )
 

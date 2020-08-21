@@ -17,7 +17,7 @@ class ResPartner(models.Model):
         if not apikey or apikey == 'Your API key':
             return False
         from pyPostcode import Api
-        return Api(apikey, (2, 0, 0))
+        return Api(apikey, (3, 0, 0))
 
     @api.model
     @ormcache(skiparg=2)
@@ -51,5 +51,5 @@ class ResPartner(models.Model):
         if not pc_info or not pc_info._data:
             return {}
         self.street_name = pc_info.street
-        self.city = pc_info.town
+        self.city = pc_info.city
         self.state_id = self.get_province(pc_info.province)
