@@ -160,7 +160,7 @@ class TestNlPostcodeapi(TransactionCase):
         with self.patch_api_get_address() as getaddr:
             getaddr.return_value = False
             partner.on_change_zip_street_number()
-        getaddr.assert_called()
+        getaddr.assert_called_with("3811DJ", "10")
 
         partner._convert_to_write(partner._cache)
         self.assertFalse(partner.street_name)
