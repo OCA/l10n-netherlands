@@ -9,7 +9,7 @@ from odoo import api, models
 _logger = logging.getLogger(__name__)
 try:
     import pyPostcode
-except ImportError as err:
+except ImportError as err:  # pragma: no cover
     _logger.debug(err)
 
 
