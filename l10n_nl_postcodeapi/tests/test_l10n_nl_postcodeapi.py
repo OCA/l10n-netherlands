@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from odoo.modules.module import get_resource_path
 from odoo.tests.common import TransactionCase
@@ -20,10 +20,7 @@ class TestNlPostcodeapi(TransactionCase):
         is_l10n_nl_country_states_installed = self.env['ir.model']._get(
             'res.country.state.nl.zip'
         )
-        self.country_nl = self.env['res.country'].search([
-            ('code', 'like', 'NL')
-        ], limit=1)
-        self.assertTrue(self.country_nl)
+        self.country_nl = self.get_country("NL")
         if is_l10n_nl_country_states_installed:
             NlZipStateModel = self.env['res.country.state.nl.zip']
             NlZipStateModel.search([]).unlink()
@@ -102,23 +99,14 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertFalse(test_states)
 
     def test_03_res_partner_with_province(self):
-        self.env["ir.config_parameter"].set_param(
-            "l10n_nl_postcodeapi.apikey",
-            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
-        )
+        self.configure_key()
 
         # Load res.country.state.csv
         self.load_nl_provinces()
 
-        partner = self.env['res.partner'].create({
-            'name': 'test partner',
-            'country_id': self.country_nl.id,
-            'street_number': '10',
-            'zip': 'test 4811dj',
-        })
+        partner = self.create_partner()
         with self.patch_api_get_address():
-            res = partner.on_change_zip_street_number()
-        self.assertFalse(res)
+            partner.on_change_zip_street_number()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
@@ -128,20 +116,11 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
 
     def test_04_res_partner_no_province(self):
-        self.env["ir.config_parameter"].set_param(
-            "l10n_nl_postcodeapi.apikey",
-            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
-        )
+        self.configure_key()
 
-        partner = self.env['res.partner'].create({
-            'name': 'test partner',
-            'country_id': self.country_nl.id,
-            'street_number': '10',
-            'zip': '4811dj',
-        })
+        partner = self.create_partner()
         with self.patch_api_get_address():
-            res = partner.on_change_zip_street_number()
-        self.assertFalse(res)
+            partner.on_change_zip_street_number()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
@@ -150,23 +129,13 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
 
     def test_05_res_partner_other_country(self):
-        self.env["ir.config_parameter"].set_param(
-            "l10n_nl_postcodeapi.apikey",
-            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
-        )
+        self.configure_key()
 
-        country_it = self.env['res.country'].search([
-            ('code', 'like', 'IT')
-        ], limit=1)
-        partner = self.env['res.partner'].create({
-            'name': 'test partner',
-            'country_id': country_it.id,
-            'street_number': '10',
-            'zip': '4811dj',
-        })
-        with self.patch_api_get_address():
-            res = partner.on_change_zip_street_number()
-        self.assertFalse(res)
+        partner = self.create_partner(country="IT")
+        with self.patch_api_get_address() as getaddr:
+            partner.on_change_zip_street_number()
+        getaddr.assert_not_called()
+
         partner._convert_to_write(partner._cache)
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
@@ -174,29 +143,75 @@ class TestNlPostcodeapi(TransactionCase):
         self.assertEqual(partner.street, '10')
 
     def test_06_res_partner_no_key(self):
+        partner = self.create_partner()
+        with self.patch_api_get_address() as getaddr:
+            partner.on_change_zip_street_number()
+        getaddr.assert_not_called()
 
-        partner = self.env['res.partner'].create({
-            'name': 'test partner',
-            'street_number': '10',
-            'zip': '4811dj',
-            'country_id': self.country_nl.id,
-        })
-        with self.patch_api_get_address():
-            res = partner.on_change_zip_street_number()
-        self.assertFalse(res)
         partner._convert_to_write(partner._cache)
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
         self.assertFalse(partner.state_id)
 
-    def patch_api_get_address(self):
+    def test_07_res_partner_no_result(self):
+        self.configure_key()
 
-        def _patched_api_get_address(*args, **kwargs):
-            return SimpleNamespace(
-                _data="test",
-                street="Claudius Prinsenlaan",
-                city="Breda",
-                province="Noord-Brabant"
-            )
+        partner = self.create_partner()
+        with self.patch_api_get_address() as getaddr:
+            getaddr.return_value = False
+            partner.on_change_zip_street_number()
+        getaddr.assert_called()
 
-        return patch("pyPostcode.Api.getaddress", _patched_api_get_address)
+        partner._convert_to_write(partner._cache)
+        self.assertFalse(partner.street_name)
+        self.assertFalse(partner.city)
+        self.assertFalse(partner.state_id)
+
+    def test_08_res_partner_no_province(self):
+        self.configure_key()
+        self.load_nl_provinces()
+
+        partner = self.create_partner()
+        with self.patch_api_get_address(province=""):
+            partner.on_change_zip_street_number()
+
+        partner._convert_to_write(partner._cache)
+        self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
+        self.assertEqual(partner.city, 'Breda')
+        self.assertFalse(partner.state_id)
+        self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
+
+    def configure_key(self):
+        self.env["ir.config_parameter"].set_param(
+            "l10n_nl_postcodeapi.apikey",
+            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
+        )
+
+    def patch_api_get_address(
+        self,
+        street="Claudius Prinsenlaan",
+        city="Breda",
+        province="Noord-Brabant",
+    ):
+        getaddr = Mock()
+        getaddr.return_value = SimpleNamespace(
+            _data="test", street=street, city=city, province=province
+        )
+        return patch("pyPostcode.Api.getaddress", getaddr)
+
+    def get_country(self, code):
+        country = self.env["res.country"].search(
+            [("code", "=", code)], limit=1
+        )
+        self.assertTrue(country)
+        return country
+
+    def create_partner(self, country="NL"):
+        return self.env["res.partner"].create(
+            {
+                "name": "test partner",
+                "street_number": "10",
+                "zip": "3811DJ",
+                "country_id": self.get_country(country).id,
+            }
+        )
