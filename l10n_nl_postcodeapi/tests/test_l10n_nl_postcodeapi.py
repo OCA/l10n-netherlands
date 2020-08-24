@@ -4,14 +4,14 @@
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from odoo.modules.module import get_module_resource
+from odoo.modules.module import get_resource_path
 from odoo.tests.common import TransactionCase
 
 
 class TestNlPostcodeapi(TransactionCase):
 
     def setUp(self):
-        super(TestNlPostcodeapi, self).setUp()
+        super().setUp()
 
         # this block of code removes the existing provinces
         # eventually already created by module l10n_nl_country_states
@@ -37,7 +37,7 @@ class TestNlPostcodeapi(TransactionCase):
         states.unlink()
 
     def load_nl_provinces(self):
-        csv_resource = get_module_resource(
+        csv_resource = get_resource_path(
             'l10n_nl_postcodeapi',
             'examples',
             'res.country.state.csv',

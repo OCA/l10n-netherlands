@@ -2,7 +2,15 @@
 # @autors: Stefan Rijnhart, Ronald Portier
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import logging
+
 from odoo import api, models
+
+_logger = logging.getLogger(__name__)
+try:
+    import pyPostcode
+except ImportError as err:
+    _logger.debug(err)
 
 
 class ResPartner(models.Model):
@@ -14,8 +22,7 @@ class ResPartner(models.Model):
             'l10n_nl_postcodeapi.apikey', '').strip()
         if not apikey or apikey == 'Your API key':
             return False
-        from pyPostcode import Api
-        return Api(apikey, (3, 0, 0))
+        return pyPostcode.Api(apikey, (3, 0, 0))
 
     @api.model
     def get_province(self, province):
