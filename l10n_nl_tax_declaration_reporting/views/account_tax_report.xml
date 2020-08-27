@@ -74,7 +74,7 @@
                                             <td style="text-align:right"> € <t t-esc="_1AB"/></td>
                                           </tr>
                                           <tr>
-                                            <td> 1b Leveringen/diensten belast met 6%</td>
+                                            <td> 1b Leveringen/diensten belast met 9%</td>
                                             <td style="text-align:right"> € <t t-esc="_1BO"/></td>
                                             <td style="text-align:right"> € <t t-esc="_1BB"/></td>
                                           </tr>
