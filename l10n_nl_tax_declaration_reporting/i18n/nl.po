@@ -26,8 +26,8 @@ msgstr "1a Leveringen/diensten belast met 21%"
 
 #. module: l10n_nl_tax_declaration_reporting
 #: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
-msgid "1b Leveringen/diensten belast met 6%"
-msgstr "1b Leveringen/diensten belast met 6%"
+msgid "1b Leveringen/diensten belast met 9%"
+msgstr ""
 
 #. module: l10n_nl_tax_declaration_reporting
 #: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
@@ -368,3 +368,6 @@ msgstr "Voorbelasting"
 #: view:account.vat.declaration.nl:l10n_nl_tax_declaration_reporting.view_account_vat_declaration_nl
 msgid "or"
 msgstr "of"
+
+#~ msgid "1b Leveringen/diensten belast met 6%"
+#~ msgstr "1b Leveringen/diensten belast met 6%"

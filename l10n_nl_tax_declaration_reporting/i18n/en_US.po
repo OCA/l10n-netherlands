@@ -26,7 +26,7 @@ msgstr ""
 
 #. module: l10n_nl_tax_declaration_reporting
 #: view:website:l10n_nl_tax_declaration_reporting.tax_report_template
-msgid "1b Leveringen/diensten belast met 6%"
+msgid "1b Leveringen/diensten belast met 9%"
 msgstr ""
 
 #. module: l10n_nl_tax_declaration_reporting
