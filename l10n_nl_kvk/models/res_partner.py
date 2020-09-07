@@ -29,7 +29,7 @@ class ResPartner(models.Model):
             raise UserError(_("KvK not set.\n" "Please enter a KvK first."))
 
         wizard = self.env["l10n.nl.kvk.preview.wizard"].create(
-            {"partner_id": self.id, "kvk": kvk,}
+            {"partner_id": self.id, "kvk": kvk}
         )
 
         if not wizard.line_ids:
@@ -46,7 +46,7 @@ class ResPartner(models.Model):
             return
 
         wizard = self.env["l10n.nl.kvk.preview.wizard"].create(
-            {"partner_id": self.id, "name": self.name,}
+            {"partner_id": self.id, "name": self.name}
         )
 
         if not wizard.line_ids:
