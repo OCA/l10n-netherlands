@@ -1,4 +1,4 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
@@ -18,7 +18,6 @@ class ResPartner(models.Model):
             if country and country != self.env.ref('base.nl'):
                 partner.is_not_nl_company = True
 
-    @api.multi
     def load_partner_values_from_kvk(self):
         self.ensure_one()
 
@@ -43,7 +42,6 @@ class ResPartner(models.Model):
 
         return wizard.action_load_partner_values()
 
-    @api.multi
     def load_partner_values_from_name(self):
         self.ensure_one()
 
