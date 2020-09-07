@@ -1,4 +1,4 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import json
@@ -11,6 +11,7 @@ _logger = logging.getLogger(__name__)
 
 class KvKPreviewWizard(models.TransientModel):
     _name = 'l10n.nl.kvk.preview.wizard'
+    _description = 'KvK Preview Wizard'
 
     name = fields.Char()
     kvk = fields.Char()
@@ -112,9 +113,8 @@ class KvKPreviewWizard(models.TransientModel):
     @api.model
     def create(self, vals):
         vals['line_ids'] = self._fetch_kvk_partner_data(vals)
-        return super(KvKPreviewWizard, self).create(vals)
+        return super().create(vals)
 
-    @api.multi
     def action_load_partner_values(self):
         self.ensure_one()
 
@@ -134,6 +134,7 @@ class KvKPreviewWizard(models.TransientModel):
 
 class KvKPreviewWizardLines(models.TransientModel):
     _name = 'l10n.nl.kvk.preview.wizard.line'
+    _description = 'KvK Preview Line Wizard'
 
     name = fields.Char()
     kvk = fields.Char()
@@ -151,7 +152,6 @@ class KvKPreviewWizardLines(models.TransientModel):
 
     wizard_id = fields.Many2one('l10n.nl.kvk.preview.wizard', 'Wizard')
 
-    @api.multi
     def set_partner_fields(self):
         self.ensure_one()
 
