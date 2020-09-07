@@ -1,10 +1,10 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Integration with Kamer van Koophandel',
     'summary': 'Autocomplete company info using KvK API Search',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Localization',
     'author': 'Onestein, Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/l10n-netherlands',

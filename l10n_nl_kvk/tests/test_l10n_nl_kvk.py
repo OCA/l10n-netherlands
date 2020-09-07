@@ -1,13 +1,14 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import json
 from mock import patch
 
-from odoo.modules.module import get_module_resource
+import odoo
+from odoo.modules.module import get_resource_path
 from odoo.exceptions import UserError
 from odoo.tools import mute_logger
-from odoo.tests.common import TransactionCase, at_install, post_install
+from odoo.tests.common import TransactionCase
 
 API_KEY = 'KEYXXXXXXXXXXXNOTVALID'
 
@@ -15,7 +16,7 @@ API_KEY = 'KEYXXXXXXXXXXXNOTVALID'
 class TestNLKvK(TransactionCase):
 
     def setUp(self):
-        super(TestNLKvK, self).setUp()
+        super().setUp()
         self.set_param = self.env['ir.config_parameter'].set_param
         self.get_param = self.env['ir.config_parameter'].get_param
 
@@ -157,7 +158,7 @@ class TestNLKvK(TransactionCase):
             self.assertFalse(wizard_action)
 
     def test_08_json_load(self):
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_kvk',
             'examples',
             'kvk_69599084.json',
@@ -177,8 +178,7 @@ class TestNLKvK(TransactionCase):
         for kvk_item in data_items_list:
             self.assertEqual(kvk_item['kvkNumber'], '69599084')
 
-    @at_install(False)
-    @post_install(True)
+    @odoo.tests.tagged('post_install', '-at_install')
     def test_09_mocked_api_load(self):
         my_partner = self.main_partner
         my_partner.country_id = self.env.ref('base.nl')
@@ -190,7 +190,7 @@ class TestNLKvK(TransactionCase):
         self.set_param('l10n_nl_kvk_api_key', 'apikeytest')
         self.set_param('l10n_nl_kvk_api_value', API_KEY)
 
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_kvk',
             'examples',
             'kvk_69599084.json',
@@ -262,26 +262,36 @@ class TestNLKvK(TransactionCase):
 
         self.assertEqual(len(wizard.line_ids), 2)
 
-        test_line = wizard.line_ids[0]
+        test_line = wizard.line_ids[1]
         self.assertEqual(test_line.name, '69599084')
         self.assertEqual(test_line.kvk, '69599084')
         self.assertEqual(
             test_line.partner_name,
-            'Test EMZ Dagobert')
+            'Test EMZ Nevenvestiging Govert')
+        self.assertEqual(test_line.partner_city, 'Maastricht')
+        self.assertEqual(test_line.partner_zip, '6223GT')
         self.assertEqual(test_line.entity_type, 'headquarters')
 
         test_line.set_partner_fields()
         self.assertEqual(my_partner.name,
-                         'Test EMZ Dagobert')
+                         'Test EMZ Nevenvestiging Govert')
+        self.assertEqual(my_partner.city, 'Maastricht')
+        self.assertEqual(my_partner.zip, '6223GT')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
-        test_line = wizard.line_ids[1]
+        test_line = wizard.line_ids[0]
         self.assertEqual(test_line.name, '69599084')
         self.assertEqual(test_line.kvk, '69599084')
+        self.assertEqual(test_line.partner_name, 'Test EMZ Dagobert')
+        self.assertEqual(test_line.partner_city, 'Amsterdam')
+        self.assertEqual(test_line.partner_zip, '1034WL')
         self.assertEqual(test_line.entity_type, 'headquarters')
 
         test_line.set_partner_fields()
+        self.assertEqual(my_partner.name, 'Test EMZ Dagobert')
+        self.assertEqual(my_partner.city, 'Amsterdam')
+        self.assertEqual(my_partner.zip, '1034WL')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
@@ -348,23 +358,33 @@ class TestNLKvK(TransactionCase):
 
         self.assertEqual(len(wizard.line_ids), 2)
 
-        test_line = wizard.line_ids[0]
-        self.assertEqual(test_line.name, '68727720')
-        self.assertEqual(test_line.kvk, '68727720')
-        self.assertEqual(test_line.partner_name, 'Test NV Katrien')
-
-        test_line.set_partner_fields()
-        self.assertEqual(my_partner.name, 'Test NV Katrien')
-        self.assertFalse(my_partner.vat)
-        self.assertEqual(my_partner.country_id, nl_country)
-
         test_line = wizard.line_ids[1]
         self.assertEqual(test_line.name, '68727720')
         self.assertEqual(test_line.kvk, '68727720')
         self.assertEqual(test_line.partner_name, 'Test NV Katrien')
+        self.assertFalse(test_line.partner_city)
+        self.assertFalse(test_line.partner_zip)
+        self.assertEqual(test_line.entity_type, 'legal_person')
 
         test_line.set_partner_fields()
         self.assertEqual(my_partner.name, 'Test NV Katrien')
+        self.assertFalse(my_partner.city)
+        self.assertFalse(my_partner.zip)
+        self.assertFalse(my_partner.vat)
+        self.assertEqual(my_partner.country_id, nl_country)
+
+        test_line = wizard.line_ids[0]
+        self.assertEqual(test_line.name, '68727720')
+        self.assertEqual(test_line.kvk, '68727720')
+        self.assertEqual(test_line.partner_name, 'Test NV Katrien')
+        self.assertEqual(test_line.partner_city, 'Veendam')
+        self.assertEqual(test_line.partner_zip, '9646AS')
+        self.assertEqual(test_line.entity_type, 'headquarters')
+
+        test_line.set_partner_fields()
+        self.assertEqual(my_partner.name, 'Test NV Katrien')
+        self.assertEqual(my_partner.city, 'Veendam')
+        self.assertEqual(my_partner.zip, '9646AS')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
