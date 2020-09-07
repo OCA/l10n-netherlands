@@ -5,12 +5,12 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-    l10n_nl_kvk_service = fields.Selection(selection_add=[
-        ('openkvk', 'OpenKvK (gebruikt de Overheid.io API)'),
-    ])
+    l10n_nl_kvk_service = fields.Selection(
+        selection_add=[("openkvk", "OpenKvK (gebruikt de Overheid.io API)"),]
+    )
 
     l10n_nl_openkvk_api_value = fields.Char(
-        config_parameter='l10n_nl_openkvk_api_value'
+        config_parameter="l10n_nl_openkvk_api_value"
     )
