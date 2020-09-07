@@ -4,12 +4,12 @@
 {
     "name": "Integration with Kamer van Koophandel",
     "summary": "Autocomplete company info using KvK API Search",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Localization",
     "author": "Onestein, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",
     "license": "AGPL-3",
-    "depends": ["partner_coc", "base_setup",],
+    "depends": ["partner_coc", "base_setup"],
     "data": [
         "views/res_config_settings.xml",
         "views/res_partner.xml",
