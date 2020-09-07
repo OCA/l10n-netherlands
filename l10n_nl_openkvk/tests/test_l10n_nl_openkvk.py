@@ -1,10 +1,10 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import json
 from mock import patch
 
-from odoo.modules.module import get_module_resource
+from odoo.modules.module import get_resource_path
 from odoo.exceptions import UserError
 from odoo.tools import mute_logger
 from odoo.tests.common import TransactionCase
@@ -15,7 +15,7 @@ API_KEY = 'KEYXXXXXXXXXXXNOTVALID'
 class TestNLOpenKvK(TransactionCase):
 
     def setUp(self):
-        super(TestNLOpenKvK, self).setUp()
+        super().setUp()
         self.set_param = self.env['ir.config_parameter'].set_param
         self.get_param = self.env['ir.config_parameter'].get_param
 
@@ -61,7 +61,7 @@ class TestNLOpenKvK(TransactionCase):
             self.assertFalse(main_partner.load_partner_values_from_name())
 
     def test_03_json_load(self):
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_openkvk',
             'examples',
             'openkvk_56048785.json',
@@ -89,7 +89,7 @@ class TestNLOpenKvK(TransactionCase):
 
         self.set_param('l10n_nl_openkvk_api_value', API_KEY)
 
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_openkvk',
             'examples',
             'openkvk_56048785.json',
@@ -107,7 +107,7 @@ class TestNLOpenKvK(TransactionCase):
 
         with patch(self.api_handler + '_retrieve_data_by_api') as _part_mock:
 
-            rechtspersoon_resource = get_module_resource(
+            rechtspersoon_resource = get_resource_path(
                 'l10n_nl_openkvk',
                 'examples',
                 'openkvk_rechtspersoon-56048785-onestein-bv.json',
@@ -131,7 +131,7 @@ class TestNLOpenKvK(TransactionCase):
             self.assertEqual(self.main_partner.vat, 'NL851956099B01')
             self.assertEqual(self.main_partner.country_id, nl_country)
 
-            hoofdvestiging_resource = get_module_resource(
+            hoofdvestiging_resource = get_resource_path(
                 'l10n_nl_openkvk',
                 'examples',
                 'openkvk_hoofdvestiging-56048785-0000-onestein-bv.json',
@@ -156,7 +156,7 @@ class TestNLOpenKvK(TransactionCase):
             self.assertEqual(self.main_partner.country_id, nl_country)
 
     def test_05_json_load_test_files(self):
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_openkvk',
             'examples',
             'openkvk_hoofdvestiging-56048785-0000-onestein-bv.json',
@@ -165,7 +165,7 @@ class TestNLOpenKvK(TransactionCase):
         res_data = json.loads(json_file.decode())
         self.assertTrue(res_data)
 
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_openkvk',
             'examples',
             'openkvk_rechtspersoon-56048785-onestein-bv.json',
@@ -205,7 +205,7 @@ class TestNLOpenKvK(TransactionCase):
 
         self.set_param('l10n_nl_openkvk_api_value', API_KEY)
 
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_openkvk',
             'examples',
             'openkvk_560487.json',
@@ -225,7 +225,7 @@ class TestNLOpenKvK(TransactionCase):
 
         with patch(self.api_handler + '_retrieve_data_by_api') as _part_mock:
             line_id_str = 'rechtspersoon-56048785-onestein-bv'
-            rechtspersoon_resource = get_module_resource(
+            rechtspersoon_resource = get_resource_path(
                 'l10n_nl_openkvk',
                 'examples',
                 'openkvk_' + line_id_str + '.json',
@@ -249,7 +249,7 @@ class TestNLOpenKvK(TransactionCase):
             self.assertEqual(self.main_partner.country_id, nl_country)
 
             line_id_str = 'hoofdvestiging-56048785-0000-onestein-bv'
-            hoofdvestiging_resource = get_module_resource(
+            hoofdvestiging_resource = get_resource_path(
                 'l10n_nl_openkvk',
                 'examples',
                 'openkvk_' + line_id_str + '.json',

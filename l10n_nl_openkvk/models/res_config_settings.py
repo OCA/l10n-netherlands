@@ -1,7 +1,7 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
@@ -11,19 +11,6 @@ class ResConfigSettings(models.TransientModel):
         ('openkvk', 'OpenKvK (gebruikt de Overheid.io API)'),
     ])
 
-    l10n_nl_openkvk_api_value = fields.Char()
-
-    @api.model
-    def get_values(self):
-        res = super(ResConfigSettings, self).get_values()
-        get_param = self.env['ir.config_parameter'].sudo().get_param
-        res.update(
-            l10n_nl_openkvk_api_value=get_param('l10n_nl_openkvk_api_value'),
-        )
-        return res
-
-    def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        set_param = self.env['ir.config_parameter'].sudo().set_param
-
-        set_param('l10n_nl_openkvk_api_value', self.l10n_nl_openkvk_api_value)
+    l10n_nl_openkvk_api_value = fields.Char(
+        config_parameter='l10n_nl_openkvk_api_value'
+    )

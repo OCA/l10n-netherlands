@@ -1,4 +1,4 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import json
@@ -53,7 +53,7 @@ class KvKPreviewWizard(models.TransientModel):
     def _get_wizard_lines(self, res_data):
         Handler = self.env['l10n.nl.kvk.api.handler']
         if Handler._get_config('service') != 'openkvk':
-            return super(KvKPreviewWizard, self)._get_wizard_lines(res_data)
+            return super()._get_wizard_lines(res_data)
 
         return self._get_wizard_lines_openkvk(res_data)
 
@@ -65,7 +65,6 @@ class KvKPreviewWizardLines(models.TransientModel):
     line_id_str = fields.Char()
     extra = fields.Char()
 
-    @api.multi
     def _retrieve_partner_data_by_openkvk_api(self):
         self.ensure_one()
 
@@ -77,7 +76,6 @@ class KvKPreviewWizardLines(models.TransientModel):
 
         return json.loads(response.decode())
 
-    @api.multi
     def set_partner_fields(self):
         Handler = self.env['l10n.nl.kvk.api.handler']
         if Handler._get_config('service') == 'openkvk':
@@ -100,4 +98,4 @@ class KvKPreviewWizardLines(models.TransientModel):
                 'partner_vat': res_data.get('BTW'),
             })
 
-        return super(KvKPreviewWizardLines, self).set_partner_fields()
+        return super().set_partner_fields()
