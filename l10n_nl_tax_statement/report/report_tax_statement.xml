@@ -58,7 +58,9 @@
                                 <div
                                     class="nl_tax_act_as_cell left"
                                     style="width: 900px;"
-                                > </div>
+                                >
+
+                                </div>
                                 <div class="nl_tax_act_as_cell right">Omzet</div>
                                 <div class="nl_tax_act_as_cell right">BTW</div>
                             </div>
@@ -75,8 +77,12 @@
                                     ><span t-field="line.code" /> - <span
                                             t-field="line.name"
                                         /></div>
-                                    <div class="nl_tax_act_as_cell right"> </div>
-                                    <div class="nl_tax_act_as_cell right"> </div>
+                                    <div class="nl_tax_act_as_cell right">
+
+                                    </div>
+                                    <div class="nl_tax_act_as_cell right">
+
+                                    </div>
                                 </div>
                                 <div
                                     t-if="not line.is_group"
@@ -103,7 +109,9 @@
                                     class="nl_tax_act_as_cell left"
                                     style="width: 900px;"
                                 > &amp;nbsp; &amp;nbsp; 5g - Totaal</div>
-                                <div class="nl_tax_act_as_cell right"> </div>
+                                <div class="nl_tax_act_as_cell right">
+
+                                </div>
                                 <div class="nl_tax_act_as_cell right">
                                     <span t-field="o.format_btw_total" />
                                 </div>

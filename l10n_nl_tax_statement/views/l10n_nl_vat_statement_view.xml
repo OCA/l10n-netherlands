@@ -128,9 +128,10 @@
                                 string="BTW Statement lines"
                                 attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}"
                             >
-                                <div
-                                    states="draft"
-                                >Press the Update button in order to recompute the statement lines!</div>
+                                <div states="draft">
+                                    Press the Update button in order to recompute the
+                                    statement lines!
+                                </div>
                                 <button
                                     name="statement_update"
                                     string="Update"
@@ -195,6 +196,7 @@
                             </field>
                             <group attrs="{'invisible': [('parent_id','!=',False)]}">
                                 <group>
+
                                 </group>
                                 <group>
                                     <label for="btw_total" />

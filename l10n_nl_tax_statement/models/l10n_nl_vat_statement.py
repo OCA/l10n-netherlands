@@ -256,7 +256,11 @@ class VatStatement(models.Model):
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
         for statement in self:
-            date_from = statement.from_date + relativedelta(months=-3, day=1)
+            date_from = (
+                statement.from_date + relativedelta(months=-3, day=1)
+                if statement.from_date
+                else False
+            )
             statement.unreported_move_from_date = date_from
 
     def _prepare_lines(self):
@@ -457,7 +461,7 @@ class VatStatement(models.Model):
         self.ensure_one()
         tags_map = self._get_tags_map()
         for line in move_lines:
-            for tag in line.tag_ids:
+            for tag in line.tax_tag_ids:
                 tag_map = tags_map.get(tag.id)
                 if tag_map:
                     code, column = tag_map

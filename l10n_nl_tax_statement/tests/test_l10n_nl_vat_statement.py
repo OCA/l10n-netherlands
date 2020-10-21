@@ -36,7 +36,7 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_child_1
-        self.coa.try_loading_for_current_company()
+        self.coa.try_loading()
         self.company_child_2 = self.env["res.company"].create(
             {
                 "name": "Child 2 Company",
@@ -45,7 +45,7 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_child_2
-        self.coa.try_loading_for_current_company()
+        self.coa.try_loading()
         self.env.user.company_id = self.company_parent
 
     def _has_invoice_basis(self):
@@ -77,7 +77,7 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_parent
-        self.coa.try_loading_for_current_company()
+        self.coa.try_loading()
 
         self.env["l10n.nl.vat.statement"].search([]).unlink()
 
@@ -149,11 +149,10 @@ class TestVatStatement(TransactionCase):
             }
         )
         invoice_form = Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
+            self.env["account.move"].with_context(default_move_type="out_invoice")
         )
         invoice_form.partner_id = partner
         invoice_form.journal_id = journal
-        invoice_form.invoice_date = fields.Date.today()
         with invoice_form.invoice_line_ids.new() as line:
             line.name = "Test line"
             line.quantity = 1.0
