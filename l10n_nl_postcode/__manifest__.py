@@ -3,7 +3,7 @@
 
 {
     "name": "Dutch postcode validation for Partners",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Localization",
     "author": "Onestein,Odoo Community Association (OCA)",
     "maintainers": ["astirpe"],
