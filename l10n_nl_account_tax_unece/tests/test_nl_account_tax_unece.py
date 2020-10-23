@@ -1,4 +1,4 @@
-# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
@@ -14,7 +14,7 @@ class TestNlAccountTaxUnece(TransactionCase):
         l10nnl_chart_template = self.env.ref("l10n_nl.l10nnl_chart_template")
         old_company = self.env.user.company_id
         self.env.user.company_id = self.my_company.id
-        l10nnl_chart_template.try_loading_for_current_company()
+        l10nnl_chart_template.try_loading()
         self.env.user.company_id = old_company.id
 
         self.unece_type_id = self.env.ref("account_tax_unece.tax_type_vat").id
