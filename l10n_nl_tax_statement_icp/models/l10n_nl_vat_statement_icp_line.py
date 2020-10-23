@@ -12,9 +12,18 @@ class VatStatementIcpLine(models.Model):
     _order = "partner_id, country_code"
 
     statement_id = fields.Many2one("l10n.nl.vat.statement", ondelete="cascade")
-    partner_id = fields.Many2one("res.partner", readonly=True, required=True,)
-    vat = fields.Char(string="VAT", readonly=True,)
-    country_code = fields.Char(readonly=True,)
+    partner_id = fields.Many2one(
+        "res.partner",
+        readonly=True,
+        required=True,
+    )
+    vat = fields.Char(
+        string="VAT",
+        readonly=True,
+    )
+    country_code = fields.Char(
+        readonly=True,
+    )
     currency_id = fields.Many2one("res.currency", readonly=True)
     amount_products = fields.Monetary(readonly=True)
     format_amount_products = fields.Char(compute="_compute_icp_amount_format")

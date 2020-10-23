@@ -55,12 +55,12 @@ class VatStatement(models.Model):
         return icp_line_vals
 
     def _is_3b_omzet_line(self, line):
-        if line.tag_ids.filtered(lambda t: "3b" in t.name and "d" not in t.name):
+        if line.tax_tag_ids.filtered(lambda t: "3b" in t.name and "d" not in t.name):
             return True
         return False
 
     def _is_3b_omzet_diensten_line(self, line):
-        if line.tag_ids.filtered(lambda t: "3b" in t.name and "d" in t.name):
+        if line.tax_tag_ids.filtered(lambda t: "3b" in t.name and "d" in t.name):
             return True
         return False
 
