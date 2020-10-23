@@ -10,10 +10,11 @@ from odoo.addons.l10n_nl_tax_statement.tests.test_l10n_nl_vat_statement import (
 
 class TestTaxStatementIcp(TestVatStatement):
     def _prepare_icp_invoice(self):
+
+        self.invoice_1._post()
         for invoice_line in self.invoice_1.invoice_line_ids:
-            invoice_line.tag_ids = self.tag_5
+            invoice_line.tax_tag_ids = self.tag_5
         self.invoice_1._onchange_invoice_line_ids()
-        self.invoice_1.post()
         self.statement_with_icp.statement_update()
 
     def test_02_no_tag_3b_omzet(self):
@@ -84,10 +85,10 @@ class TestTaxStatementIcp(TestVatStatement):
         )
 
         self.invoice_1.partner_id.country_id = self.env.ref("base.be")
+        self.invoice_1._post()
         for invoice_line in self.invoice_1.invoice_line_ids:
-            invoice_line.tag_ids = self.tag_6
+            invoice_line.tax_tag_ids = self.tag_6
         self.invoice_1._onchange_invoice_line_ids()
-        self.invoice_1.post()
         self.statement_with_icp.statement_update()
 
         self.statement_with_icp.post()
