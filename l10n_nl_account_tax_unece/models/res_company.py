@@ -1,4 +1,4 @@
-# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
@@ -61,16 +61,16 @@ class ResCompany(models.Model):
         for tax in taxes:
             if tax.id in ext_id_map:
                 tax_categ = self._l10n_nl_get_tax_categ(ext_id_map, tax)
-                external_name = "account_tax_unece." + tax_categ
-                categ_id = self.env.ref(external_name).id or False
-                utype_id = self.env.ref("account_tax_unece.tax_type_vat").id
-                tax.write({"unece_type_id": utype_id, "unece_categ_id": categ_id})
+                if tax_categ:
+                    external_name = "account_tax_unece." + tax_categ
+                    categ_id = self.env.ref(external_name).id or False
+                    utype_id = self.env.ref("account_tax_unece.tax_type_vat").id
+                    tax.write({"unece_type_id": utype_id, "unece_categ_id": categ_id})
 
     @api.model
     def _l10n_nl_get_tax_categ(self, ext_id_map, tax):
         map_tax_index = str(ext_id_map[tax.id]).split("_", 1)[1]
-        mapped_tax_data = MAPPING[map_tax_index]
-        return mapped_tax_data["categ"]
+        return MAPPING.get(map_tax_index, {}).get("categ")
 
     @api.model
     def _l10n_nl_get_external_tax_id_map(self, taxes):
