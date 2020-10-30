@@ -8,7 +8,7 @@
 # Thomas Pot <thomas@open2bizz.nl>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-19 09:18+0000\n"
 "PO-Revision-Date: 2018-04-19 09:18+0000\n"
@@ -21,69 +21,74 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner
-msgid "Contact"
-msgstr ""
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__active
+msgid "Active"
+msgstr "Actief"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_use_manual_salutations
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_use_manual_salutations
+#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: l10n_nl_partner_salutation
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__use_manual_salutations
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__use_manual_salutations
 msgid "Enter salutations manually"
 msgstr "Voer begroetingen handmatig in"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_salutation_address_manual
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_salutation_address_manual
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__salutation_address_manual
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__salutation_address_manual
 msgid "Manual salutation (address)"
 msgstr "Handmatige begroeting (adres)"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_salutation_manual
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_salutation_manual
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__salutation_manual
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__salutation_manual
 msgid "Manual salutation (letter)"
 msgstr "Handmatige begroeting (brief)"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_postnominal
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__postnominal
 msgid "Postnominal"
 msgstr "Titel"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_salutation
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__salutation
 msgid "Salutation"
 msgstr "Begroeting"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_salutation_address
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_salutation_address
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__salutation_address
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__salutation_address
 #: model:ir.ui.view,arch_db:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation (address)"
 msgstr "Begroeting (adres)"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users_salutation
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__salutation
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__salutation
 #: model:ir.ui.view,arch_db:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation (letter)"
 msgstr "Begroeting (brief)"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_salutation_female
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__salutation_female
 msgid "Salutation female"
 msgstr "Begroeting vrouw"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_salutation_male
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__salutation_male
 msgid "Salutation male"
 msgstr "Begroeting man"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_shortcut_female
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__shortcut_female
 msgid "Shortcut female"
 msgstr "Afkorting vrouw"
 
 #. module: l10n_nl_partner_salutation
-#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title_shortcut_male
+#: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__shortcut_male
 msgid "Shortcut male"
 msgstr "Afkorting man"
 
@@ -92,8 +97,3 @@ msgstr "Afkorting man"
 msgid "res.partner.title"
 msgstr "res.partner.title"
 
-#~ msgid "Partner"
-#~ msgstr "Relatie"
-
-#~ msgid "Sir"
-#~ msgstr "Heer"

@@ -1,8 +1,8 @@
-# Copyright 2017 Therp BV <https://therp.nl>
+# Copyright 2017-2020 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Full salutation for partners, Dutch style',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'Therp BV, Odoo Community Association (OCA)',
     'category': 'Contact management',
     'license': 'AGPL-3',
@@ -16,4 +16,5 @@
         'views/res_partner_title.xml',
         'views/res_partner.xml',
     ],
+    'installable': True,
 }

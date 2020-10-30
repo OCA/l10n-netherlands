@@ -1,5 +1,5 @@
-# Copyright 2017 Therp BV <https://therp.nl>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2020 Therp BV <https://therp.nl>.
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, models, fields
 
 
@@ -78,7 +78,7 @@ class ResPartner(models.Model):
             if not val:
                 val = partner.title[field] or \
                     DEFAULT_PREFIX[field][partner.gender or 'unknown']
-            return val and (val + ' ') or ''
+            return (val + ' ') if val else ''
 
         for rec in self:
             rec.salutation = False
