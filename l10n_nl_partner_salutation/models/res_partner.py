@@ -1,21 +1,21 @@
 # Copyright 2017-2020 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# pylint: disable=no-self-use,protected-access
+"""Functionality to define salutations to use in mails and letters to partners."""
 from odoo import api, models, fields
 
 
-DEFAULT_PREFIX = {
-    'shortcut': {
-        'male': 'De heer',
-        'female': 'Mevrouw',
-        'other': '',
-        'unknown': 'De heer of mevrouw',
-    },
-    'salutation': {
-        'male': 'Geachte heer',
-        'female': 'Geachte mevrouw',
-        'other': 'Geachte',
-        'unknown': 'Geachte heer of mevrouw',
-    }
+DEFAULT_SHORTCUT = {
+    'male': 'De heer',
+    'female': 'Mevrouw',
+    'other': '',
+    'unknown': 'De heer of mevrouw',
+}
+DEFAULT_SALUTATION = {
+    'male': 'Geachte heer',
+    'female': 'Geachte mevrouw',
+    'other': 'Geachte',
+    'unknown': 'Geachte heer of mevrouw',
 }
 
 
@@ -47,8 +47,8 @@ class ResPartner(models.Model):
     def get_salutation_name(self):
         """Return the name formatted for use in salutation."""
         self.ensure_one()
-        # Use API from partner_firstname
-        # (actually method as it has been overridden in partner_name_dutch)
+        # Use _get_computed_name from partner_firstname.
+        # (actually method as it has been overridden in l10n_nl_partner_name_dutch).
         return self.with_context(
             name_format=self.get_salutation_name_format()
         )._get_computed_name(
@@ -61,53 +61,61 @@ class ResPartner(models.Model):
         'title',
         'use_manual_salutations',
         'salutation_manual',
-        'salutation_address_manual'
     )
     def _compute_salutation(self):
-        """Return the salutation fields."""
+        """Fill salutation field."""
+        for this in self:
+            this.salutation = (
+                this.salutation_manual if this.use_manual_salutations
+                else this._compute_salutation_field('salutation', DEFAULT_SALUTATION)
+            )
 
-        def get_prefix(field, partner):
-            """
-            Get genderized values for the given field, with a fallback
-            on the field if the partner has no gender or the genderized
-            field itself has no value.
-            """
-            val = ''
-            if partner.gender in ('male', 'female'):
-                val = partner.title[field + '_' + partner.gender]
-            if not val:
-                val = partner.title[field] or \
-                    DEFAULT_PREFIX[field][partner.gender or 'unknown']
-            return (val + ' ') if val else ''
+    @api.depends(
+        'gender',
+        'title',
+        'use_manual_salutations',
+        'salutation_address_manual',
+    )
+    def _compute_salutation_address(self):
+        """Fill salutation_address field."""
+        for this in self:
+            this.salutation_address = (
+                this.salutation_address_manual if this.use_manual_salutations
+                else this._compute_salutation_field('shortcut', DEFAULT_SHORTCUT)
+            )
 
-        for rec in self:
-            rec.salutation = False
-            rec.salutation_address = False
-            if rec.is_company:
-                # For the moment also no manual salutations for company:
-                continue
-            if rec.use_manual_salutations:
-                rec.salutation = rec.salutation_manual or False
-                rec.salutation_address = \
-                    rec.salutation_address_manual or False
-            # Use API from partner_firstname
-            name = rec.get_salutation_name()
-            # Apply prefix/or and suffix
-            if not rec.salutation:
-                rec.salutation = get_prefix('salutation', rec) + name
-                if rec.title.postnominal:
-                    rec.salutation += ' ' + rec.title.postnominal
-            if not rec.salutation_address:
-                rec.salutation_address = get_prefix('shortcut', rec) + name
-                if rec.title.postnominal:
-                    rec.salutation_address += ' ' + rec.title.postnominal
+    def _compute_salutation_field(self, prefix_type, default_dict):
+        """Compute salutation or salutation_address."""
+        # For the moment no manual salutations for company.
+        # pylint: disable=consider-using-ternary
+        return (
+            not self.is_company and " ".join(
+                name_part for name_part in (
+                    self._get_prefix(prefix_type, default_dict),
+                    self.get_salutation_name(),
+                    self.title.postnominal,
+                )
+                if name_part
+            )
+            or ""
+        )
+
+    def _get_prefix(self, prefix_type, default_dict):
+        """Get prefix, dependend on gender."""
+        self.ensure_one()
+        return (
+            self.gender in ('male', 'female')
+            and self.title[prefix_type + '_' + self.gender]
+            or self.title[prefix_type]
+            or default_dict[self.gender or 'unknown']
+        )
 
     salutation = fields.Char(
         compute='_compute_salutation',
         string='Salutation (letter)'
     )
     salutation_address = fields.Char(
-        compute='_compute_salutation',
+        compute='_compute_salutation_address',
         string='Salutation (address)'
     )
     use_manual_salutations = fields.Boolean('Enter salutations manually')

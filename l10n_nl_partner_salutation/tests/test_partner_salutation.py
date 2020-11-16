@@ -1,13 +1,16 @@
-# Copyright 2017 Therp BV <https://therp.nl>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2020 Therp BV <https://therp.nl>.
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo.tests.common import TransactionCase
 
 
 class TestPartnerSalutation(TransactionCase):
     """Class test correct salutations for all genders and none."""
 
-    post_install = True
-    at_install = False
+    # Test at_install as modules installed after this one might have
+    # legitimate reasons to change the outcome. (Like supporting salutations for
+    # company).
+    post_install = False
+    at_install = True
 
     def test_salutation_company(self):
         """Test that companies do not get salutation."""
@@ -17,8 +20,8 @@ class TestPartnerSalutation(TransactionCase):
             'name': 'Best Washing machines Incorporated',
             'gender': False,  # Should be default, just make explicit
         })
-        self.assertEqual(partner.salutation, False)
-        self.assertEqual(partner.salutation_address, False)
+        self.assertEqual(partner.salutation, "")
+        self.assertEqual(partner.salutation_address, "")
 
     def test_salutation_male(self):
         """Test male salutation."""
