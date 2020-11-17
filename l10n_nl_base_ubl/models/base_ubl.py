@@ -10,34 +10,44 @@ class BaseUbl(models.AbstractModel):
     _inherit = "base.ubl"
 
     @api.model
-    def _ubl_add_party_identification(self, partner, parent_node, ns, version="2.1"):
-        res = super()._ubl_add_party_identification(
+    def _ubl_add_party_legal_entity(
+            self, partner, parent_node, ns, version="2.1"):
+        """ Add NL-specific things to PartyLegalEntity """
+        res = super()._ubl_add_party_legal_entity(
             partner, parent_node, ns, version=version
         )
+        # PartyLegalEntity/CompanyID must be added just after RegistrationName
+        party_legal_entity = parent_node.find(ns["cac"] + "PartyLegalEntity")
+        registration_name = party_legal_entity.find(
+            ns["cbc"] + "RegistrationName")
+        id_dict = self._ubl_get_party_identification(partner)
+        if id_dict:
+            for scheme_name, party_id_text in id_dict.iteritems():
+                company_id = etree.Element(
+                    ns['cbc'] + 'CompanyID', schemeName=scheme_name)
+                company_id.text = party_id_text
+                registration_name.addnext(company_id)
+        return res
 
-        kvk = self._l10n_nl_base_ubl_get_kvk(partner)
-        if kvk:
-            entity = etree.SubElement(parent_node, ns["cac"] + "PartyLegalEntity")
-            entity_id = etree.SubElement(
-                entity, ns["cbc"] + "CompanyID", schemeID="NL:KVK", schemeAgencyID="ZZZ"
-            )
-            entity_id.text = kvk
-
-        oin = self._l10n_nl_base_ubl_get_oin(partner)
+    @api.model
+    def _ubl_get_party_identification(self, commercial_partner):
+        res = super(BaseUbl, self)._ubl_get_party_identification(
+            commercial_partner
+        )
+        oin = self._l10n_nl_base_ubl_get_oin(commercial_partner)
+        kvk = self._l10n_nl_base_ubl_get_kvk(commercial_partner)
+        # OIN (0190) trumps KVK number (0106) if it is filled for a partner
         if oin:
-            ident = etree.SubElement(parent_node, ns["cac"] + "PartyIdentification")
-            ident_id = etree.SubElement(
-                ident, ns["cbc"] + "ID", schemeID="NL:OIN", schemeAgencyID="ZZZ"
-            )
-            ident_id.text = oin
-
+            res['0190'] = oin
+        elif kvk:
+            res['0106'] = kvk
         return res
 
     def _l10n_nl_base_ubl_get_kvk(self, partner):
         """
         In case OCA module 'partner_coc' is installed, returns the value of
-        field 'coc_registration_number'. Otherwise if the KvK is defined somewhere
-        else you should extend this method returning its value.
+        field 'coc_registration_number'. Otherwise if the KvK is defined
+        somewhere else you should extend this method returning its value.
         :param partner: record of commercial partner
         :return: String presenting the Dutch KvK
         """
