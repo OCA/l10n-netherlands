@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "summary": "Adds Dutch-related data in UBL XML files",
     "author": "Onestein, Odoo Community Association (OCA)",
-    "maintainers": ["astirpe"],
+    "maintainers": ["astirpe", "thomaspaulb"],
     "website": "https://github.com/OCA/l10n-netherlands",
     "depends": ["base_ubl"],
     "installable": True,
