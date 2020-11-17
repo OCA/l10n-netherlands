@@ -26,11 +26,11 @@ class TestUblInvoice(HttpCase):
         nsmap, ns = self.env["base.ubl"]._ubl_get_nsmap_namespace("Invoice-1")
         xml_root = etree.Element("Invoice", nsmap=nsmap)
 
-        path_addon = "odoo.addons.l10n_nl_ubl."
+        path_addon = "odoo.addons.l10n_nl_base_ubl."
         path_file = "models.base_ubl."
         classBaseUbl = path_addon + path_file + "BaseUbl."
 
-        with patch(classBaseUbl + "_l10n_nl_ubl_get_kvk") as _sugg_mock:
+        with patch(classBaseUbl + "_l10n_nl_base_ubl_get_kvk") as _sugg_mock:
             _sugg_mock.return_value = "12345"
 
             self.env["base.ubl"]._ubl_add_customer_party(
@@ -41,11 +41,11 @@ class TestUblInvoice(HttpCase):
         nsmap, ns = self.env["base.ubl"]._ubl_get_nsmap_namespace("Invoice-2")
         xml_root = etree.Element("Invoice", nsmap=nsmap)
 
-        path_addon = "odoo.addons.l10n_nl_ubl."
+        path_addon = "odoo.addons.l10n_nl_base_ubl."
         path_file = "models.base_ubl."
         classBaseUbl = path_addon + path_file + "BaseUbl."
 
-        with patch(classBaseUbl + "_l10n_nl_ubl_get_oin") as _sugg_mock:
+        with patch(classBaseUbl + "_l10n_nl_base_ubl_get_oin") as _sugg_mock:
             _sugg_mock.return_value = "00000123456789012345"
 
             self.env["base.ubl"]._ubl_add_customer_party(
