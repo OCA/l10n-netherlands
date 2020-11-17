@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Dutch - UBL",
+    "name": "Base UBL - Netherlands",
     "version": "13.0.1.0.0",
     "category": "Dutch Localization",
     "license": "AGPL-3",
-    "summary": "Adds Dutch-related data in UBL XML files",
+    "summary": "Base module for Netherlands-specific UBL dialect (NLCIUS)",
     "author": "Onestein, Odoo Community Association (OCA)",
     "maintainers": ["astirpe", "thomaspaulb"],
     "website": "https://github.com/OCA/l10n-netherlands",
