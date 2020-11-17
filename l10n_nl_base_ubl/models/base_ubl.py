@@ -15,7 +15,7 @@ class BaseUbl(models.AbstractModel):
             partner, parent_node, ns, version=version
         )
 
-        kvk = self._l10n_nl_ubl_get_kvk(partner)
+        kvk = self._l10n_nl_base_ubl_get_kvk(partner)
         if kvk:
             entity = etree.SubElement(parent_node, ns["cac"] + "PartyLegalEntity")
             entity_id = etree.SubElement(
@@ -23,7 +23,7 @@ class BaseUbl(models.AbstractModel):
             )
             entity_id.text = kvk
 
-        oin = self._l10n_nl_ubl_get_oin(partner)
+        oin = self._l10n_nl_base_ubl_get_oin(partner)
         if oin:
             ident = etree.SubElement(parent_node, ns["cac"] + "PartyIdentification")
             ident_id = etree.SubElement(
@@ -33,7 +33,7 @@ class BaseUbl(models.AbstractModel):
 
         return res
 
-    def _l10n_nl_ubl_get_kvk(self, partner):
+    def _l10n_nl_base_ubl_get_kvk(self, partner):
         """
         In case OCA module 'partner_coc' is installed, returns the value of
         field 'coc_registration_number'. Otherwise if the KvK is defined somewhere
@@ -45,7 +45,7 @@ class BaseUbl(models.AbstractModel):
             return partner.coc_registration_number
         return False
 
-    def _l10n_nl_ubl_get_oin(self, partner):
+    def _l10n_nl_base_ubl_get_oin(self, partner):
         """
         In case OCA module 'l10n_nl_oin' is installed, returns the value of
         field 'nl_oin'. Otherwise if the OIN is defined somewhere
