@@ -4,29 +4,19 @@
 from lxml import etree
 from mock import patch
 
-from odoo.tests.common import Form, HttpCase
+from openerp.addons.l10n_nl_base_ubl.tests.test_base import TestBase
+from openerp.tests.common import at_install, post_install
 
 
-class TestUblInvoice(HttpCase):
-    def setUp(self):
-        super().setUp()
-        with Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
-        ) as invoice_form:
-            invoice_form.partner_id = self.env.ref("base.res_partner_4")
-            invoice_form.partner_id.country_id = self.env.ref("base.nl")
-            with invoice_form.invoice_line_ids.new() as invoice_line_form:
-                invoice_line_form.product_id = self.env.ref("product.product_product_4")
-                invoice_line_form.name = "product that cost 100"
-                invoice_line_form.quantity = 1
-                invoice_line_form.price_unit = 100.0
-            self.invoice = invoice_form.save()
+@at_install(True)
+@post_install(False)
+class TestUblInvoice(TestBase):
 
     def test_01_ubl_emulate_kvk_found(self):
         nsmap, ns = self.env["base.ubl"]._ubl_get_nsmap_namespace("Invoice-1")
         xml_root = etree.Element("Invoice", nsmap=nsmap)
 
-        path_addon = "odoo.addons.l10n_nl_base_ubl."
+        path_addon = "openerp.addons.l10n_nl_base_ubl."
         path_file = "models.base_ubl."
         classBaseUbl = path_addon + path_file + "BaseUbl."
 
@@ -41,7 +31,7 @@ class TestUblInvoice(HttpCase):
         nsmap, ns = self.env["base.ubl"]._ubl_get_nsmap_namespace("Invoice-2")
         xml_root = etree.Element("Invoice", nsmap=nsmap)
 
-        path_addon = "odoo.addons.l10n_nl_base_ubl."
+        path_addon = "openerp.addons.l10n_nl_base_ubl."
         path_file = "models.base_ubl."
         classBaseUbl = path_addon + path_file + "BaseUbl."
 

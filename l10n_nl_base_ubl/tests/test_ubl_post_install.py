@@ -3,25 +3,13 @@
 
 from lxml import etree
 
-import odoo
-from odoo.tests.common import Form, HttpCase
+from openerp.addons.l10n_nl_base_ubl.tests.test_base import TestBase
+from openerp.tests.common import at_install, post_install
 
 
-@odoo.tests.tagged("post_install", "-at_install")
-class TestUblInvoice(HttpCase):
-    def setUp(self):
-        super().setUp()
-        with Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
-        ) as invoice_form:
-            invoice_form.partner_id = self.env.ref("base.res_partner_4")
-            invoice_form.partner_id.country_id = self.env.ref("base.nl")
-            with invoice_form.invoice_line_ids.new() as invoice_line_form:
-                invoice_line_form.product_id = self.env.ref("product.product_product_4")
-                invoice_line_form.name = "product that cost 100"
-                invoice_line_form.quantity = 1
-                invoice_line_form.price_unit = 100.0
-            self.invoice = invoice_form.save()
+@at_install(False)
+@post_install(True)
+class TestUblInvoice(TestBase):
 
     def test_01_ubl_kvk_found(self):
         if self.invoice.partner_id._fields.get("coc_registration_number"):
