@@ -6,8 +6,8 @@ by identifying the Dutch commercial partner with:
 
 In case OCA module `partner_coc` is installed, this module will handle the proper
 value of KvK. Otherwise if the field KvK is defined in another module,
-you should extend method ``_l10n_nl_ubl_get_kvk`` returning your custom KvK field.
+you should extend method ``_l10n_nl_base_ubl_get_kvk`` returning your custom KvK field.
 
 In case OCA module `l10n_nl_oin` is installed, this module will handle the proper
 value of OIN. Otherwise if the field OIN is defined in another module,
-you should extend method ``_l10n_nl_ubl_get_oin`` returning your custom OIN field.
+you should extend method ``_l10n_nl_base_ubl_get_oin`` returning your custom OIN field.
