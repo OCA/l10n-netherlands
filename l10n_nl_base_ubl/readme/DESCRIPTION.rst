@@ -1,5 +1,13 @@
-With this localization module, Odoo will be able to generate UBL XML documents
-by identifying the Dutch commercial partner with:
+This localization module provides functions that facilitate working with UBL
+documents with the specific dialect that is used in Netherlands (NLCIUS).
+For more info on the NLCIUS standard see:
+
+https://www.forumstandaardisatie.nl/open-standaarden/nlcius
+
+Partner identification
+----------------------
+
+According to NLCIUS, a Dutch commercial partner can be identified with:
 
 - Kamer van Koophandel (KvK).
 - Organisatie-identificatienummer (OIN).
