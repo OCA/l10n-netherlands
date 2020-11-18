@@ -1,17 +1,18 @@
+# -*- coding: utf-8 -*-
 # Copyright 2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase
+from openerp.tests.common import TransactionCase
 
 
 class TestOin(TransactionCase):
     def setUp(self):
-        super().setUp()
+        super(TestOin, self).setUp()
 
         self.partner_oin = self.env["res.partner"].create(
             {
                 "name": "Partner with OIN",
-                "company_id": self.env.company.id,
+                "company_id": self.env.user.company_id.id,
                 "country_id": self.env.ref("base.nl").id,
                 "is_company": True,
             }
@@ -43,7 +44,7 @@ class TestOin(TransactionCase):
             {
                 "name": "Partner with OIN - NEW",
                 "nl_oin": "12345678901234567890",
-                "company_id": self.env.company.id,
+                "company_id": self.env.user.company_id.id,
             }
         ).with_context(lang='en_US')
         self.partner_oin.nl_oin = "12345678901234567890"

@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 # Copyright 2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from openerp import _, api, fields, models
 
 
 class ResPartner(models.Model):
