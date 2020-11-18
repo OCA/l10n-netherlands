@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-l10n-netherlands Odoo addons",
     version=version,
     install_requires=[
+        'odoo12-addon-l10n_nl_account_tax_unece',
         'odoo12-addon-l10n_nl_bank',
         'odoo12-addon-l10n_nl_bsn',
         'odoo12-addon-l10n_nl_location_nuts',
