@@ -8,13 +8,17 @@ class TestOin(TransactionCase):
     def setUp(self):
         super().setUp()
 
-        self.partner_oin = self.env["res.partner"].create(
-            {
-                "name": "Partner with OIN",
-                "company_id": self.env.company.id,
-                "country_id": self.env.ref("base.nl").id,
-                "is_company": True,
-            }
+        self.partner_oin = (
+            self.env["res.partner"]
+            .create(
+                {
+                    "name": "Partner with OIN",
+                    "company_id": self.env.company.id,
+                    "country_id": self.env.ref("base.nl").id,
+                    "is_company": True,
+                }
+            )
+            .with_context(lang="en_US")
         )
 
     def test_01_oin_not_valid(self):
@@ -39,12 +43,16 @@ class TestOin(TransactionCase):
         self.assertFalse(warning)
 
     def test_03_oin_another_partner(self):
-        new_partner_oin = self.env["res.partner"].create(
-            {
-                "name": "Partner with OIN - NEW",
-                "nl_oin": "12345678901234567890",
-                "company_id": self.env.company.id,
-            }
+        new_partner_oin = (
+            self.env["res.partner"]
+            .create(
+                {
+                    "name": "Partner with OIN - NEW",
+                    "nl_oin": "12345678901234567890",
+                    "company_id": self.env.company.id,
+                }
+            )
+            .with_context(lang="en_US")
         )
         self.partner_oin.nl_oin = "12345678901234567890"
         res = self.partner_oin.onchange_nl_oin()
