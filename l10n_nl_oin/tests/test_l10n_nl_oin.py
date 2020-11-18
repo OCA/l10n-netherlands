@@ -15,7 +15,7 @@ class TestOin(TransactionCase):
                 "country_id": self.env.ref("base.nl").id,
                 "is_company": True,
             }
-        )
+        ).with_context(lang='en_US')
 
     def test_01_oin_not_valid(self):
         self.partner_oin.nl_oin = "123"
@@ -45,7 +45,7 @@ class TestOin(TransactionCase):
                 "nl_oin": "12345678901234567890",
                 "company_id": self.env.company.id,
             }
-        )
+        ).with_context(lang='en_US')
         self.partner_oin.nl_oin = "12345678901234567890"
         res = self.partner_oin.onchange_nl_oin()
         self.assertTrue(res.get("warning"))
