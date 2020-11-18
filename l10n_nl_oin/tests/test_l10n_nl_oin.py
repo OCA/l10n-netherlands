@@ -13,7 +13,7 @@ class TestOin(TransactionCase):
                 "name": "Partner with OIN",
                 "company_id": self.env.company.id,
                 "country_id": self.env.ref("base.nl").id,
-                "company_type": "company",
+                "is_company": True,
             }
         )
 
@@ -70,5 +70,5 @@ class TestOin(TransactionCase):
         self.assertFalse(self.partner_oin.nl_oin_display)
 
         self.partner_oin.country_id = self.env.ref("base.nl")
-        self.partner_oin.company_type = "person"
+        self.partner_oin.is_company = False
         self.assertFalse(self.partner_oin.nl_oin_display)
