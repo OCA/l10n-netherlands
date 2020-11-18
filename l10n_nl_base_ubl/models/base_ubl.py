@@ -20,7 +20,7 @@ class BaseUbl(models.AbstractModel):
         registration_name = party_legal_entity.find(ns["cbc"] + "RegistrationName")
         id_dict = self._ubl_get_party_identification(partner)
         if id_dict:
-            for scheme_name, party_id_text in id_dict.iteritems():
+            for scheme_name, party_id_text in id_dict.items():
                 company_id = etree.Element(
                     ns["cbc"] + "CompanyID", schemeName=scheme_name
                 )
