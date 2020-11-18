@@ -10,11 +10,15 @@ class TestNlLocationNuts(TransactionCase):
     def setUp(self):
         super().setUp()
 
-        self.env['res.country.state'].create({
-            'name': 'Noord-Brabant',
-            'code': 'NB',
-            'country_id': self.env.ref('base.nl').id
-        })
+        if not self.env['res.country.state'].search([
+            ('code', "=", 'NB'),
+            ('country_id', "=", self.env.ref('base.nl').id),
+        ]):
+            self.env['res.country.state'].create({
+                'name': 'Noord-Brabant',
+                'code': 'NB',
+                'country_id': self.env.ref('base.nl').id
+            })
 
         importer = self.env['nuts.import']
         importer.run_import()
