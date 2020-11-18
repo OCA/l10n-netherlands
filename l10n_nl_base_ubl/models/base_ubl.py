@@ -11,21 +11,89 @@ class BaseUbl(models.AbstractModel):
     _inherit = "base.ubl"
 
     @api.model
+    def _l10n_nl_base_ubl_use_dutch_ubl(self, partner):
+        """ Returns True when we should use Dutch UBL dialect for this partner """
+        return partner.country_id == self.env.ref('base.nl')
+
+    @api.model
+    def _ubl_add_party(
+            self, partner, company, node_name, parent_node, ns, version='2.1'):
+        res = super(BaseUbl, self)._ubl_add_party(
+            partner, company, node_name, parent_node, ns, version=version
+        )
+
+        if not self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl'):
+            return res
+
+        # UBL-CR-143: A UBL invoice should not include the
+        #             AccountingSupplierParty Party WebsiteURI
+        # UBL-CR-206: A UBL invoice should not include the
+        #             AccountingCustomerParty Party WebsiteURI
+        party = parent_node.find(ns['cac'] + node_name)
+        website_uri = party.find(ns['cbc'] + "WebsiteURI")
+        if website_uri is not None:
+            party.remove(website_uri)
+
+        # UBL-CR-166: A UBL invoice should not include the AccountingSupplierParty
+        #             Party PostalAddress Country Name
+        # UBL-CR-229: A UBL invoice should not include the AccountingCustomerParty
+        #             Party PostalAddress Country Name
+        postal_address = party.find(ns['cac'] + "PostalAddress")
+        if postal_address is not None:
+            country = postal_address.find(ns['cac'] + "Country")
+            if country is not None:
+                country_name = country.find(ns['cbc'] + "Name")
+                if country_name is not None:
+                    country.remove(country_name)
+
+    @api.model
+    def _ubl_add_supplier_party(
+            self, partner, company, node_name, parent_node, ns, version='2.1'):
+        res = super(BaseUbl, self)._ubl_add_supplier_party(
+            partner, company, node_name, parent_node, ns, version=version
+        )
+
+        if not self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl'):
+            return res
+
+        # TODO: if not needed, remove this whole function
+        return res
+
+    @api.model
+    def _ubl_add_customer_party(
+            self, partner, company, node_name, parent_node, ns, version='2.1'):
+        res = super(BaseUbl, self)._ubl_add_customer_party(
+            partner, company, node_name, parent_node, ns, version=version
+        )
+
+        if not self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl'):
+            return res
+
+        # UBL-CR-209: A UBL invoice should not include the AccountingCustomerParty
+        #             Party Language
+        party_root = parent_node.find(ns['cac'] + node_name)
+        party = party_root.find(ns['cac'] + "Party")
+        if party is not None:
+            language = party.find(ns['cac'] + "Language")
+            if language is not None:
+                party.remove(language)
+
+        return res
+
+    @api.model
     def _ubl_add_party_legal_entity(self, partner, parent_node, ns, version="2.1"):
         """ Add NL-specific things to PartyLegalEntity """
         res = super(BaseUbl, self)._ubl_add_party_legal_entity(
             partner, parent_node, ns, version=version
         )
 
-        # Check if we need to do Dutch modifications
-        # TODO: Change this to default False
-        use_dutch_ubl = self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl', True)
-        if not use_dutch_ubl:
+        if not self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl'):
             return res
 
         # PartyLegalEntity/CompanyID must be added just after RegistrationName
-        party_legal_entity = parent_node.find(ns["cac"] + "PartyLegalEntity")
-        registration_name = party_legal_entity.find(ns["cbc"] + "RegistrationName")
+        party = parent_node
+        legal_entity = party.find(ns["cac"] + "PartyLegalEntity")
+        registration_name = legal_entity.find(ns["cbc"] + "RegistrationName")
         id_dict = self._l10n_nl_base_ubl_get_party_identification(partner)
         if id_dict:
             for scheme_id, party_id_text in id_dict.iteritems():
@@ -34,12 +102,18 @@ class BaseUbl(models.AbstractModel):
                 )
                 company_id.text = party_id_text
                 registration_name.addnext(company_id)
-        return res
 
-    @api.model
-    def _l10n_nl_base_ubl_use_dutch_ubl(self, partner):
-        """ Returns True when we should use Dutch UBL dialect for this partner """
-        return partner.country == self.env.ref('base.nl')
+        # UBL-CR-185: A UBL invoice should not include the AccountingSupplierParty
+        #             Party PartyLegalEntity RegistrationAddress
+        # UBL-CR-249: A UBL invoice should not include the AccountingCustomerParty
+        #             Party PartyLegalEntity RegistrationAddress
+        legal_entity = party.find(ns['cac'] + "PartyLegalEntity")
+        if legal_entity is not None:
+            address = legal_entity.find(ns['cac'] + "RegistrationAddress")
+            if address is not None:
+                legal_entity.remove(address)
+
+        return res
 
     @api.model
     def _l10n_nl_base_ubl_get_party_identification(self, commercial_partner):
@@ -60,12 +134,11 @@ class BaseUbl(models.AbstractModel):
             self, commercial_partner, parent_node, ns, version='2.1'):
         """ Override PartyIdentification with Dutch version """
 
-        # Check if we need to do Dutch modifications
-        # TODO: Change this to default False
-        use_dutch_ubl = self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl', True)
-        if not use_dutch_ubl:
+        if not self.env.context.get('l10n_nl_base_ubl_use_dutch_ubl'):
             return super(BaseUbl, self)._ubl_add_party_identification(
-                self, commercial_partner, parent_node, ns, version=version)
+                commercial_partner, parent_node, ns, version=version)
+
+        # TODO: what if we always call super and just modify the resulting XML?
 
         # Add PartyIdentification/ID according to KVK or OIN with correct schemeID
         id_dict = self._l10n_nl_base_ubl_get_party_identification(commercial_partner)
