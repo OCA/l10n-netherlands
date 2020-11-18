@@ -12,10 +12,10 @@ class ResPartner(models.Model):
     )
     nl_oin_display = fields.Boolean(compute="_compute_nl_oin_display")
 
-    @api.depends("country_id", "company_type")
+    @api.depends("country_id", "is_company")
     def _compute_nl_oin_display(self):
         for partner in self:
-            if partner.company_type != "company":
+            if not partner.is_company:
                 partner.nl_oin_display = False
             elif partner.country_id != self.env.ref("base.nl"):
                 partner.nl_oin_display = False
