@@ -126,7 +126,7 @@ msgid "KvK Preview"
 msgstr ""
 
 #. module: l10n_nl_kvk
-#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:43
+#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:47
 #, python-format
 msgid "KvK keys are not correct.\n"
 "Please check the KvK API configuration."
@@ -206,10 +206,11 @@ msgid "Name"
 msgstr ""
 
 #. module: l10n_nl_kvk
-#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:66
+#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:70
 #, python-format
-msgid "Network is unreachable.\n"
-"Please check your connection."
+msgid "Network is unreachable or certificate is not valid.\n"
+"Please check your connection or try again later.\n"
+"If the problem persists, check that the “Staat der Nederlanden Private Root CA – G1” certificate chain is valid."
 msgstr ""
 
 #. module: l10n_nl_kvk
@@ -282,14 +283,14 @@ msgid "Set Partner Fields"
 msgstr ""
 
 #. module: l10n_nl_kvk
-#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:56
+#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:60
 #, python-format
 msgid "The API service server had an 'Internal Server Error'.\n"
 "Hopefully it is a temporary error."
 msgstr ""
 
 #. module: l10n_nl_kvk
-#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:49
+#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:53
 #, python-format
 msgid "The server returned a 'Error 401: Unauthorized'.\n"
 "Probably the KvK keys are not correct.\n"
@@ -302,13 +303,13 @@ msgid "Timeout"
 msgstr ""
 
 #. module: l10n_nl_kvk
-#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:61
+#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:65
 #, python-format
 msgid "Unhandled HTTPError exception."
 msgstr ""
 
 #. module: l10n_nl_kvk
-#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:72
+#: code:addons/l10n_nl_kvk/models/l10n_nl_kvk_api_handler.py:78
 #, python-format
 msgid "Unhandled exception."
 msgstr ""
