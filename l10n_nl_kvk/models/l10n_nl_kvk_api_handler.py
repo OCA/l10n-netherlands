@@ -3,6 +3,7 @@
 
 import logging
 import requests
+from os.path import dirname, join, realpath
 
 from odoo import api, models, _
 
@@ -30,10 +31,13 @@ class KvkApiHandler(models.AbstractModel):
         headers = self._kvk_http_header()
         request_timeout = self._get_config('timeout')
 
+        cert_dir = realpath(join(dirname(__file__), "../data"))
+        cert_file = join(cert_dir, "api_kvk_nl_bundle.crt")
         try:
             request = requests.get(
                 url_query,
                 headers=headers,
+                verify=cert_file,
                 timeout=request_timeout)
             request.raise_for_status()
         except requests.HTTPError as error:
@@ -61,11 +65,13 @@ class KvkApiHandler(models.AbstractModel):
                 err_msg = _(
                     "Unhandled HTTPError exception.")
             raise self.env['res.config.settings'].get_config_warning(err_msg)
-        except requests.exceptions.ConnectionError:
-            _logger.warning("[Errno 101]: Network is unreachable")
+        except requests.exceptions.ConnectionError as err:
+            _logger.warning("Connection Error: " + str(err))
             err_msg = _(
-                "Network is unreachable.\n"
-                "Please check your connection.")
+                "Network is unreachable or certificate is not valid.\n"
+                "Please check your connection or try again later.\n"
+                "If the problem persists, check that the “Staat der Nederlanden "
+                "Private Root CA – G1” certificate chain is valid.")
             raise self.env['res.config.settings'].get_config_warning(err_msg)
         except Exception:
             _logger.warning("Unhandled exception.")
