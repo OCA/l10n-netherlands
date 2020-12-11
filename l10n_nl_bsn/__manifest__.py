@@ -3,7 +3,7 @@
 
 {
     'name': 'Burgerservicenummer (BSN) for Partners',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.1.0',
     'development_status': 'Production/Stable',
     'category': 'Localization',
     'author': 'Onestein, Odoo Community Association (OCA)',
