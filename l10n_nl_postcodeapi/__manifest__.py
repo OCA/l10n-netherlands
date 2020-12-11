@@ -1,4 +1,4 @@
-# Copyright 2013-2020 Therp BV <https://therp.nl>
+# Copyright 2013-2020 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
@@ -9,10 +9,8 @@
     'category': 'Localization',
     'website': 'https://github.com/OCA/l10n-netherlands',
     'license': 'AGPL-3',
-    'depends': ['base_address_extended'],
-    'data': [
-        'data/ir_config_parameter.xml',
-        ],
+    'depends': ['base_address_extended', 'l10n_nl_postcode'],
+    'data': ['data/ir_config_parameter.xml'],
     'external_dependencies': {
         'python': ['pyPostcode'],
     },

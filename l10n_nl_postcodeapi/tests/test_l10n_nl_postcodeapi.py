@@ -106,7 +106,7 @@ class TestNlPostcodeapi(TransactionCase):
 
         partner = self.create_partner()
         with self.patch_api_get_address():
-            partner.on_change_zip_street_number()
+            partner.onchange_zip_l10n_nl_postcode()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
@@ -120,7 +120,7 @@ class TestNlPostcodeapi(TransactionCase):
 
         partner = self.create_partner()
         with self.patch_api_get_address():
-            partner.on_change_zip_street_number()
+            partner.onchange_zip_l10n_nl_postcode()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
@@ -133,7 +133,7 @@ class TestNlPostcodeapi(TransactionCase):
 
         partner = self.create_partner(country="IT")
         with self.patch_api_get_address() as getaddr:
-            partner.on_change_zip_street_number()
+            partner.onchange_zip_l10n_nl_postcode()
         getaddr.assert_not_called()
 
         partner._convert_to_write(partner._cache)
@@ -145,7 +145,7 @@ class TestNlPostcodeapi(TransactionCase):
     def test_06_res_partner_no_key(self):
         partner = self.create_partner()
         with self.patch_api_get_address() as getaddr:
-            partner.on_change_zip_street_number()
+            partner.onchange_zip_l10n_nl_postcode()
         getaddr.assert_not_called()
 
         partner._convert_to_write(partner._cache)
@@ -159,7 +159,7 @@ class TestNlPostcodeapi(TransactionCase):
         partner = self.create_partner()
         with self.patch_api_get_address() as getaddr:
             getaddr.return_value = False
-            partner.on_change_zip_street_number()
+            partner.onchange_zip_l10n_nl_postcode()
         getaddr.assert_called_with("3811DJ", "10")
 
         partner._convert_to_write(partner._cache)
@@ -173,7 +173,7 @@ class TestNlPostcodeapi(TransactionCase):
 
         partner = self.create_partner()
         with self.patch_api_get_address(province=""):
-            partner.on_change_zip_street_number()
+            partner.onchange_zip_l10n_nl_postcode()
 
         partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')

@@ -1,10 +1,9 @@
 # Copyright 2013-2020 Therp BV <https://therp.nl>
 # @autors: Stefan Rijnhart, Ronald Portier
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
 import logging
 
-from odoo import api, models
+from odoo import _, api, models
 
 _logger = logging.getLogger(__name__)
 try:
@@ -34,7 +33,7 @@ class ResPartner(models.Model):
         ], limit=1)
 
     @api.onchange('zip', 'street_number', 'country_id')
-    def on_change_zip_street_number(self):
+    def onchange_zip_l10n_nl_postcode(self):
         """
         Normalize the zip code, check on the partner's country and
         if all is well, request address autocompletion data.
@@ -42,18 +41,29 @@ class ResPartner(models.Model):
         NB. postal_code is named 'zip' in Odoo, but is this a reserved
         keyword in Python
         """
-        postal_code = self.zip and self.zip.replace(' ', '')
-        country = self.country_id
-        if not (postal_code and self.street_number) or \
-                country and country != self.env.ref('base.nl'):
+        if not self._l10n_nl_do_check_postcode():
             return {}
-
+        result = super().onchange_zip_l10n_nl_postcode()
+        # Do not check postcode if we already know it is not valid.
+        if result and "warning" in result:
+            return result
+        # Only check when we have a postal code and a street_number:
+        postal_code = self.zip and self.zip.replace(' ', '')
+        if not postal_code and self.street_number:
+            return result
         provider_obj = self.get_provider_obj()
         if not provider_obj:
-            return {}
+            return result
         pc_info = provider_obj.getaddress(postal_code, self.street_number)
-        if not pc_info or not pc_info._data:
-            return {}
-        self.street_name = pc_info.street
-        self.city = pc_info.city
-        self.state_id = self.get_province(pc_info.province)
+        if pc_info and pc_info._data:
+            self.street_name = pc_info.street
+            self.city = pc_info.city
+            self.state_id = self.get_province(pc_info.province)
+        else:
+            result['warning'] = self._l10n_nl_postcode_get_warning(
+                _(
+                    "Cannot validate postalcode (%s),"
+                    " or postal code invalid for housenumber"
+                )
+            )
+        return result
