@@ -8,8 +8,8 @@ from lxml import etree
 import os
 import psutil
 import shutil
+from io import BytesIO
 import zipfile
-from StringIO import StringIO
 from tempfile import mkdtemp
 import time
 
@@ -43,7 +43,7 @@ class XafAuditfileExport(models.Model):
             item.auditfile_name = '%s.xaf' % item.name
             if item.auditfile:
                 auditfile = base64.b64decode(item.auditfile)
-                zf = StringIO(auditfile)
+                zf = BytesIO(auditfile)
                 if zipfile.is_zipfile(zf):
                     item.auditfile_name += '.zip'
 
@@ -160,7 +160,7 @@ class XafAuditfileExport(models.Model):
                 archive, 'zip', tmpdir, verbose=True)
             with open(zip_path, 'rb') as auditfile_zip:
                 self.auditfile = base64.b64encode(auditfile_zip.read())
-            logging.getLogger(__name__).debug(
+            logging.getLogger(__name__).info(
                 'Created an auditfile in %ss, using %sk memory',
                 int(time.time() - t0), (memory_info() - m0) / 1024)
 
