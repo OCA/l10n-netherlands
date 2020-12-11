@@ -4,11 +4,11 @@
         <field name="name">ABN AMRO BANK N.V.</field>
         <field name="bic">ABNANL2A</field>
     </record>
-        <record id="ABNC" model="res.bank">
+    <record id="ABNC" model="res.bank">
         <field name="name">ABN AMRO CLEARING BANK N.V.</field>
         <field name="bic">ABNCNL2A</field>
     </record>
-        <record id="ADYEN" model="res.bank">
+    <record id="ADYEN" model="res.bank">
         <field name="name">ADYEN</field>
         <field name="bic">ADYBNL2A</field>
     </record>
@@ -32,7 +32,7 @@
         <field name="name">ASN BANK</field>
         <field name="bic">ASNBNL21</field>
     </record>
-        <record id="ATBA" model="res.bank">
+    <record id="ATBA" model="res.bank">
         <field name="name">AMSTERDAM TRADE BANK</field>
         <field name="bic">ATBANL2A</field>
     </record>
@@ -52,7 +52,7 @@
         <field name="name">BINCKBANK N.V.</field>
         <field name="bic">BICKNL2A</field>
     </record>
-        <record id="BINK" model="res.bank">
+    <record id="BINK" model="res.bank">
         <field name="name">BINCKBANK, PROF N.V.</field>
         <field name="bic">BINKNL21</field>
     </record>
@@ -164,7 +164,7 @@
         <field name="name">VAN LANSCHOT BANKIERS</field>
         <field name="bic">FVLBNL22</field>
     </record>
-        <record id="FXBB" model="res.bank">
+    <record id="FXBB" model="res.bank">
         <field name="name">IBANFIRST</field>
         <field name="bic">FXBBNL22</field>
     </record>
