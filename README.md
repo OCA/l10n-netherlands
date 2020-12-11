@@ -23,6 +23,7 @@ addon | version | summary
 [l10n_nl_location_nuts](l10n_nl_location_nuts/) | 12.0.1.0.0 | NUTS specific options for Netherlands
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 12.0.1.0.0 | Dutch partner names
 [l10n_nl_postcode](l10n_nl_postcode/) | 12.0.1.0.0 | Dutch postcode validation for Partners
+[l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 12.0.1.0.0 | Autocomplete Dutch addresses using PostcodeApi.nu
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 12.0.1.0.0 | Enable invoice basis on tax according to the Dutch law
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 12.0.2.0.0 | Netherlands BTW Statement
 [l10n_nl_tax_statement_icp](l10n_nl_tax_statement_icp/) | 12.0.1.0.0 | Netherlands ICP Statement
