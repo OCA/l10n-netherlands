@@ -6,52 +6,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-12-13 01:36+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: l10n_nl_oin
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
 msgid "Another partner (%s) has the same OIN (%s)."
-msgstr ""
+msgstr "Een ander contact (%s) heft dezelfde OIN (%s)."
 
 #. module: l10n_nl_oin
 #: model:ir.model,name:l10n_nl_oin.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: l10n_nl_oin
 #: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__nl_oin
 #: model:ir.model.fields,field_description:l10n_nl_oin.field_res_users__nl_oin
 msgid "Dutch OIN"
-msgstr ""
+msgstr "OIN"
 
 #. module: l10n_nl_oin
 #: model:ir.model.fields,help:l10n_nl_oin.field_res_partner__nl_oin
 #: model:ir.model.fields,help:l10n_nl_oin.field_res_users__nl_oin
 msgid "Dutch Organisatie-identificatienummer (OIN)"
-msgstr ""
+msgstr "Nederlands Organisatie-identificatienummer (OIN)"
 
 #. module: l10n_nl_oin
 #: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__nl_oin_display
 #: model:ir.model.fields,field_description:l10n_nl_oin.field_res_users__nl_oin_display
 msgid "Nl Oin Display"
-msgstr ""
+msgstr "OIN Weergeven"
 
 #. module: l10n_nl_oin
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
 msgid "The OIN you entered (%s) is not valid."
-msgstr ""
+msgstr "Het ingevoerde OIN (%s) is ongeldig."
 
 #. module: l10n_nl_oin
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
 msgid "Warning!"
-msgstr ""
+msgstr "Waarschuwing!"
