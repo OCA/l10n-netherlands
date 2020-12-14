@@ -23,7 +23,7 @@ addon | version | summary
 [l10n_nl_oin](l10n_nl_oin/) | 13.0.1.1.0 | Adds Dutch OIN field
 [l10n_nl_postcode](l10n_nl_postcode/) | 13.0.1.0.0 | Dutch postcode validation for Partners
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 13.0.1.0.0 | Enable invoice basis on tax according to the Dutch law
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 13.0.1.0.1 | Export XAF auditfiles for Dutch tax authorities
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 13.0.1.1.0 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 <!-- prettier-ignore-end -->
