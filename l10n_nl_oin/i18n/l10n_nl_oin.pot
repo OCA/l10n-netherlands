@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_nl_oin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_oin
+#: code:addons/l10n_nl_oin/models/res_partner.py:56
+#, python-format
+msgid "Another partner (%s) has the same OIN (%s)."
+msgstr ""
+
+#. module: l10n_nl_oin
+#: field:res.partner,nl_oin:0
+msgid "Dutch OIN"
+msgstr ""
+
+#. module: l10n_nl_oin
+#: help:res.partner,nl_oin:0
+msgid "Dutch Organisatie-identificatienummer (OIN)"
+msgstr ""
+
+#. module: l10n_nl_oin
+#: field:res.partner,nl_oin_display:0
+msgid "Nl oin display"
+msgstr ""
+
+#. module: l10n_nl_oin
+#: model:ir.model,name:l10n_nl_oin.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_nl_oin
+#: code:addons/l10n_nl_oin/models/res_partner.py:50
+#, python-format
+msgid "The OIN you entered (%s) is not valid."
+msgstr ""
+
+#. module: l10n_nl_oin
+#: code:addons/l10n_nl_oin/models/res_partner.py:51
+#: code:addons/l10n_nl_oin/models/res_partner.py:58
+#, python-format
+msgid "Warning!"
+msgstr ""
+
