@@ -19,6 +19,7 @@ addon | version | summary
 [l10n_nl_bsn](l10n_nl_bsn/) | 8.0.0.1.0 | Burgerservicenummer (BSN) for Partners
 [l10n_nl_chart_rgs](l10n_nl_chart_rgs/) | 8.0.0.1.0 | Netherlands - Accounting - Reference Accounting Scheme (RGS)
 [l10n_nl_normalize_zip](l10n_nl_normalize_zip/) | 8.0.1.0.0 | This module forces zip codes to look like 0000 XX
+[l10n_nl_oin](l10n_nl_oin/) | 8.0.1.0.0 | Adds Dutch OIN field
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 8.0.1.0.0 | Dutch partner names
 [l10n_nl_partner_salutation](l10n_nl_partner_salutation/) | 8.0.1.0.0 | Full salutation for partners, Dutch style
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 8.0.0.2.0 | Autocomplete Dutch addresses using PostcodeApi.nu
