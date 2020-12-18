@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo8-addon-l10n_nl_bsn',
         'odoo8-addon-l10n_nl_chart_rgs',
         'odoo8-addon-l10n_nl_normalize_zip',
+        'odoo8-addon-l10n_nl_oin',
         'odoo8-addon-l10n_nl_partner_name',
         'odoo8-addon-l10n_nl_partner_salutation',
         'odoo8-addon-l10n_nl_postcodeapi',
