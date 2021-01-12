@@ -14,7 +14,8 @@ class AccountMoveLine(models.Model):
         string="Related Move Statement",
     )
     l10n_nl_vat_statement_include = fields.Boolean(
-        related="move_id.l10n_nl_vat_statement_include", store=True,
+        related="move_id.l10n_nl_vat_statement_include",
+        store=True,
     )
 
     @api.model
