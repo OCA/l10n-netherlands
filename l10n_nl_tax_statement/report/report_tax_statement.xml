@@ -6,7 +6,6 @@
         <div class="nl_tax_act_as_table nl_tax_table" style="width: 1140px;">
             <div class="nl_tax_act_as_row labels">
                 <div class="nl_tax_act_as_cell">Date range</div>
-                <div class="nl_tax_act_as_cell">Target moves</div>
                 <div class="nl_tax_act_as_cell">Currency</div>
                 <div class="nl_tax_act_as_cell">Date posted</div>
                 <div class="nl_tax_act_as_cell">Date update</div>
@@ -15,9 +14,6 @@
                 <div class="nl_tax_act_as_cell">
                     <span t-field="o.from_date" />
                     <span t-field="o.to_date" />
-                </div>
-                <div class="nl_tax_act_as_cell">
-                    <span t-field="o.target_move" />
                 </div>
                 <div class="nl_tax_act_as_cell">
                     <span t-field="o.currency_id" />
