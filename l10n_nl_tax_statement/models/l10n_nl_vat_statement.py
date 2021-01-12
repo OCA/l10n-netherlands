@@ -45,13 +45,6 @@ class VatStatement(models.Model):
     )
     date_range_id = fields.Many2one("date.range", "Date range")
     currency_id = fields.Many2one("res.currency", related="company_id.currency_id")
-    target_move = fields.Selection(
-        [("posted", "All Posted Entries"), ("all", "All Entries")],
-        "Target Moves",
-        readonly=True,
-        required=True,
-        default="posted",
-    )
     date_posted = fields.Datetime(readonly=True)
     date_update = fields.Datetime(readonly=True)
 
@@ -153,25 +146,25 @@ class VatStatement(models.Model):
             domain += [
                 "|",
                 "&",
-                ("l10n_nl_date_invoice", "=", False),
+                ("move_id.invoice_date", "=", False),
                 ("date", "<", self.from_date),
                 "&",
-                ("l10n_nl_date_invoice", "!=", False),
-                ("l10n_nl_date_invoice", "<", self.from_date),
+                ("move_id.invoice_date", "!=", False),
+                ("move_id.invoice_date", "<", self.from_date),
             ]
         elif self.is_invoice_basis and self.unreported_move_from_date:
             domain += [
                 "|",
                 "&",
                 "&",
-                ("l10n_nl_date_invoice", "=", False),
+                ("move_id.invoice_date", "=", False),
                 ("date", "<", self.from_date),
                 ("date", ">=", self.unreported_move_from_date),
                 "&",
                 "&",
-                ("l10n_nl_date_invoice", "!=", False),
-                ("l10n_nl_date_invoice", "<", self.from_date),
-                ("l10n_nl_date_invoice", ">=", self.unreported_move_from_date),
+                ("move_id.invoice_date", "!=", False),
+                ("move_id.invoice_date", "<", self.from_date),
+                ("move_id.invoice_date", ">=", self.unreported_move_from_date),
             ]
         else:
             domain += [("date", "<", self.from_date)]
@@ -195,28 +188,8 @@ class VatStatement(models.Model):
     unreported_move_from_date = fields.Date(
         compute="_compute_unreported_move_from_date", store=True, readonly=False
     )
-
-    @api.depends("company_id")
-    def _compute_is_invoice_basis(self):
-        has_invoice_basis = (
-            self.env["ir.model.fields"]
-            .sudo()
-            .search_count(
-                [
-                    ("model", "=", "res.company"),
-                    ("name", "=", "l10n_nl_tax_invoice_basis"),
-                ]
-            )
-        )
-        for statement in self:
-            if has_invoice_basis:
-                invoice_basis = statement.company_id.l10n_nl_tax_invoice_basis
-                statement.is_invoice_basis = invoice_basis
-            else:
-                statement.is_invoice_basis = False
-
     is_invoice_basis = fields.Boolean(
-        string="NL Tax Invoice Basis", compute="_compute_is_invoice_basis"
+        string="NL Tax Invoice Basis", related="company_id.l10n_nl_tax_invoice_basis"
     )
 
     @api.depends("btw_total")
@@ -240,6 +213,8 @@ class VatStatement(models.Model):
             if statement.date_range_id and statement.state == "draft":
                 statement.from_date = statement.date_range_id.date_start
                 statement.to_date = statement.date_range_id.date_end
+            statement.from_date = statement.from_date
+            statement.to_date = statement.to_date
 
     @api.depends("from_date", "to_date")
     def _compute_name(self):
@@ -256,7 +231,11 @@ class VatStatement(models.Model):
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
         for statement in self:
-            date_from = statement.from_date + relativedelta(months=-3, day=1)
+            date_from = (
+                statement.from_date + relativedelta(months=-3, day=1)
+                if statement.from_date
+                else False
+            )
             statement.unreported_move_from_date = date_from
 
     def _prepare_lines(self):
@@ -457,7 +436,7 @@ class VatStatement(models.Model):
         self.ensure_one()
         tags_map = self._get_tags_map()
         for line in move_lines:
-            for tag in line.tag_ids:
+            for tag in line.tax_tag_ids:
                 tag_map = tags_map.get(tag.id)
                 if tag_map:
                     code, column = tag_map
@@ -515,14 +494,14 @@ class VatStatement(models.Model):
                 "|",
                 "&",
                 "&",
-                ("l10n_nl_date_invoice", "=", False),
+                ("move_id.invoice_date", "=", False),
                 ("date", "<=", self.to_date),
                 ("date", ">=", self.from_date),
                 "&",
                 "&",
-                ("l10n_nl_date_invoice", "!=", False),
-                ("l10n_nl_date_invoice", "<=", self.to_date),
-                ("l10n_nl_date_invoice", ">=", self.from_date),
+                ("move_id.invoice_date", "!=", False),
+                ("move_id.invoice_date", "<=", self.to_date),
+                ("move_id.invoice_date", ">=", self.from_date),
             ]
         else:
             domain += [("date", "<=", self.to_date), ("date", ">=", self.from_date)]

@@ -60,6 +60,7 @@
                                 options="{'no_create': True}"
                                 groups="base.group_multi_company"
                             />
+                            <field name="is_invoice_basis" />
                             <field
                                 name="parent_id"
                                 attrs="{'invisible': [('parent_id', '=', False)]}"
@@ -115,7 +116,6 @@
                             <field name="date_posted" />
                             <field name="date_update" />
                             <field name="currency_id" />
-                            <field name="target_move" />
                         </group>
                     </group>
                     <notebook name="notebook">
@@ -176,7 +176,6 @@
                                     <button
                                         name="view_base_lines"
                                         type="object"
-                                        string="View base lines"
                                         icon="fa-search-plus"
                                         attrs="{'invisible': ['|',('format_omzet', '=', False),('is_total', '=', True)]}"
                                     />
@@ -187,7 +186,6 @@
                                     <button
                                         name="view_tax_lines"
                                         type="object"
-                                        string="View tax lines"
                                         icon="fa-search-plus"
                                         attrs="{'invisible': ['|',('format_btw', '=', False),('is_total', '=', True)]}"
                                     />
