@@ -28,7 +28,7 @@ class AccountMoveLine(models.Model):
             "balance",
             "tax_ids",
             "l10n_nl_vat_statement_include",
-            "tag_ids",
+            "tax_tag_ids",
         ]
 
     def write(self, values):

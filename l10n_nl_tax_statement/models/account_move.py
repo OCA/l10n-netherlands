@@ -8,9 +8,7 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    l10n_nl_vat_statement_id = fields.Many2one(
-        "l10n.nl.vat.statement", "Statement", copy=False
-    )
+    l10n_nl_vat_statement_id = fields.Many2one("l10n.nl.vat.statement", copy=False)
     l10n_nl_vat_statement_include = fields.Boolean(
         "Include in VAT Statement", copy=False
     )
