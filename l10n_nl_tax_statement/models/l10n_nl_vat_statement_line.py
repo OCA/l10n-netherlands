@@ -44,8 +44,8 @@ class VatStatementLine(models.Model):
         related="statement_id.company_id.currency_id",
         help="Utility field to express amount currency",
     )
-    omzet = fields.Monetary()
-    btw = fields.Monetary()
+    omzet = fields.Monetary(string="Turnover")
+    btw = fields.Monetary(string="VAT")
     format_omzet = fields.Char(compute="_compute_amount_format")
     format_btw = fields.Char(compute="_compute_amount_format")
 
@@ -115,7 +115,7 @@ class VatStatementLine(models.Model):
         domain_lines_ids = []
         tags_map = self.statement_id._get_tags_map()
         for line in all_amls:
-            for tag in line.tag_ids:
+            for tag in line.tax_tag_ids:
                 tag_map = tags_map.get(tag.id, ("", ""))
                 code, column = tag_map
                 code = self.statement_id._strip_sign_in_tag_code(code)

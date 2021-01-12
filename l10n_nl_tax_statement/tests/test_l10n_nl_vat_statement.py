@@ -36,7 +36,7 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_child_1
-        self.coa.try_loading_for_current_company()
+        self.coa.try_loading()
         self.company_child_2 = self.env["res.company"].create(
             {
                 "name": "Child 2 Company",
@@ -45,21 +45,8 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_child_2
-        self.coa.try_loading_for_current_company()
+        self.coa.try_loading()
         self.env.user.company_id = self.company_parent
-
-    def _has_invoice_basis(self):
-        has_invoice_basis = (
-            self.env["ir.model.fields"]
-            .sudo()
-            .search_count(
-                [
-                    ("model", "=", "res.company"),
-                    ("name", "=", "l10n_nl_tax_invoice_basis"),
-                ]
-            )
-        )
-        return has_invoice_basis
 
     def setUp(self):
         super().setUp()
@@ -77,7 +64,7 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_parent
-        self.coa.try_loading_for_current_company()
+        self.coa.try_loading()
 
         self.env["l10n.nl.vat.statement"].search([]).unlink()
 
@@ -149,11 +136,10 @@ class TestVatStatement(TransactionCase):
             }
         )
         invoice_form = Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
+            self.env["account.move"].with_context(default_move_type="out_invoice")
         )
         invoice_form.partner_id = partner
         invoice_form.journal_id = journal
-        invoice_form.invoice_date = fields.Date.today()
         with invoice_form.invoice_line_ids.new() as line:
             line.name = "Test line"
             line.quantity = 1.0
@@ -388,14 +374,10 @@ class TestVatStatement(TransactionCase):
     @odoo.tests.tagged("post_install", "-at_install")
     def test_14_is_invoice_basis(self):
         company = self.statement_1.company_id
-        has_invoice_basis = self._has_invoice_basis()
-        if has_invoice_basis:
-            company.l10n_nl_tax_invoice_basis = True
-            self.statement_1._compute_is_invoice_basis()
-            self.assertTrue(self.statement_1.is_invoice_basis)
-            company.l10n_nl_tax_invoice_basis = False
-            self.statement_1._compute_is_invoice_basis()
-            self.assertFalse(self.statement_1.is_invoice_basis)
+        company.l10n_nl_tax_invoice_basis = True
+        self.assertTrue(self.statement_1.is_invoice_basis)
+        company.l10n_nl_tax_invoice_basis = False
+        self.assertFalse(self.statement_1.is_invoice_basis)
 
         self.assertEqual(self.statement_1.btw_total, 0.0)
         self.assertEqual(self.statement_1.format_btw_total, "0.00")
@@ -420,9 +402,7 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.view_base_lines())
             self.assertTrue(line.view_tax_lines())
 
-        has_invoice_basis = self._has_invoice_basis()
-        if has_invoice_basis:
-            self.statement_1.company_id.l10n_nl_tax_invoice_basis = True
+        self.statement_1.company_id.l10n_nl_tax_invoice_basis = True
 
         self.statement_1.company_id.country_id = self.env.ref("base.nl")
 
@@ -469,9 +449,7 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.view_base_lines())
             self.assertTrue(line.view_tax_lines())
 
-        has_invoice_basis = self._has_invoice_basis()
-        if has_invoice_basis:
-            self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
+        self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
         self.statement_1.company_id.country_id = self.env.ref("base.nl")
 
         invoice2 = self.invoice_1.copy()
@@ -505,9 +483,7 @@ class TestVatStatement(TransactionCase):
         self.statement_1.is_invoice_basis = False
         self.statement_1.with_context(skip_check_config_tag_3b_omzet=True).post()
 
-        has_invoice_basis = self._has_invoice_basis()
-        if has_invoice_basis:
-            self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
+        self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
         self.statement_1.company_id.country_id = self.env.ref("base.nl")
 
         invoice2 = self.invoice_1.copy()
