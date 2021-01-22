@@ -1,23 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * l10n_nl_tax_statement
+# 	* l10n_nl_tax_statement
 #
-# Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-16 06:04+0000\n"
-"PO-Revision-Date: 2018-01-16 06:04+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/"
-"teams/23907/nl_NL/)\n"
-"Language: nl_NL\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -48,14 +42,14 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid ""
-"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
-"\"Arrow\"/>"
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
 msgid "Aangifte omzetbelasting"
-msgstr "Aangifte omzetbelasting"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -70,24 +64,22 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
 msgid "BTW"
-msgstr "BTW"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "BTW Statement"
-msgstr "BTW aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "BTW Statement lines"
-msgstr "BTW aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__btw
 msgid "Btw"
-msgstr "BTW"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -102,26 +94,26 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__company_id
 msgid "Company"
-msgstr "Bedrijf"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__create_uid
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__create_uid
 msgid "Created by"
-msgstr "Aangemaakt door"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__create_date
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__create_date
 msgid "Created on"
-msgstr "Aangemaakt op"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__currency_id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__currency_id
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Currency"
-msgstr "Valuta"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -141,18 +133,18 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date posted"
-msgstr "Datum aangegeven"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_range_id
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date range"
-msgstr "Datum range"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date update"
-msgstr "Datum bijgewerkt"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_button_add_all_undeclared_invoices
@@ -173,7 +165,7 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__draft
 msgid "Draft"
-msgstr "Concept"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__move_line_ids
@@ -226,8 +218,8 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid ""
-"If you confirm, it will be not possible to modify this Statement or reset it "
-"back to draft anymore. Do you confirm?"
+"If you confirm, it will be not possible to modify this Statement or reset it"
+" back to draft anymore. Do you confirm?"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
@@ -238,9 +230,8 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_include
-#, fuzzy
 msgid "Include in VAT Statement"
-msgstr "BTW aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -359,7 +350,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:l10n_nl_tax_statement.action_account_vat_statement_nl
 #: model:ir.ui.menu,name:l10n_nl_tax_statement.menu_account_vat_statement_nl
 msgid "NL BTW Statement"
-msgstr "BTW aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__is_invoice_basis
@@ -369,7 +360,7 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement
 msgid "NL Tax Statement"
-msgstr "BTW aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__name
@@ -378,9 +369,8 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement
-#, fuzzy
 msgid "Netherlands Vat Statement"
-msgstr "BTW aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_line
@@ -395,9 +385,8 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__parent_id
-#, fuzzy
 msgid "Parent Statement"
-msgstr "Aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -412,7 +401,7 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__posted
 msgid "Posted"
-msgstr "Ingezonden"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -421,9 +410,8 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_id
-#, fuzzy
 msgid "Related Move Statement"
-msgstr "Aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -466,18 +454,16 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Tags mapping not configured for The Netherlands! Check the NL BTW Tags "
 "Configuration."
 msgstr ""
-"BTW mapping niet geconfigureerd voor dit bedrijf! Controleer de BTW label "
-"configuratie"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__name
 msgid "Tax Statement"
-msgstr "Aangifte"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -558,6 +544,7 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
 #, python-format
 msgid "Voorbelasting"
 msgstr ""
@@ -568,16 +555,12 @@ msgstr ""
 msgid ""
 "You cannot delete a posted statement! Reset the statement to draft first."
 msgstr ""
-"U kunt een ingezonden aangifte niet verwijderen! Zet de aangifte eerst terug "
-"naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot delete a statement set as final!"
 msgstr ""
-"U kunt een ingezonden aangifte niet verwijderen! Zet de aangifte eerst terug "
-"naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
@@ -586,34 +569,30 @@ msgid ""
 "You cannot delete lines of a posted statement! Reset the statement to draft "
 "first."
 msgstr ""
-"U kunt lijnen van een ingezonden aangifte niet verwijderen! Zet de aangifte "
-"eerst terug naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot delete lines of a statement set as final!"
 msgstr ""
-"U kunt lijnen van een ingezonden aangifte niet verwijderen! Zet de aangifte "
-"eerst terug naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/account_move.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a Journal Entry in a posted/final tax statement: %s"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/account_move_line.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a Journal Item in a posted/final tax statement: %s"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
 #, python-format
 msgid "You cannot modify a posted statement!"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -621,14 +600,12 @@ msgstr "U kunt een ingezonden aangifte niet bewerken!"
 msgid ""
 "You cannot modify a posted statement! Reset the statement to draft first."
 msgstr ""
-"U kunt een ingezonden aangifte niet bewerken! Zet de aangifte eerst terug "
-"naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a statement set as final!"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -637,18 +614,3 @@ msgid ""
 "You cannot post a statement if all the previous statements are not yet "
 "posted! Please Post all the other statements first."
 msgstr ""
-
-#~ msgid "1a"
-#~ msgstr "1a"
-
-#~ msgid "BTW Tags Settings"
-#~ msgstr "BTW instellingen labels"
-
-#~ msgid "NL BTW Tags"
-#~ msgstr "BTW labels"
-
-#~ msgid "Target Moves"
-#~ msgstr "Welke boekingen"
-
-#~ msgid "Target moves"
-#~ msgstr "Doel boekingen"
