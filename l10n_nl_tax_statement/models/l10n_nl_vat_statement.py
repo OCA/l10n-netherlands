@@ -233,6 +233,8 @@ class VatStatement(models.Model):
             if statement.date_range_id and statement.state == "draft":
                 statement.from_date = statement.date_range_id.date_start
                 statement.to_date = statement.date_range_id.date_end
+            statement.from_date = statement.from_date
+            statement.to_date = statement.to_date
 
     @api.depends("from_date", "to_date")
     def _compute_name(self):
@@ -249,8 +251,12 @@ class VatStatement(models.Model):
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
         for statement in self:
-            date_from = statement.from_date + relativedelta(months=-3, day=1)
-            statement.unreported_move_from_date = date_from
+            if statement.from_date:
+                date_from = statement.from_date + relativedelta(months=-3, day=1)
+                statement.unreported_move_from_date = date_from
+            else:
+                previous_move_from_date = statement.unreported_move_from_date
+                statement.unreported_move_from_date = previous_move_from_date
 
     def _prepare_lines(self):
         lines = {}
