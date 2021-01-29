@@ -21,5 +21,6 @@
         'report/report_tax_statement.xml',
         'wizard/l10n_nl_vat_statement_config_wizard.xml',
     ],
+    'pre_init_hook': 'pre_init_hook',
     'installable': True,
 }
