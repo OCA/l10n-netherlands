@@ -3,11 +3,11 @@
 
 {
     "name": "XAF auditfile export",
-    "version": "13.0.1.1.1",
+    "version": "14.0.1.0.0",
     "author": "Therp BV, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",
     "license": "AGPL-3",
-    "category": "Invoices & Payments",
+    "category": "Localization/Netherlands",
     "summary": "Export XAF auditfiles for Dutch tax authorities",
     "depends": ["account"],
     "data": [
