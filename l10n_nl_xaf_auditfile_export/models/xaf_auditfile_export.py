@@ -112,7 +112,7 @@ class XafAuditfileExport(models.Model):
         m0 = memory_info()
         self.date_generated = fields.Datetime.now()
         auditfile_template = self._get_auditfile_template()
-        xml = self.env["ir.ui.view"].render_template(
+        xml = self.env["ir.ui.view"]._render_template(
             auditfile_template, values={"self": self}
         )
         # the following is dealing with the fact that qweb templates don't like
