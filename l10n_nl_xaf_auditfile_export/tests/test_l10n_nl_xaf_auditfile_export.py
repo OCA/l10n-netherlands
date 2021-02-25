@@ -1,5 +1,6 @@
 # Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+#
 
 import base64
 import os
@@ -19,7 +20,7 @@ class TestXafAuditfileExport(TransactionCase):
 
         # create an invoice and post it, to ensure that there's some data to export
         move_form = Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
+            self.env["account.move"].with_context(default_move_type="out_invoice")
         )
         move_form.invoice_date = fields.Date().today()
         move_form.partner_id = self.env["res.partner"].create({"name": "Partner Test"})
