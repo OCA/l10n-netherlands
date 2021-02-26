@@ -60,7 +60,7 @@
                     <country t-if="p.country_id"><t t-esc="p.country_id.code" /></country>
                 </streetAddress>
                 <bankAccount t-foreach="p.bank_ids" t-as="bank">
-                    <bankAccNr><t t-esc="bank.acc_number" /></bankAccNr>
+                    <bankAccNr><t t-esc="bank.sanitized_acc_number" /></bankAccNr>
                     <bankIdCd><t t-esc="bank.bank_bic or bank.bank_id.bic" /></bankIdCd>
                 </bankAccount>
                 <changeInfo t-if="p.write_uid">
