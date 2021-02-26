@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="l10n_nl_tax_statement.report_tax_statement_filters">
+        <div class="nl_tax_act_as_table nl_tax_table" style="width: 1140px;">
+            <div class="nl_tax_act_as_row labels">
+                <div class="nl_tax_act_as_cell">Date range</div>
+                <div class="nl_tax_act_as_cell">Currency</div>
+                <div class="nl_tax_act_as_cell">Date posted</div>
+                <div class="nl_tax_act_as_cell">Date update</div>
+            </div>
+            <div class="nl_tax_act_as_row">
+                <div class="nl_tax_act_as_cell">
+                    <span t-field="o.from_date" />
+                    <span t-field="o.to_date" />
+                </div>
+                <div class="nl_tax_act_as_cell">
+                    <span t-field="o.currency_id" />
+                </div>
+                <div class="nl_tax_act_as_cell">
+                    <span t-field="o.date_posted" />
+                </div>
+                <div class="nl_tax_act_as_cell">
+                    <span t-field="o.date_update" />
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="l10n_nl_tax_statement.report_tax_statement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <!-- Defines global variables used by internal layout -->
+                    <t t-set="title">Aangifte omzetbelasting</t>
+                    <t t-set="company_name" t-value="o.company_id.name" />
+                    <div class="page nl_tax">
+                        <!-- Display filters -->
+                        <t
+                            t-call="l10n_nl_tax_statement.report_tax_statement_filters"
+                        />
+                        <div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        <!-- Top header -->
+                        <div
+                            class="nl_tax_act_as_table nl_tax_table"
+                            style="width: 1140px;"
+                        >
+                            <div class="nl_tax_act_as_row lines">
+                                <div
+                                    class="nl_tax_act_as_cell left"
+                                    style="width: 900px;"
+                                > </div>
+                                <div class="nl_tax_act_as_cell right">Omzet</div>
+                                <div class="nl_tax_act_as_cell right">BTW</div>
+                            </div>
+                            <!-- Display lines -->
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <div
+                                    t-if="line.is_group"
+                                    class="nl_tax_act_as_row labels"
+                                >
+                                    <!--## line header-->
+                                    <div
+                                        class="nl_tax_act_as_cell left"
+                                        style="width: 900px;"
+                                    ><span t-field="line.code" /> - <span
+                                            t-field="line.name"
+                                        /></div>
+                                    <div class="nl_tax_act_as_cell right"> </div>
+                                    <div class="nl_tax_act_as_cell right"> </div>
+                                </div>
+                                <div
+                                    t-if="not line.is_group"
+                                    class="nl_tax_act_as_row lines"
+                                >
+                                    <!--## code, description, omzet, btw-->
+                                    <div
+                                        class="nl_tax_act_as_cell left"
+                                        style="width: 900px;"
+                                    > &amp;nbsp; &amp;nbsp; <span
+                                            t-field="line.code"
+                                        /> - <span t-field="line.name" /></div>
+                                    <div class="nl_tax_act_as_cell right">
+                                        <span t-field="line.format_omzet" />
+                                    </div>
+                                    <div class="nl_tax_act_as_cell right">
+                                        <span t-field="line.format_btw" />
+                                    </div>
+                                </div>
+                            </t>
+                            <div class="nl_tax_act_as_row lines">
+                                <!--## total btw-->
+                                <div
+                                    class="nl_tax_act_as_cell left"
+                                    style="width: 900px;"
+                                > &amp;nbsp; &amp;nbsp; 5g - Totaal</div>
+                                <div class="nl_tax_act_as_cell right"> </div>
+                                <div class="nl_tax_act_as_cell right">
+                                    <span t-field="o.format_btw_total" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
