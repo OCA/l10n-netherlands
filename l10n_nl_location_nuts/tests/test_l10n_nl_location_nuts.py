@@ -1,9 +1,23 @@
 # Copyright 2018-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import logging
+from os.path import dirname, join
+
+from vcr import VCR
+
 from odoo.tests.common import TransactionCase
 
 from ..hooks import post_init_hook
+
+logging.getLogger("vcr").setLevel(logging.WARNING)
+
+recorder = VCR(
+    record_mode="once",
+    cassette_library_dir=join(dirname(__file__), "vcr_cassettes"),
+    path_transformer=VCR.ensure_suffix(".yaml"),
+    filter_headers=["Authorization"],
+)
 
 
 class TestNlLocationNuts(TransactionCase):
@@ -11,7 +25,8 @@ class TestNlLocationNuts(TransactionCase):
         super().setUp()
 
         importer = self.env["nuts.import"]
-        importer.run_import()
+        with recorder.use_cassette("nuts_import"):
+            importer.run_import()
 
     def test_dutch_nuts(self):
         """
