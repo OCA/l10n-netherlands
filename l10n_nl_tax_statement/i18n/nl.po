@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-25 15:47+0000\n"
-"PO-Revision-Date: 2021-02-28 15:45+0000\n"
+"PO-Revision-Date: 2021-03-05 01:45+0000\n"
 "Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "Language: nl\n"
@@ -53,6 +53,8 @@ msgid ""
 "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
 "\"Arrow\"/>"
 msgstr ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
+"\"Arrow\"/>"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
@@ -60,6 +62,8 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
 "specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
+"<span class=\\\"fa fa-lg fa-building-o\\\" title=\\\"De Intellingen zijn "
+"bedrijfsspecifiek.\\\" groups=\\\"base.group_multi_company\\\"/>"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -179,7 +183,7 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_multicompany_fiscal_unit
 msgid "Display Multicompany Fiscal Unit"
-msgstr ""
+msgstr "Weergeven van de fiscale eenheid"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__display_name
@@ -205,17 +209,17 @@ msgstr "Alle boekingen"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__final
 msgid "Final"
-msgstr ""
+msgstr "Voltooid"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Finalize"
-msgstr ""
+msgstr "Voltooien"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__fiscal_unit_company_ids
 msgid "Fiscal Unit Company"
-msgstr ""
+msgstr "Fiscale eenheid"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__format_btw
@@ -254,7 +258,7 @@ msgstr "ID"
 msgid ""
 "If this checkbox is ticked, you will enable the Netherlands Tax Invoice "
 "Basis (Factuurstelsel)."
-msgstr ""
+msgstr "Met deze checkbox activeert u het fatuurstelsel."
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -262,6 +266,8 @@ msgid ""
 "If you confirm, it will be not possible to modify this Statement or reset it "
 "back to draft anymore. Do you confirm?"
 msgstr ""
+"Indien u bevestigt is het niet modelijk om het afschrift aan te passen, of "
+"terug te zetten op concept. Wilt u bevestigen?"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -307,7 +313,7 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Journaal Post"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_id
@@ -401,7 +407,7 @@ msgstr "Regels"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__multicompany_fiscal_unit
 msgid "Multicompany Fiscal Unit"
-msgstr ""
+msgstr "Meerdere bedrijven Fiscale eenheid"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.act_window,name:l10n_nl_tax_statement.action_account_vat_statement_nl
@@ -414,12 +420,12 @@ msgstr "BTW aangifte"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_invoice_basis
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_invoice_basis
 msgid "NL Tax Invoice Basis"
-msgstr ""
+msgstr "NL Factuurstelsel"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
 msgid "NL Tax Invoice Basis (Factuurstelsel)"
-msgstr ""
+msgstr "NL Factuurstelsel"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement
@@ -520,13 +526,11 @@ msgstr "Subtotaal (rubriek 5a min 5b)"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Tags mapping not configured for The Netherlands! Check the NL BTW Tags "
 "Configuration."
 msgstr ""
-"Tags mapping not configured for this Company! Check the NL BTW Tags "
-"Configuration."
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__name
@@ -538,6 +542,7 @@ msgstr "Aangifte"
 #, python-format
 msgid "The Companies belonging to a fiscal unit must be in The Netherlands."
 msgstr ""
+"De bedrijven welke tot een fiscale eenheid behoren moeten Nederlands zijn."
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__to_date
@@ -547,7 +552,7 @@ msgstr "Tot Datum"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__omzet
 msgid "Turnover"
-msgstr ""
+msgstr "Omzet"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_ids
@@ -578,7 +583,7 @@ msgstr "Hulpveld om de valuta uit te drukken"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__btw
 msgid "VAT"
-msgstr ""
+msgstr "BTW"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -691,6 +696,8 @@ msgid ""
 "You cannot post a statement if all the previous statements are not yet "
 "posted! Please Post all the other statements first."
 msgstr ""
+"U kunt geen aangifte indienen indien wanneer niet alle voorgaande aangiftes "
+"zijn ingedient. Dien eerst de voorgaande aangiftes in."
 
 #~ msgid "1a"
 #~ msgstr "1a"
