@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-l10n_nl_account_tax_unece',
+        'odoo14-addon-l10n_nl_bank',
         'odoo14-addon-l10n_nl_bsn',
         'odoo14-addon-l10n_nl_oin',
         'odoo14-addon-l10n_nl_postcode',
