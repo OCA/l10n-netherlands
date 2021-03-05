@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-25 15:47+0000\n"
-"PO-Revision-Date: 2021-03-05 01:45+0000\n"
+"PO-Revision-Date: 2021-03-05 22:45+0000\n"
 "Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "Language: nl\n"
@@ -145,14 +145,13 @@ msgstr "Valuta"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "Date"
-msgstr "Tot Datum"
+msgstr "Datums"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_posted
 msgid "Date Posted"
-msgstr "Boek Datum"
+msgstr "Verzend datum"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_update
@@ -168,7 +167,7 @@ msgstr "Datum aangegeven"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_range_id
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date range"
-msgstr "Datum range"
+msgstr "Tijdvak"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
@@ -178,7 +177,7 @@ msgstr "Datum bijgewerkt"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_button_add_all_undeclared_invoices
 msgid "Display Button Add All Undeclared Invoices"
-msgstr ""
+msgstr "Knop weergeven om alle niet aangegeven facturen toe te voegen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_multicompany_fiscal_unit
@@ -209,12 +208,12 @@ msgstr "Alle boekingen"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__final
 msgid "Final"
-msgstr "Voltooid"
+msgstr "Definitief"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Finalize"
-msgstr "Voltooien"
+msgstr "Definitief"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__fiscal_unit_company_ids
@@ -446,7 +445,7 @@ msgstr "BTW aangifte"
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_line
 msgid "Netherlands Vat Statement Line"
-msgstr ""
+msgstr "BTW aangifte regel"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -463,12 +462,12 @@ msgstr "Aangifte"
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 #, fuzzy
 msgid "Past Undeclared Moves"
-msgstr "Laatst bijgewerkt op"
+msgstr "Historische niet aangegeven mutaties"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Post"
-msgstr "Boeken"
+msgstr "Versturen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__posted
@@ -478,7 +477,7 @@ msgstr "Ingezonden"
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Press the Update button in order to recompute the statement lines!"
-msgstr ""
+msgstr "Gebruik de bijwerken knop om de aangifte te herberekenen!"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_id
@@ -489,7 +488,7 @@ msgstr "Aangifte"
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Remove Move"
-msgstr ""
+msgstr "verwijder mutatie"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -562,13 +561,13 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_from_date
 msgid "Unreported Move From Date"
-msgstr ""
+msgstr "Niet aangegeven mutaties vanaf datum"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
 #, python-format
 msgid "Unreported moves: unsupported search operator"
-msgstr ""
+msgstr "niet aangegeven mutaties: Ongeldige zoekparameter"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
