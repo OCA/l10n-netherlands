@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-25 15:47+0000\n"
-"PO-Revision-Date: 2021-03-05 22:45+0000\n"
+"PO-Revision-Date: 2021-03-06 03:45+0000\n"
 "Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "Language: nl\n"
@@ -73,12 +73,12 @@ msgstr "Aangifte omzetbelasting"
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Add All Undeclared Invoices/Moves"
-msgstr ""
+msgstr "Voeg alle on aangegeven facturen/mutaties toe"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Add Move"
-msgstr ""
+msgstr "Mutatie toevoegen"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -105,7 +105,7 @@ msgstr "Controleer de aangifte van het moederbedrijf."
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__code
 msgid "Code"
-msgstr "Code"
+msgstr "Rubriek"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_res_company
@@ -530,6 +530,8 @@ msgid ""
 "Tags mapping not configured for The Netherlands! Check the NL BTW Tags "
 "Configuration."
 msgstr ""
+"Tags mapping is niet geconfigureerd voor het Nederlandse grootboekschema! "
+"Controleer de NL BTW Tags instellingen."
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__name
@@ -631,7 +633,7 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot delete a statement set as final!"
 msgstr ""
 "U kunt een ingezonden aangifte niet verwijderen! Zet de aangifte eerst terug "
@@ -644,28 +646,28 @@ msgid ""
 "You cannot delete lines of a posted statement! Reset the statement to draft "
 "first."
 msgstr ""
-"U kunt lijnen van een ingezonden aangifte niet verwijderen! Zet de aangifte "
+"U kunt regels van een ingezonden aangifte niet verwijderen! Zet de aangifte "
 "eerst terug naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot delete lines of a statement set as final!"
 msgstr ""
-"U kunt lijnen van een ingezonden aangifte niet verwijderen! Zet de aangifte "
-"eerst terug naar concept."
+"U kunt regels van een ingezonden/definitieve aangifte niet verwijderen! Zet "
+"de aangifte eerst terug naar concept."
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/account_move.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a Journal Entry in a posted/final tax statement: %s"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr "U kunt een ingezonden/definitieve aangifte niet bewerken: %s"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/account_move_line.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a Journal Item in a posted/final tax statement: %s"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr "U kunt een ingezonden/definitieve aangifte niet bewerken: %s"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -684,9 +686,9 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot modify a statement set as final!"
-msgstr "U kunt een ingezonden aangifte niet bewerken!"
+msgstr "U kunt een definitieve aangifte niet bewerken!"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
