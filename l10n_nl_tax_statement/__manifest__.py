@@ -3,7 +3,7 @@
 
 {
     'name': 'Netherlands BTW Statement',
-    'version': '12.0.2.0.0',
+    'version': '12.0.2.0.1',
     'category': 'Localization',
     'license': 'AGPL-3',
     'author': 'Onestein, Odoo Community Association (OCA)',
