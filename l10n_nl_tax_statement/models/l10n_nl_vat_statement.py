@@ -199,13 +199,29 @@ class VatStatement(models.Model):
             statement.format_btw_total = btw
 
     @api.model
+    def _get_unreported_move_from_date(self, from_date):
+        """ By default, the unreported date is not set before the start date
+        of the earliest report.
+        :param from_date: the from_date of the statement to compute the
+        unreported date for.
+        """
+        earliest = self.search([], order='from_date asc', limit=1).from_date
+        if not earliest:
+            return from_date
+        offset_date = from_date + relativedelta(months=-3, day=1)
+        return min(from_date, max(earliest, offset_date))
+
+    @api.model
     def default_get(self, fields_list):
         defaults = super().default_get(fields_list)
         company = self.env.user.company_id
         fy_dates = company.compute_fiscalyear_dates(datetime.now())
-        defaults.setdefault('from_date', fy_dates['date_from'])
-        defaults.setdefault('to_date', fy_dates['date_to'])
+        defaults.setdefault('from_date', datetime.date(fy_dates['date_from']))
+        defaults.setdefault('to_date', datetime.date(fy_dates['date_to']))
         defaults.setdefault('name', company.name)
+        defaults.setdefault(
+            'unreported_move_from_date',
+            self._get_unreported_move_from_date(defaults['from_date']))
         return defaults
 
     @api.onchange('date_range_id')
@@ -229,8 +245,8 @@ class VatStatement(models.Model):
     def onchange_date_from_date(self):
         # by default the unreported_move_from_date is set to
         # a quarter (three months) before the from_date of the statement
-        date_from = self.from_date + relativedelta(months=-3, day=1)
-        self.unreported_move_from_date = date_from
+        self.unreported_move_from_date = self._get_unreported_move_from_date(
+            self.from_date)
 
     @api.onchange('unreported_move_from_date')
     def onchange_unreported_move_from_date(self):

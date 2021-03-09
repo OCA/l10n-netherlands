@@ -109,6 +109,16 @@ class TestVatStatement(TransactionCase):
         })
 
     def test_01_onchange(self):
+        """ Unreported move from date is bound by the earliest start date,
+        and set to three months earlier otherwise.
+        """
+        form_0 = Form(self.env['l10n.nl.vat.statement'])
+        form_0.from_date = fields.Date.from_string('1975-01-01')
+        self.assertEqual(
+            form_0.unreported_move_from_date, form_0.from_date)
+        form_0.to_date = fields.Date.from_string('1975-12-31')
+        statement_0 = form_0.save()
+
         daterange_type = self.env['date.range.type'].create({
             'name': 'Type 1'
         })
@@ -141,6 +151,10 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(statement.unreported_move_from_date, new_date)
 
         self.assertEqual(statement.btw_total, 0.)
+
+        form.from_date = fields.Date.from_string('1975-02-01')
+        self.assertEqual(
+            form.unreported_move_from_date, statement_0.from_date)
 
     def test_02_post_final(self):
         # in draft

@@ -8,11 +8,13 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     l10n_nl_vat_statement_id = fields.Many2one(
+        index=True,
         related='move_id.l10n_nl_vat_statement_id',
         store=True,
         string='Related Move Statement'
     )
     l10n_nl_vat_statement_include = fields.Boolean(
+        index=True,
         related='move_id.l10n_nl_vat_statement_include',
         store=True,
     )
