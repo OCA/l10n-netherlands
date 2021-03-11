@@ -5,7 +5,8 @@ from openerp import models
 try:
     from openerp.addons.field_char_transformed import FieldCharTransformed
 except ImportError:
-    pass
+    def FieldCharTransformed(transform=None):
+        return None
 
 
 def _format_zipcode(zipcode):
