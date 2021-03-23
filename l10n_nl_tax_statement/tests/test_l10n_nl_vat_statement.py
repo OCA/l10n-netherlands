@@ -622,3 +622,26 @@ class TestVatStatement(TransactionCase):
 
         company_ids_full_list = statement_parent._get_company_ids_full_list()
         self.assertEqual(len(company_ids_full_list), 3)
+
+    def test_21_defaults_with_fiscalyear(self):
+        """
+        res.company's compute_fiscalyear_dates() returns date values instead
+        of datetime when a fiscal year is present.
+        """
+        today = fields.Date.context_today(self.env.user)
+        date_from = today.replace(month=1, day=1)
+        date_to = today.replace(month=12, day=31)
+        if not self.env["account.fiscal.year"].search(
+                [("date_from", "<=", today),
+                 ("date_to", ">=", today),
+                 ("company_id", "=", self.env.user.company_id.id)]):
+            self.env["account.fiscal.year"].create({
+                "name": "This year",
+                "date_from": date_from,
+                "date_to": date_to,
+            })
+        form = Form(self.env['l10n.nl.vat.statement'])
+        self.assertEqual(
+            form.from_date[:10], fields.Date.to_string(date_from))
+        self.assertEqual(
+            form.to_date[:10], fields.Date.to_string(date_to))

@@ -1,7 +1,7 @@
 # Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from datetime import datetime
+from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
@@ -216,8 +216,18 @@ class VatStatement(models.Model):
         defaults = super().default_get(fields_list)
         company = self.env.user.company_id
         fy_dates = company.compute_fiscalyear_dates(datetime.now())
-        defaults.setdefault('from_date', datetime.date(fy_dates['date_from']))
-        defaults.setdefault('to_date', datetime.date(fy_dates['date_to']))
+        defaults.setdefault(
+            'from_date',
+            datetime.date(fy_dates['date_from'])
+            if type(fy_dates['date_from']) != date
+            else fy_dates['date_from']
+        )
+        defaults.setdefault(
+            'to_date',
+            datetime.date(fy_dates['date_to'])
+            if type(fy_dates['date_to']) != date
+            else fy_dates['date_to']
+        )
         defaults.setdefault('name', company.name)
         defaults.setdefault(
             'unreported_move_from_date',
