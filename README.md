@@ -20,7 +20,7 @@ addon | version | summary
 [l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 13.0.1.1.0 | Auto-configure UNECE params on Dutch taxes
 [l10n_nl_bank](l10n_nl_bank/) | 13.0.1.1.0 | Import all Dutch banks with BIC code
 [l10n_nl_bsn](l10n_nl_bsn/) | 13.0.1.0.1 | Burgerservicenummer (BSN) for Partners
-[l10n_nl_location_nuts](l10n_nl_location_nuts/) | 13.0.1.0.0 | NUTS specific options for Netherlands
+[l10n_nl_location_nuts](l10n_nl_location_nuts/) | 13.0.1.0.1 | NUTS specific options for Netherlands
 [l10n_nl_oin](l10n_nl_oin/) | 13.0.1.1.0 | Adds Dutch OIN field
 [l10n_nl_postcode](l10n_nl_postcode/) | 13.0.1.0.0 | Dutch postcode validation for Partners
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 13.0.1.0.0 | Enable invoice basis on tax according to the Dutch law
