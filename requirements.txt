@@ -1,0 +1,2 @@
+# for tests
+vcrpy<5.0.0
