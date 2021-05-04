@@ -51,11 +51,19 @@ class VatStatementIcpLine(models.Model):
 
     @api.constrains('country_code')
     def _check_country_code(self):
-        country_codes = self.mapped('country_code')
+        europe_codes = self.env.ref('base.europe').country_ids.mapped('code')
+        if "GB" not in europe_codes:
+            # Allow GB lines from before the effective Brexit date
+            brexit_date = fields.Date.from_string("2021-01-01")
+            lines = self.filtered(
+                lambda line: line.country_code != "GB" or
+                line.statement_id.from_date >= brexit_date)
+        else:
+            lines = self
+        country_codes = lines.mapped('country_code')
         if self.env.ref('base.nl').code in country_codes:
             raise ValidationError(_(
                 'Wrong country code (NL) for ICP report.'))
-        europe_codes = self.env.ref('base.europe').country_ids.mapped('code')
         for code in country_codes:
             if code not in europe_codes:
                 raise ValidationError(_(
