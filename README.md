@@ -25,6 +25,7 @@ addon | version | summary
 [l10n_nl_oin](l10n_nl_oin/) | 14.0.1.0.0 | Adds Dutch OIN field
 [l10n_nl_postcode](l10n_nl_postcode/) | 14.0.1.0.0 | Dutch postcode validation for Partners
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 14.0.1.0.0 | Netherlands BTW Statement
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 14.0.1.0.0 | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
