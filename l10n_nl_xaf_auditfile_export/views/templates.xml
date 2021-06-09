@@ -231,7 +231,7 @@
                                     t-esc="self.get_move_period_number(m)"
                                 /></periodNumber>
                     <trDt><t t-esc="m.date" /></trDt>
-                    <amnt><t t-esc="m.amount_total" /></amnt>
+                    <amnt><t t-esc="round(m.amount_total,2)" /></amnt>
                     <!-- left to inheriting modules
                     <sourceID />
                     <userID />
@@ -245,7 +245,7 @@
                                     /></docRef>
                         <effDate><t t-esc="l.date" /></effDate>
                         <desc><t t-esc="l.name" /></desc>
-                        <amnt><t t-esc="abs(l.balance)" /></amnt>
+                        <amnt><t t-esc="abs(round(l.balance,2))" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
                         <recRef t-if="l.full_reconcile_id"><t
                                         t-esc="l.full_reconcile_id.name"
@@ -275,7 +275,7 @@
                         /-->
                         <currency t-if="l.currency_id and l.amount_currency">
                             <curCode><t t-esc="l.currency_id.name" /></curCode>
-                            <curAmnt><t t-esc="l.amount_currency" /></curAmnt>
+                            <curAmnt><t t-esc="round(l.amount_currency,2)" /></curAmnt>
                         </currency>
                     </trLine>
                 </transaction>
