@@ -179,21 +179,19 @@ class XafAuditfileExport(models.Model):
         return release.version
 
     def get_partners(self):
-        """return a generator over partners"""
-        partner_ids = (
-            self.env["res.partner"]
+        """return a generator over relevant partners"""
+        relevant_partners = (
+            self.env["account.move.line"]
             .search(
                 [
-                    "|",
-                    ("customer_rank", ">", 0),
-                    ("supplier_rank", ">", 0),
-                    "|",
-                    ("company_id", "=", False),
                     ("company_id", "=", self.company_id.id),
+                    ("date", ">=", self.date_start),
+                    ("date", "<=", self.date_end),
                 ]
             )
-            .ids
+            .partner_id
         )
+        partner_ids = sorted([p.id for p in relevant_partners])
         self.env.cache.invalidate()
         for chunk in chunks(partner_ids):
             for partner in self.env["res.partner"].browse(chunk):
