@@ -42,7 +42,7 @@ For details, refer to the `MIS Builder documentation <https://github.com/OCA/mis
 Known issues / Roadmap
 ======================
 
-* support horizontal mode for xslx export
+* support horizontal mode for xlsx export
 * known issue: small CSS incompatibility when using profit/loss reports in Firefox. The second column has a header 
   not perfectly aligned with the first column. does not happen in other browsers.
 
@@ -68,6 +68,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Holger Brunn <mail@hunki-enterprises.nl> (https://hunki-enterprises.nl)
+* Giovanni Francesco Capalbo <giovanni@therp.nl> (https://www.therp.nl)
 
 Maintainers
 ~~~~~~~~~~~
