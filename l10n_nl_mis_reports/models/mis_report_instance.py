@@ -3,7 +3,7 @@
 import copy
 from collections import OrderedDict
 
-from odoo import api, models
+from odoo import models
 
 
 class MisReportInstance(models.Model):
