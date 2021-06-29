@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "author": "Hunki Enterprises BV,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",
-    'category': "Localization",
+    "category": "Localization",
     "depends": ["mis_builder"],
     "data": [
         "data/mis_report_style.xml",
