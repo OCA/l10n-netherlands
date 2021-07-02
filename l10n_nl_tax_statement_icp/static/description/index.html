@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.15.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils: http://docutils.sourceforge.net/" />
 <title>Netherlands ICP Statement</title>
 <style type="text/css">
 
@@ -397,6 +397,16 @@ The period is also the same as the one selected in the BTW aangifte report.</p>
 <ol class="arabic simple">
 <li>Follow the configuration steps as described in <em>l10n_nl_tax_statement</em> and set the tag <em>3b omzet</em> needed for this report.</li>
 </ol>
+<p>On the ICP Statement, the amounts will be split up into an amount for products
+and an amount for services. The Dutch chart of accounts in Odoo provides
+a separate set of taxes for services which ensure that the amounts are split
+up properly here as well. If you are migrating from a legacy situation or you
+do not want to apply separate taxes to service products, you can set a <em>System
+Parameter</em> with key
+<em>l10n_nl_tax_statement_icp.icp_amount_by_tag_or_product</em> to value <em>product</em>.</p>
+<p>With this configuration in place, the amounts will be split up according to
+the product type, using service by default when no product is mentioned on
+the invoice line.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#id2">Usage</a></h1>

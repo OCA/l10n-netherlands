@@ -12,6 +12,7 @@
         'l10n_nl_tax_statement',
     ],
     'data': [
+        'data/ir_config_parameter.xml',
         'security/ir.model.access.csv',
         'views/l10n_nl_vat_statement_view.xml',
         'views/report_tax_statement.xml',
