@@ -50,7 +50,6 @@ class VatStatement(models.Model):
                 icp_values['partner_id'] = partner_id
                 icp_values['statement_id'] = statement.id
                 newline = IcpLine.create(icp_values)
-                statement.icp_line_ids += newline
                 icp_total = newline.amount_products + newline.amount_services
                 statement.icp_total += icp_total
 
@@ -135,9 +134,16 @@ class VatStatement(models.Model):
             balance = line.company_currency_id.with_context(
                 date=line.date
             ).compute(balance, self.currency_id, round=True)
+        if self.env["ir.config_parameter"].sudo().get_param(
+                "l10n_nl_tax_statement_icp.icp_amount_by_tag_or_product",
+                "tag") == "product":
+            is_service = not line.product_id or (
+                line.product_id.type == "service")
+        else:
+            is_service = self._is_3b_omzet_diensten_line(line)
         amount_products = balance
         amount_services = 0.0
-        if self._is_3b_omzet_diensten_line(line):
+        if is_service:
             amount_products = 0.0
             amount_services = balance
 

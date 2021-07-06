@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record model="ir.config_parameter" id="parameter_icp_amount">
+        <field name="key">l10n_nl_tax_statement_icp.icp_amount_by_tag_or_product</field>
+        <field name="value">tag</field>
+    </record>
+</odoo>

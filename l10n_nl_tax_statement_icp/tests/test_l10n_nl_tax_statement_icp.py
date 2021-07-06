@@ -137,3 +137,31 @@ class TestTaxStatementIcp(TestVatStatement):
 
         with self.assertRaises(ValidationError):
             self.statement_with_icp.post()
+
+    def test_08_icp_service_by_product_type(self):
+        """Amounts can be split up by product type as per config parameter"""
+        self.statement_1.post()
+        self.statement_with_icp = self.env['l10n.nl.vat.statement'].create({
+            'name': 'Statement 1',
+        })
+
+        self.invoice_1.partner_id.country_id = self.env.ref('base.be')
+        service = self.env.ref("product.expense_product")
+        product = self.env.ref("product.product_product_6")
+        self.invoice_1.invoice_line_ids[0].product_id = service
+        self.invoice_1.invoice_line_ids[1].product_id = product
+        self._prepare_icp_invoice()
+        self.env["ir.config_parameter"].set_param(
+            "l10n_nl_tax_statement_icp.icp_amount_by_tag_or_product",
+            "product")
+
+        self.statement_with_icp.post()
+        self.assertTrue(self.statement_with_icp.icp_line_ids)
+        self.assertTrue(self.statement_with_icp.icp_total)
+
+        self.assertEqual(
+            self.statement_with_icp.icp_line_ids.amount_services,
+            self.invoice_1.invoice_line_ids[0].price_subtotal)
+        self.assertEqual(
+            self.statement_with_icp.icp_line_ids.amount_products,
+            self.invoice_1.invoice_line_ids[1].price_subtotal)
