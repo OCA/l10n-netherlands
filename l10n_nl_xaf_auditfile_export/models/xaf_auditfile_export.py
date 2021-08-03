@@ -296,7 +296,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and company_id=%s "
-            "and not display_type",
+            "and display_type is not null",
             (self.date_start, self.date_end, self.company_id.id),
         )
         return self.env.cr.fetchall()[0][0]
