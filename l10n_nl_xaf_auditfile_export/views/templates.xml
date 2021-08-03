@@ -152,7 +152,7 @@
                     <sourceID />
                     <userID />
                     /-->
-                    <trLine t-foreach="m.line_ids" t-as="l">
+                    <trLine t-foreach="m.line_ids" t-as="l" t-if="not l.display_type">
                         <nr><t t-esc="l.id" /></nr>
                         <accID><t t-esc="l.account_id.code" /></accID>
                         <docRef><t t-esc="l.ref and l.ref[:35] if self.unit4 == True else l.ref" t-options='{"widget": "auditfile.string999"}' /></docRef>

@@ -295,7 +295,8 @@ class XafAuditfileExport(models.Model):
             "select count(*) from account_move_line "
             "where date >= %s "
             "and date <= %s "
-            "and company_id=%s",
+            "and company_id=%s "
+            "and not display_type",
             (self.date_start, self.date_end, self.company_id.id),
         )
         return self.env.cr.fetchall()[0][0]
