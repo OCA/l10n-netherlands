@@ -6,6 +6,7 @@ import tempfile
 
 from mock import mock, patch
 
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -101,3 +102,16 @@ class TestLetsencryptTransip(TransactionCase):
         )
         client.get_info.assert_called()
         client.add_dns_entries.assert_called()
+
+    @patch("transip.service.domain.DomainService")
+    def test_invocation_with_bad_domain(self, domain_service):
+        client = domain_service.return_value
+
+        client.get_domain_names.return_value = ["example.com", "example.org"]
+
+        with self.assertRaisesRegexp(
+            UserError, "Can't find an appropriate TransIP domain"
+        ):
+            self.env["letsencrypt"]._respond_challenge_dns_transip(
+                "example.net", "a_token"
+            )
