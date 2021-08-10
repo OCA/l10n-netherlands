@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__)
 try:
     import transip.service.domain
     import transip.service.objects
-except ImportError as err:
+except ImportError as err:  # pragma: no cover
     _logger.debug(err)
 
 
