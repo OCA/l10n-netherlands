@@ -17,15 +17,15 @@ TODO: add repo description.
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 14.0.1.0.0 | Auto-configure UNECE params on Dutch taxes
-[l10n_nl_bank](l10n_nl_bank/) | 14.0.1.0.0 | Import all Dutch banks with BIC code
-[l10n_nl_bsn](l10n_nl_bsn/) | 14.0.1.0.0 | Burgerservicenummer (BSN) for Partners
-[l10n_nl_oin](l10n_nl_oin/) | 14.0.1.0.0 | Adds Dutch OIN field
-[l10n_nl_postcode](l10n_nl_postcode/) | 14.0.1.0.0 | Dutch postcode validation for Partners
-[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 14.0.1.0.0 | Netherlands BTW Statement
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 14.0.1.0.1 | Export XAF auditfiles for Dutch tax authorities
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 14.0.1.0.0 |  | Auto-configure UNECE params on Dutch taxes
+[l10n_nl_bank](l10n_nl_bank/) | 14.0.1.0.0 |  | Import all Dutch banks with BIC code
+[l10n_nl_bsn](l10n_nl_bsn/) | 14.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Burgerservicenummer (BSN) for Partners
+[l10n_nl_oin](l10n_nl_oin/) | 14.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Adds Dutch OIN field
+[l10n_nl_postcode](l10n_nl_postcode/) | 14.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Dutch postcode validation for Partners
+[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 14.0.1.0.0 |  | Netherlands BTW Statement
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 14.0.1.0.1 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
