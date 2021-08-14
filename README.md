@@ -14,13 +14,13 @@ Deze repository bevat alle modules welke ontwikkeld zijn om Odoo v9 aan te laten
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[l10n_nl_bsn](l10n_nl_bsn/) | 9.0.0.1.0 | Burgerservicenummer (BSN) for Partners
-[l10n_nl_intrastat](l10n_nl_intrastat/) | 9.0.1.0.0 | Intracom Tax report for the Netherlands
-[l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 9.0.0.1.0 | Autocomplete Dutch addresses using PostcodeApi.nu
-[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 9.0.1.0.1 | Netherlands BTW Statement
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 9.0.1.1.0 | Export XAF auditfiles for Dutch tax authorities
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[l10n_nl_bsn](l10n_nl_bsn/) | 9.0.0.1.0 |  | Burgerservicenummer (BSN) for Partners
+[l10n_nl_intrastat](l10n_nl_intrastat/) | 9.0.1.0.0 |  | Intracom Tax report for the Netherlands
+[l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 9.0.0.1.0 |  | Autocomplete Dutch addresses using PostcodeApi.nu
+[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 9.0.1.0.1 |  | Netherlands BTW Statement
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 9.0.1.1.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
