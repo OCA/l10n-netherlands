@@ -140,11 +140,11 @@ class TestNlPostcodeapi(TransactionCase):
         })
         res = partner.on_change_zip_street_number()
         self.assertFalse(res)
+        partner._convert_to_write(partner._cache)
 
         patch_api_get_address.stop()
         patch_api_connector.stop()
 
-        partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
         self.assertEqual(partner.city, 'Breda')
         self.assertEqual(partner.state_id.name, 'Noord-Brabant')
@@ -188,11 +188,11 @@ class TestNlPostcodeapi(TransactionCase):
         })
         res = partner.on_change_zip_street_number()
         self.assertFalse(res)
+        partner._convert_to_write(partner._cache)
 
         patch_api_get_address.stop()
         patch_api_connector.stop()
 
-        partner._convert_to_write(partner._cache)
         self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
         self.assertEqual(partner.city, 'Breda')
         self.assertFalse(partner.state_id)
