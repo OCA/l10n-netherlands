@@ -48,6 +48,9 @@ Installation
 This module depends on the standard Odoo module base_address_extended, which will split
 up the street field into separate fields for street name and number.
 
+It now also depends on l10n_nl_country_states, to provide the names of the provinces,
+that will be added to the res_country_state model.
+
 You also need to have the 'pyPostcode' Python library by Stefan Jansen
 installed (https://pypi.python.org/pypi/pyPostcode).
 
@@ -58,8 +61,22 @@ Please enter the API key that you request from PostcodeAPI into the system
 parameter 'l10n_nl_postcodeapi.apikey'
 
 Provinces are auto-completed if a country state with the exact name is found in
-the system. A CSV file with the Dutch provinces is included in the data
-directory, but not loaded by default. You can import the file manually.
+the system.
+
+Changelog
+=========
+
+11.0.2.0.0 (2021-08-21)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Now depend on l10n_nl_country_states to prevent conflicts with that module;
+- No manual caching of province data. It complicates code and performance gain
+  will almost certainly be negligible;
+- Check valid Api Key in configuration immediately when setting or updating key;
+- Take into account that with l10n_nl_country_states installed, state_id on partner
+  will in many cases be set, even if postcode api not active, or cannot find
+  address;
+- Adjust tests to run properly on databases already containing data.
 
 Bug Tracker
 ===========
@@ -84,6 +101,7 @@ Contributors
 
 * Stefan Rijnhart (Therp BV) <stefan@therp.nl>
 * Andrea Stirpe <a.stirpe@onestein.nl>
+* Ronald Portier <ronald@therp.nl>
 
 Maintainers
 ~~~~~~~~~~~
@@ -97,6 +115,14 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
+
+.. |maintainer-NL66278| image:: https://github.com/NL66278.png?size=40px
+    :target: https://github.com/NL66278
+    :alt: NL66278
+
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-NL66278| 
 
 This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/11.0/l10n_nl_postcodeapi>`_ project on GitHub.
 
