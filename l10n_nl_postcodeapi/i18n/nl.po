@@ -51,6 +51,3 @@ msgstr ""
 #: model:ir.model,name:l10n_nl_postcodeapi.model_ir_config_parameter
 msgid "ir.config_parameter"
 msgstr "ir.config_parameter"
-
-#~ msgid "Partner"
-#~ msgstr "Relatie"

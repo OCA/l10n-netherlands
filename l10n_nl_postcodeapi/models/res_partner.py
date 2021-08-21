@@ -1,72 +1,70 @@
-# Copyright 2013-2015 Therp BV <https://therp.nl>
+# Copyright 2013-2021 Therp BV <https://therp.nl>
 # @autors: Stefan Rijnhart, Ronald Portier
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Interface with Dutch Postcode API service."""
+# pylint: disable=protected-access
+import logging
 
-from odoo import api, models, _
-from odoo.tools import ormcache
+from odoo import _, api, models
+
+_logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
+    """Interface with Dutch Postcode API service."""
     _inherit = 'res.partner'
 
     @api.model
-    @ormcache(skiparg=2)
-    def get_provider_obj(self):
-        apikey = self.env['ir.config_parameter'].sudo().get_param(
-            'l10n_nl_postcodeapi.apikey', '').strip()
-        if not apikey or apikey == 'Your API key':
-            return False
-        from pyPostcode import Api
-        return Api(apikey, (2, 0, 0))
-
-    def _postcodeapi_check_valid_provider(self, provider):
-        test = provider.getaddress('1053NJ', '334T')
-        if not test or not test._data:
-            return _('Could not verify the connection with the address '
-                     'lookup service (if you want to get rid of this '
-                     'message, please rename or delete the system parameter '
-                     '\'l10n_nl_postcodeapi.apikey\').')
-        return None
-
-    @api.model
-    @ormcache(skiparg=2)
-    def get_province(self, province):
-        """ Return the province or empty recordset """
-        if not province:
-            return self.env['res.country.state']
-        return self.env['res.country.state'].search([
-            ('name', '=', province)
-        ], limit=1)
+    def get_country_state(self, country, state_name):
+        """Lookup state within a country."""
+        state_model = self.env['res.country.state']
+        if not country or not state_name:
+            return state_model
+        return state_model.search(
+            [
+                ('country_id', '=', country.id),
+                ('name', '=', state_name),
+            ],
+            limit=1
+        )
 
     @api.onchange('zip', 'street_number', 'country_id')
     def on_change_zip_street_number(self):
-        """
-        Normalize the zip code, check on the partner's country and
-        if all is well, request address autocompletion data.
+        """Autocomplete dutch addresses if postalcode and streetnumber are filled.
 
         NB. postal_code is named 'zip' in Odoo, but is this a reserved
-        keyword in Python
+        keyword in Python.
         """
-        postal_code = self.zip and self.zip.replace(' ', '')
+        country_nl = self.env.ref('base.nl')
         country = self.country_id
-        if not (postal_code and self.street_number) or \
-                country and country != self.env.ref('base.nl'):
-            return {}
-
-        provider_obj = self.get_provider_obj()
+        if country and country != country_nl:
+            # Do not check for postal code outside of the Netherlands.
+            return
+        postal_code = self.zip and self.zip.replace(' ', '')
+        if not postal_code or not self.street_number:
+            # Only check if both postal code and street number have been filled.
+            return
+        parameter_model = self.env["ir.config_parameter"]
+        provider_obj = parameter_model.get_provider_obj()
         if not provider_obj:
-            return {}
-        err_msg = self._postcodeapi_check_valid_provider(provider_obj)
-        if err_msg:
-            return {
-                'warning': {
-                    'title': _("Warning"),
-                    'message': err_msg,
-                }
-            }
+            # Do not check when we can not use API.
+            return  # pragma: no cover
         pc_info = provider_obj.getaddress(postal_code, self.street_number)
-        if not pc_info or not pc_info._data:
-            return {}
-        self.street_name = pc_info.street
-        self.city = pc_info.town
-        self.state_id = self.get_province(pc_info.province)
+        if not pc_info or not pc_info._data:  # pragma: no cover
+            # Should not really happen in the Netherlands.
+            _logger.warning(
+                _(
+                    "No address found for partner %s, with postalcode %s and"
+                    " housenumber %d."
+                ),
+                self.display_name,
+                postal_code,
+                self.street_number
+            )
+            return
+        vals = {
+            "street_name": pc_info.street,
+            "city": pc_info.town,
+            "state_id": self.get_country_state(country_nl, pc_info.province).id
+        }
+        self.update(vals)
