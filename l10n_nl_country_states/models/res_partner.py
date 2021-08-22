@@ -5,7 +5,7 @@ from odoo import api, models
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     @api.model
     def _get_state_for_zip(self, country_id, state_id, postalcode):
@@ -14,16 +14,17 @@ class ResPartner(models.Model):
         If not Netherlands, just return present state, unless state is
         in the Netherlands. In that case state will be False.
         """
-        country_nl = self.env.ref('base.nl')
-        postalcode_model = self.env['res.country.state.nl.postalcode']
-        state_model = self.env['res.country.state']
+        country_nl = self.env.ref("base.nl")
+        postalcode_model = self.env["res.country.state.nl.postalcode"]
+        state_model = self.env["res.country.state"]
         no_state = state_model.browse([])
         if country_id and country_id != country_nl:
             if state_id:
                 # If we are not in the Netherlands, but partner refers to a
                 # dutch state, clear the state.
-                dutch_state = postalcode_model.search([
-                    ('state_id', '=', state_id.id)], limit=1)
+                dutch_state = postalcode_model.search(
+                    [("state_id", "=", state_id.id)], limit=1
+                )
                 if dutch_state:
                     return no_state
             return state_id
@@ -32,21 +33,24 @@ class ResPartner(models.Model):
         # state present in record will be overwritten
         postalcode_digits = 0
         if postalcode:
-            postalcode_digits = int(''.join([n for n in postalcode if n.isdigit()]))
+            postalcode_digits = int("".join([n for n in postalcode if n.isdigit()]))
         if not postalcode_digits:
             return state_id
-        return postalcode_model.search([
-            ('min_postalcode', '<=', postalcode_digits),
-            ('max_postalcode', '>=', postalcode_digits)], limit=1).state_id
+        return postalcode_model.search(
+            [
+                ("min_postalcode", "<=", postalcode_digits),
+                ("max_postalcode", ">=", postalcode_digits),
+            ],
+            limit=1,
+        ).state_id
 
     @api.multi
     def _set_state_from_zip(self):
         """If country is not set, we assume it to be the Netherlands."""
         for this in self:
-            state_id = self._get_state_for_zip(
-                this.country_id, this.state_id, this.zip)
+            state_id = self._get_state_for_zip(this.country_id, this.state_id, this.zip)
             if state_id != this.state_id:
-                super(ResPartner, this).write({'state_id': state_id.id})
+                super(ResPartner, this).write({"state_id": state_id.id})
 
     @api.model
     def create(self, vals):
@@ -60,7 +64,7 @@ class ResPartner(models.Model):
         self._set_state_from_zip()
         return result
 
-    @api.onchange('zip')
+    @api.onchange("zip")
     def onchange_zip_country_id(self):
         self.state_id = self._get_state_for_zip(
             self.country_id, self.state_id, self.zip
