@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [l10n_nl_location_nuts](l10n_nl_location_nuts/) | 12.0.1.0.0 |  | NUTS specific options for Netherlands
 [l10n_nl_mis_reports](l10n_nl_mis_reports/) | 12.0.1.1.0 | [![hbrunn](https://github.com/hbrunn.png?size=30px)](https://github.com/hbrunn) | Profit & Loss / Balance sheet for the Netherlands
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 12.0.1.0.0 |  | Dutch partner names
+[l10n_nl_partner_salutation](l10n_nl_partner_salutation/) | 12.0.1.0.0 |  | Full salutation for partners, Dutch style
 [l10n_nl_postcode](l10n_nl_postcode/) | 12.0.1.0.0 |  | Dutch postcode validation for Partners
 [l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 12.0.1.0.0 |  | Autocomplete Dutch addresses using PostcodeApi.nu
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 12.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Enable invoice basis on tax according to the Dutch law
