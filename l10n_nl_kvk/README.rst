@@ -14,13 +14,13 @@ Integration with Kamer van Koophandel
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-netherlands/tree/11.0/l10n_nl_kvk
+    :target: https://github.com/OCA/l10n-netherlands/tree/12.0/l10n_nl_kvk
     :alt: OCA/l10n-netherlands
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-netherlands-11-0/l10n-netherlands-11-0-l10n_nl_kvk
+    :target: https://translation.odoo-community.org/projects/l10n-netherlands-12-0/l10n-netherlands-12-0-l10n_nl_kvk
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/176/11.0
+    :target: https://runbot.odoo-community.org/runbot/176/12.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -65,11 +65,11 @@ Usage
 
 Create or edit a partner. If the flag Company is set, the KvK number field is displayed on the form.
 
-If you enter a KvK number and click on the related button on the right.
-The company name and its address fields are automatically filled.
+If you enter a KvK number and click on the related button on the right,
+the company name and its address fields are automatically filled.
 
-If you enter a company name and click on the related button on the right.
-The KvK number and the address fields are automatically filled.
+If you enter a company name and click on the related button on the right,
+the KvK number and the address fields are automatically filled.
 
 In case the lookup returns more than one record, a popup will be displayed, allowing to select
 one of the resulting records.
@@ -80,7 +80,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-netherlands/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_kvk%0Aversion:%2011.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_kvk%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -110,6 +110,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/11.0/l10n_nl_kvk>`_ project on GitHub.
+This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/12.0/l10n_nl_kvk>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
