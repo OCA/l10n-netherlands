@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo12-addon-l10n_nl_location_nuts',
         'odoo12-addon-l10n_nl_mis_reports',
         'odoo12-addon-l10n_nl_partner_name',
+        'odoo12-addon-l10n_nl_partner_salutation',
         'odoo12-addon-l10n_nl_postcode',
         'odoo12-addon-l10n_nl_postcodeapi',
         'odoo12-addon-l10n_nl_tax_invoice_basis',
