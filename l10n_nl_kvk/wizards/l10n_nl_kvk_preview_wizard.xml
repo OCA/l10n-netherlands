@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="view_l10n_nl_kvk_preview" model="ir.ui.view">
+        <field name="model">l10n.nl.kvk.preview.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <separator string="KvK Preview"/>
+                <field name="kvk" />
+                <field name="line_ids" readonly="1">
+                    <tree>
+                        <field name="name" />
+                        <field name="entity_type" />
+                        <field name="kvk" />
+                        <field name="partner_name" />
+                        <field name="partner_city" />
+                        <button name="set_partner_fields" string="Set Partner Fields" type="object" icon="fa-arrow-right"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

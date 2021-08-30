@@ -1,0 +1,69 @@
+{
+  "apiVersion": "2.0",
+  "meta": {},
+  "data": {
+    "itemsPerPage": 10,
+    "startPage": 1,
+    "totalItems": 2,
+    "items": [
+      {
+        "kvkNumber": "69599084",
+        "branchNumber": "000038509520",
+        "tradeNames": {
+          "businessName": "Test EMZ Nevenvestiging Govert",
+          "currentTradeNames": [
+            "Test EMZ Nevenvestiging Govert",
+            "Tweede handelsnaam Vestiging2",
+            "Derde handelsnaam Vestiging2",
+            "Vierde handelsnaam Vestiging2"
+          ]
+        },
+        "hasEntryInBusinessRegister": true,
+        "hasNonMailingIndication": true,
+        "isLegalPerson": false,
+        "isBranch": true,
+        "isMainBranch": false,
+        "addresses": [
+          {
+            "type": "vestigingsadres",
+            "street": "Geneinde",
+            "houseNumber": "73",
+            "houseNumberAddition": "",
+            "postalCode": "6223GT",
+            "city": "Maastricht",
+            "country": "Nederland"
+          }
+        ]
+      },
+      {
+        "kvkNumber": "69599084",
+        "branchNumber": "000038509504",
+        "tradeNames": {
+          "businessName": "Test EMZ Dagobert",
+          "currentTradeNames": [
+            "Test EMZ Dagobert",
+            "Tweede handelsnaam 1MZ",
+            "Derde handelsnaam 1MZ",
+            "Vierde handelsnaam 1MZ"
+          ]
+        },
+        "hasEntryInBusinessRegister": true,
+        "hasNonMailingIndication": true,
+        "isLegalPerson": false,
+        "isBranch": true,
+        "isMainBranch": true,
+        "addresses": [
+          {
+            "type": "vestigingsadres",
+            "street": "Abebe Bikilalaan",
+            "houseNumber": "17",
+            "houseNumberAddition": "",
+            "postalCode": "1034WL",
+            "city": "Amsterdam",
+            "country": "Nederland"
+          }
+        ]
+      }
+    ]
+  }
+}

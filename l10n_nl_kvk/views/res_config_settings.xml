@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="partner_autocomplete_settings" position="before">
+                <div class="o_setting_left_pane">
+                </div>
+                <div class="o_setting_right_pane">
+                    <label for="l10n_nl_kvk_service" string="KvK Integrations"/>
+                    <div class="text-muted">
+                        Select the KvK service and set its API key
+                    </div>
+                    <div class="row mt16">
+                        <label class="col-md-3 o_light_label" string="Service" for="l10n_nl_kvk_service"/>
+                        <field name="l10n_nl_kvk_service" />
+                    </div>
+                    <div class="row mt16" groups="base.group_no_one">
+                        <label class="col-md-3 o_light_label" string="Timeout" for="l10n_nl_kvk_timeout"/>
+                        <field name="l10n_nl_kvk_timeout" class="oe_inline" />
+                    </div>
+                </div>
+                <div class="o_setting_left_pane">
+                </div>
+                <div class="o_setting_right_pane">
+                    <div class="content-group" attrs="{'invisible': [('l10n_nl_kvk_service', '!=', 'kvk')]}" id="l10n_nl_kvk_api_setting" name="l10n_nl_kvk_api_setting">
+                        <div class="mt16">
+                            <a href="https://www.kvk.nl/producten-bestellen/koppeling-handelsregister/kvk-api/" target="_blank">
+                                <i class="fa fa-arrow-right"></i> Register to get the API Key
+                            </a>
+                        </div>
+                        <div class="row mt16">
+                            <label class="col-md-3 o_light_label" string="KvK Key Name" for="l10n_nl_kvk_api_key"/>
+                            <field name="l10n_nl_kvk_api_key" placeholder="KvK API Key"
+                                attrs="{'required': [('l10n_nl_kvk_service', '=', 'kvk')]}"/>
+                        </div>
+                        <div class="row mt16">
+                            <label class="col-md-3 o_light_label" string="KvK Key Value" for="l10n_nl_kvk_api_value"/>
+                            <field name="l10n_nl_kvk_api_value" placeholder="KVKXXXXXXXXY"
+                                attrs="{'required': [('l10n_nl_kvk_service', '=', 'kvk')]}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>
