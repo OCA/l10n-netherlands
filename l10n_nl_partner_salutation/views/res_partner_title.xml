@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_partner_title_tree" model="ir.ui.view">
+        <field name="model">res.partner.title</field>
+        <field name="inherit_id" ref="base.view_partner_title_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="salutation" />
+                <field name="postnominal" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_title_form" model="ir.ui.view">
+        <field name="model">res.partner.title</field>
+        <field name="inherit_id" ref="base.view_partner_title_form" />
+        <field name="arch" type="xml">
+
+            <field name="shortcut" position="after">
+                <field name="active" />
+            </field>
+
+            <xpath expr="//form" position="inside">
+                <group colspan="6" col="4">
+                    <field name="salutation" />
+                    <field name="postnominal" />
+                    <field name="salutation_male" />
+                    <field name="salutation_female" />
+                    <field name="shortcut_male" />
+                    <field name="shortcut_female" />
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
