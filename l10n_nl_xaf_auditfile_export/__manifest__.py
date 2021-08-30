@@ -3,7 +3,7 @@
 
 {
     "name": "XAF auditfile export",
-    "version": "12.0.1.0.3",
+    "version": "12.0.1.0.4",
     "author": "Therp BV, Odoo Community Association (OCA)",
     'website': 'https://github.com/OCA/l10n-netherlands',
     "license": "AGPL-3",
