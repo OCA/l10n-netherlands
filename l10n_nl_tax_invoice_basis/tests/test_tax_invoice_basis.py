@@ -48,7 +48,6 @@ class TestTaxInvoiceBasis(TransactionCase):
             }
         )
         invoice.flush()
-        invoice.post()
         self.period_july = {"from_date": "2017-07-01", "to_date": "2017-07-31"}
         self.period_august = {"from_date": "2017-08-01", "to_date": "2017-08-31"}
         self.invoice = invoice
