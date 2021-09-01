@@ -4,7 +4,7 @@
 {
     "name": "NL Tax Invoice Basis (Factuurstelsel)",
     "summary": "Enable invoice basis on tax according to the Dutch law",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.0.1",
     "development_status": "Production/Stable",
     "category": "Localization",
     "author": "Onestein, Odoo Community Association (OCA)",
