@@ -7,7 +7,7 @@
 
 # l10n-netherlands
 
-TODO: add repo description.
+This repository includes all the Odoo modules developed to fit the specific needs of the Netherlands.
 
 <!-- /!\ do not modify below this line -->
 
