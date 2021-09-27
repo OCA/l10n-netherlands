@@ -2,3 +2,4 @@ community-data-files
 account-financial-reporting
 partner-contact
 server-ux
+edi
