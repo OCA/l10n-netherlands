@@ -16,6 +16,7 @@ python:
 env:
   global:
     - VERSION="8.0" TESTS="0" LINT_CHECK="0"
+    - WKHTMLTOPDF_VERSION="0.12.5"
 
   matrix:
     - LINT_CHECK="1"
