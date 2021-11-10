@@ -4,11 +4,11 @@
 {
     "name": "Dutch MIS Builder templates",
     "summary": "Profit & Loss / Balance sheet for the Netherlands",
-    "version": "12.0.1.1.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "Hunki Enterprises BV,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",
-    'category': "Localization",
+    "category": "Localization",
     "depends": ["mis_builder"],
     "data": [
         "data/mis_report_style.xml",
