@@ -15,7 +15,7 @@ class ResPartner(models.Model):
         in the Netherlands. In that case state will be False.
         """
         country_nl = self.env.ref("base.nl")
-        postalcode_model = self.env["res.country.state.nl.postalcode"]
+        postalcode_model = self.env["res.country.state.nl.zip"]
         state_model = self.env["res.country.state"]
         no_state = state_model.browse([])
         if country_id and country_id != country_nl:
@@ -38,8 +38,8 @@ class ResPartner(models.Model):
             return state_id
         return postalcode_model.search(
             [
-                ("min_postalcode", "<=", postalcode_digits),
-                ("max_postalcode", ">=", postalcode_digits),
+                ("min_zip", "<=", postalcode_digits),
+                ("max_zip", ">=", postalcode_digits),
             ],
             limit=1,
         ).state_id
@@ -54,18 +54,21 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
+        """Make sure that after create state has been set from zip where possible."""
         result = super().create(vals)
         result._set_state_from_zip()
         return result
 
     @api.multi
     def write(self, vals):
+        """Make sure that after write state has been set from zip where possible."""
         result = super().write(vals)
         self._set_state_from_zip()
         return result
 
     @api.onchange("zip")
     def onchange_zip_country_id(self):
+        """Set state when zip changes."""
         self.state_id = self._get_state_for_zip(
             self.country_id, self.state_id, self.zip
         )
