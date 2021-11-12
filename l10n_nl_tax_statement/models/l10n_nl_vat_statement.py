@@ -404,9 +404,9 @@ class VatStatement(models.Model):
         matching = {}
         for tag in nl_tags:
             res_code = pattern_code.match(tag.name)
-            if re.search("omzet", tag.name, re.IGNORECASE):
+            if res_code and re.search("omzet", tag.name, re.IGNORECASE):
                 matching.update({tag.id: (res_code.group(0), "omzet")})
-            elif re.search("btw", tag.name, re.IGNORECASE):
+            elif res_code and re.search("btw", tag.name, re.IGNORECASE):
                 matching.update({tag.id: (res_code.group(0), "btw")})
             elif res_code:
                 matching.update({tag.id: (res_code.group(0), False)})
