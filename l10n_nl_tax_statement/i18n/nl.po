@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-25 15:47+0000\n"
-"PO-Revision-Date: 2021-03-06 03:45+0000\n"
+"PO-Revision-Date: 2022-01-29 21:33+0000\n"
 "Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "Language: nl\n"
@@ -62,8 +62,8 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
 "specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
-"<span class=\\\"fa fa-lg fa-building-o\\\" title=\\\"De Intellingen zijn "
-"bedrijfsspecifiek.\\\" groups=\\\"base.group_multi_company\\\"/>"
+"<span class=\"fa fa-lg fa-building-o\" title=\"De Intellingen zijn "
+"bedrijfsspecifiek.\" groups=\"base.group_multi_company\"/>"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -73,7 +73,7 @@ msgstr "Aangifte omzetbelasting"
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Add All Undeclared Invoices/Moves"
-msgstr "Voeg alle on aangegeven facturen/mutaties toe"
+msgstr "Voeg alle niet-aangegeven facturen/mutaties toe"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -87,15 +87,13 @@ msgstr "BTW"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "BTW Statement"
-msgstr "BTW aangifte"
+msgstr "BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "BTW Statement lines"
-msgstr "BTW aangifte"
+msgstr "BTW-aangifteregels"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -109,7 +107,6 @@ msgstr "Rubriek"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_res_company
-#, fuzzy
 msgid "Companies"
 msgstr "Bedrijf"
 
@@ -120,7 +117,6 @@ msgstr "Bedrijf"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_res_config_settings
-#, fuzzy
 msgid "Config Settings"
 msgstr "BTW instellingen labels"
 
@@ -151,7 +147,7 @@ msgstr "Datums"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_posted
 msgid "Date Posted"
-msgstr "Verzend datum"
+msgstr "boekdatum"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_update
@@ -201,7 +197,6 @@ msgstr "Concept"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__move_line_ids
-#, fuzzy
 msgid "Entry Lines"
 msgstr "Alle boekingen"
 
@@ -223,7 +218,7 @@ msgstr "Fiscale eenheid"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__format_btw
 msgid "Format Btw"
-msgstr "Btw Formaat"
+msgstr "BTW Formaat"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__format_omzet
@@ -271,16 +266,15 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Include Undeclared Invoices/Moves"
-msgstr ""
+msgstr "inclusief niet-aangegeven facturen/mutaties"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_payment__l10n_nl_vat_statement_include
-#, fuzzy
 msgid "Include in VAT Statement"
-msgstr "BTW aangifte"
+msgstr "Toevoegen aan BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -300,14 +294,13 @@ msgstr "Is Alleen Lezen"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__is_total
-#, fuzzy
 msgid "Is Total"
 msgstr "5g - Totaal"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Boeking"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move_line
@@ -318,9 +311,8 @@ msgstr "Journaal Post"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_payment__l10n_nl_vat_statement_id
-#, fuzzy
 msgid "L10N Nl Vat Statement"
-msgstr "BTW aangifte"
+msgstr "NL BTW aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move____last_update
@@ -438,9 +430,8 @@ msgstr "Naam"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement
-#, fuzzy
 msgid "Netherlands Vat Statement"
-msgstr "BTW aangifte"
+msgstr "Nederlandse BTW aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_line
@@ -454,13 +445,11 @@ msgstr "Omzet"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__parent_id
-#, fuzzy
 msgid "Parent Statement"
-msgstr "Aangifte"
+msgstr "Bovenliggende Aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-#, fuzzy
 msgid "Past Undeclared Moves"
 msgstr "Historische niet aangegeven mutaties"
 
@@ -481,9 +470,8 @@ msgstr "Gebruik de bijwerken knop om de aangifte te herberekenen!"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_id
-#, fuzzy
 msgid "Related Move Statement"
-msgstr "Aangifte"
+msgstr "Aanverwante BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -530,13 +518,13 @@ msgid ""
 "Tags mapping not configured for The Netherlands! Check the NL BTW Tags "
 "Configuration."
 msgstr ""
-"Tags mapping is niet geconfigureerd voor het Nederlandse grootboekschema! "
-"Controleer de NL BTW Tags instellingen."
+"BTW-toewijzing is niet geconfigureerd voor het Nederlandse grootboekschema! "
+"Controleer de Nederlandse BTW labels instellingen."
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__name
 msgid "Tax Statement"
-msgstr "Aangifte"
+msgstr "BTW Aangifte"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
@@ -558,7 +546,7 @@ msgstr "Omzet"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_ids
 msgid "Unreported Journal Entries"
-msgstr ""
+msgstr "Niet aangegeven mutaties"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_from_date
