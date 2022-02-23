@@ -147,7 +147,7 @@
                     <desc><t t-esc="m.name" /></desc>
                     <periodNumber><t t-esc="self.get_move_period_number(m)" /></periodNumber>
                     <trDt><t t-esc="m.date" /></trDt>
-                    <amnt><t t-esc="m.amount_total" /></amnt>
+                    <amnt><t t-esc="round(m.amount_total, 2)" /></amnt>
                     <!-- left to inheriting modules
                     <sourceID />
                     <userID />
