@@ -2,12 +2,38 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import base64
+from lxml import etree
 from io import BytesIO
 import os
 from zipfile import ZipFile
 
 from odoo.tests.common import TransactionCase
 from odoo.tools import mute_logger
+
+
+def get_transaction_line_count_from_xml(auditfile):
+    ''' Helper XML method to parse and return the transaction line count '''
+    line_count = 0
+    with ZipFile(BytesIO(base64.b64decode(auditfile)), 'r') as z:
+        contents = z.read(z.filelist[-1]).decode()
+        parser = etree.XMLParser(
+            ns_clean=True,
+            recover=True,
+            encoding="utf-8",
+            remove_blank_text=True
+        )
+        root = etree.XML(bytes(contents, encoding='utf8'), parser=parser)
+        # xpath query to select all element nodes in namespace
+        # Source: https://stackoverflow.com/a/30233635
+        query = "descendant-or-self::*[namespace-uri()!='']"
+        for element in root.xpath(query):
+            element.tag = etree.QName(element).localname
+        journals = root.xpath("/auditfile/company/transactions/journal")
+        for journal in journals:
+            transactions = journal.xpath("transaction/trLine")
+            for _ in transactions:
+                line_count += 1
+    return line_count
 
 
 class TestXafAuditfileExport(TransactionCase):
@@ -97,3 +123,26 @@ class TestXafAuditfileExport(TransactionCase):
         record.name += '%s01' % os.sep
         record.button_generate()
         self.assertTrue(record)
+
+    def test_06_include_moves_from_inactive_journals(self):
+        ''' Include moves off of inactive journals '''
+        record = self.env['xaf.auditfile.export'].create({})
+        record.button_generate()
+        self.assertTrue(record)
+
+        line_count = record.get_move_line_count()
+        parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
+        self.assertTrue(parsed_line_count == line_count)
+
+        # archive all journals
+        all_journals = record.get_journals()
+        all_journals.write({'active': False})
+        self.assertTrue(all(not j.active for j in all_journals))
+
+        record_after = self.env['xaf.auditfile.export'].create({})
+        record_after.button_generate()
+        self.assertTrue(record_after)
+
+        line_count_after = record_after.get_move_line_count()
+        parsed_count_after = get_transaction_line_count_from_xml(record_after.auditfile)
+        self.assertTrue(parsed_line_count == parsed_count_after == line_count_after)
