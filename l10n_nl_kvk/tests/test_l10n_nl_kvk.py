@@ -1,10 +1,10 @@
-# Copyright 2018 Onestein (<http://www.onestein.eu>)
+# Copyright 2018-2020 Onestein (<https://www.onestein.eu>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import json
 from mock import patch
 
-from odoo.modules.module import get_module_resource
+from odoo.modules.module import get_resource_path
 from odoo.exceptions import UserError
 from odoo.tools import mute_logger
 from odoo.tests.common import TransactionCase, at_install, post_install
@@ -15,7 +15,7 @@ API_KEY = 'KEYXXXXXXXXXXXNOTVALID'
 class TestNLKvK(TransactionCase):
 
     def setUp(self):
-        super(TestNLKvK, self).setUp()
+        super().setUp()
         self.set_param = self.env['ir.config_parameter'].set_param
         self.get_param = self.env['ir.config_parameter'].get_param
 
@@ -157,7 +157,7 @@ class TestNLKvK(TransactionCase):
             self.assertFalse(wizard_action)
 
     def test_08_json_load(self):
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_kvk',
             'examples',
             'kvk_69599084.json',
@@ -165,17 +165,6 @@ class TestNLKvK(TransactionCase):
         json_file = open(json_resource, 'rb').read()
         res_data = json.loads(json_file.decode())
         self.assertTrue(res_data)
-
-        api_version = res_data['apiVersion']
-        self.assertTrue(api_version)
-        self.assertEqual(api_version, '2.0')
-
-        data_items_list = res_data['data']['items']
-        self.assertTrue(data_items_list)
-        self.assertEqual(len(data_items_list), 2)
-
-        for kvk_item in data_items_list:
-            self.assertEqual(kvk_item['kvkNumber'], '69599084')
 
     @at_install(False)
     @post_install(True)
@@ -190,7 +179,7 @@ class TestNLKvK(TransactionCase):
         self.set_param('l10n_nl_kvk_api_key', 'apikeytest')
         self.set_param('l10n_nl_kvk_api_value', API_KEY)
 
-        json_resource = get_module_resource(
+        json_resource = get_resource_path(
             'l10n_nl_kvk',
             'examples',
             'kvk_69599084.json',
@@ -213,32 +202,28 @@ class TestNLKvK(TransactionCase):
         self.assertEqual(test_line.kvk, '69599084')
         self.assertEqual(
             test_line.partner_name,
-            'Test EMZ Nevenvestiging Govert')
-        self.assertEqual(test_line.partner_city, 'Maastricht')
-        self.assertEqual(test_line.partner_zip, '6223GT')
+            'Test EMZ Dagobert')
+        self.assertEqual(test_line.partner_city, 'Amsterdam')
         self.assertEqual(test_line.entity_type, 'headquarters')
 
         test_line.set_partner_fields()
         self.assertEqual(
             my_partner.name,
-            'Test EMZ Nevenvestiging Govert')
-        self.assertEqual(my_partner.city, 'Maastricht')
-        self.assertEqual(my_partner.zip, '6223GT')
+            'Test EMZ Dagobert')
+        self.assertEqual(my_partner.city, 'Amsterdam')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, self.env.ref('base.nl'))
 
         test_line = wizard.line_ids[1]
         self.assertEqual(test_line.name, '69599084')
         self.assertEqual(test_line.kvk, '69599084')
-        self.assertEqual(test_line.partner_name, 'Test EMZ Dagobert')
-        self.assertEqual(test_line.partner_city, 'Amsterdam')
-        self.assertEqual(test_line.partner_zip, '1034WL')
-        self.assertEqual(test_line.entity_type, 'headquarters')
+        self.assertEqual(test_line.partner_name, 'Test EMZ Nevenvestiging Govert')
+        self.assertEqual(test_line.partner_city, 'Maastricht')
+        self.assertEqual(test_line.entity_type, 'branch')
 
         test_line.set_partner_fields()
-        self.assertEqual(my_partner.name, 'Test EMZ Dagobert')
-        self.assertEqual(my_partner.city, 'Amsterdam')
-        self.assertEqual(my_partner.zip, '1034WL')
+        self.assertEqual(my_partner.name, 'Test EMZ Nevenvestiging Govert')
+        self.assertEqual(my_partner.city, 'Maastricht')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, self.env.ref('base.nl'))
 
@@ -262,26 +247,32 @@ class TestNLKvK(TransactionCase):
 
         self.assertEqual(len(wizard.line_ids), 2)
 
-        test_line = wizard.line_ids[0]
+        test_line = wizard.line_ids[1]
         self.assertEqual(test_line.name, '69599084')
         self.assertEqual(test_line.kvk, '69599084')
         self.assertEqual(
             test_line.partner_name,
-            'Test EMZ Dagobert')
-        self.assertEqual(test_line.entity_type, 'headquarters')
+            'Test EMZ Nevenvestiging Govert')
+        self.assertEqual(test_line.partner_city, 'Maastricht')
+        self.assertEqual(test_line.entity_type, 'branch')
 
         test_line.set_partner_fields()
         self.assertEqual(my_partner.name,
-                         'Test EMZ Dagobert')
+                         'Test EMZ Nevenvestiging Govert')
+        self.assertEqual(my_partner.city, 'Maastricht')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
-        test_line = wizard.line_ids[1]
+        test_line = wizard.line_ids[0]
         self.assertEqual(test_line.name, '69599084')
         self.assertEqual(test_line.kvk, '69599084')
+        self.assertEqual(test_line.partner_name, 'Test EMZ Dagobert')
+        self.assertEqual(test_line.partner_city, 'Amsterdam')
         self.assertEqual(test_line.entity_type, 'headquarters')
 
         test_line.set_partner_fields()
+        self.assertEqual(my_partner.name, 'Test EMZ Dagobert')
+        self.assertEqual(my_partner.city, 'Amsterdam')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
@@ -298,7 +289,7 @@ class TestNLKvK(TransactionCase):
 
         with patch(self.api_handler + '_get_url_query_kvk_api') as _my_mock:
             _my_mock.return_value = \
-                'https://api.kvk.nl/api/v2/testsearch/companies'
+                'https://api.kvk.nl/test/api/v1/'
 
             with self.assertRaises(UserError):
                 wizard_action = my_partner.load_partner_values_from_kvk()
@@ -348,23 +339,29 @@ class TestNLKvK(TransactionCase):
 
         self.assertEqual(len(wizard.line_ids), 2)
 
-        test_line = wizard.line_ids[0]
-        self.assertEqual(test_line.name, '68727720')
-        self.assertEqual(test_line.kvk, '68727720')
-        self.assertEqual(test_line.partner_name, 'Test NV Katrien')
-
-        test_line.set_partner_fields()
-        self.assertEqual(my_partner.name, 'Test NV Katrien')
-        self.assertFalse(my_partner.vat)
-        self.assertEqual(my_partner.country_id, nl_country)
-
         test_line = wizard.line_ids[1]
         self.assertEqual(test_line.name, '68727720')
         self.assertEqual(test_line.kvk, '68727720')
         self.assertEqual(test_line.partner_name, 'Test NV Katrien')
+        self.assertFalse(test_line.partner_city)
+        self.assertEqual(test_line.entity_type, 'legal_person')
 
         test_line.set_partner_fields()
         self.assertEqual(my_partner.name, 'Test NV Katrien')
+        self.assertFalse(my_partner.city)
+        self.assertFalse(my_partner.vat)
+        self.assertEqual(my_partner.country_id, nl_country)
+
+        test_line = wizard.line_ids[0]
+        self.assertEqual(test_line.name, '68727720')
+        self.assertEqual(test_line.kvk, '68727720')
+        self.assertEqual(test_line.partner_name, 'Test NV Katrien')
+        self.assertEqual(test_line.partner_city, 'Veendam')
+        self.assertEqual(test_line.entity_type, 'headquarters')
+
+        test_line.set_partner_fields()
+        self.assertEqual(my_partner.name, 'Test NV Katrien')
+        self.assertEqual(my_partner.city, 'Veendam')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
@@ -388,7 +385,6 @@ class TestNLKvK(TransactionCase):
         # partner fields directly set (without popup)
         self.assertEqual(my_partner.name, 'Local Funzoom N.V.')
         self.assertEqual(my_partner.city, 'Leiderdorp')
-        self.assertEqual(my_partner.zip, '2351NT')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
@@ -415,7 +411,6 @@ class TestNLKvK(TransactionCase):
         my_partner = self.env.ref('base.main_partner')
         my_partner_name = my_partner.name
         my_partner_city = my_partner.city
-        my_partner_zip = my_partner.zip
         my_partner_vat = my_partner.vat
         my_partner.country_id = self.env.ref('base.nl')
         my_partner.coc_registration_number = '90004841'
@@ -435,6 +430,5 @@ class TestNLKvK(TransactionCase):
         # partner not changed
         self.assertEqual(my_partner.name, my_partner_name)
         self.assertEqual(my_partner.city, my_partner_city)
-        self.assertEqual(my_partner.zip, my_partner_zip)
         self.assertEqual(my_partner.vat, my_partner_vat)
         self.assertEqual(my_partner.country_id, self.env.ref('base.nl'))
