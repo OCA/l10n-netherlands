@@ -1,69 +1,43 @@
 {
-  "apiVersion": "2.0",
-  "meta": {},
-  "data": {
-    "itemsPerPage": 10,
-    "startPage": 1,
-    "totalItems": 2,
-    "items": [
-      {
-        "kvkNumber": "69599084",
-        "branchNumber": "000038509520",
-        "tradeNames": {
-          "businessName": "Test EMZ Nevenvestiging Govert",
-          "currentTradeNames": [
-            "Test EMZ Nevenvestiging Govert",
-            "Tweede handelsnaam Vestiging2",
-            "Derde handelsnaam Vestiging2",
-            "Vierde handelsnaam Vestiging2"
-          ]
+  "pagina": 1,
+  "aantal": 10,
+  "totaal": 2,
+  "resultaten": [
+    {
+      "kvkNummer": "69599084",
+      "vestigingsnummer": "000038509504",
+      "handelsnaam": "Test EMZ Dagobert",
+      "straatnaam": "Abebe Bikilalaan",
+      "plaats": "Amsterdam",
+      "type": "hoofdvestiging",
+      "links": [
+        {
+          "rel": "basisprofiel",
+          "href": "https://api.kvk.nl/test/api/v1/basisprofielen/69599084"
         },
-        "hasEntryInBusinessRegister": true,
-        "hasNonMailingIndication": true,
-        "isLegalPerson": false,
-        "isBranch": true,
-        "isMainBranch": false,
-        "addresses": [
-          {
-            "type": "vestigingsadres",
-            "street": "Geneinde",
-            "houseNumber": "73",
-            "houseNumberAddition": "",
-            "postalCode": "6223GT",
-            "city": "Maastricht",
-            "country": "Nederland"
-          }
-        ]
-      },
-      {
-        "kvkNumber": "69599084",
-        "branchNumber": "000038509504",
-        "tradeNames": {
-          "businessName": "Test EMZ Dagobert",
-          "currentTradeNames": [
-            "Test EMZ Dagobert",
-            "Tweede handelsnaam 1MZ",
-            "Derde handelsnaam 1MZ",
-            "Vierde handelsnaam 1MZ"
-          ]
+        {
+          "rel": "vestigingsprofiel",
+          "href": "https://api.kvk.nl/test/api/v1/vestigingsprofielen/000038509504"
+        }
+      ]
+    },
+    {
+      "kvkNummer": "69599084",
+      "vestigingsnummer": "000038509520",
+      "handelsnaam": "Test EMZ Nevenvestiging Govert",
+      "straatnaam": "Geneinde",
+      "plaats": "Maastricht",
+      "type": "nevenvestiging",
+      "links": [
+        {
+          "rel": "basisprofiel",
+          "href": "https://api.kvk.nl/test/api/v1/basisprofielen/69599084"
         },
-        "hasEntryInBusinessRegister": true,
-        "hasNonMailingIndication": true,
-        "isLegalPerson": false,
-        "isBranch": true,
-        "isMainBranch": true,
-        "addresses": [
-          {
-            "type": "vestigingsadres",
-            "street": "Abebe Bikilalaan",
-            "houseNumber": "17",
-            "houseNumberAddition": "",
-            "postalCode": "1034WL",
-            "city": "Amsterdam",
-            "country": "Nederland"
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "rel": "vestigingsprofiel",
+          "href": "https://api.kvk.nl/test/api/v1/vestigingsprofielen/000038509520"
+        }
+      ]
+    }
+  ]
 }

@@ -16,6 +16,7 @@ class KvkApiHandler(models.AbstractModel):
 
     @api.model
     def _get_config(self, val):
+        """ Get configuration parameters """
         get_param = self.env['ir.config_parameter'].sudo().get_param
         config_dict = {
             'service': get_param('l10n_nl_kvk_service', 'test'),
@@ -27,7 +28,7 @@ class KvkApiHandler(models.AbstractModel):
 
     @api.model
     def _retrieve_data_by_api(self, url_query):
-
+        """ Execute search query via GET request """
         headers = self._kvk_http_header()
         request_timeout = self._get_config('timeout')
 
@@ -81,7 +82,11 @@ class KvkApiHandler(models.AbstractModel):
 
     @api.model
     def _kvk_http_header(self):
-        headers = {'test': 'test', }
+        """ Format header to contain API key/value """
+        # In case of test we use the standard test value
+        headers = {'apikey': 'l7xx1f2691f2520d487b902f4e0b57a0b197', }
+
+        # In case of production, take key/value from the configuration
         if self._get_config('service') == 'kvk':
             kvk_api_key = self._get_config('kvk_api_key')
             kvk_api_value = self._get_config('kvk_api_value')
@@ -89,27 +94,27 @@ class KvkApiHandler(models.AbstractModel):
         return headers
 
     @api.model
-    def _get_url_query_kvk_api(self, kvk):
-        url_query = 'https://api.kvk.nl/api/v2/'
-
+    def _get_url_zoeken(self):
+        """ Returns Zoeken API endpoint """
         if self._get_config('service') == 'kvk':
-            url_query += 'search/companies?kvkNumber={0}'
+            url_query = 'https://api.kvk.nl/api/v1/zoeken'
         else:
-            url_query += 'testsearch/companies?kvkNumber={0}'
-
-        url_query = url_query.format(kvk)
+            url_query = 'https://api.kvk.nl/test/api/v1/zoeken'
         return url_query
 
     @api.model
+    def _get_url_query_kvk_api(self, kvk):
+        """ Format URL query to search by KvK number """
+        url_query = self._get_url_zoeken()
+        url_query += '?kvkNummer={0}'
+        return url_query.format(kvk)
+
+    @api.model
     def _get_url_query_name_api(self, name):
-        url_query = 'https://api.kvk.nl/api/v2/testsearch/companies?q={0}'
-
-        if self._get_config('service') == 'kvk':
-            url_query = 'https://api.kvk.nl/api/v2/search/companies?q={0}'
-            url_query = url_query.format(name)
-
-        url_query = url_query.format(name)
-        return url_query
+        """ Format URL query to search by company name """
+        url_query = self._get_url_zoeken()
+        url_query += '?handelsnaam={0}'
+        return url_query.format(name)
 
     @api.model
     def _kvk_format_street(self, street, number, extra):
