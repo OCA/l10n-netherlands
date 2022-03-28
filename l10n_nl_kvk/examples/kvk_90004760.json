@@ -1,41 +1,20 @@
 {
-   "apiVersion": "2.0",
-   "meta":
-  {
-
-  },
-   "data":
-  {
-     "itemsPerPage": 10,
-     "startPage": 1,
-     "totalItems": 1,
-     "items": [
-      {
-         "kvkNumber": "90004760",
-         "rsin": "992235534",
-         "tradeNames":
+  "pagina": 1,
+  "aantal": 10,
+  "totaal": 1,
+  "resultaten": [
+    {
+      "kvkNummer": "90004760",
+      "handelsnaam": "Local Funzoom N.V.",
+      "straatnaam": "Eikenlaan",
+      "plaats": "Leiderdorp",
+      "type": "rechtspersoon",
+      "links": [
         {
-           "shortBusinessName": "Local Funzoom N.V.",
-           "currentStatutoryNames": [ "Local Funzoom N.V."
-          ]
-        },
-         "hasEntryInBusinessRegister": true,
-         "hasNonMailingIndication": false,
-         "isLegalPerson": true,
-         "isBranch": false,
-         "isMainBranch": false,
-         "addresses": [
-          {
-             "type": "bezoekadres",
-             "street": "Eikenlaan",
-             "houseNumber": "9",
-             "houseNumberAddition": "",
-             "postalCode": "2351NT",
-             "city": "Leiderdorp",
-             "country": "Nederland"
-          }
-        ]
-      }
-    ]
-  }
+          "rel": "basisprofiel",
+          "href": "https://api.kvk.nl/test/api/v1/basisprofielen/90004760"
+        }
+      ]
+    }
+  ]
 }

@@ -26,21 +26,13 @@ class KvKPreviewWizard(models.TransientModel):
     def _get_wizard_lines_values(self, target_item):
 
         def _get_partner_name(target_item):
-            trade_names = target_item['tradeNames']
-            partner_name = trade_names.get(
-                'businessName'
-            ) or trade_names.get(
-                'shortBusinessName'
-            )
-            return partner_name
+            return target_item['handelsnaam']
 
-        def _get_country(first_address):
-            country = None
-            if first_address.get('country') == 'Nederland':
-                country = self.env.ref('base.nl')
-            elif first_address.get('country'):
+        def _get_country(target_item):
+            country = self.env.ref('base.nl')
+            if target_item.get('land') and target_item['land'] != 'Nederland':
                 country = self.env['res.country'].search([
-                    ('name', 'ilike', first_address['country'])
+                    ('name', 'ilike', target_item['land'])
                 ], limit=1)
             return country
 
@@ -48,51 +40,44 @@ class KvKPreviewWizard(models.TransientModel):
 
         partner_name = _get_partner_name(target_item)
 
-        first_address = target_item.get('addresses', [{}])[0]
-
-        country = _get_country(first_address)
+        country = _get_country(target_item)
 
         item = {
-            'kvk': target_item['kvkNumber'],
-            'name': target_item['kvkNumber'],
+            'kvk': target_item['kvkNummer'],
+            'name': target_item['kvkNummer'],
             'partner_name': partner_name,
             'country_id': country and country.id or False,
-            'partner_city': first_address.get('city'),
-            'partner_zip': first_address.get('postalCode'),
+            'partner_city': target_item.get('plaats'),
+            'partner_zip': target_item.get('postcode'),
         }
 
         item['partner_street'] = Handler._kvk_format_street(
-            first_address.get('street'),
-            first_address.get('houseNumber'),
-            first_address.get('houseNumberAddition'),
+            target_item.get('straatnaam'),
+            target_item.get('huisnummer'),
+            False
         )
 
-        if target_item.get('websites'):
-            item['partner_website'] = target_item['websites'][0]
         return item
 
     @api.model
     def _get_wizard_lines(self, res_data):
 
         def _get_entity_type(item_data):
-            entity_type = 'headquarters'
-            is_legal_person = item_data.get('isLegalPerson')
-            if is_legal_person:
-                entity_type = 'legal_person'
-            return entity_type
+            if not item_data.get("type"):
+                return False
+            entity_type_map = {
+                'rechtspersoon': "legal_person",
+                'hoofdvestiging': "headquarters",
+                'nevenvestiging': "branch",
+            }
+            return entity_type_map[item_data["type"]]
 
         all_lines = []
 
-        if 'apiVersion' not in res_data or 'data' not in res_data:
+        if res_data.get('totaal', 0) == 0:
             return []
 
-        if res_data['apiVersion'] != '2.0':
-            return []
-
-        if res_data['data']['totalItems'] == 0:
-            return []
-
-        for target_item in res_data['data']['items']:
+        for target_item in res_data['resultaten']:
             item = self._get_wizard_lines_values(target_item)
             item['entity_type'] = _get_entity_type(target_item)
             all_lines.append((0, 0, item), )
@@ -140,7 +125,8 @@ class KvKPreviewWizardLines(models.TransientModel):
     kvk = fields.Char()
     entity_type = fields.Selection([
         ('legal_person', 'Legal Person'),
-        ('headquarters', 'Headquarters')
+        ('headquarters', 'Headquarters'),
+        ('branch', 'Branch'),
     ])
     partner_name = fields.Char()
     partner_city = fields.Char()
