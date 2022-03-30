@@ -28,7 +28,7 @@ class VatStatement(models.Model):
             statement.icp_total = sum(amount_products) + sum(amount_services)
 
     def _create_icp_lines(self):
-        """ Computes ICP lines for the report"""
+        """Computes ICP lines for the report"""
         for statement in self:
             statement.icp_line_ids.unlink()
             icp_line_vals = statement._prepare_icp_lines()
@@ -36,7 +36,7 @@ class VatStatement(models.Model):
 
     @api.model
     def _prepare_icp_lines(self):
-        """ Prepares an internal data structure representing the ICP lines"""
+        """Prepares an internal data structure representing the ICP lines"""
         self.ensure_one()
         amounts_map = self._get_partner_amounts_map()
         icp_line_vals = []
@@ -65,7 +65,7 @@ class VatStatement(models.Model):
         return False
 
     def _get_partner_amounts_map(self):
-        """ Generate an internal data structure representing the ICP lines"""
+        """Generate an internal data structure representing the ICP lines"""
         self.ensure_one()
 
         partner_amounts_map = {}
@@ -87,14 +87,14 @@ class VatStatement(models.Model):
 
     @classmethod
     def _update_partner_amounts_map(cls, partner_amounts_map, vals):
-        """ Update amounts of the internal ICP lines data structure"""
+        """Update amounts of the internal ICP lines data structure"""
         map_data = partner_amounts_map[vals["partner_id"]]
         map_data["amount_products"] += vals["amount_products"]
         map_data["amount_services"] += vals["amount_services"]
 
     @classmethod
     def _init_partner_amounts_map(cls, partner_amounts_map, vals):
-        """ Initialize the internal ICP lines data structure"""
+        """Initialize the internal ICP lines data structure"""
         partner_amounts_map[vals["partner_id"]] = {
             "country_code": vals["country_code"],
             "vat": vals["vat"],
@@ -104,7 +104,7 @@ class VatStatement(models.Model):
         }
 
     def _prepare_icp_line_from_move_line(self, line):
-        """ Gets move line details and prepares ICP report line data"""
+        """Gets move line details and prepares ICP report line data"""
         self.ensure_one()
 
         balance = line.balance and -line.balance or 0
@@ -128,12 +128,12 @@ class VatStatement(models.Model):
         }
 
     def reset(self):
-        """ Removes ICP lines if reset to draft"""
+        """Removes ICP lines if reset to draft"""
         self.mapped("icp_line_ids").unlink()
         return super().reset()
 
     def post(self):
-        """ Checks configuration when validating the statement"""
+        """Checks configuration when validating the statement"""
         self.ensure_one()
         res = super().post()
         self._create_icp_lines()
@@ -141,14 +141,14 @@ class VatStatement(models.Model):
 
     @api.model
     def _modifiable_values_when_posted(self):
-        """ Returns the modifiable fields even when the statement is posted"""
+        """Returns the modifiable fields even when the statement is posted"""
         res = super()._modifiable_values_when_posted()
         res.append("icp_line_ids")
         res.append("icp_total")
         return res
 
     def icp_update(self):
-        """ Update button"""
+        """Update button"""
         self.ensure_one()
 
         if self.state in ["final"]:
