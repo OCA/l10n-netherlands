@@ -28,7 +28,7 @@ def chunks(items, n=None):
 
 
 def memory_info():
-    """ Modified from odoo/server/service.py """
+    """Modified from odoo/server/service.py"""
     process = psutil.Process(os.getpid())
     pmem = (getattr(process, "memory_info", None) or process.get_memory_info)()
     return pmem.vms
