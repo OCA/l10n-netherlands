@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [l10n_nl_postcode](l10n_nl_postcode/) | 13.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Dutch postcode validation for Partners
 [l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 13.0.1.0.1 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Enable invoice basis on tax according to the Dutch law
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 13.0.1.0.2 |  | Netherlands BTW Statement
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 13.0.1.2.0 |  | Export XAF auditfiles for Dutch tax authorities
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 13.0.1.3.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 <!-- prettier-ignore-end -->
