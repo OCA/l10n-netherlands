@@ -324,8 +324,10 @@ class XafAuditfileExport(models.Model):
 
     def get_journals(self):
         """return journals"""
-        return self.env["account.journal"].search(
-            [("company_id", "=", self.company_id.id)]
+        return (
+            self.env["account.journal"]
+            .with_context(active_test=False)
+            .search([("company_id", "=", self.company_id.id)])
         )
 
     def get_moves(self, journal):
