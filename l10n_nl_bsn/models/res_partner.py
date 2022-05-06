@@ -51,10 +51,10 @@ class ResPartner(models.Model):
 
     def _warn_bsn_existing(self):
         self.ensure_one()
-        msg = _("Another person (%s) has the same BSN (%s).")
+        msg = _("Another person (%(name)s) has the same BSN (%(bsn_number)s).")
         warning = {
             "title": _("Warning!"),
-            "message": msg % (self.name, self.bsn_number),
+            "message": msg % {"name": self.name, "bsn_number": self.bsn_number},
         }
         return warning
 
