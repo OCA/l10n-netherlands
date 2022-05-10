@@ -35,8 +35,7 @@ class TestVatStatement(TransactionCase):
                 "parent_id": self.company_parent.id,
             }
         )
-        self.env.user.company_id = self.company_child_1
-        self.coa.try_loading()
+        self.coa.try_loading(company=self.company_child_1, install_demo=False)
         self.company_child_2 = self.env["res.company"].create(
             {
                 "name": "Child 2 Company",
@@ -44,14 +43,11 @@ class TestVatStatement(TransactionCase):
                 "parent_id": self.company_parent.id,
             }
         )
-        self.env.user.company_id = self.company_child_2
-        self.coa.try_loading()
-        self.env.user.company_id = self.company_parent
+        self.coa.try_loading(company=self.company_child_2, install_demo=False)
 
     def setUp(self):
         super().setUp()
-
-        self.eur = self.env["res.currency"].search([("name", "=", "EUR")])
+        self.eur = self.env.ref("base.EUR")
         self.coa = self.env.ref("l10n_nl.l10nnl_chart_template", False)
         self.coa = self.coa or self.env.ref(
             "l10n_generic_coa.configurable_chart_template"
@@ -64,7 +60,7 @@ class TestVatStatement(TransactionCase):
             }
         )
         self.env.user.company_id = self.company_parent
-        self.coa.try_loading()
+        self.coa.try_loading(company=self.company_parent, install_demo=False)
 
         self.env["l10n.nl.vat.statement"].search([]).unlink()
 
@@ -111,11 +107,15 @@ class TestVatStatement(TransactionCase):
             }
         )
 
-        self.tax_1 = self.env["account.tax"].create({"name": "Tax 1", "amount": 21})
+        self.tax_1 = self.env["account.tax"].create(
+            {"name": "Tax 1", "amount": 21, "country_id": self.env.ref("base.nl").id}
+        )
         self.tax_1.invoice_repartition_line_ids[0].tag_ids = self.tag_1
         self.tax_1.invoice_repartition_line_ids[1].tag_ids = self.tag_2
 
-        self.tax_2 = self.env["account.tax"].create({"name": "Tax 2", "amount": 21})
+        self.tax_2 = self.env["account.tax"].create(
+            {"name": "Tax 2", "amount": 21, "country_id": self.env.ref("base.nl").id}
+        )
         self.tax_2.invoice_repartition_line_ids[0].tag_ids = self.tag_3
         self.tax_2.invoice_repartition_line_ids[1].tag_ids = self.tag_4
 
@@ -124,8 +124,14 @@ class TestVatStatement(TransactionCase):
         )
 
     def _create_test_invoice(self):
+        self.company_parent.compute_account_tax_fiscal_country()
         journal = self.env["account.journal"].create(
-            {"name": "Journal 1", "code": "Jou1", "type": "sale"}
+            {
+                "name": "Journal 1",
+                "code": "Jou1",
+                "type": "sale",
+                "company_id": self.company_parent.id,
+            }
         )
         partner = self.env["res.partner"].create({"name": "Test partner"})
         account_receivable = self.env["account.account"].create(
@@ -184,7 +190,6 @@ class TestVatStatement(TransactionCase):
         # a quarter (three months) before the from_date of the statement
         new_date = d_from + relativedelta(months=-3, day=1)
         self.assertEqual(statement.unreported_move_from_date, new_date)
-
         self.assertEqual(statement.btw_total, 0.0)
 
     def test_02_post_final(self):

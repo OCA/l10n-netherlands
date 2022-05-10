@@ -294,7 +294,7 @@
     <menuitem
         id="menu_account_vat_statement_nl"
         parent="account.menu_finance_reports"
-        groups="account.group_account_user"
+        groups="account.group_account_manager"
         action="action_account_vat_statement_nl"
     />
 </odoo>
