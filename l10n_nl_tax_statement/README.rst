@@ -83,7 +83,7 @@ Usage
 
 To create a statement you need to:
 
-#. Verify that you have enough permits. You need to belong to the *Show Full Accounting Features* group.
+#. Verify that you have enough permits. You need to belong to the *Billing Administrator* group.
 #. Go to the menu: `Invoicing -> Reporting > NL BTW Statement`
 #. Create a statement, providing a name and specifying start date and end date
 #. Press the Update button to calculate the report: the report lines will be displayed in the tab `Statement`
