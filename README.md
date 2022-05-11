@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[l10n_nl_bank](l10n_nl_bank/) | 15.0.1.0.0 |  | Import all Dutch banks with BIC code
+[l10n_nl_bank](l10n_nl_bank/) | 15.0.1.0.1 |  | Import all Dutch banks with BIC code
 
 [//]: # (end addons)
 
