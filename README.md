@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [l10n_nl_bank](l10n_nl_bank/) | 15.0.1.0.1 |  | Import all Dutch banks with BIC code
+[l10n_nl_bsn](l10n_nl_bsn/) | 15.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Burgerservicenummer (BSN) for Partners
 
 [//]: # (end addons)
 
