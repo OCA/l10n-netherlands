@@ -22,21 +22,6 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: l10n_nl_postcode
-#: model:ir.model.fields,field_description:l10n_nl_postcode.field_res_partner__display_name
-msgid "Display Name"
-msgstr "Weergave naam"
-
-#. module: l10n_nl_postcode
-#: model:ir.model.fields,field_description:l10n_nl_postcode.field_res_partner__id
-msgid "ID"
-msgstr "ID"
-
-#. module: l10n_nl_postcode
-#: model:ir.model.fields,field_description:l10n_nl_postcode.field_res_partner____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
-
-#. module: l10n_nl_postcode
 #: code:addons/l10n_nl_postcode/models/res_partner.py:0
 #: code:addons/l10n_nl_postcode/tests/test_l10n_nl_postcode.py:0
 #, python-format
@@ -49,3 +34,12 @@ msgstr "De ingevoerde postcode (%s) is onjuist."
 #, python-format
 msgid "Warning!"
 msgstr "Let op!"
+
+#~ msgid "Display Name"
+#~ msgstr "Weergave naam"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Laatst gewijzigd op"
