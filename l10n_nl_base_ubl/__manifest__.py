@@ -4,7 +4,8 @@
 {
     "name": "Base UBL - Netherlands",
     "version": "13.0.1.0.0",
-    "category": "Dutch Localization",
+    "development_status": "Beta",
+    "category": "Localization/Netherlands",
     "license": "AGPL-3",
     "summary": "Base module for Netherlands-specific UBL dialect (NLCIUS)",
     "author": "Onestein, Odoo Community Association (OCA)",
