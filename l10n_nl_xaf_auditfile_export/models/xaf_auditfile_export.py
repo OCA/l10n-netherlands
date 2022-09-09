@@ -30,6 +30,7 @@ from tempfile import mkdtemp
 from io import BytesIO
 import zipfile
 import time
+import traceback
 from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
 
@@ -148,13 +149,12 @@ class XafAuditfileExport(models.Model):
             del xml
 
             # Validate the generated XML
-            xsd = etree.XMLParser(
-                schema=etree.XMLSchema(etree.parse(
-                    open(
-                        modules.get_module_resource(
-                            'l10n_nl_xaf_auditfile_export', 'data',
-                            'XmlAuditfileFinancieel3.2.xsd')))))
-            etree.parse(auditfile, parser=xsd)
+            xsd = etree.XMLSchema(etree.parse(
+                open(
+                    modules.get_module_resource(
+                        'l10n_nl_xaf_auditfile_export', 'data',
+                        'XmlAuditfileFinancieel3.2.xsd'))))
+            xsd.assertValid(etree.parse(auditfile))
             del xsd
 
             # Store in compressed format on the auditfile record
@@ -166,8 +166,9 @@ class XafAuditfileExport(models.Model):
                 'Created an auditfile in %ss, using %sk memory',
                 int(time.time() - t0), (memory_info() - m0) / 1024)
 
-        except etree.XMLSyntaxError as e:
+        except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
             logging.getLogger(__name__).error(e)
+            logging.getLogger(__name__).info(traceback.format_exc())
             self.message_post(e)
         finally:
             shutil.rmtree(tmpdir)
