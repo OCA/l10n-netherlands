@@ -197,10 +197,22 @@ class XafAuditfileExport(models.Model):
         auditfile = os.path.join(tmpdir, filename)
         archivedir = mkdtemp()
         archive = os.path.join(archivedir, filename)
+        self.auditfile_success = False
         try:
             with open(auditfile, "w+") as tmphandle:
                 tmphandle.write(xml)
             del xml
+
+            logging.getLogger(__name__).debug(
+                "Created an auditfile in %ss, using %sk memory",
+                int(time.time() - t0),
+                (memory_info() - m0) / 1024,
+            )
+
+            # Store in compressed format on the auditfile record
+            zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
+            with open(zip_path, "rb") as auditfile_zip:
+                self.auditfile = base64.b64encode(auditfile_zip.read())
 
             # Validate the generated XML
             xsd = etree.XMLSchema(
@@ -216,7 +228,6 @@ class XafAuditfileExport(models.Model):
             )
             xsd.assertValid(etree.parse(auditfile))
             del xsd
-
             # Store in compressed format on the auditfile record
             zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
             with open(zip_path, "rb") as auditfile_zip:
@@ -226,7 +237,7 @@ class XafAuditfileExport(models.Model):
                 int(time.time() - t0),
                 (memory_info() - m0) / 1024,
             )
-
+            self.auditfile_success = True
         except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
             logging.getLogger(__name__).info(traceback.format_exc())
             self.message_post(body=e)

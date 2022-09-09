@@ -108,7 +108,8 @@ class TestXafAuditfileExport(TransactionCase):
 
         self.assertTrue(record)
         self.assertTrue(record.name)
-        self.assertFalse(record.auditfile)
+        # still contains the faulty auditfile for debugging purposes
+        self.assertTrue(record.auditfile)
         self.assertTrue(record.auditfile_name)
         self.assertTrue(record.company_id)
         self.assertTrue(record.date_start)
