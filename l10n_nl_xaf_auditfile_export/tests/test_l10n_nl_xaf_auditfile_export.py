@@ -77,6 +77,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertFalse(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertFalse(record.unit4)
+        self.assertFalse(record.auditfile_success)
 
     def test_02_export_success(self):
         """Do a basic auditfile export"""
@@ -92,6 +93,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertFalse(record.unit4)
+        self.assertTrue(record.auditfile_success)
 
         zf = BytesIO(base64.b64decode(record.auditfile))
         with ZipFile(zf, "r") as archive:
@@ -117,6 +119,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertFalse(record.unit4)
+        self.assertFalse(record.auditfile_success)
 
     def test_04_export_success_unit4(self):
         """Do a basic auditfile export (no Unit4)"""
@@ -133,6 +136,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertTrue(record.unit4)
+        self.assertTrue(record.auditfile_success)
 
         if record.auditfile_name[-4:] == ".zip":
             zf = BytesIO(base64.b64decode(record.auditfile))
@@ -194,3 +198,26 @@ class TestXafAuditfileExport(TransactionCase):
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
         self.assertEqual(parsed_line_count, line_count)
+
+    @mute_logger("odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export")
+    def test_08_invalid_characters(self):
+        """Error because of invalid characters in an auditfile"""
+        record = (
+            self.env["xaf.auditfile.export"]
+            .with_context(dont_sanitize_xml=True)
+            .create({})
+        )
+        # add an invalid character
+        record.company_id.name += chr(0x0B)
+        record.button_generate()
+
+        self.assertTrue(record)
+        self.assertTrue(record.name)
+        self.assertFalse(record.auditfile_success)
+        self.assertTrue(record.auditfile)
+        self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.company_id)
+        self.assertTrue(record.date_start)
+        self.assertTrue(record.date_end)
+        self.assertTrue(record.date_generated)
+        self.assertTrue(record.fiscalyear_name)

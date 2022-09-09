@@ -6,6 +6,7 @@ import collections
 import logging
 import os
 import shutil
+import sys
 import time
 import traceback
 import zipfile
@@ -78,6 +79,40 @@ SELECT a.id, c.max_code
 """
 
 
+# http://stackoverflow.com/questions/1707890/fast-way-to-filter-illegal-xml-unicode-chars-in-python  # noqa: B950
+ILLEGAL_RANGES = [
+    (0x00, 0x08),
+    (0x0B, 0x1F),
+    (0x7F, 0x84),
+    (0x86, 0x9F),
+    (0xD800, 0xDFFF),
+    (0xFDD0, 0xFDDF),
+    (0xFFFE, 0xFFFF),
+    (0x1FFFE, 0x1FFFF),
+    (0x2FFFE, 0x2FFFF),
+    (0x3FFFE, 0x3FFFF),
+    (0x4FFFE, 0x4FFFF),
+    (0x5FFFE, 0x5FFFF),
+    (0x6FFFE, 0x6FFFF),
+    (0x7FFFE, 0x7FFFF),
+    (0x8FFFE, 0x8FFFF),
+    (0x9FFFE, 0x9FFFF),
+    (0xAFFFE, 0xAFFFF),
+    (0xBFFFE, 0xBFFFF),
+    (0xCFFFE, 0xCFFFF),
+    (0xDFFFE, 0xDFFFF),
+    (0xEFFFE, 0xEFFFF),
+    (0xFFFFE, 0xFFFFF),
+    (0x10FFFE, 0x10FFFF),
+]
+UNICODE_SANITIZE_TRANSLATION = {}
+for low, high in ILLEGAL_RANGES:
+    if low > sys.maxunicode:  # pragma: no cover
+        continue
+    for c in range(low, high + 1):
+        UNICODE_SANITIZE_TRANSLATION[c] = ord(" ")
+
+
 def chunks(items, n=None):
     """Yield successive n-sized chunks from items."""
     if n is None:
@@ -140,6 +175,7 @@ class XafAuditfileExport(models.Model):
         "If you want to export an auditfile with the official standard "
         "(missing the Unit4 compatibility) just set this flag to False."
     )
+    auditfile_success = fields.Boolean()
 
     @api.model
     def default_get(self, fields_list):
@@ -190,7 +226,9 @@ class XafAuditfileExport(models.Model):
                 1,
             )
         )
-
+        # removes invalid characters from xml
+        if not self.env.context.get("dont_sanitize_xml"):
+            xml = xml.translate(UNICODE_SANITIZE_TRANSLATION)
         filename = self.name + ".xaf"
         filename = filename.replace(os.sep, " ")
         tmpdir = mkdtemp()
@@ -241,6 +279,7 @@ class XafAuditfileExport(models.Model):
         except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
             logging.getLogger(__name__).info(traceback.format_exc())
             self.message_post(body=e)
+            self.auditfile_success = False
         finally:
             shutil.rmtree(tmpdir)
             shutil.rmtree(archivedir)
