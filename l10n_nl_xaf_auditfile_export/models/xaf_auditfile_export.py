@@ -7,6 +7,7 @@ import logging
 import os
 import shutil
 import time
+import traceback
 import zipfile
 from datetime import datetime, timedelta
 from io import BytesIO
@@ -202,20 +203,18 @@ class XafAuditfileExport(models.Model):
             del xml
 
             # Validate the generated XML
-            xsd = etree.XMLParser(
-                schema=etree.XMLSchema(
-                    etree.parse(
-                        open(
-                            modules.get_resource_path(
-                                "l10n_nl_xaf_auditfile_export",
-                                "data",
-                                "XmlAuditfileFinancieel3.2.xsd",
-                            )
+            xsd = etree.XMLSchema(
+                etree.parse(
+                    open(
+                        modules.get_resource_path(
+                            "l10n_nl_xaf_auditfile_export",
+                            "data",
+                            "XmlAuditfileFinancieel3.2.xsd",
                         )
                     )
                 )
             )
-            etree.parse(auditfile, parser=xsd)
+            xsd.assertValid(etree.parse(auditfile))
             del xsd
 
             # Store in compressed format on the auditfile record
@@ -228,8 +227,8 @@ class XafAuditfileExport(models.Model):
                 (memory_info() - m0) / 1024,
             )
 
-        except etree.XMLSyntaxError as e:
-            logging.getLogger(__name__).error(e)
+        except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
+            logging.getLogger(__name__).info(traceback.format_exc())
             self.message_post(body=e)
         finally:
             shutil.rmtree(tmpdir)
