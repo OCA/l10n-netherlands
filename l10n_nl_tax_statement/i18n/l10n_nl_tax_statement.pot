@@ -1,0 +1,661 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_nl_tax_statement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+msgid "&amp;nbsp; &amp;nbsp;"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+msgid "&amp;nbsp; &amp;nbsp; 5g - Totaal"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "1d Prive-gebruik"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__format_btw_total
+msgid "5g - Total"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__btw_total
+msgid "5g. Total (5c + 5d)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+msgid "Aangifte omzetbelasting"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Add All Undeclared Invoices/Moves"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Add Move"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+msgid "BTW"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "BTW Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "BTW Statement lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Check the statement of the parent Company."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__create_uid
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__create_date
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__currency_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__currency_id
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Date"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_posted
+msgid "Date Posted"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_update
+msgid "Date Update"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+msgid "Date posted"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_range_id
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+msgid "Date range"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+msgid "Date update"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_button_add_all_undeclared_invoices
+msgid "Display Button Add All Undeclared Invoices"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_multicompany_fiscal_unit
+msgid "Display Multicompany Fiscal Unit"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__move_line_ids
+msgid "Entry Lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__final
+msgid "Final"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Finalize"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__fiscal_unit_company_ids
+msgid "Fiscal Unit Company"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__format_btw
+msgid "Format Btw"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__format_omzet
+msgid "Format Omzet"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__from_date
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "From Date"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Heffing van omzetbelasting is naar u verlegd"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid ""
+"If this checkbox is ticked, you will enable the Netherlands Tax Invoice "
+"Basis (Factuurstelsel)."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid ""
+"If you confirm, it will be not possible to modify this Statement or reset it"
+" back to draft anymore. Do you confirm?"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Include Undeclared Invoices/Moves"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_include
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_include
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_include
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_payment__l10n_nl_vat_statement_include
+msgid "Include in VAT Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Installatie/afstandsverkopen binnen de EU"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__is_group
+msgid "Is Group"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__is_readonly
+msgid "Is Readonly"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__is_total
+msgid "Is Total"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_payment__l10n_nl_vat_statement_id
+msgid "L10N Nl Vat Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move____last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement____last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line____last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company____last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__write_uid
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__write_date
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen en/of diensten binnenland"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen naar het buitenland"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen naar landen binnen de EU"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen naar landen buiten de EU"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen vanuit het buitenland"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen/diensten belast met 0%"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen/diensten belast met hoog tarief"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen/diensten belast met laag tarief"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Leveringen/diensten belast met overige tarieven behalve 0%"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__multicompany_fiscal_unit
+msgid "Multicompany Fiscal Unit"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.actions.act_window,name:l10n_nl_tax_statement.action_account_vat_statement_nl
+#: model:ir.ui.menu,name:l10n_nl_tax_statement.menu_account_vat_statement_nl
+msgid "NL BTW Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__is_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_invoice_basis
+msgid "NL Tax Invoice Basis"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid "NL Tax Invoice Basis (Factuurstelsel)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement
+msgid "NL Tax Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement
+msgid "Netherlands Vat Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_line
+msgid "Netherlands Vat Statement Line"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+msgid "Omzet"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__parent_id
+msgid "Parent Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Past Undeclared Moves"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Post"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__posted
+msgid "Posted"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Press the Update button in order to recompute the statement lines!"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_id
+msgid "Related Move Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Remove Move"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Reset to Draft"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Schatting deze aangifte"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Schatting vorige aangifte(n)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__statement_id
+msgid "Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__state
+msgid "Status"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Subtotaal (rubriek 5a min 5b)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid ""
+"Tags mapping not configured for The Netherlands! Check the NL BTW Tags "
+"Configuration."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__name
+msgid "Tax Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "The Companies belonging to a fiscal unit must be in The Netherlands."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__to_date
+msgid "To Date"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__omzet
+msgid "Turnover"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_ids
+msgid "Unreported Journal Entries"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_from_date
+msgid "Unreported Move From Date"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Unreported moves: unsupported search operator"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+msgid "Update"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__currency_id
+msgid "Utility field to express amount currency"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__btw
+msgid "VAT"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Verleggingsregelingen: BTW naar u verlegd"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Vermindering volgens de kleineondernemersregeling"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Verwerving uit landen buiten de EU"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Verwerving van goederen uit landen binnen de EU"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Voorbelasting"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid ""
+"You cannot delete a posted statement! Reset the statement to draft first."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "You cannot delete a statement set as final!"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
+#, python-format
+msgid ""
+"You cannot delete lines of a posted statement! Reset the statement to draft "
+"first."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
+#, python-format
+msgid "You cannot delete lines of a statement set as final!"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/account_move.py:0
+#, python-format
+msgid "You cannot modify a Journal Entry in a posted/final tax statement: %s"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/account_move_line.py:0
+#, python-format
+msgid "You cannot modify a Journal Item in a posted/final tax statement: %s"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "You cannot modify a posted statement!"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid ""
+"You cannot modify a posted statement! Reset the statement to draft first."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "You cannot modify a statement set as final!"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid ""
+"You cannot post a statement if all the previous statements are not yet "
+"posted! Please Post all the other statements first."
+msgstr ""
