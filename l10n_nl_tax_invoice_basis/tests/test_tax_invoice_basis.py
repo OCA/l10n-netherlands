@@ -28,7 +28,7 @@ class TestTaxInvoiceBasis(TransactionCase):
             'account_id': receivable_account_id,
             'date_invoice': '2017-08-18',
             'date': '2017-07-01',
-            'type': 'in_invoice',
+            'type': 'out_refund',
         })
         invoice_line_account_id = self.env['account.account'].search(
             [('user_type_id', '=', self.env.ref(
