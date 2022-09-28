@@ -21,32 +21,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
 msgid "&amp;nbsp; &amp;nbsp;"
 msgstr "&amp;nbsp; &amp;nbsp;"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
 msgid "&amp;nbsp; &amp;nbsp; 5g - Totaal"
 msgstr "&amp;nbsp; &amp;nbsp; 5g - Totaal"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "1a"
 msgstr "1a"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "1b"
 msgstr "1b"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "1c"
 msgstr "1c"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "1d"
 msgstr "1d"
 
@@ -57,42 +57,42 @@ msgid "1d Prive-gebruik"
 msgstr "1d Prive-gebruik"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "1e"
 msgstr "1e"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "2a"
 msgstr "2a"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "3a"
 msgstr "3a"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "3b"
 msgstr "3b"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "3c"
 msgstr "3c"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "4a"
 msgstr "4a"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "4b"
 msgstr "4b"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "5b"
 msgstr "5b"
 
@@ -107,7 +107,7 @@ msgid "5g. Total (5c + 5d)"
 msgstr "5g. Totaal (5c + 5d)"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
 msgid "Aangifte omzetbelasting"
 msgstr "Aangifte omzetbelasting"
 
@@ -122,18 +122,18 @@ msgid "All Posted Entries"
 msgstr "Alle mutaties"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "Apply"
 msgstr "Toepassen"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "BTW"
 msgstr "BTW"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "BTW Tags Settings"
 msgstr "BTW label instellingen"
 
@@ -172,7 +172,7 @@ msgstr "Aangemaakt op"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_currency_id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_currency_id
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Currency"
 msgstr "Valuta"
 
@@ -187,18 +187,18 @@ msgid "Date Update"
 msgstr "Wijzigingsdatum"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date posted"
 msgstr "Datum ingediend"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_date_range_id
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date range"
 msgstr "Datum t/m"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date update"
 msgstr "Datum bijwerken"
 
@@ -286,14 +286,14 @@ msgstr "Laatst bijgewerkt op"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:111
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Leveringen en/of diensten binnenland"
 msgstr "Leveringen en/of diensten binnenland"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:136
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Leveringen naar het buitenland"
 msgstr "Leveringen naar het buitenland"
@@ -312,7 +312,7 @@ msgstr "Leveringen naar landen buiten de EU"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:148
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Leveringen vanuit het buitenland"
 msgstr "Leveringen vanuit het buitenland"
@@ -370,13 +370,13 @@ msgstr "Naam"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_omzet
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "Omzet"
 msgstr "Omzet"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Post"
 msgstr "Boeken"
 
@@ -386,7 +386,7 @@ msgid "Posted"
 msgstr "Ingediend"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Reset to Draft"
 msgstr "Terugzetten naar concept"
 
@@ -404,7 +404,7 @@ msgstr "Schatting vorige aangifte(n)"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line_statement_id
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Statement"
 msgstr "Afschrift"
 
@@ -550,7 +550,7 @@ msgid "Target Moves"
 msgstr "Welke boekingen"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Target moves"
 msgstr "Doel boekingen"
 
@@ -565,7 +565,7 @@ msgid "To Date"
 msgstr "Tot Datum"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -576,7 +576,7 @@ msgstr "Hulpveld om de valuta uit te drukken"
 
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:130
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Verleggingsregelingen: BTW naar u verlegd"
 msgstr "Verleggingsregelingen: BTW naar u verlegd"
@@ -608,7 +608,7 @@ msgstr "Verwerving van goederen uit landen binnen de EU"
 #. module: l10n_nl_tax_statement
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:157
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:163
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Voorbelasting"
 msgstr "Voorbelasting"
