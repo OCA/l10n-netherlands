@@ -19,7 +19,7 @@ msgid "Auditfile"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:103
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:125
 #, python-format
 msgid "Auditfile %s %s"
 msgstr ""
@@ -33,6 +33,11 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile_name
 msgid "Auditfile filename"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile_success
+msgid "Auditfile success"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
@@ -145,7 +150,7 @@ msgid "Start date"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:114
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:136
 #, python-format
 msgid "Starting date must be anterior ending date!"
 msgstr ""
