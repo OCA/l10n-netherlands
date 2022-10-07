@@ -38,6 +38,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_end)
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
+        self.assertTrue(record.auditfile_success)
 
         zf = BytesIO(base64.b64decode(record.auditfile))
         with ZipFile(zf, 'r') as archive:
@@ -56,7 +57,32 @@ class TestXafAuditfileExport(TransactionCase):
 
         self.assertTrue(record)
         self.assertTrue(record.name)
-        self.assertFalse(record.auditfile)
+        self.assertFalse(record.auditfile_success)
+        # still contains the faulty auditfile for debugging purposes
+        self.assertTrue(record.auditfile)
+        self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.company_id)
+        self.assertTrue(record.date_start)
+        self.assertTrue(record.date_end)
+        self.assertTrue(record.date_generated)
+        self.assertTrue(record.fiscalyear_name)
+
+    @mute_logger(
+        'odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export'
+    )
+    def test_04_invalid_characters(self):
+        ''' Error because of invalid characters in an auditfile '''
+        record = self.env['xaf.auditfile.export'].with_context(
+            dont_sanitize_xml=True
+        ).create({})
+        # add an invalid character
+        record.company_id.name += unichr(0x0B)
+        record.button_generate()
+
+        self.assertTrue(record)
+        self.assertTrue(record.name)
+        self.assertFalse(record.auditfile_success)
+        self.assertTrue(record.auditfile)
         self.assertTrue(record.auditfile_name)
         self.assertTrue(record.company_id)
         self.assertTrue(record.date_start)

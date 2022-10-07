@@ -28,8 +28,10 @@ import psutil
 import shutil
 from tempfile import mkdtemp
 from io import BytesIO
+import sys
 import zipfile
 import time
+import traceback
 from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
 
@@ -49,6 +51,25 @@ def memory_info():
     process = psutil.Process(os.getpid())
     pmem = (getattr(process, 'memory_info', None) or process.get_memory_info)()
     return pmem.vms
+
+
+# http://stackoverflow.com/questions/1707890/fast-way-to-filter-illegal-xml-unicode-chars-in-python
+ILLEGAL_RANGES = [
+    (0x00, 0x08), (0x0B, 0x1F), (0x7F, 0x84), (0x86, 0x9F),
+    (0xD800, 0xDFFF), (0xFDD0, 0xFDDF), (0xFFFE, 0xFFFF),
+    (0x1FFFE, 0x1FFFF), (0x2FFFE, 0x2FFFF), (0x3FFFE, 0x3FFFF),
+    (0x4FFFE, 0x4FFFF), (0x5FFFE, 0x5FFFF), (0x6FFFE, 0x6FFFF),
+    (0x7FFFE, 0x7FFFF), (0x8FFFE, 0x8FFFF), (0x9FFFE, 0x9FFFF),
+    (0xAFFFE, 0xAFFFF), (0xBFFFE, 0xBFFFF), (0xCFFFE, 0xCFFFF),
+    (0xDFFFE, 0xDFFFF), (0xEFFFE, 0xEFFFF), (0xFFFFE, 0xFFFFF),
+    (0x10FFFE, 0x10FFFF)
+]
+UNICODE_SANITIZE_TRANSLATION = {}
+for low, high in ILLEGAL_RANGES:
+    if low > sys.maxunicode:  # pragma: no cover
+        continue
+    for c in range(low, high+1):
+        UNICODE_SANITIZE_TRANSLATION[c] = ord(u' ')
 
 
 class XafAuditfileExport(models.Model):
@@ -83,6 +104,7 @@ class XafAuditfileExport(models.Model):
         compute='_compute_auditfile_name',
         store=True
     )
+    auditfile_success = fields.Boolean()
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
@@ -136,39 +158,49 @@ class XafAuditfileExport(models.Model):
             u'<?xml version="1.0" encoding="UTF-8"?>'
             '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
             'xmlns="http://www.auditfiles.nl/XAF/3.2">', 1)
-
+        # removes invalid characters from xml
+        if not self.env.context.get('dont_sanitize_xml'):
+            xml = xml.translate(
+                UNICODE_SANITIZE_TRANSLATION
+            )
         filename = self.name + '.xaf'
         tmpdir = mkdtemp()
         auditfile = os.path.join(tmpdir, filename)
         archivedir = mkdtemp()
         archive = os.path.join(archivedir, filename)
+        self.auditfile_success = False
         try:
             with io.open(auditfile, 'w+', encoding='utf-8') as tmphandle:
                 tmphandle.write(xml)
             del xml
 
-            # Validate the generated XML
-            xsd = etree.XMLParser(
-                schema=etree.XMLSchema(etree.parse(
-                    open(
-                        modules.get_module_resource(
-                            'l10n_nl_xaf_auditfile_export', 'data',
-                            'XmlAuditfileFinancieel3.2.xsd')))))
-            etree.parse(auditfile, parser=xsd)
-            del xsd
+            logging.getLogger(__name__).debug(
+                'Created an auditfile in %ss, using %sk memory',
+                int(time.time() - t0), (memory_info() - m0) / 1024)
 
             # Store in compressed format on the auditfile record
             zip_path = shutil.make_archive(
                 archive, 'zip', tmpdir, verbose=True)
             with open(zip_path, 'rb') as auditfile_zip:
                 self.auditfile = base64.b64encode(auditfile_zip.read())
-            logging.getLogger(__name__).debug(
-                'Created an auditfile in %ss, using %sk memory',
-                int(time.time() - t0), (memory_info() - m0) / 1024)
 
-        except etree.XMLSyntaxError as e:
+            # Validate the generated XML
+            xsd = etree.XMLSchema(etree.parse(
+                open(
+                    modules.get_module_resource(
+                        'l10n_nl_xaf_auditfile_export', 'data',
+                        'XmlAuditfileFinancieel3.2.xsd'))))
+            xsd.assertValid(etree.parse(auditfile))
+            del xsd
+
+            self.auditfile_success = True
+
+        except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
             logging.getLogger(__name__).error(e)
+            logging.getLogger(__name__).info(traceback.format_exc())
             self.message_post(e)
+            self.auditfile_success = False
+
         finally:
             shutil.rmtree(tmpdir)
             shutil.rmtree(archivedir)
