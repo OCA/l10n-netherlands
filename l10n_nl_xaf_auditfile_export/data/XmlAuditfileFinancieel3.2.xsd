@@ -651,6 +651,7 @@
 			<xsd:enumeration value="AI" />
 			<xsd:enumeration value="AL" />
 			<xsd:enumeration value="AM" />
+			<xsd:enumeration value="AN" />
 			<xsd:enumeration value="AO" />
 			<xsd:enumeration value="AQ" />
 			<xsd:enumeration value="AR" />

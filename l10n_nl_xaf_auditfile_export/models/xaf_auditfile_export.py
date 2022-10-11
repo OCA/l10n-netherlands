@@ -28,7 +28,7 @@ def chunks(items, n=None):
 
 
 def memory_info():
-    """ Modified from odoo/server/service.py """
+    """Modified from odoo/server/service.py"""
     process = psutil.Process(os.getpid())
     pmem = (getattr(process, "memory_info", None) or process.get_memory_info)()
     return pmem.vms
@@ -355,6 +355,7 @@ class XafAuditfileExport(models.Model):
             "select count(*) from account_move_line "
             "where date >= %s "
             "and date <= %s "
+            "and parent_state = 'posted' "
             "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -366,6 +367,7 @@ class XafAuditfileExport(models.Model):
             "select sum(debit) from account_move_line "
             "where date >= %s "
             "and date <= %s "
+            "and parent_state = 'posted' "
             "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -377,6 +379,7 @@ class XafAuditfileExport(models.Model):
             "select sum(credit) from account_move_line "
             "where date >= %s "
             "and date <= %s "
+            "and parent_state = 'posted' "
             "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -384,8 +387,10 @@ class XafAuditfileExport(models.Model):
 
     def get_journals(self):
         """return journals"""
-        return self.env["account.journal"].search(
-            [("company_id", "=", self.company_id.id)]
+        return (
+            self.env["account.journal"]
+            .with_context(active_test=False)
+            .search([("company_id", "=", self.company_id.id)])
         )
 
     def get_moves(self, journal):
