@@ -63,7 +63,7 @@ class XafAuditfileExport(models.Model):
     auditfile_name = fields.Char(
         "Auditfile filename", compute="_compute_auditfile_name", store=True
     )
-    date_generated = fields.Datetime("Date generated", readonly=True, copy=False)
+    date_generated = fields.Datetime(readonly=True, copy=False)
     company_id = fields.Many2one("res.company", required=True)
 
     unit4 = fields.Boolean(
@@ -90,7 +90,11 @@ class XafAuditfileExport(models.Model):
         if "name" in fields_list:
             defaults.setdefault(
                 "name",
-                _("Auditfile %s %s") % (company.name, datetime.now().strftime("%Y")),
+                _("Auditfile %(company_name)s %(current_datetime)s")
+                % {
+                    "company_name": company.name,
+                    "current_datetime": datetime.now().strftime("%Y"),
+                },
             )
 
         return defaults
