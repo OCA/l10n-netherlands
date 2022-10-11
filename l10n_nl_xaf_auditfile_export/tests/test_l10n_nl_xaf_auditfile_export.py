@@ -15,12 +15,6 @@ from odoo.tests.common import Form, TransactionCase
 from odoo.tools import mute_logger
 
 
-# This test should only be executed after all modules have been installed
-# to avoid that defaults are not properly set for required fields
-# (esp. product.template).
-@tagged("-at_install", "post_install")
-
-
 def get_transaction_line_count_from_xml(auditfile):
     """Helper XML method to parse and return the transaction line count"""
     line_count = 0
@@ -43,6 +37,10 @@ def get_transaction_line_count_from_xml(auditfile):
     return line_count
 
 
+# This test should only be executed after all modules have been installed
+# to avoid that defaults are not properly set for required fields
+# (esp. product.template).
+@tagged("-at_install", "post_install")
 class TestXafAuditfileExport(TransactionCase):
     def setUp(self):
         super().setUp()
