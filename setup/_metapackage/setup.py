@@ -8,6 +8,8 @@ setuptools.setup(
     description="Meta package for oca-l10n-netherlands Odoo addons",
     version=version,
     install_requires=[
+        'odoo8-addon-l10n_nl_account_invoice_ubl',
+        'odoo8-addon-l10n_nl_base_ubl',
         'odoo8-addon-l10n_nl_bsn',
         'odoo8-addon-l10n_nl_chart_rgs',
         'odoo8-addon-l10n_nl_normalize_zip',
