@@ -251,6 +251,9 @@ class XafAuditfileExport(models.Model):
 
     def get_ob_totals(self):
         """return totals of opening balance"""
+        # first get regular opening balances
+        # (excluding accounts of type current year earnings)
+        cye_type_id = self.env.ref("account.data_unaffected_earnings").id
         self.env.cr.execute(
             "select sum(l.credit), sum(l.debit), count(distinct a.id) "
             "from account_move_line l, account_account a, "
@@ -260,18 +263,46 @@ class XafAuditfileExport(models.Model):
             "and l.parent_state = 'posted' "
             "and l.date < %s "
             "and l.company_id=%s "
-            "and t.include_initial_balance = true ",
-            (self.date_start, self.company_id.id),
+            "and t.include_initial_balance = true "
+            "and t.id!=%s",
+            (self.date_start, self.company_id.id, cye_type_id),
         )
         row = self.env.cr.fetchall()[0]
+        # correct for hitherto undistributed profits
+        self.env.cr.execute(
+            "select sum(l.balance)"
+            "from account_move_line l, account_account a, "
+            "     account_account_type t "
+            "where a.user_type_id = t.id "
+            "and l.account_id = a.id "
+            "and l.parent_state = 'posted' "
+            "and l.date < %s "
+            "and l.company_id=%s "
+            "and (t.include_initial_balance = false or t.id=%s)",
+            (self.date_start, self.company_id.id, cye_type_id),
+        )
+        row2 = self.env.cr.fetchall()[0]
+        if not row2[0]:
+            row2 = (0,)
+        if row2[0] < 0:
+            creditcor = -row2[0]
+            debitcor = 0.0
+        else:
+            creditcor = 0.0
+            debitcor = row2[0]
+        if round(row2[0], 2) == 0:
+            countcor = 0
+        else:
+            countcor = 1
         return dict(
-            credit=round(row[0] or 0.0, 2),
-            debit=round(row[1] or 0.0, 2),
-            count=row[2] or 0,
+            credit=round((row[0] or 0.0) + creditcor, 2),
+            debit=round((row[1] or 0.0) + debitcor, 2),
+            count=(row[2] or 0) + countcor,
         )
 
     def get_ob_lines(self):
         """return opening balance entries"""
+        cye_type_id = self.env.ref("account.data_unaffected_earnings").id
         self.env.cr.execute(
             "select a.id, a.code, sum(l.balance) "
             "from account_move_line l, account_account a, "
@@ -281,10 +312,37 @@ class XafAuditfileExport(models.Model):
             "and l.company_id=%s "
             "and l.parent_state = 'posted' "
             "and t.include_initial_balance = true "
+            "and t.id!=%s"
             "group by a.id, a.code",
-            (self.date_start, self.company_id.id),
+            (self.date_start, self.company_id.id, cye_type_id),
         )
-        for result in self.env.cr.fetchall():
+        results = self.env.cr.fetchall()
+        # add line for undistributed profits if any and
+        # put it on account with higest code
+        self.env.cr.execute(
+            "select max(a.code),sum(l.balance)"
+            "from account_move_line l, account_account a, "
+            "     account_account_type t "
+            "where a.user_type_id = t.id "
+            "and l.account_id = a.id "
+            "and l.parent_state = 'posted' "
+            "and l.date < %s "
+            "and l.company_id=%s "
+            "and (t.include_initial_balance = false or t.id=%s)",
+            (self.date_start, self.company_id.id, cye_type_id),
+        )
+        row = self.env.cr.fetchall()[0]
+        if round(row[1] or 0.0, 2) != 0:
+            # get corresponding account id
+            aid = (
+                self.env["account.account"]
+                .search(
+                    [("code", "=", row[0]), ("company_id", "=", self.company_id.id)]
+                )
+                .id
+            )
+            results.insert(len(results), [aid, row[0], row[1]])
+        for result in results:
             yield dict(
                 account_id=result[0],
                 account_code=result[1],

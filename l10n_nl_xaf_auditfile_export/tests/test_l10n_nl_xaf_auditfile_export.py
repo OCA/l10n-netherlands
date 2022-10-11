@@ -10,6 +10,7 @@ from zipfile import ZipFile
 from lxml import etree
 
 from odoo import fields
+from odoo.tests import tagged
 from odoo.tests.common import Form, TransactionCase
 from odoo.tools import mute_logger
 
@@ -36,6 +37,10 @@ def get_transaction_line_count_from_xml(auditfile):
     return line_count
 
 
+# This test should only be executed after all modules have been installed
+# to avoid that defaults are not properly set for required fields
+# (esp. product.template).
+@tagged("-at_install", "post_install")
 class TestXafAuditfileExport(TransactionCase):
     def setUp(self):
         super().setUp()
@@ -50,7 +55,10 @@ class TestXafAuditfileExport(TransactionCase):
         move_form.partner_id = self.env["res.partner"].create({"name": "Partner Test"})
         with move_form.invoice_line_ids.new() as line_form:
             line_form.product_id = self.env["product.product"].create(
-                {"name": "product test", "standard_price": 800.0}
+                {
+                    "name": "product test",
+                    "standard_price": 800.0,
+                }
             )
         self.invoice = move_form.save()
         self.invoice.post()
