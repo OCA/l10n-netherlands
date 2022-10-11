@@ -16,6 +16,8 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[l10n_nl_account_invoice_ubl](l10n_nl_account_invoice_ubl/) | 8.0.1.0.0 | [![thomaspaulb](https://github.com/thomaspaulb.png?size=30px)](https://github.com/thomaspaulb) | Generate UBL invoices in Netherlands-specific UBL dialect (NLCIUS)
+[l10n_nl_base_ubl](l10n_nl_base_ubl/) | 8.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) [![thomaspaulb](https://github.com/thomaspaulb.png?size=30px)](https://github.com/thomaspaulb) | Base module for Netherlands-specific UBL dialect (NLCIUS)
 [l10n_nl_bsn](l10n_nl_bsn/) | 8.0.0.1.0 |  | Burgerservicenummer (BSN) for Partners
 [l10n_nl_chart_rgs](l10n_nl_chart_rgs/) | 8.0.0.1.0 |  | Netherlands - Accounting - Reference Accounting Scheme (RGS)
 [l10n_nl_normalize_zip](l10n_nl_normalize_zip/) | 8.0.1.0.0 |  | This module forces zip codes to look like 0000 XX
