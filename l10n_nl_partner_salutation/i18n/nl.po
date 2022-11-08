@@ -49,6 +49,11 @@ msgid "Manual salutation (letter)"
 msgstr "Handmatige begroeting (brief)"
 
 #. module: l10n_nl_partner_salutation
+#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner_title
+msgid "Partner Title"
+msgstr ""
+
+#. module: l10n_nl_partner_salutation
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner_title__postnominal
 msgid "Postnominal"
 msgstr "Titel"
@@ -61,14 +66,14 @@ msgstr "Begroeting"
 #. module: l10n_nl_partner_salutation
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__salutation_address
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__salutation_address
-#: model:ir.ui.view,arch_db:l10n_nl_partner_salutation.view_partner_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation (address)"
 msgstr "Begroeting (adres)"
 
 #. module: l10n_nl_partner_salutation
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_partner__salutation
 #: model:ir.model.fields,field_description:l10n_nl_partner_salutation.field_res_users__salutation
-#: model:ir.ui.view,arch_db:l10n_nl_partner_salutation.view_partner_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_partner_salutation.view_partner_form
 msgid "Salutation (letter)"
 msgstr "Begroeting (brief)"
 
@@ -92,8 +97,5 @@ msgstr "Afkorting vrouw"
 msgid "Shortcut male"
 msgstr "Afkorting man"
 
-#. module: l10n_nl_partner_salutation
-#: model:ir.model,name:l10n_nl_partner_salutation.model_res_partner_title
-msgid "res.partner.title"
-msgstr "res.partner.title"
-
+#~ msgid "res.partner.title"
+#~ msgstr "res.partner.title"
