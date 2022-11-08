@@ -20,12 +20,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__auditfile
 msgid "Auditfile"
 msgstr "Auditfile"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:60
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:98
 #, python-format
 msgid "Auditfile %s %s"
 msgstr "Auditfile %s %s"
@@ -37,116 +47,232 @@ msgid "Auditfile export"
 msgstr "Auditfile export"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_auditfile_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__auditfile_name
 msgid "Auditfile filename"
 msgstr "Auditfile bestandsnaam"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_company_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__company_id
 msgid "Company"
 msgstr "Bedrijf"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_create_uid
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__create_uid
 msgid "Created by"
 msgstr "Aangemaakt door"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_create_date
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__create_date
 msgid "Created on"
 msgstr "Aangemaakt op"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_generated
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_generated
 msgid "Date generated"
 msgstr "Datum gegenereerd"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9_display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9__display_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__display_name
 msgid "Display Name"
 msgstr "Weergave naam"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_end
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_end
 msgid "End date"
 msgstr "Einddatum"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_fiscalyear_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__fiscalyear_name
 msgid "Fiscalyear Name"
 msgstr "Naam Fiscaal Jaar"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.form_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.form_xaf_auditfile_export
 msgid "Generate auditfile"
 msgstr "Genereer auditfile"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9_id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__id
 msgid "ID"
 msgstr "ID"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9___last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export___last_update
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9____last_update
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export____last_update
 msgid "Last Modified on"
 msgstr "Laatst gewijzigd op"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_write_uid
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__write_uid
 msgid "Last Updated by"
 msgstr "Laatst bijgewerkt door"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_write_date
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
+#: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Last write"
 msgstr "Laast geschreven"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_name
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__name
 msgid "Name"
 msgstr "Naam"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Odoo"
 msgstr "Odoo"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export_date_start
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_start
 msgid "Start date"
 msgstr "Startdatum"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:72
+#: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:110
 #, python-format
 msgid "Starting date must be anterior ending date!"
 msgstr "Startdatum moet liggen voor de einddatum!"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__unit4
+msgid ""
+"The Unit4 system expects a value for `<xsd:element name=\"docRef\" ..>` of "
+"maximum 35 characters, infringing the official standard. In case the value "
+"exceeds 35 characters, an error is raised by Unit4 while importing the audit "
+"file. By setting this flag to true, the `docRef` value is simply truncated "
+"to 35 characters so that the auditfile can be successfully imported into "
+"Unit4.\n"
+"If you want to export an auditfile with the official standard (missing the "
+"Unit4 compatibility) just set this flag to False."
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__unit4
+msgid "Unit4"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__website_message_ids
+msgid "Website communication history"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_xaf_auditfile_export
@@ -172,6 +298,11 @@ msgstr "ir.qweb.field.auditfile.string20"
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string30
 msgid "ir.qweb.field.auditfile.string30"
 msgstr "ir.qweb.field.auditfile.string30"
+
+#. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string35
+msgid "ir.qweb.field.auditfile.string35"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string50
