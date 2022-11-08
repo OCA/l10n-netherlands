@@ -5,6 +5,8 @@
 import argparse
 import xmlrpclib
 import re
+from ast import literal_eval
+
 parser = argparse.ArgumentParser()
 parser.add_argument('odoo_host')
 parser.add_argument('odoo_db')
@@ -49,7 +51,7 @@ while True:
             ('infix', '=', False),
             ('is_company', '=', False),
         ] +
-        eval(args.additional_search or '[]'),
+        literal_eval(args.additional_search or '[]'),
         offset,
         limit)
     if not ids:
@@ -58,7 +60,7 @@ while True:
     for partner in odoo_execute(
             'res.partner', 'read', ids,
             ['lastname', 'firstname', 'initials', 'infix']):
-        print(partner['lastname'])
+        print(partner['lastname'])  # pylint: disable=print-used
 
         have_infix = False
         tokens = partner['lastname'].split()
@@ -76,7 +78,7 @@ while True:
                 add_token(partner, 'firstname', token)
         partner['lastname'] = ' '.join(tokens)
 
-        print(partner)
+        print(partner)  # pylint: disable=print-used
         odoo_execute('res.partner', 'write', partner['id'], partner)
 
     offset += limit

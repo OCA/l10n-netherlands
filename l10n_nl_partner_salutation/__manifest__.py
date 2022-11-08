@@ -6,7 +6,7 @@
     'author': 'Therp BV, Odoo Community Association (OCA)',
     'category': 'Contact management',
     'license': 'AGPL-3',
-    'website': 'https://github.com/oca/l10n-netherlands.git',
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'depends': [
         'partner_contact_gender',
         'l10n_nl_partner_name',
