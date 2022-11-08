@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_nl_tax_statement_icp
+# 	* l10n_nl_tax_statement_icp
 #
 msgid ""
 msgstr ""
@@ -17,89 +17,89 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "(product + service)"
 msgstr "(goederen + diensten)"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "Amount Product"
 msgstr "Bedrag goederen"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_amount_products
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__amount_products
 msgid "Amount Products"
 msgstr "Bedrag goederen"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "Amount Service"
 msgstr "Bedrag Diensten"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_amount_services
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__amount_services
 msgid "Amount Services"
 msgstr "Bedrag Diensten"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_country_code
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__country_code
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "Country Code"
 msgstr "Landcode"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_create_uid
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__create_uid
 msgid "Created by"
 msgstr "Aangemaakt door"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_create_date
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__create_date
 msgid "Created on"
 msgstr "Aangemaakt op"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_currency_id
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__currency_id
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "Currency"
 msgstr "Valuta"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__display_name
 msgid "Display Name"
 msgstr "Weergavenaam"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_format_amount_products
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__format_amount_products
 msgid "Format Amount Products"
 msgstr "Format Bedrag Goederen"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_format_amount_services
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__format_amount_services
 msgid "Format Amount Services"
 msgstr "Fromat Bedrag Diensten"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "ICP"
 msgstr "ICP"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_ids
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__icp_line_ids
 msgid "ICP Lines"
 msgstr "ICP Regels"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
 msgid "ICP Statement"
 msgstr "ICP Aangifte"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
 msgid "ICP Statement lines"
 msgstr "ICP Aangifte regels"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__id
 msgid "ID"
 msgstr "ID"
 
@@ -109,17 +109,17 @@ msgid "Intra-Community transactions (ICP) line"
 msgstr "Intra-Community transactie (ICP) regels"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line___last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line____last_update
 msgid "Last Modified on"
 msgstr "Laatst gewijzigd op"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_write_uid
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__write_uid
 msgid "Last Updated by"
 msgstr "Laatst bijgewerkt door"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_write_date
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
@@ -134,81 +134,84 @@ msgid "Netherlands Vat Statement"
 msgstr "Nederlandse BTW Aangifte"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_partner_id
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "Partner"
 msgstr "Partner"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
 msgid "Press the Update button in order to recompute the lines!"
 msgstr "Gebruik de bijwerken knop om de aangifte te herberekenen!"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_statement_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__statement_id
 msgid "Statement"
 msgstr "Aangifte"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_tag_3b_omzet
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__tag_3b_omzet
 msgid "Tag 3B Omzet"
 msgstr "Tag 3B Omzet"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_tag_3b_omzet_d
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__tag_3b_omzet_d
 msgid "Tag 3B Omzet D"
 msgstr "Tag 3B Omzet D"
 
 #. module: l10n_nl_tax_statement_icp
-#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement.py:115
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement.py:107
 #, python-format
-msgid "Tag 3b omzet not configured for this Company! Check the NL BTW Tags Configuration."
+msgid ""
+"Tag 3b omzet not configured for this Company! Check the NL BTW Tags "
+"Configuration."
 msgstr ""
 "Tag 3b omzet is niet geconfigureerd voor dit bedrijf! Controleer de "
 "nederlandse NL BTW boekhouding instellingen."
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_total
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__icp_total
 msgid "Total ICP amount"
 msgstr "Totaal ICP bedrag"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "Total amount"
 msgstr "Totaal"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,help:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_total
+#: model:ir.model.fields,help:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__icp_total
 #, fuzzy
 msgid "Total amount in currency of the statement."
 msgstr "Totaalbedrag in de aangiftevaluta"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
 msgid "Update"
 msgstr "Bijwerken"
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line_vat
-#: model:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__vat
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
 msgid "VAT"
 msgstr "BTW"
 
 #. module: l10n_nl_tax_statement_icp
-#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:61
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:69
 #, python-format
-msgid "Wrong country code (%s) for ICP report. Please check your configuration."
+msgid ""
+"Wrong country code (%s) for ICP report. Please check your configuration."
 msgstr ""
 "Verkeerde landcode (%s) voor het ICP rapport. Controleer uw instellingen."
 
 #. module: l10n_nl_tax_statement_icp
-#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:56
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:65
 #, python-format
 msgid "Wrong country code (NL) for ICP report."
 msgstr "Verkeerde landoce (NL) voor ICP rapportage."
 
 #. module: l10n_nl_tax_statement_icp
-#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement.py:192
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement.py:186
 #, python-format
 msgid "You cannot modify a final statement!"
 msgstr "U kunt een afgeronde aangifte niet meer bewerken!"
