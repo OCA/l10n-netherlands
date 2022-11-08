@@ -5,11 +5,9 @@
 import argparse
 import xlrd
 
-"""
-This expected input is an .xls file, passed as argument.
-The .xls file should contain the mapping of postcodes-provinces.
-Note: the records of the .xls MUST be sorted by postcode number!
-"""
+# This expected input is an .xls file, passed as argument.
+# The .xls file should contain the mapping of postcodes-provinces.
+# Note: the records of the .xls MUST be sorted by postcode number!
 
 parser = argparse.ArgumentParser()
 parser.add_argument("file", type=open)
@@ -64,4 +62,4 @@ for sheet in workbook.sheets():
             last_province = prov
 
     result_text += get_record_txt()
-    print(result_text)
+    print(result_text)  # pylint: disable=print-used

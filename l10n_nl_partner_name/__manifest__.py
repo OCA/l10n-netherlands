@@ -4,6 +4,7 @@
     'name': 'Dutch partner names',
     'version': '12.0.1.0.0',
     'author': 'Therp BV, Odoo Community Association (OCA)',
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'category': 'Contact management',
     'depends': [
         'partner_firstname',
