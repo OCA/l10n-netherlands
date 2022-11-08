@@ -21,14 +21,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_bsn
-#: code:addons/l10n_nl_bsn/models/res_partner.py:64
+#: code:addons/l10n_nl_bsn/models/res_partner.py:62
 #, python-format
 msgid "Another person (%s) has the same BSN (%s)."
 msgstr "Een ander persoon (%s) heeft dezelfde BSN (%s)."
 
 #. module: l10n_nl_bsn
-#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_partner_bsn_number
-#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_users_bsn_number
+#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_partner__bsn_number
+#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_users__bsn_number
 msgid "BSN"
 msgstr "BSN"
 
@@ -38,14 +38,14 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: l10n_nl_bsn
-#: code:addons/l10n_nl_bsn/models/res_partner.py:55
+#: code:addons/l10n_nl_bsn/models/res_partner.py:53
 #, python-format
 msgid "The BSN you entered (%s) is not valid."
 msgstr "Het ingevoerde BSN nummer (%s) is niet geldig."
 
 #. module: l10n_nl_bsn
-#: code:addons/l10n_nl_bsn/models/res_partner.py:57
-#: code:addons/l10n_nl_bsn/models/res_partner.py:66
+#: code:addons/l10n_nl_bsn/models/res_partner.py:55
+#: code:addons/l10n_nl_bsn/models/res_partner.py:64
 #, python-format
 msgid "Warning!"
 msgstr "Waarschuwing!"
