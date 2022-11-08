@@ -19,12 +19,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_nl_tax_invoice_basis
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: l10n_nl_tax_invoice_basis
 #: model:ir.model,name:l10n_nl_tax_invoice_basis.model_res_company
 msgid "Companies"
 msgstr "Bedrijven"
 
 #. module: l10n_nl_tax_invoice_basis
-#: model:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
+#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_nl_tax_invoice_basis
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
 msgid ""
 "If this checkbox is ticked, you will enable the Netherlands Tax Invoice "
 "Basis (Factuurstelsel)."
@@ -41,18 +53,18 @@ msgid "Journal Item"
 msgstr "Journaal Post"
 
 #. module: l10n_nl_tax_invoice_basis
-#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_account_move_line_l10n_nl_date_invoice
+#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_account_move_line__l10n_nl_date_invoice
 msgid "L10N Nl Date Invoice"
 msgstr "L10N Nl Datum Factuur"
 
 #. module: l10n_nl_tax_invoice_basis
-#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_res_company_l10n_nl_tax_invoice_basis
-#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_res_config_settings_l10n_nl_tax_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_res_company__l10n_nl_tax_invoice_basis
+#: model:ir.model.fields,field_description:l10n_nl_tax_invoice_basis.field_res_config_settings__l10n_nl_tax_invoice_basis
 msgid "NL Tax Invoice Basis"
 msgstr "NL Factuurstelsel"
 
 #. module: l10n_nl_tax_invoice_basis
-#: model:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_invoice_basis.res_config_settings_view_form
 msgid "NL Tax Invoice Basis (Factuurstelsel)"
 msgstr "NL Factuurstelsel"
 
@@ -61,7 +73,5 @@ msgstr "NL Factuurstelsel"
 msgid "Tax"
 msgstr "Belasting"
 
-#. module: l10n_nl_tax_invoice_basis
-#: model:ir.model,name:l10n_nl_tax_invoice_basis.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"
+#~ msgid "res.config.settings"
+#~ msgstr "res.config.settings"
