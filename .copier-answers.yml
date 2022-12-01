@@ -1,18 +1,24 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.5.2
+_commit: v1.11.1
 _src_path: gh:oca/oca-addons-repo-template
-ci: Travis
+ci: GitHub
 dependency_installation_mode: PIP
 generate_requirements_txt: true
-include_wkhtmltopdf: false
+github_check_license: true
+github_enable_codecov: true
+github_enable_makepot: true
+github_enable_stale_action: true
+github_enforce_dev_status_compatibility: true
+include_wkhtmltopdf: true
 odoo_version: 14.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups: []
 repo_description: This repository includes all the Odoo modules developed to fit the
-  specific needs of the Netherlands.
+    specific needs of the Netherlands.
 repo_name: l10n-netherlands
 repo_slug: l10n-netherlands
 repo_website: https://github.com/OCA/l10n-netherlands
 travis_apt_packages: []
 travis_apt_sources: []
+
