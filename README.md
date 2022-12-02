@@ -9,7 +9,7 @@
 
 # l10n-netherlands
 
-TODO: add repo description.
+Odoo Dutch Localization
 
 <!-- /!\ do not modify below this line -->
 
