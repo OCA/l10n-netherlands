@@ -116,19 +116,16 @@ class XafAuditfileExport(models.Model):
         m0 = memory_info()
         self.date_generated = fields.Datetime.now()
         auditfile_template = self._get_auditfile_template()
-        xml = self.env["ir.ui.view"]._render_template(
-            auditfile_template, values={"self": self}
+        xml = self.env["ir.qweb"]._render(
+            auditfile_template, {"self": self}, minimal_qcontext=True
         )
-        # the following is dealing with the fact that qweb templates don't like
-        # namespaces, but we need the correct namespaces for validation
+        # convert to string and prepend XML encoding declaration
         xml = (
-            xml.decode()
+            xml.unescape()
             .strip()
             .replace(
-                "<auditfile>",
-                '<?xml version="1.0" encoding="UTF-8"?>'
-                '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                'xmlns="http://www.auditfiles.nl/XAF/3.2">',
+                "<auditfile ",
+                '<?xml version="1.0" encoding="UTF-8"?>\n<auditfile ',
                 1,
             )
         )
@@ -198,11 +195,11 @@ class XafAuditfileExport(models.Model):
             )
             .ids
         )
-        self.env.cache.invalidate()
+        self.env["res.partner"].invalidate_model()
         for chunk in chunks(partner_ids):
             for partner in self.env["res.partner"].browse(chunk):
                 yield partner
-            self.env.cache.invalidate()
+            self.env["res.partner"].invalidate_model()
 
     def get_accounts(self):
         """return recordset of accounts"""
@@ -257,14 +254,12 @@ class XafAuditfileExport(models.Model):
         """return totals of opening balance"""
         self.env.cr.execute(
             "select sum(l.credit), sum(l.debit), count(distinct a.id) "
-            "from account_move_line l, account_account a, "
-            "     account_account_type t "
-            "where a.user_type_id = t.id "
-            "and l.account_id = a.id "
+            "from account_move_line l, account_account a "
+            "where l.account_id = a.id "
             "and l.parent_state = 'posted' "
             "and l.date < %s "
             "and l.company_id=%s "
-            "and t.include_initial_balance = true ",
+            "and a.include_initial_balance = true ",
             (self.date_start, self.company_id.id),
         )
         row = self.env.cr.fetchall()[0]
@@ -278,13 +273,11 @@ class XafAuditfileExport(models.Model):
         """return opening balance entries"""
         self.env.cr.execute(
             "select a.id, a.code, sum(l.balance) "
-            "from account_move_line l, account_account a, "
-            "     account_account_type t "
-            "where a.user_type_id = t.id "
-            "and a.id = l.account_id and l.date < %s "
+            "from account_move_line l, account_account a "
+            "where a.id = l.account_id and l.date < %s "
             "and l.company_id=%s "
             "and l.parent_state = 'posted' "
-            "and t.include_initial_balance = true "
+            "and a.include_initial_balance = true "
             "group by a.id, a.code",
             (self.date_start, self.company_id.id),
         )
@@ -353,11 +346,11 @@ class XafAuditfileExport(models.Model):
             )
             .ids
         )
-        self.env.cache.invalidate()
+        self.env["account.move"].invalidate_model()
         for chunk in chunks(move_ids):
             for move in self.env["account.move"].browse(chunk):
                 yield move
-            self.env.cache.invalidate()
+            self.env["account.move"].invalidate_model()
 
     @api.model
     def get_move_period_number(self, move):

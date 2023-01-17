@@ -36,23 +36,35 @@ def get_transaction_line_count_from_xml(auditfile):
 
 
 class TestXafAuditfileExport(TransactionCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
 
-        self.env.user.company_id.country_id = (self.env.ref("base.nl").id,)
+        cls.eur = cls.env["res.currency"].search([("name", "=", "EUR")])
+        cls.coa = cls.env.ref("l10n_nl.l10nnl_chart_template", raise_if_not_found=False)
+        cls.coa = cls.coa or cls.env.ref("l10n_generic_coa.configurable_chart_template")
+        cls.company_nl = cls.env["res.company"].create(
+            {
+                "name": "XAF Company1",
+                "country_id": cls.env.ref("base.nl").id,
+                "currency_id": cls.eur.id,
+            }
+        )
+        cls.env.user.company_id = cls.company_nl
+        cls.coa.try_loading(cls.company_nl, install_demo=False)
 
         # create an invoice and post it, to ensure that there's some data to export
         move_form = Form(
-            self.env["account.move"].with_context(default_move_type="out_invoice")
+            cls.env["account.move"].with_context(default_move_type="out_invoice")
         )
         move_form.invoice_date = fields.Date().today()
-        move_form.partner_id = self.env["res.partner"].create({"name": "Partner Test"})
+        move_form.partner_id = cls.env["res.partner"].create({"name": "Partner Test"})
         with move_form.invoice_line_ids.new() as line_form:
-            line_form.product_id = self.env["product.product"].create(
+            line_form.product_id = cls.env["product.product"].create(
                 {"name": "product test", "standard_price": 800.0}
             )
-        self.invoice = move_form.save()
-        self.invoice.post()
+        cls.invoice = move_form.save()
+        cls.invoice.action_post()
 
     def test_01_default_values(self):
         """Check that the default values are filled on creation"""
