@@ -236,7 +236,10 @@
                     <sourceID />
                     <userID />
                     /-->
-                    <trLine t-foreach="m.line_ids" t-as="l">
+                    <trLine
+                                t-foreach="m.line_ids.filtered(lambda l: l.display_type not in ('line_section', 'line_note'))"
+                                t-as="l"
+                            >
                         <nr><t t-esc="l.id" /></nr>
                         <accID><t t-esc="l.account_id.code" /></accID>
                         <docRef><t

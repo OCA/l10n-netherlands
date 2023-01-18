@@ -262,6 +262,7 @@ class XafAuditfileExport(models.Model):
             "where a.user_type_id = t.id "
             "and l.account_id = a.id "
             "and l.parent_state = 'posted' "
+            "and l.display_type NOT IN ('line_section', 'line_note') "
             "and l.date < %s "
             "and l.company_id=%s "
             "and t.include_initial_balance = true ",
@@ -285,6 +286,7 @@ class XafAuditfileExport(models.Model):
             "and l.company_id=%s "
             "and l.parent_state = 'posted' "
             "and t.include_initial_balance = true "
+            "and l.display_type NOT IN ('line_section', 'line_note') "
             "group by a.id, a.code",
             (self.date_start, self.company_id.id),
         )
@@ -302,6 +304,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
+            "and display_type NOT IN ('line_section', 'line_note') "
             "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -314,6 +317,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
+            "and display_type NOT IN ('line_section', 'line_note') "
             "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -326,6 +330,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
+            "and display_type NOT IN ('line_section', 'line_note') "
             "and company_id=%s",
             (self.date_start, self.date_end, self.company_id.id),
         )
