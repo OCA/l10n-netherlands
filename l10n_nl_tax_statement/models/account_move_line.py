@@ -25,7 +25,6 @@ class AccountMoveLine(models.Model):
             "date",
             "debit",
             "credit",
-            "balance",
             "tax_ids",
             "l10n_nl_vat_statement_include",
             "tax_tag_ids",

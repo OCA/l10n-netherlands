@@ -64,7 +64,6 @@
                             <field
                                 name="parent_id"
                                 attrs="{'invisible': [('parent_id', '=', False)]}"
-                                groups="base.group_multi_company"
                             />
                             <field
                                 name="display_multicompany_fiscal_unit"
@@ -82,10 +81,6 @@
                                 domain="[('parent_id', '=', company_id)]"
                                 attrs="{'readonly': [('state','in',['posted','final'])],'invisible': [('multicompany_fiscal_unit', '=', False)]}"
                                 groups="base.group_multi_company"
-                            />
-                            <field
-                                name="date_range_id"
-                                attrs="{'readonly': [('state','in',['posted','final'])]}"
                             />
                             <label for="from_date" string="Date" />
                             <div class="o_row">
@@ -121,24 +116,30 @@
                     <notebook name="notebook">
                         <page name="statement" string="BTW Statement">
                             <group attrs="{'invisible': [('parent_id','=',False)]}">
-                                <div>Check the statement of the parent Company.</div>
+                                <span class="text-muted"> </span>
+                                <div
+                                    class="o_row o_row_readonly"
+                                >Check the statement of the parent Company.</div>
                             </group>
                             <group
                                 name="statement_lines"
                                 string="BTW Statement lines"
                                 attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}"
                             >
-                                <div
-                                    states="draft"
-                                >Press the Update button in order to recompute the statement lines!</div>
-                                <button
-                                    name="statement_update"
-                                    string="Update"
-                                    states="draft"
-                                    type="object"
-                                    class="oe_highlight"
-                                    icon="fa-repeat"
-                                />
+                                <span class="text-muted"> </span>
+                                <div class="o_row o_row_readonly">
+                                    <div
+                                        states="draft"
+                                    >Press the Update button in order to recompute the statement lines!</div>
+                                    <button
+                                        name="statement_update"
+                                        string="Update"
+                                        states="draft"
+                                        type="object"
+                                        class="oe_highlight"
+                                        icon="fa-repeat"
+                                    />
+                                </div>
                             </group>
                             <field
                                 name="line_ids"
@@ -175,6 +176,7 @@
                                     />
                                     <button
                                         name="view_base_lines"
+                                        title="View Base Lines"
                                         type="object"
                                         icon="fa-search-plus"
                                         attrs="{'invisible': ['|',('format_omzet', '=', False),('is_total', '=', True)]}"
@@ -185,6 +187,7 @@
                                     />
                                     <button
                                         name="view_tax_lines"
+                                        title="View Tax Lines"
                                         type="object"
                                         icon="fa-search-plus"
                                         attrs="{'invisible': ['|',('format_btw', '=', False),('is_total', '=', True)]}"
