@@ -16,10 +16,11 @@
                         <field name="l10n_nl_tax_invoice_basis" />
                     </div>
                     <div class="o_setting_right_pane">
-                        <label for="l10n_nl_tax_invoice_basis" />
+                        <span class="o_form_label">NL Tax Invoice Basis</span>
                         <span
                             class="fa fa-lg fa-building-o"
                             title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
                             groups="base.group_multi_company"
                         />
                         <div class="text-muted">

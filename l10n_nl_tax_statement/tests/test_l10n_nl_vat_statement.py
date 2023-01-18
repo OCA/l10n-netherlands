@@ -8,25 +8,11 @@ from dateutil.relativedelta import relativedelta
 import odoo
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.modules.module import get_resource_path
 from odoo.tests import Form
 from odoo.tests.common import TransactionCase
-from odoo.tools import convert_file
 
 
 class TestVatStatement(TransactionCase):
-    def _load(self, module, *args):
-        convert_file(
-            self.cr,
-            "l10n_nl",
-            get_resource_path(module, *args),
-            {},
-            "init",
-            False,
-            "test",
-            self.registry._assertion_report,
-        )
-
     def _create_company_children(self):
         self.company_child_1 = self.env["res.company"].create(
             {
@@ -45,98 +31,90 @@ class TestVatStatement(TransactionCase):
         )
         self.coa.try_loading(company=self.company_child_2, install_demo=False)
 
-    def setUp(self):
-        super().setUp()
-        self.eur = self.env.ref("base.EUR")
-        self.coa = self.env.ref("l10n_nl.l10nnl_chart_template", False)
-        self.coa = self.coa or self.env.ref(
-            "l10n_generic_coa.configurable_chart_template"
-        )
-        self.company_parent = self.env["res.company"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.eur = cls.env.ref("base.EUR")
+        cls.coa = cls.env.ref("l10n_nl.l10nnl_chart_template", False)
+        cls.coa = cls.coa or cls.env.ref("l10n_generic_coa.configurable_chart_template")
+        cls.company_parent = cls.env["res.company"].create(
             {
                 "name": "Parent Company",
-                "country_id": self.env.ref("base.nl").id,
-                "currency_id": self.eur.id,
+                "country_id": cls.env.ref("base.nl").id,
+                "currency_id": cls.eur.id,
             }
         )
-        self.env.user.company_id = self.company_parent
-        self.coa.try_loading(company=self.company_parent, install_demo=False)
+        cls.env.user.company_id = cls.company_parent
+        cls.coa.try_loading(company=cls.company_parent, install_demo=False)
 
-        self.env["l10n.nl.vat.statement"].search([]).unlink()
+        cls.env["l10n.nl.vat.statement"].search([]).unlink()
 
-        self.tag_1 = self.env["account.account.tag"].create(
+        cls.tag_1 = cls.env["account.account.tag"].create(
             {
                 "name": "+1a omzet",
                 "applicability": "taxes",
-                "country_id": self.env.ref("base.nl").id,
+                "country_id": cls.env.ref("base.nl").id,
             }
         )
-        self.tag_2 = self.env["account.account.tag"].create(
+        cls.tag_2 = cls.env["account.account.tag"].create(
             {
                 "name": "+1a btw",
                 "applicability": "taxes",
-                "country_id": self.env.ref("base.nl").id,
+                "country_id": cls.env.ref("base.nl").id,
             }
         )
-        self.tag_3 = self.env["account.account.tag"].create(
+        cls.tag_3 = cls.env["account.account.tag"].create(
             {
                 "name": "+2a omzet",
                 "applicability": "taxes",
-                "country_id": self.env.ref("base.nl").id,
+                "country_id": cls.env.ref("base.nl").id,
             }
         )
-        self.tag_4 = self.env["account.account.tag"].create(
+        cls.tag_4 = cls.env["account.account.tag"].create(
             {
                 "name": "-2a omzet",
                 "applicability": "taxes",
-                "country_id": self.env.ref("base.nl").id,
+                "country_id": cls.env.ref("base.nl").id,
             }
         )
-        self.tag_5 = self.env["account.account.tag"].create(
+        cls.tag_5 = cls.env["account.account.tag"].create(
             {
                 "name": "+3b omzet",
                 "applicability": "taxes",
-                "country_id": self.env.ref("base.nl").id,
+                "country_id": cls.env.ref("base.nl").id,
             }
         )
-        self.tag_6 = self.env["account.account.tag"].create(
+        cls.tag_6 = cls.env["account.account.tag"].create(
             {
                 "name": "+3b omzet d",
                 "applicability": "taxes",
-                "country_id": self.env.ref("base.nl").id,
+                "country_id": cls.env.ref("base.nl").id,
             }
         )
 
-        self.tax_1 = self.env["account.tax"].create(
-            {"name": "Tax 1", "amount": 21, "country_id": self.env.ref("base.nl").id}
+        cls.tax_1 = cls.env["account.tax"].create(
+            {"name": "Tax 1", "amount": 21, "country_id": cls.env.ref("base.nl").id}
         )
-        self.tax_1.invoice_repartition_line_ids[0].tag_ids = self.tag_1
-        self.tax_1.invoice_repartition_line_ids[1].tag_ids = self.tag_2
+        cls.tax_1.invoice_repartition_line_ids[0].tag_ids = cls.tag_1
+        cls.tax_1.invoice_repartition_line_ids[1].tag_ids = cls.tag_2
 
-        self.tax_2 = self.env["account.tax"].create(
-            {"name": "Tax 2", "amount": 21, "country_id": self.env.ref("base.nl").id}
+        cls.tax_2 = cls.env["account.tax"].create(
+            {"name": "Tax 2", "amount": 21, "country_id": cls.env.ref("base.nl").id}
         )
-        self.tax_2.invoice_repartition_line_ids[0].tag_ids = self.tag_3
-        self.tax_2.invoice_repartition_line_ids[1].tag_ids = self.tag_4
+        cls.tax_2.invoice_repartition_line_ids[0].tag_ids = cls.tag_3
+        cls.tax_2.invoice_repartition_line_ids[1].tag_ids = cls.tag_4
 
-        self.statement_1 = self.env["l10n.nl.vat.statement"].create(
+        cls.statement_1 = cls.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
         )
 
     def _create_test_invoice(self):
         self.company_parent.compute_account_tax_fiscal_country()
-        journal = self.env["account.journal"].create(
-            {
-                "name": "Journal 1",
-                "code": "Jou1",
-                "type": "sale",
-                "company_id": self.company_parent.id,
-            }
-        )
+
         partner = self.env["res.partner"].create({"name": "Test partner"})
-        account_receivable = self.env["account.account"].create(
+        self.env["account.account"].create(
             {
-                "user_type_id": self.env.ref("account.data_account_type_expenses").id,
+                "account_type": "expense",
                 "code": "EXPTEST",
                 "name": "Test expense account",
             }
@@ -145,18 +123,16 @@ class TestVatStatement(TransactionCase):
             self.env["account.move"].with_context(default_move_type="out_invoice")
         )
         invoice_form.partner_id = partner
-        invoice_form.journal_id = journal
+
         with invoice_form.invoice_line_ids.new() as line:
             line.name = "Test line"
             line.quantity = 1.0
-            line.account_id = account_receivable
             line.price_unit = 100.0
             line.tax_ids.clear()
             line.tax_ids.add(self.tax_1)
         with invoice_form.invoice_line_ids.new() as line:
             line.name = "Test line"
             line.quantity = 1.0
-            line.account_id = account_receivable
             line.price_unit = 50.0
             line.tax_ids.clear()
             line.tax_ids.add(self.tax_2)
@@ -164,17 +140,9 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(len(self.invoice_1.line_ids), 5)
 
     def test_01_onchange(self):
-        daterange_type = self.env["date.range.type"].create({"name": "Type 1"})
-        daterange = self.env["date.range"].create(
-            {
-                "name": "Daterange 1",
-                "type_id": daterange_type.id,
-                "date_start": "2016-01-01",
-                "date_end": "2016-12-31",
-            }
-        )
         form = Form(self.statement_1)
-        form.date_range_id = daterange
+        form.from_date = datetime.date(2016, 1, 1)
+        form.to_date = datetime.date(2016, 12, 31)
         statement = form.save()
         self.assertEqual(statement.from_date, datetime.date(2016, 1, 1))
         self.assertEqual(statement.to_date, datetime.date(2016, 12, 31))
