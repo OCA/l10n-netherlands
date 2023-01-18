@@ -37,13 +37,8 @@ class VatStatement(models.Model):
         readonly=True,
         default=lambda self: self.env.company,
     )
-    from_date = fields.Date(
-        required=True, store=True, readonly=False, compute="_compute_date_range"
-    )
-    to_date = fields.Date(
-        required=True, store=True, readonly=False, compute="_compute_date_range"
-    )
-    date_range_id = fields.Many2one("date.range", "Date range")
+    from_date = fields.Date(required=True)
+    to_date = fields.Date(required=True)
     currency_id = fields.Many2one("res.currency", related="company_id.currency_id")
     date_posted = fields.Datetime(readonly=True)
     date_update = fields.Datetime(readonly=True)
@@ -206,15 +201,6 @@ class VatStatement(models.Model):
         defaults.setdefault("to_date", fy_dates["date_to"])
         defaults.setdefault("name", self.env.company.name)
         return defaults
-
-    @api.depends("date_range_id")
-    def _compute_date_range(self):
-        for statement in self:
-            if statement.date_range_id and statement.state == "draft":
-                statement.from_date = statement.date_range_id.date_start
-                statement.to_date = statement.date_range_id.date_end
-            statement.from_date = statement.from_date
-            statement.to_date = statement.to_date
 
     @api.depends("from_date", "to_date")
     def _compute_name(self):
@@ -482,10 +468,10 @@ class VatStatement(models.Model):
         self.unreported_move_ids.filtered(
             lambda m: m.l10n_nl_vat_statement_include
         ).write({"l10n_nl_vat_statement_id": self.id})
-        self.unreported_move_ids.flush()
+        self.unreported_move_ids.flush_recordset()
         move_lines = self._compute_move_lines()
         move_lines.move_id.write({"l10n_nl_vat_statement_id": self.id})
-        move_lines.move_id.flush()
+        move_lines.move_id.flush_recordset()
 
     def _get_move_lines_domain(self):
         domain = self._init_move_line_domain()
