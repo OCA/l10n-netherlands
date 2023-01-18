@@ -4,4 +4,4 @@ the protection of persons info.
 
 To be able to see the BSN number, give the proper permits to the user:
 
-* User must belong to the "Employees Officer" group
+* User must belong at least to the "Officer : Manage all employees" group
