@@ -23,12 +23,13 @@ Organisatie-identificatienummer (OIN)
     :target: https://runbot.odoo-community.org/runbot/176/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module adds the Dutch `Organisatie-identificatienummer (OIN)` field
+This module validates the Dutch `Organisatie-identificatienummer (OIN)` field
 on partner forms.
 
-The field is visible when the field ``company_type`` is set to ``Company``.
+The field is visible when the field ``company_type`` is set to ``Company``
+and when the Country is ``The Netherlands``.
 
 A double check on the OIN is done when inserting/modifying its value:
 
@@ -92,7 +93,7 @@ promote its widespread use.
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-astirpe| 
+|maintainer-astirpe|
 
 This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/14.0/l10n_nl_oin>`_ project on GitHub.
 
