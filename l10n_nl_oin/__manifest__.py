@@ -3,7 +3,7 @@
 
 {
     "name": "Organisatie-identificatienummer (OIN)",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Dutch Localization",
     "license": "AGPL-3",
     "summary": "Adds Dutch OIN field",
