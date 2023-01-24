@@ -3,13 +3,13 @@
 
 {
     "name": "Organisatie-identificatienummer (OIN)",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Dutch Localization",
     "license": "AGPL-3",
     "summary": "Adds Dutch OIN field",
     "author": "Onestein, Odoo Community Association (OCA)",
     "maintainers": ["astirpe"],
     "website": "https://github.com/OCA/l10n-netherlands",
-    "data": ["views/res_partner.xml"],
+    "depends": ["l10n_nl"],
     "installable": True,
 }

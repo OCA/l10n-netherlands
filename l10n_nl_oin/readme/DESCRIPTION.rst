@@ -1,7 +1,8 @@
-This module adds the Dutch `Organisatie-identificatienummer (OIN)` field
+This module validates the Dutch `Organisatie-identificatienummer (OIN)` field
 on partner forms.
 
-The field is visible when the field ``company_type`` is set to ``Company``.
+The field is visible when the field ``company_type`` is set to ``Company``
+and when the Country is ``The Netherlands``.
 
 A double check on the OIN is done when inserting/modifying its value:
 

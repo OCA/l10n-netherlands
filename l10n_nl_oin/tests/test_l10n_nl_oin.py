@@ -18,9 +18,9 @@ class TestOin(TransactionCase):
         )
 
     def test_01_oin_not_valid(self):
-        self.partner_oin.nl_oin = "123"
+        self.partner_oin.l10n_nl_oin = "123"
         res = self.partner_oin.onchange_nl_oin()
-        self.assertEqual(self.partner_oin.nl_oin, "123")
+        self.assertEqual(self.partner_oin.l10n_nl_oin, "123")
         warning = res.get("warning")
         self.assertTrue(warning)
         message = warning.get("message")
@@ -32,9 +32,9 @@ class TestOin(TransactionCase):
         self.assertEqual(title, "Warning!")
 
     def test_02_oin_valid(self):
-        self.partner_oin.nl_oin = "12345678901234567890"
+        self.partner_oin.l10n_nl_oin = "12345678901234567890"
         res = self.partner_oin.onchange_nl_oin()
-        self.assertEqual(self.partner_oin.nl_oin, "12345678901234567890")
+        self.assertEqual(self.partner_oin.l10n_nl_oin, "12345678901234567890")
         warning = res.get("warning")
         self.assertFalse(warning)
 
@@ -42,11 +42,11 @@ class TestOin(TransactionCase):
         new_partner_oin = self.env["res.partner"].create(
             {
                 "name": "Partner with OIN - NEW",
-                "nl_oin": "12345678901234567890",
+                "l10n_nl_oin": "12345678901234567890",
                 "company_id": self.env.company.id,
             }
         )
-        self.partner_oin.nl_oin = "12345678901234567890"
+        self.partner_oin.l10n_nl_oin = "12345678901234567890"
         res = self.partner_oin.onchange_nl_oin()
         self.assertTrue(res.get("warning"))
         warning = new_partner_oin._warn_oin_existing()
@@ -62,13 +62,3 @@ class TestOin(TransactionCase):
         self.assertTrue(title)
         self.assertEqual(title, "Warning!")
         self.assertEqual(title, res["warning"]["title"])
-
-    def test_03_oin_display(self):
-        self.assertTrue(self.partner_oin.nl_oin_display)
-
-        self.partner_oin.country_id = self.env.ref("base.be")
-        self.assertFalse(self.partner_oin.nl_oin_display)
-
-        self.partner_oin.country_id = self.env.ref("base.nl")
-        self.partner_oin.company_type = "person"
-        self.assertFalse(self.partner_oin.nl_oin_display)
