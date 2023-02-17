@@ -1,2 +1,4 @@
+# for tests l10n_nl_location_nuts
+vcrpy<5.0.0
 # generated from manifests external_dependencies
 python-stdnum
