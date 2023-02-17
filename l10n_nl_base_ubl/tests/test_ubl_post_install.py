@@ -4,11 +4,11 @@
 from lxml import etree
 
 import odoo
-from odoo.tests.common import Form, HttpCase
+from odoo.tests.common import Form, TransactionCase
 
 
 @odoo.tests.tagged("post_install", "-at_install")
-class TestUblInvoice(HttpCase):
+class TestUblInvoice(TransactionCase):
     def setUp(self):
         super().setUp()
         with Form(

@@ -4,10 +4,10 @@
 from lxml import etree
 from mock import patch
 
-from odoo.tests.common import Form, HttpCase
+from odoo.tests.common import Form, TransactionCase
 
 
-class TestUblInvoice(HttpCase):
+class TestUblInvoice(TransactionCase):
     def setUp(self):
         super().setUp()
         with Form(
