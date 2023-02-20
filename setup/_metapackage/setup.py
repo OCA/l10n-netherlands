@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo13-addon-l10n_nl_location_nuts',
         'odoo13-addon-l10n_nl_mis_reports',
         'odoo13-addon-l10n_nl_oin',
+        'odoo13-addon-l10n_nl_partner_name',
         'odoo13-addon-l10n_nl_postcode',
         'odoo13-addon-l10n_nl_tax_invoice_basis',
         'odoo13-addon-l10n_nl_tax_statement',
