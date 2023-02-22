@@ -116,19 +116,16 @@ class XafAuditfileExport(models.Model):
         m0 = memory_info()
         self.date_generated = fields.Datetime.now()
         auditfile_template = self._get_auditfile_template()
-        xml = self.env["ir.ui.view"]._render_template(
-            auditfile_template, values={"self": self}
+        xml = self.env["ir.qweb"]._render(
+            auditfile_template, {"self": self}, minimal_qcontext=True
         )
-        # the following is dealing with the fact that qweb templates don't like
-        # namespaces, but we need the correct namespaces for validation
+        # convert to string and prepend XML encoding declaration
         xml = (
-            xml.decode()
+            xml.unescape()
             .strip()
             .replace(
-                "<auditfile>",
-                '<?xml version="1.0" encoding="UTF-8"?>'
-                '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                'xmlns="http://www.auditfiles.nl/XAF/3.2">',
+                "<auditfile ",
+                '<?xml version="1.0" encoding="UTF-8"?>\n<auditfile ',
                 1,
             )
         )
