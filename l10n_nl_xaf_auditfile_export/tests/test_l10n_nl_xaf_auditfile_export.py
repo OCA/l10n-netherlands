@@ -160,7 +160,7 @@ class TestXafAuditfileExport(TransactionCase):
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
-        self.assertTrue(parsed_line_count == line_count)
+        self.assertEqual(parsed_line_count, line_count)
 
         # archive all journals
         all_journals = record.get_journals()
@@ -173,7 +173,8 @@ class TestXafAuditfileExport(TransactionCase):
 
         line_count_after = record_after.get_move_line_count()
         parsed_count_after = get_transaction_line_count_from_xml(record_after.auditfile)
-        self.assertTrue(parsed_line_count == parsed_count_after == line_count_after)
+        self.assertEqual(parsed_line_count, parsed_count_after)
+        self.assertEqual(parsed_count_after, line_count_after)
 
     def test_07_do_not_include_section_and_note_move_lines(self):
         """Do not include Section and Note move lines"""
