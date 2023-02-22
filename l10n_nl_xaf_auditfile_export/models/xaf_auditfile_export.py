@@ -413,16 +413,14 @@ class XafAuditfileExport(models.Model):
 
     def get_move_line_count(self):
         """return amount of move lines"""
-        self.env.cr.execute(
-            "select count(*) from account_move_line "
-            "where date >= %s "
-            "and date <= %s "
-            "and parent_state = 'posted' "
-            "and display_type NOT IN ('line_section', 'line_note') "
-            "and company_id = %s",
-            (self.date_start, self.date_end, self.company_id.id),
-        )
-        return self.env.cr.fetchall()[0][0]
+        domain = [
+            ("date", ">=", self.date_start),
+            ("date", "<=", self.date_end),
+            ("parent_state", "=", "posted"),
+            ("display_type", "not in", ("line_section", "line_note")),
+            ("company_id", "=", self.company_id.id),
+        ]
+        return self.env["account.move.line"].search_count(domain)
 
     def get_move_line_total_debit(self):
         """return total debit of move lines"""
