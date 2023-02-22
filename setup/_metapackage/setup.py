@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo14-addon-l10n_nl_account_tax_unece',
         'odoo14-addon-l10n_nl_bank',
         'odoo14-addon-l10n_nl_bsn',
+        'odoo14-addon-l10n_nl_business_document_import',
         'odoo14-addon-l10n_nl_oin',
         'odoo14-addon-l10n_nl_postcode',
         'odoo14-addon-l10n_nl_tax_statement',
