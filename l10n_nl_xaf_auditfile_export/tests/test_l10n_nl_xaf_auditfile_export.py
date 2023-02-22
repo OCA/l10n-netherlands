@@ -52,7 +52,7 @@ class TestXafAuditfileExport(TransactionCase):
                 {"name": "product test", "standard_price": 800.0}
             )
         self.invoice = move_form.save()
-        self.invoice.post()
+        self.invoice.action_post()
 
     def test_01_default_values(self):
         """Check that the default values are filled on creation"""
