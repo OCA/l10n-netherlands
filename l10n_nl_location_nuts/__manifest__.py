@@ -10,7 +10,6 @@
     "author": "Onestein, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["base_location_nuts"],
-    "external_dependencies": {"python": ["vcrpy"]},
     "post_init_hook": "post_init_hook",
     "installable": True,
 }

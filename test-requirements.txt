@@ -1,0 +1,2 @@
+# for testing of l10n_nl_location_nuts
+vcrpy<5.0.0
