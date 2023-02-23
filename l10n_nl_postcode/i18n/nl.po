@@ -22,6 +22,7 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: l10n_nl_postcode
+#. odoo-python
 #: code:addons/l10n_nl_postcode/models/res_partner.py:0
 #: code:addons/l10n_nl_postcode/tests/test_l10n_nl_postcode.py:0
 #, python-format
@@ -29,6 +30,7 @@ msgid "The Postcode you entered (%s) is not valid."
 msgstr "De ingevoerde postcode (%s) is onjuist."
 
 #. module: l10n_nl_postcode
+#. odoo-python
 #: code:addons/l10n_nl_postcode/models/res_partner.py:0
 #: code:addons/l10n_nl_postcode/tests/test_l10n_nl_postcode.py:0
 #, python-format
