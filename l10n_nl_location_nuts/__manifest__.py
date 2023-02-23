@@ -4,7 +4,7 @@
 {
     "name": "NUTS Regions for Netherlands",
     "summary": "NUTS specific options for Netherlands",
-    "version": "13.0.1.0.2",
+    "version": "13.0.1.1.0",
     "category": "Localisation/Europe",
     "website": "https://github.com/OCA/l10n-netherlands",
     "author": "Onestein, Odoo Community Association (OCA)",
