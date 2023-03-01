@@ -353,7 +353,7 @@ class XafAuditfileExport(models.Model):
             "and l.company_id = %s "
             "and l.parent_state = 'posted' "
             "and t.include_initial_balance = true "
-            "and t.id != %s"
+            "and t.id != %s "
             "group by a.id, a.code",
             (self.date_start, self.company_id.id, cye_type_id),
         )
