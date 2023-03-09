@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo-addon-l10n_nl_bsn>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_postcode>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_tax_statement>=15.0dev,<15.1dev',
+        'odoo-addon-l10n_nl_xaf_auditfile_export>=15.0dev,<15.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
