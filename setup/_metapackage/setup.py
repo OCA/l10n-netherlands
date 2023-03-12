@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-l10n-netherlands Odoo addons",
     version=version,
     install_requires=[
+        'odoo-addon-l10n_nl_bank>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_bsn>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_postcode>=16.0dev,<16.1dev',
     ],
