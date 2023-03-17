@@ -1,4 +1,4 @@
-# Copyright 2015 Therp BV <https://therp.nl>
+# Copyright 2015-2023 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import base64
@@ -17,6 +17,62 @@ from dateutil.rrule import MONTHLY, rrule
 from lxml import etree
 
 from odoo import _, api, exceptions, fields, models, modules, release
+
+STATEMENT_UNDIVIDED_PROFIT_BALANCE = """
+SELECT SUM(l.balance)
+ FROM account_move_line l
+ JOIN account_account a
+   ON l.account_id = a.id
+ JOIN account_account_type t
+   ON a.user_type_id = t.id
+ WHERE l.parent_state = 'posted'
+   AND l.date < %(date_start)s
+   AND l.company_id = %(company_id)s
+   AND (
+       t.include_initial_balance = false
+       OR t.id = %(current_year_earnings_type)s
+   )
+"""
+
+STATEMENT_UNDIVIDED_PROFIT_ACCOUNT = """
+WITH find_undivided_profit_code AS (
+SELECT COALESCE (
+(
+ -- Try specific account
+ SELECT MAX(a.code)
+ FROM account_account a
+ WHERE company_id = %(company_id)s
+   AND a.user_type_id = %(current_year_earnings_type)s
+   AND a.id IN (
+       SELECT l.account_id
+       FROM account_move_line l
+       WHERE l.parent_state = 'posted'
+         AND l.date < %(date_start)s
+      )
+ ),
+ (
+ -- use fallback account
+ SELECT MAX(a.code)
+ FROM account_account a
+ JOIN account_account_type t
+   ON a.user_type_id = t.id
+ WHERE a.company_id = %(company_id)s
+   AND t.include_initial_balance = false
+   AND a.id IN (
+       SELECT l.account_id
+       FROM account_move_line l
+       WHERE l.parent_state = 'posted'
+         AND l.date < %(date_start)s
+      )
+ )
+) as max_code
+)
+SELECT a.id, c.max_code
+ FROM find_undivided_profit_code c
+ JOIN account_account a
+   ON c.max_code = a.code
+  AND a.company_id = %(company_id)s
+"""
 
 
 def chunks(items, n=None):
@@ -262,42 +318,27 @@ class XafAuditfileExport(models.Model):
             "and l.account_id = a.id "
             "and l.parent_state = 'posted' "
             "and l.date < %s "
-            "and l.company_id=%s "
+            "and l.company_id = %s "
             "and t.include_initial_balance = true "
-            "and t.id!=%s",
+            "and t.id != %s",
             (self.date_start, self.company_id.id, cye_type_id),
         )
-        row = self.env.cr.fetchall()[0]
+        row = self.env.cr.fetchone()
+        credit, debit, account_count = (
+            (row[0] or 0.0, row[1] or 0.0, row[2] or 0) if row else (0.0, 0.0, 0)
+        )
         # correct for hitherto undistributed profits
-        self.env.cr.execute(
-            "select sum(l.balance)"
-            "from account_move_line l, account_account a, "
-            "     account_account_type t "
-            "where a.user_type_id = t.id "
-            "and l.account_id = a.id "
-            "and l.parent_state = 'posted' "
-            "and l.date < %s "
-            "and l.company_id=%s "
-            "and (t.include_initial_balance = false or t.id=%s)",
-            (self.date_start, self.company_id.id, cye_type_id),
+        undistributed_profits = self._get_undistributed_profits()
+        creditcor, debitcor = (
+            (-undistributed_profits, 0.0)
+            if undistributed_profits < 0.0
+            else (0.0, undistributed_profits)
         )
-        row2 = self.env.cr.fetchall()[0]
-        if not row2[0]:
-            row2 = (0,)
-        if row2[0] < 0:
-            creditcor = -row2[0]
-            debitcor = 0.0
-        else:
-            creditcor = 0.0
-            debitcor = row2[0]
-        if round(row2[0], 2) == 0:
-            countcor = 0
-        else:
-            countcor = 1
+        countcor = 1 if undistributed_profits else 0
         return dict(
-            credit=round((row[0] or 0.0) + creditcor, 2),
-            debit=round((row[1] or 0.0) + debitcor, 2),
-            count=(row[2] or 0) + countcor,
+            credit=round(credit + creditcor, 2),
+            debit=round(debit + debitcor, 2),
+            count=account_count + countcor,
         )
 
     def get_ob_lines(self):
@@ -309,45 +350,59 @@ class XafAuditfileExport(models.Model):
             "     account_account_type t "
             "where a.user_type_id = t.id "
             "and a.id = l.account_id and l.date < %s "
-            "and l.company_id=%s "
+            "and l.company_id = %s "
             "and l.parent_state = 'posted' "
             "and t.include_initial_balance = true "
-            "and t.id!=%s"
+            "and t.id != %s"
             "group by a.id, a.code",
             (self.date_start, self.company_id.id, cye_type_id),
         )
         results = self.env.cr.fetchall()
-        # add line for undistributed profits if any and
-        # put it on account with higest code
-        self.env.cr.execute(
-            "select max(a.code),sum(l.balance)"
-            "from account_move_line l, account_account a, "
-            "     account_account_type t "
-            "where a.user_type_id = t.id "
-            "and l.account_id = a.id "
-            "and l.parent_state = 'posted' "
-            "and l.date < %s "
-            "and l.company_id=%s "
-            "and (t.include_initial_balance = false or t.id=%s)",
-            (self.date_start, self.company_id.id, cye_type_id),
-        )
-        row = self.env.cr.fetchall()[0]
-        if round(row[1] or 0.0, 2) != 0:
-            # get corresponding account id
-            aid = (
-                self.env["account.account"]
-                .search(
-                    [("code", "=", row[0]), ("company_id", "=", self.company_id.id)]
-                )
-                .id
-            )
-            results.insert(len(results), [aid, row[0], row[1]])
+        # Add line for undistributed profits if any.
+        undistributed_profits = self._get_undistributed_profits()
+        if undistributed_profits:
+            # Now need to find the right account to book them
+            row = self._get_undistributed_profit_account()
+            if row and row[0]:
+                account_id = row[0]
+                account_code = row[1]
+                results.append([account_id, account_code, undistributed_profits])
         for result in results:
             yield dict(
                 account_id=result[0],
                 account_code=result[1],
                 balance=round(result[2], 2),
             )
+
+    def _get_undistributed_profits(self):
+        """Get amount of undistributed profits."""
+        cye_type_id = self.env.ref("account.data_unaffected_earnings").id
+        self.env.cr.execute(
+            STATEMENT_UNDIVIDED_PROFIT_BALANCE,
+            dict(
+                company_id=self.company_id.id,
+                date_start=self.date_start,
+                current_year_earnings_type=cye_type_id,
+            ),
+        )
+        row = self.env.cr.fetchone()
+        if not row or not row[0]:
+            return 0.0
+        return round(row[0], 2)
+
+    def _get_undistributed_profit_account(self):
+        """Get the id and the code for the undistributed profit account."""
+        cye_type_id = self.env.ref("account.data_unaffected_earnings").id
+        self.env.cr.execute(
+            STATEMENT_UNDIVIDED_PROFIT_ACCOUNT,
+            dict(
+                company_id=self.company_id.id,
+                date_start=self.date_start,
+                current_year_earnings_type=cye_type_id,
+            ),
+        )
+        row = self.env.cr.fetchone()
+        return row
 
     def get_move_line_count(self):
         """return amount of move lines"""
@@ -356,7 +411,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
-            "and company_id=%s",
+            "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )
         return self.env.cr.fetchall()[0][0]
@@ -368,7 +423,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
-            "and company_id=%s",
+            "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )
         return round(self.env.cr.fetchall()[0][0] or 0.0, 2)
@@ -380,7 +435,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
-            "and company_id=%s",
+            "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )
         return round(self.env.cr.fetchall()[0][0] or 0.0, 2)
