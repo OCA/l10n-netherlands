@@ -23,6 +23,13 @@
                         class="oe_highlight"
                         attrs="{'invisible': [('auditfile', '!=', False)]}"
                     />
+                    <button
+                        type="object"
+                        name="button_release"
+                        string="Release lock"
+                        groups="base.group_no_one"
+                        attrs="{'invisible': [('auditfile', '!=', False)]}"
+                    />
                 </header>
                 <sheet>
                     <group name="input_data">
