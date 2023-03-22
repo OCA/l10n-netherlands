@@ -20,6 +20,8 @@ from lxml import etree
 
 from odoo import _, api, exceptions, fields, models, modules, release
 
+_logger = logging.getLogger(__name__)
+
 STATEMENT_UNDIVIDED_PROFIT_BALANCE = """
 SELECT SUM(l.balance)
  FROM account_move_line l
@@ -77,7 +79,6 @@ SELECT a.id, c.max_code
    ON c.max_code = a.code
   AND a.company_id = %(company_id)s
 """
-
 
 # http://stackoverflow.com/questions/1707890/fast-way-to-filter-illegal-xml-unicode-chars-in-python  # noqa: B950
 ILLEGAL_RANGES = [
@@ -163,7 +164,6 @@ class XafAuditfileExport(models.Model):
         readonly=True,
         default=lambda self: self.env.company,
     )
-
     unit4 = fields.Boolean(
         help="The Unit4 system expects a value for "
         '`<xsd:element name="docRef" ..>` of maximum 35 characters, '
@@ -240,18 +240,15 @@ class XafAuditfileExport(models.Model):
             with open(auditfile, "w+") as tmphandle:
                 tmphandle.write(xml)
             del xml
-
-            logging.getLogger(__name__).debug(
+            _logger.debug(
                 "Created an auditfile in %ss, using %sk memory",
                 int(time.time() - t0),
                 (memory_info() - m0) / 1024,
             )
-
             # Store in compressed format on the auditfile record
             zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
             with open(zip_path, "rb") as auditfile_zip:
                 self.auditfile = base64.b64encode(auditfile_zip.read())
-
             # Validate the generated XML
             xsd = etree.XMLSchema(
                 etree.parse(
@@ -270,14 +267,14 @@ class XafAuditfileExport(models.Model):
             zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
             with open(zip_path, "rb") as auditfile_zip:
                 self.auditfile = base64.b64encode(auditfile_zip.read())
-            logging.getLogger(__name__).debug(
+            _logger.debug(
                 "Created an auditfile in %ss, using %sk memory",
                 int(time.time() - t0),
                 (memory_info() - m0) / 1024,
             )
             self.auditfile_success = True
         except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
-            logging.getLogger(__name__).info(traceback.format_exc())
+            _logger.info(traceback.format_exc())
             self.message_post(body=e)
             self.auditfile_success = False
         finally:
@@ -352,7 +349,6 @@ class XafAuditfileExport(models.Model):
                     date_end=date_end,
                 )
             )
-
         return periods
 
     def get_taxes(self):
