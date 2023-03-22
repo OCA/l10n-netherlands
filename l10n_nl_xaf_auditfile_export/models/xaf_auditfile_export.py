@@ -206,9 +206,38 @@ class XafAuditfileExport(models.Model):
         return "l10n_nl_xaf_auditfile_export.auditfile_template"
 
     def button_generate(self):
+        """Generate, store and validate auditfile."""
+        tmpdir = mkdtemp()
+        try:
+            self._generate_audit_file(tmpdir)
+        except Exception as exception:
+            _logger.info(traceback.format_exc())
+            self.message_post(body=exception)
+        finally:
+            # tmpdir also contains uncompressed auditfile.
+            shutil.rmtree(tmpdir)
+
+    def _generate_audit_file(self, tmpdir):
+        """Generate audit file in directory passed, and then attach it to record."""
         t0 = time.time()
         m0 = memory_info()
+        self.auditfile_success = False
         self.date_generated = fields.Datetime.now()
+        xml = self._generateAuditFileXML()
+        auditfile_path = self._storeAuditFileXML(xml, tmpdir)
+        if not self.auditfile:
+            return
+        _logger.debug(
+            "Created an auditfile in %ss, using %sk memory",
+            int(time.time() - t0),
+            (memory_info() - m0) / 1024,
+        )
+        # Validate the generated XML
+        self._validateAuditFile(auditfile_path)
+        self.auditfile_success = True
+
+    def _generateAuditFileXML(self):
+        """Generate the xml contents for the audit file."""
         auditfile_template = self._get_auditfile_template()
         xml = self.env["ir.ui.view"]._render_template(
             auditfile_template, values={"self": self}
@@ -226,60 +255,51 @@ class XafAuditfileExport(models.Model):
                 1,
             )
         )
+        if self.env.context.get("dont_sanitize_xml"):
+            return xml
         # removes invalid characters from xml
-        if not self.env.context.get("dont_sanitize_xml"):
-            xml = xml.translate(UNICODE_SANITIZE_TRANSLATION)
+        return xml.translate(UNICODE_SANITIZE_TRANSLATION)
+
+    def _storeAuditFileXML(self, xml, tmpdir):
+        """Store the compressed contents of the xml in the record.
+
+        Return: path to auditfile.
+        """
         filename = self.name + ".xaf"
         filename = filename.replace(os.sep, " ")
-        tmpdir = mkdtemp()
-        auditfile = os.path.join(tmpdir, filename)
+        auditfile_path = os.path.join(tmpdir, filename)
         archivedir = mkdtemp()
         archive = os.path.join(archivedir, filename)
-        self.auditfile_success = False
         try:
-            with open(auditfile, "w+") as tmphandle:
+            with open(auditfile_path, "w+") as tmphandle:
                 tmphandle.write(xml)
             del xml
-            _logger.debug(
-                "Created an auditfile in %ss, using %sk memory",
-                int(time.time() - t0),
-                (memory_info() - m0) / 1024,
-            )
             # Store in compressed format on the auditfile record
             zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
             with open(zip_path, "rb") as auditfile_zip:
                 self.auditfile = base64.b64encode(auditfile_zip.read())
-            # Validate the generated XML
-            xsd = etree.XMLSchema(
-                etree.parse(
-                    open(
-                        modules.get_resource_path(
-                            "l10n_nl_xaf_auditfile_export",
-                            "data",
-                            "XmlAuditfileFinancieel3.2.xsd",
-                        )
+        except Exception as exception:
+            _logger.info(traceback.format_exc())
+            self.message_post(body=exception)
+        finally:
+            shutil.rmtree(archivedir)
+        return auditfile_path
+
+    def _validateAuditFile(self, auditfile_path):
+        """Validate auditfile with XSD."""
+        xsd = etree.XMLSchema(
+            etree.parse(
+                open(
+                    modules.get_resource_path(
+                        "l10n_nl_xaf_auditfile_export",
+                        "data",
+                        "XmlAuditfileFinancieel3.2.xsd",
                     )
                 )
             )
-            xsd.assertValid(etree.parse(auditfile))
-            del xsd
-            # Store in compressed format on the auditfile record
-            zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
-            with open(zip_path, "rb") as auditfile_zip:
-                self.auditfile = base64.b64encode(auditfile_zip.read())
-            _logger.debug(
-                "Created an auditfile in %ss, using %sk memory",
-                int(time.time() - t0),
-                (memory_info() - m0) / 1024,
-            )
-            self.auditfile_success = True
-        except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
-            _logger.info(traceback.format_exc())
-            self.message_post(body=e)
-            self.auditfile_success = False
-        finally:
-            shutil.rmtree(tmpdir)
-            shutil.rmtree(archivedir)
+        )
+        xsd.assertValid(etree.parse(auditfile_path))
+        del xsd
 
     def get_odoo_version(self):
         """return odoo version"""
