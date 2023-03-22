@@ -137,13 +137,14 @@ class XafAuditfileExport(models.Model):
 
     @api.depends("name", "auditfile")
     def _compute_auditfile_name(self):
-        for item in self:
-            item.auditfile_name = "%s.xaf" % item.name
-            if item.auditfile:
-                auditfile = base64.b64decode(item.auditfile)
+        for record in self:
+            filename = "%s.xaf" % record.name
+            record.auditfile_name = filename.replace(os.sep, " ")
+            if record.auditfile:
+                auditfile = base64.b64decode(record.auditfile)
                 zf = BytesIO(auditfile)
                 if zipfile.is_zipfile(zf):
-                    item.auditfile_name += ".zip"
+                    record.auditfile_name += ".zip"
 
     def _compute_fiscalyear_name(self):
         for auditfile in self:
@@ -208,6 +209,7 @@ class XafAuditfileExport(models.Model):
     def button_generate(self):
         """Generate, store and validate auditfile."""
         tmpdir = mkdtemp()
+        self._acquire_in_use()
         try:
             self._generate_audit_file(tmpdir)
         except Exception as exception:
@@ -216,6 +218,46 @@ class XafAuditfileExport(models.Model):
         finally:
             # tmpdir also contains uncompressed auditfile.
             shutil.rmtree(tmpdir)
+        self._release_in_use()
+
+    def _acquire_in_use(self):
+        """Lock record for this by current thread of process.
+
+        Use separate cursor, to force immediate visibility of update.
+        """
+        self.ensure_one()
+        lock_file_path = self._get_lockfile_path()
+        if os.path.exists(lock_file_path):
+            raise exceptions.UserError(
+                _("Generation of auditfile is already in progress.")
+            )
+        lock_info = "User {user} already generating auditfile {auditfile}".format(
+            user=self.env.user.display_name,
+            auditfile=self.name,
+        )
+        with open(lock_file_path, "w+") as tmphandle:
+            tmphandle.write(lock_info)
+
+    def button_release(self):
+        """Manually release lock."""
+        self._release_in_use()
+
+    def _release_in_use(self):
+        """Release record for this by current thread of process.
+
+        Use separate cursor, to force immediate visibility of update.
+        Ignore situation that record already is released.
+        """
+        self.ensure_one()
+        lock_file_path = self._get_lockfile_path()
+        if os.path.exists(lock_file_path):
+            os.remove(lock_file_path)
+
+    @api.model
+    def _get_lockfile_path(self):
+        """Get path for lockfile, used to prevent parallel execution."""
+        filestore_path = self.env["ir.attachment"]._filestore()
+        return os.path.join(filestore_path, "__lock_auditfile_export__")
 
     def _generate_audit_file(self, tmpdir):
         """Generate audit file in directory passed, and then attach it to record."""

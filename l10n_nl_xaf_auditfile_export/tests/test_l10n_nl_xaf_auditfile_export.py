@@ -10,6 +10,7 @@ from zipfile import ZipFile
 from lxml import etree
 
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tests.common import Form, TransactionCase
 from odoo.tools import mute_logger
@@ -61,7 +62,7 @@ class TestXafAuditfileExport(TransactionCase):
                 }
             )
         self.invoice = move_form.save()
-        self.invoice.post()
+        self.invoice.action_post()
 
     def test_01_default_values(self):
         """Check that the default values are filled on creation"""
@@ -221,3 +222,12 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_end)
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
+
+    @mute_logger("odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export")
+    def test_08_prevent_parallel_execution(self):
+        """Attempt at parallel execution should raise error."""
+        record = self.env["xaf.auditfile.export"].create({})
+        record._acquire_in_use()
+        with self.assertRaises(UserError):
+            record._acquire_in_use()
+        record._release_in_use()
