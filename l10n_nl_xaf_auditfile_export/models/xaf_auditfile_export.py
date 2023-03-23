@@ -208,6 +208,13 @@ class XafAuditfileExport(models.Model):
 
     def button_generate(self):
         """Generate, store and validate auditfile."""
+        # First check wether file is already there. Should not be possible, because of
+        # the locking, but there is a corner case for single threaded servers, where
+        # this button can be pressed after another sessions has already started the
+        # generation. Then this method will only run after the first job released the
+        # lock and finished processing.
+        if self.auditfile:
+            raise exceptions.UserError(_("Auditfile has already been generated."))
         tmpdir = mkdtemp()
         self._acquire_in_use()
         try:
