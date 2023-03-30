@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [l10n_nl_bank](l10n_nl_bank/) | 16.0.1.0.0 |  | Import all Dutch banks with BIC code
 [l10n_nl_bsn](l10n_nl_bsn/) | 16.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Burgerservicenummer (BSN) for Partners
 [l10n_nl_postcode](l10n_nl_postcode/) | 16.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Dutch postcode validation for Partners
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 16.0.1.0.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
