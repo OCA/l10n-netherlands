@@ -138,8 +138,9 @@
                 <customerSupplierHistory />
             </customerSupplier>
         </customersSuppliers>
-        <generalLedger>
-            <ledgerAccount t-foreach="self.get_accounts()" t-as="a">
+        <t t-set="accounts" t-value="self.get_accounts()" />
+        <generalLedger t-if="accounts">
+            <ledgerAccount t-foreach="accounts" t-as="a">
                 <accID><t t-esc="a.code" /></accID>
                 <accDesc><t
                                 t-esc="a.name"
