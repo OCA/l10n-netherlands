@@ -376,13 +376,13 @@ class XafAuditfileExport(models.Model):
 
     def _get_undistributed_profits(self):
         """Get amount of undistributed profits."""
-        cye_type_id = self.env.ref("account.data_unaffected_earnings").id
+        current_year_earnings_type = self.env.ref("account.data_unaffected_earnings")
         self.env.cr.execute(
             STATEMENT_UNDIVIDED_PROFIT_BALANCE,
             dict(
                 company_id=self.company_id.id,
                 date_start=self.date_start,
-                current_year_earnings_type=cye_type_id,
+                current_year_earnings_type=current_year_earnings_type.id,
             ),
         )
         row = self.env.cr.fetchone()
@@ -392,13 +392,13 @@ class XafAuditfileExport(models.Model):
 
     def _get_undistributed_profit_account(self):
         """Get the id and the code for the undistributed profit account."""
-        cye_type_id = self.env.ref("account.data_unaffected_earnings").id
+        current_year_earnings_type = self.env.ref("account.data_unaffected_earnings")
         self.env.cr.execute(
             STATEMENT_UNDIVIDED_PROFIT_ACCOUNT,
             dict(
                 company_id=self.company_id.id,
                 date_start=self.date_start,
-                current_year_earnings_type=cye_type_id,
+                current_year_earnings_type=current_year_earnings_type.id,
             ),
         )
         row = self.env.cr.fetchone()
