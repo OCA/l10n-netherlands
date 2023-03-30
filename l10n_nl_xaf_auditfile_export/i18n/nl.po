@@ -36,10 +36,11 @@ msgid "Auditfile"
 msgstr "Auditfile"
 
 #. module: l10n_nl_xaf_auditfile_export
+#. odoo-python
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:0
 #, python-format
-msgid "Auditfile %s %s"
-msgstr "Auditfile %s %s"
+msgid "Auditfile %(company_name)s %(current_datetime)s"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
@@ -69,18 +70,10 @@ msgstr "Aangemaakt op"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_generated
-msgid "Date generated"
-msgstr "Datum gegenereerd"
+msgid "Date Generated"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999__display_name
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9__display_name
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__display_name
 msgid "Display Name"
 msgstr "Weergave naam"
@@ -101,11 +94,6 @@ msgid "Followers"
 msgstr "Volgers"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Volgers (Kanalen)"
-
-#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Volgers (Partners)"
@@ -116,21 +104,17 @@ msgid "Generate auditfile"
 msgstr "Genereer auditfile"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999__id
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9__id
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__id
 msgid "ID"
 msgstr "ID"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction
-#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread
 msgid "If checked, new messages require your attention."
 msgstr "Indien aangevinkt vereisen nieuwe berichten uw aandacht."
 
@@ -146,14 +130,6 @@ msgid "Is Follower"
 msgstr "Is volger"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string10____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string15____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string20____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string30____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string35____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string50____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string999____last_update
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_ir_qweb_field_auditfile_string9____last_update
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export____last_update
 msgid "Last Modified on"
 msgstr "Laatst gewijzigd op"
@@ -214,11 +190,6 @@ msgid "Number of messages with delivery error"
 msgstr "Aantal berichten met aflever fouten"
 
 #. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Aantal ongelezen berichten"
-
-#. module: l10n_nl_xaf_auditfile_export
 #: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Odoo"
 msgstr "Odoo"
@@ -239,6 +210,7 @@ msgid "Start date"
 msgstr "Startdatum"
 
 #. module: l10n_nl_xaf_auditfile_export
+#. odoo-python
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:0
 #, python-format
 msgid "Starting date must be anterior ending date!"
@@ -261,16 +233,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__unit4
 msgid "Unit4"
 msgstr "Unit4"
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread
-msgid "Unread Messages"
-msgstr "Ongelezen Berichten"
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Ongelezen Berichten Teller"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__website_message_ids
@@ -327,3 +289,22 @@ msgstr "ir.qweb.field.auditfile.string9"
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string999
 msgid "ir.qweb.field.auditfile.string999"
 msgstr "ir.qweb.field.auditfile.string999"
+
+#, python-format
+#~ msgid "Auditfile %s %s"
+#~ msgstr "Auditfile %s %s"
+
+#~ msgid "Date generated"
+#~ msgstr "Datum gegenereerd"
+
+#~ msgid "Followers (Channels)"
+#~ msgstr "Volgers (Kanalen)"
+
+#~ msgid "Number of unread messages"
+#~ msgstr "Aantal ongelezen berichten"
+
+#~ msgid "Unread Messages"
+#~ msgstr "Ongelezen Berichten"
+
+#~ msgid "Unread Messages Counter"
+#~ msgstr "Ongelezen Berichten Teller"
