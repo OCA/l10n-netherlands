@@ -258,8 +258,10 @@ class XafAuditfileExport(models.Model):
 
     def get_accounts(self):
         """return recordset of accounts"""
-        return self.env["account.account"].search(
-            [("company_id", "=", self.company_id.id)]
+        return (
+            self.env["account.account"]
+            .sudo()
+            .search([("company_id", "=", self.company_id.id)])
         )
 
     @api.model
