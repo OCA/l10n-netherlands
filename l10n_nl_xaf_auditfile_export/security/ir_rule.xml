@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.rule" id="auditfile_company">
+        <field name="name">Auditfile export multi-company</field>
+        <field name="model_id" ref="model_xaf_auditfile_export" />
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

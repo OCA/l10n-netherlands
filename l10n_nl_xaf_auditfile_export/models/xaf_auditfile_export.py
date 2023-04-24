@@ -120,7 +120,11 @@ class XafAuditfileExport(models.Model):
         "Auditfile filename", compute="_compute_auditfile_name", store=True
     )
     date_generated = fields.Datetime("Date generated", readonly=True, copy=False)
-    company_id = fields.Many2one("res.company", required=True)
+    company_id = fields.Many2one(
+        "res.company",
+        readonly=True,
+        default=lambda self: self.env.company,
+    )
 
     unit4 = fields.Boolean(
         help="The Unit4 system expects a value for "
