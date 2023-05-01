@@ -11,6 +11,7 @@
     "summary": "Export XAF auditfiles for Dutch tax authorities",
     "depends": ["account"],
     "data": [
+        "security/ir_rule.xml",
         "security/ir.model.access.csv",
         "views/xaf_auditfile_export.xml",
         "views/templates.xml",
