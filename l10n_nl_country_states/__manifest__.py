@@ -4,6 +4,7 @@
     "name": "Dutch country states (Provincies)",
     "version": "11.0.1.0.1",
     "author": "Therp BV, Odoo Community Association (OCA)",
+    'website': 'https://github.com/OCA/l10n-netherlands',
     "license": "AGPL-3",
     "category": "Localization",
     "depends": [

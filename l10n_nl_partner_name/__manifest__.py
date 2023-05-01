@@ -5,6 +5,7 @@
     'version': '11.0.0.0.0',
     'author': 'Therp BV, Odoo Community Association (OCA)',
     'category': 'Contact management',
+    'website': 'https://github.com/OCA/l10n-netherlands',
     'depends': [
         'partner_firstname',
         'base_view_inheritance_extension',

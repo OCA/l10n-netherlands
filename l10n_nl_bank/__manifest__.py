@@ -7,7 +7,7 @@
     "category": "Localisation",
     "license": "AGPL-3",
     "author": "Odoo Experts, Odoo Community Association (OCA)",
-    "website": "https://www.odooexperts.nl",
+    "website": "https://github.com/OCA/l10n-netherlands",
     "depends": [
         "base",
     ],

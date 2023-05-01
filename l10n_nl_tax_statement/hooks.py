@@ -11,12 +11,23 @@ def pre_init_hook(cr):
     is required, as all values are empty).
     """
     logger = logging.getLogger(__name__)
-    table = "account_move_line"
-    for column, datatype in (
-            ("l10n_nl_vat_statement_id", "INTEGER"),
-            ("l10n_nl_vat_statement_include", "BOOLEAN")):
-        if not column_exists(cr, table, column):
-            logger.info("Precreating %s.%s", table, column)
-            cr.execute(
-                "ALTER TABLE {} ADD COLUMN {} {}".format(
-                    table, column, datatype))
+    if not column_exists(cr, "account_move_line", "l10n_nl_vat_statement_id"):
+        logger.info(
+            "Precreating %s.%s",
+            "account_move_line",
+            "l10n_nl_vat_statement_id"
+        )
+        cr.execute(
+            "ALTER TABLE account_move_line"
+            " ADD COLUMN l10n_nl_vat_statement_id INTEGER"
+        )
+    if not column_exists(cr, "account_move_line", "l10n_nl_vat_statement_include"):
+        logger.info(
+            "Precreating %s.%s",
+            "account_move_line",
+            "l10n_nl_vat_statement_include"
+        )
+        cr.execute(
+            "ALTER TABLE account_move_line"
+            " ADD COLUMN l10n_nl_vat_statement_include BOOLEAN"
+        )
