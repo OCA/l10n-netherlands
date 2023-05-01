@@ -118,7 +118,7 @@ class ResCompany(models.Model):
             ('model', '=', 'account.tax'),
             ('res_id', 'in', taxes.ids)
         ], ['name', 'res_id'])
-        map = {}
+        tax_map = {}
         for item in tax_data:
-            map[item['res_id']] = item['name']
-        return map
+            tax_map[item['res_id']] = item['name']
+        return tax_map

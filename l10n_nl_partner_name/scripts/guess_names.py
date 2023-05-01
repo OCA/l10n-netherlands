@@ -1,6 +1,6 @@
-#!/usr/bin/python
 # Copyright 2017 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# pylint: disable=eval-used,eval-referenced,print-used
 
 import argparse
 import xmlrpclib

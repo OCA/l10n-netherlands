@@ -7,7 +7,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.model
-    def _get_state_for_zip(self, country_id, state_id, zip):
+    def _get_state_for_zip(self, country_id, state_id, postal_code):
         """Get state for zip.
 
         If not Netherlands, just return present state, unless state is
@@ -28,8 +28,8 @@ class ResPartner(models.Model):
         # Check whether we can find state for zip, if we find one, any
         # state present in record will be overwritten
         zip_digits = 0
-        if zip:
-            zip_digits = int(''.join([n for n in zip if n.isdigit()]))
+        if postal_code:
+            zip_digits = int(''.join([n for n in postal_code if n.isdigit()]))
         if not zip_digits:
             return state_id
         return StateModel.search([

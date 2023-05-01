@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # this script is compatible with a python3 interpreter
 # this script generates the data file for postcode state mapping
+"""
+This expected input is an .xls file, passed as argument.
+The .xls file should contain the mapping of postcodes-provinces.
+Note: the records of the .xls MUST be sorted by postcode number!
+"""
 
 import argparse
 import xlrd
 
-'''
-This expected input is an .xls file, passed as argument.
-The .xls file should contain the mapping of postcodes-provinces.
-Note: the records of the .xls MUST be sorted by postcode number!
-'''
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file', type=open)
@@ -23,17 +23,18 @@ XLS_COLUMN_PROV = 1  # xls offset for column province
 
 def get_record_txt():
     global province
-    return str('<record id="zip_%s_%s" model="res.country.state.nl.zip">\n'
-               '    <field name="min_zip">%s</field>\n'
-               '    <field name="max_zip">%s</field>\n'
-               '    <field name="state_id" ref="state_%s" />\n'
-               '</record>\n'
-               ) % (
-               str(last_min_zip),
-               str(last_max_zip),
-               str(last_min_zip),
-               str(last_max_zip),
-               province,
+    return str(
+        '<record id="zip_%s_%s" model="res.country.state.nl.zip">\n'
+        '    <field name="min_zip">%s</field>\n'
+        '    <field name="max_zip">%s</field>\n'
+        '    <field name="state_id" ref="state_%s" />\n'
+        '</record>\n'
+        ) % (
+        str(last_min_zip),
+        str(last_max_zip),
+        str(last_min_zip),
+        str(last_max_zip),
+        province,
     )
 
 
@@ -63,4 +64,4 @@ for sheet in workbook.sheets():
             last_province = prov
 
     result_text += get_record_txt()
-    print(result_text)
+    print(result_text)  # pylint: disable=print-used
