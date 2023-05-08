@@ -26,6 +26,7 @@ SELECT SUM(l.balance)
  JOIN account_account_type t
    ON a.user_type_id = t.id
  WHERE l.parent_state = 'posted'
+   AND l.display_type NOT IN ('line_section', 'line_note')
    AND l.date < %(date_start)s
    AND l.company_id = %(company_id)s
    AND (
@@ -321,6 +322,7 @@ class XafAuditfileExport(models.Model):
             "where a.user_type_id = t.id "
             "and l.account_id = a.id "
             "and l.parent_state = 'posted' "
+            "and l.display_type NOT IN ('line_section', 'line_note') "
             "and l.date < %s "
             "and l.company_id = %s "
             "and t.include_initial_balance = true "
@@ -356,6 +358,7 @@ class XafAuditfileExport(models.Model):
             "and a.id = l.account_id and l.date < %s "
             "and l.company_id = %s "
             "and l.parent_state = 'posted' "
+            "and l.display_type NOT IN ('line_section', 'line_note') "
             "and t.include_initial_balance = true "
             "and t.id != %s "
             "group by a.id, a.code",
@@ -410,15 +413,14 @@ class XafAuditfileExport(models.Model):
 
     def get_move_line_count(self):
         """return amount of move lines"""
-        self.env.cr.execute(
-            "select count(*) from account_move_line "
-            "where date >= %s "
-            "and date <= %s "
-            "and parent_state = 'posted' "
-            "and company_id = %s",
-            (self.date_start, self.date_end, self.company_id.id),
-        )
-        return self.env.cr.fetchall()[0][0]
+        domain = [
+            ("date", ">=", self.date_start),
+            ("date", "<=", self.date_end),
+            ("parent_state", "=", "posted"),
+            ("display_type", "not in", ("line_section", "line_note")),
+            ("company_id", "=", self.company_id.id),
+        ]
+        return self.env["account.move.line"].search_count(domain)
 
     def get_move_line_total_debit(self):
         """return total debit of move lines"""
@@ -427,6 +429,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
+            "and display_type NOT IN ('line_section', 'line_note') "
             "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -439,6 +442,7 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
+            "and display_type NOT IN ('line_section', 'line_note') "
             "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )

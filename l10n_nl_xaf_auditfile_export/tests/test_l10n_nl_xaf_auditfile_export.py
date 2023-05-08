@@ -169,3 +169,27 @@ class TestXafAuditfileExport(TransactionCase):
         line_count_after = record_after.get_move_line_count()
         parsed_count_after = get_transaction_line_count_from_xml(record_after.auditfile)
         self.assertTrue(parsed_line_count == parsed_count_after == line_count_after)
+
+    def test_07_do_not_include_section_and_note_move_lines(self):
+        """Do not include Section and Note move lines"""
+        self.env["account.move.line"].create(
+            [
+                {
+                    "name": "Section test",
+                    "display_type": "line_section",
+                    "move_id": self.invoice.id,
+                },
+                {
+                    "name": "Note test",
+                    "display_type": "line_note",
+                    "move_id": self.invoice.id,
+                },
+            ]
+        )
+        record = self.env["xaf.auditfile.export"].create({})
+        record.button_generate()
+        self.assertTrue(record)
+
+        line_count = record.get_move_line_count()
+        parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
+        self.assertEqual(parsed_line_count, line_count)
