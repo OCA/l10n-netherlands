@@ -49,10 +49,10 @@
                             confirm="If you confirm, it will be not possible to modify this Statement or reset it back to draft anymore. Do you confirm?"
                         />
                     </div>
-                    <label for="name" />
-                    <h1>
-                        <field name="name" />
-                    </h1>
+                    <div class="oe_title" colspan="4">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
                     <group>
                         <group name="tax_report">
                             <field

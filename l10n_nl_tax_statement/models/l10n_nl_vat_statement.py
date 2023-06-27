@@ -199,18 +199,28 @@ class VatStatement(models.Model):
         fy_dates = self.env.company.compute_fiscalyear_dates(datetime.now())
         defaults.setdefault("from_date", fy_dates["date_from"])
         defaults.setdefault("to_date", fy_dates["date_to"])
-        defaults.setdefault("name", self.env.company.name)
+        defaults.setdefault(
+            "name",
+            self._statement_display_name(
+                self.env.company.name, fy_dates["date_from"], fy_dates["date_to"]
+            ),
+        )
         return defaults
 
     @api.depends("from_date", "to_date")
     def _compute_name(self):
         for statement in self:
-            display_name = statement.company_id.name
-            if statement.from_date and statement.to_date:
-                from_date = fields.Date.to_string(statement.from_date)
-                to_date = fields.Date.to_string(statement.to_date)
-                display_name += ": " + " ".join([from_date, to_date])
-            statement.name = display_name
+            statement.name = self._statement_display_name(
+                statement.company_id.name, statement.from_date, statement.to_date
+            )
+
+    @api.model
+    def _statement_display_name(self, display_name, from_date, to_date):
+        if from_date and to_date:
+            from_date = fields.Date.to_string(from_date)
+            to_date = fields.Date.to_string(to_date)
+            display_name += ": " + " ".join([from_date, to_date])
+        return display_name
 
     @api.depends("from_date")
     def _compute_unreported_move_from_date(self):
