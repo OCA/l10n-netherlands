@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "author": "Onestein, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",
-    "depends": ["l10n_nl_tax_statement"],
+    "depends": ["l10n_nl_tax_statement", "report_xlsx"],
     "data": [
         "security/ir.model.access.csv",
         "views/l10n_nl_vat_statement_view.xml",
