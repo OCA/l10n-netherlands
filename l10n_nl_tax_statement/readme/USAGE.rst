@@ -23,6 +23,10 @@ Printing a PDF report:
 
 #. If you need to print the report in PDF, open a statement form and click: `Print -> NL Tax Statement`
 
+Exporting a XLS report:
+
+#. If you need to export the report in XLSX, open a statement form and click: `Print -> NL Tax Statement XLS export`
+
 Multicompany fiscal unit:
 
 #. According the Dutch Tax Authority, for all the companies belonging to a
