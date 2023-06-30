@@ -535,3 +535,15 @@ class TestVatStatement(TransactionCase):
 
         company_ids_full_list = statement_parent._get_company_ids_full_list()
         self.assertEqual(len(company_ids_full_list), 3)
+
+    def test_21_action_xls(self):
+        """Generate XLS report from action"""
+        report = "l10n_nl_tax_statement.action_report_tax_statement_xls_export"
+        self.report_action = self.env.ref(report)
+        self.assertEqual(self.report_action.report_type, "xlsx")
+        model = self.env["report.%s" % self.report_action["report_name"]].with_context(
+            active_model="l10n.nl.vat.statement"
+        )
+        res = model.create_xlsx_report(self.statement_1.ids, data=None)
+        self.assertTrue(res[0])
+        self.assertEqual(res[1], "xlsx")
