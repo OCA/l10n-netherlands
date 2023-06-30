@@ -17,6 +17,7 @@ class VatStatementIcpLine(models.Model):
         readonly=True,
         required=True,
     )
+    partner_name = fields.Char(related="partner_id.name")
     vat = fields.Char(
         string="VAT",
         readonly=True,
@@ -25,6 +26,7 @@ class VatStatementIcpLine(models.Model):
         readonly=True,
     )
     currency_id = fields.Many2one("res.currency", readonly=True)
+    currency_name = fields.Char(related="currency_id.name", string="Currency Name")
     amount_products = fields.Monetary(readonly=True)
     format_amount_products = fields.Char(compute="_compute_icp_amount_format")
     amount_services = fields.Monetary(readonly=True)
