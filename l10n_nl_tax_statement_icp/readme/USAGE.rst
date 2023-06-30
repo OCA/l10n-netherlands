@@ -7,6 +7,10 @@ Printing a PDF report:
 
 #. If you need to print the report in PDF, open a statement form and click: `Print -> NL ICP Statement`
 
+Exporting in XLS:
+
+#. If you need to export the report in XLS format, open a statement form and click: `Print -> NL ICP Statement XLS export`
+
 Multicompany fiscal unit:
 
 #. In case one single tax statement is created for companies belonging to a

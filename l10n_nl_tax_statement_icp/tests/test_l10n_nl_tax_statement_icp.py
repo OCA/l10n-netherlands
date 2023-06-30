@@ -128,3 +128,15 @@ class TestTaxStatementIcp(TestVatStatement):
 
         with self.assertRaises(ValidationError):
             self.statement_with_icp.post()
+
+    def test_08_action_xls(self):
+        """Generate XLS report from action"""
+        report = "l10n_nl_tax_statement_icp.action_report_tax_statement_icp_xls_export"
+        self.report_action = self.env.ref(report)
+        self.assertEqual(self.report_action.report_type, "xlsx")
+        model = self.env["report.%s" % self.report_action["report_name"]].with_context(
+            active_model="l10n.nl.vat.statement"
+        )
+        res = model.create_xlsx_report(self.statement_1.ids, data=None)
+        self.assertTrue(res[0])
+        self.assertEqual(res[1], "xlsx")
