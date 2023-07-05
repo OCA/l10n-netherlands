@@ -55,13 +55,23 @@ class VatStatement(models.Model):
         return icp_line_vals
 
     def _is_3b_omzet_line(self, line):
-        if line.tax_tag_ids.filtered(lambda t: "3b" in t.name and "d" not in t.name):
-            return True
+        if line.tax_tag_ids.filtered(lambda t: "3b" in t.name):
+            if line.product_id and line.product_id.type != "service":
+                return True
+            if not line.product_id and line.tax_ids.filtered(
+                lambda t: "dienst" not in t.name
+            ):
+                return True
         return False
 
     def _is_3b_omzet_diensten_line(self, line):
-        if line.tax_tag_ids.filtered(lambda t: "3b" in t.name and "d" in t.name):
-            return True
+        if line.tax_tag_ids.filtered(lambda t: "3b" in t.name):
+            if line.product_id and line.product_id.type == "service":
+                return True
+            if not line.product_id and line.tax_ids.filtered(
+                lambda t: "dienst" in t.name
+            ):
+                return True
         return False
 
     def _get_partner_amounts_map(self):

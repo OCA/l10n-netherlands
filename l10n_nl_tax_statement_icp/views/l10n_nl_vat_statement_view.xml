@@ -12,17 +12,20 @@
             <xpath expr="//notebook" position="inside">
                 <page name="icp_statement" string="ICP Statement">
                     <group name="icp_lines" string="ICP Statement lines">
-                        <div states="posted">
-                            Press the Update button in order to recompute the lines!
+                        <span class="text-muted"> </span>
+                        <div class="o_row o_row_readonly">
+                            <div
+                                states="posted"
+                            >Press the Update button in order to recompute the lines!</div>
+                            <button
+                                name="icp_update"
+                                string="Update"
+                                states="posted"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-repeat"
+                            />
                         </div>
-                        <button
-                            name="icp_update"
-                            string="Update"
-                            states="posted"
-                            type="object"
-                            class="oe_highlight"
-                            icon="fa-repeat"
-                        />
                     </group>
                     <field name="icp_line_ids">
                         <tree editable="bottom" create="false" delete="false">
