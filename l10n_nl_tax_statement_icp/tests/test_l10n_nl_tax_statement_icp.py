@@ -14,7 +14,6 @@ class TestTaxStatementIcp(TestVatStatement):
         self.invoice_1._post()
         for invoice_line in self.invoice_1.invoice_line_ids:
             invoice_line.tax_tag_ids = self.tag_5
-        self.invoice_1._onchange_invoice_line_ids()
         self.statement_with_icp.statement_update()
 
     def test_02_no_tag_3b_omzet(self):
@@ -78,6 +77,8 @@ class TestTaxStatementIcp(TestVatStatement):
             self.assertEqual(float(amount_services), icp_line.amount_services)
 
     def test_05_icp_invoice_service(self):
+        self.tax_1.name = self.tax_1.name + " dienst"
+        self.tax_2.name = self.tax_2.name + " dienst"
         self._create_test_invoice()
         self.statement_1.post()
         self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
@@ -88,7 +89,6 @@ class TestTaxStatementIcp(TestVatStatement):
         self.invoice_1._post()
         for invoice_line in self.invoice_1.invoice_line_ids:
             invoice_line.tax_tag_ids = self.tag_6
-        self.invoice_1._onchange_invoice_line_ids()
         self.statement_with_icp.statement_update()
 
         self.statement_with_icp.post()
