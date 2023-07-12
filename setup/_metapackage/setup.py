@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-l10n_nl_bank>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_bsn>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_postcode>=16.0dev,<16.1dev',
+        'odoo-addon-l10n_nl_tax_statement>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_xaf_auditfile_export>=16.0dev,<16.1dev',
     ],
     classifiers=[
