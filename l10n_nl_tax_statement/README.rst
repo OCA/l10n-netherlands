@@ -17,7 +17,7 @@ Netherlands BTW Statement
     :target: https://github.com/OCA/l10n-netherlands/tree/16.0/l10n_nl_tax_statement
     :alt: OCA/l10n-netherlands
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-netherlands-15-0/l10n-netherlands-15-0-l10n_nl_tax_statement
+    :target: https://translation.odoo-community.org/projects/l10n-netherlands-16-0/l10n-netherlands-16-0-l10n_nl_tax_statement
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/176/16.0
@@ -100,6 +100,10 @@ Extra info about the workflow:
 Printing a PDF report:
 
 #. If you need to print the report in PDF, open a statement form and click: `Print -> NL Tax Statement`
+
+Exporting a XLS report:
+
+#. If you need to export the report in XLSX, open a statement form and click: `Print -> NL Tax Statement XLS export`
 
 Multicompany fiscal unit:
 
