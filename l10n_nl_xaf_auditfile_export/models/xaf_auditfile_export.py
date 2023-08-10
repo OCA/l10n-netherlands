@@ -26,7 +26,8 @@ SELECT SUM(l.balance)
  JOIN account_account_type t
    ON a.user_type_id = t.id
  WHERE l.parent_state = 'posted'
-   AND l.display_type NOT IN ('line_section', 'line_note')
+   AND (l.display_type IS NULL OR
+        l.display_type NOT IN ('line_section', 'line_note'))
    AND l.date < %(date_start)s
    AND l.company_id = %(company_id)s
    AND (
@@ -321,7 +322,8 @@ class XafAuditfileExport(models.Model):
             "where a.user_type_id = t.id "
             "and l.account_id = a.id "
             "and l.parent_state = 'posted' "
-            "and l.display_type NOT IN ('line_section', 'line_note') "
+            "and (l.display_type IS NULL OR"
+            "     l.display_type NOT IN ('line_section', 'line_note')) "
             "and l.date < %s "
             "and l.company_id = %s "
             "and t.include_initial_balance = true "
@@ -357,7 +359,8 @@ class XafAuditfileExport(models.Model):
             "and a.id = l.account_id and l.date < %s "
             "and l.company_id = %s "
             "and l.parent_state = 'posted' "
-            "and l.display_type NOT IN ('line_section', 'line_note') "
+            "and (l.display_type IS NULL OR"
+            "      l.display_type NOT IN ('line_section', 'line_note')) "
             "and t.include_initial_balance = true "
             "and t.id != %s "
             "group by a.id, a.code",
@@ -428,7 +431,8 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
-            "and display_type NOT IN ('line_section', 'line_note') "
+            "and (display_type IS NULL OR"
+            "     display_type NOT IN ('line_section', 'line_note')) "
             "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )
@@ -441,7 +445,8 @@ class XafAuditfileExport(models.Model):
             "where date >= %s "
             "and date <= %s "
             "and parent_state = 'posted' "
-            "and display_type NOT IN ('line_section', 'line_note') "
+            "and (display_type IS NULL OR"
+            "     display_type NOT IN ('line_section', 'line_note')) "
             "and company_id = %s",
             (self.date_start, self.date_end, self.company_id.id),
         )
