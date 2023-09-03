@@ -181,8 +181,8 @@ msgstr "Aantal fouten"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Aantal berichten welke actie vereisen"
+msgid "Number of messages requiring action"
+msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error_counter
@@ -289,6 +289,9 @@ msgstr "ir.qweb.field.auditfile.string9"
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string999
 msgid "ir.qweb.field.auditfile.string999"
 msgstr "ir.qweb.field.auditfile.string999"
+
+#~ msgid "Number of messages which requires an action"
+#~ msgstr "Aantal berichten welke actie vereisen"
 
 #, python-format
 #~ msgid "Auditfile %s %s"
