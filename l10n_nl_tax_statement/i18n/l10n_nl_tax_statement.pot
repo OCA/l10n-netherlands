@@ -89,7 +89,9 @@ msgid "Check the statement of the parent Company."
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__code
+#, python-format
 msgid "Code"
 msgstr ""
 
@@ -143,6 +145,12 @@ msgid "Date Update"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
+#, python-format
+msgid "Date from"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date posted"
 msgstr ""
@@ -151,6 +159,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__date_range_id
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement_filters
 msgid "Date range"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
+#, python-format
+msgid "Date to"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
@@ -398,7 +412,19 @@ msgid "NL Tax Statement"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement_xls_export
+msgid "NL Tax Statement XLS export"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model,name:l10n_nl_tax_statement.model_report_l10n_nl_tax_statement_report_tax_statement_xlsx
+msgid "NL Tax Statement XLSX report"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__name
+#, python-format
 msgid "Name"
 msgstr ""
 
@@ -510,7 +536,9 @@ msgid "To Date"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__omzet
+#, python-format
 msgid "Turnover"
 msgstr ""
 
@@ -541,7 +569,9 @@ msgid "Utility field to express amount currency"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__btw
+#, python-format
 msgid "VAT"
 msgstr ""
 
