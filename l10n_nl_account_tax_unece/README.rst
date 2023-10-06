@@ -10,9 +10,9 @@ L10n NL Account Tax UNECE
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
-    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-    :alt: License: AGPL-3
+.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+    :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
     :target: https://github.com/OCA/l10n-netherlands/tree/14.0/l10n_nl_account_tax_unece
     :alt: OCA/l10n-netherlands
@@ -23,7 +23,7 @@ L10n NL Account Tax UNECE
     :target: https://runbot.odoo-community.org/runbot/176/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module will auto-configure the values *UNECE Tax Type* and *UNECE Tax Category* on taxes that come from the *l10n_nl* module.
 
