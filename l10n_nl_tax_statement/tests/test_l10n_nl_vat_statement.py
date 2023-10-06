@@ -163,6 +163,18 @@ class TestVatStatement(TransactionCase):
         self.invoice_1 = invoice_form.save()
         self.assertEqual(len(self.invoice_1.line_ids), 5)
 
+    def _check_export_xls(self, statement):
+        """Generate XLS report from action"""
+        report = "l10n_nl_tax_statement.action_report_tax_statement_xls_export"
+        self.report_action = self.env.ref(report)
+        self.assertEqual(self.report_action.report_type, "xlsx")
+        model = self.env["report.%s" % self.report_action["report_name"]].with_context(
+            active_model="l10n.nl.vat.statement"
+        )
+        res = model.create_xlsx_report(statement.ids, data=None)
+        self.assertTrue(res[0])
+        self.assertEqual(res[1], "xlsx")
+
     def test_01_onchange(self):
         daterange_type = self.env["date.range.type"].create({"name": "Type 1"})
         daterange = self.env["date.range"].create(
@@ -191,6 +203,9 @@ class TestVatStatement(TransactionCase):
         new_date = d_from + relativedelta(months=-3, day=1)
         self.assertEqual(statement.unreported_move_from_date, new_date)
         self.assertEqual(statement.btw_total, 0.0)
+
+        # Export XLS without errors
+        self._check_export_xls(statement)
 
     def test_02_post_final(self):
         # in draft
@@ -231,6 +246,9 @@ class TestVatStatement(TransactionCase):
 
         self.assertEqual(self.statement_1.btw_total, 0.0)
 
+        # Export XLS without errors
+        self._check_export_xls(self.statement_1)
+
     def test_03_reset(self):
         self.statement_1.reset()
         self.assertEqual(self.statement_1.state, "draft")
@@ -243,12 +261,18 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.view_base_lines())
             self.assertTrue(line.view_tax_lines())
 
+        # Export XLS without errors
+        self._check_export_xls(self.statement_1)
+
     def test_04_write(self):
         self.statement_1.post()
         with self.assertRaises(UserError):
             self.statement_1.write({"name": "Test Name"})
 
         self.assertEqual(self.statement_1.btw_total, 0.0)
+
+        # Export XLS without errors
+        self._check_export_xls(self.statement_1)
 
     def test_05_unlink_exception(self):
         self.statement_1.post()
@@ -287,6 +311,9 @@ class TestVatStatement(TransactionCase):
 
         self.assertEqual(self.statement_1.btw_total, 21.0)
         self.assertEqual(self.statement_1.format_btw_total, "21.00")
+
+        # Export XLS without errors
+        self._check_export_xls(self.statement_1)
 
     def test_10_line_unlink_exception(self):
         self.assertEqual(len(self.statement_1.line_ids.ids), 0)
@@ -333,6 +360,9 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.view_base_lines())
             self.assertTrue(line.view_tax_lines())
 
+        # Export XLS without errors
+        self._check_export_xls(self.statement_1)
+
         invoice2 = self.invoice_1.copy()
         invoice2.action_post()
         statement2 = self.env["l10n.nl.vat.statement"].create({"name": "Statement 2"})
@@ -361,6 +391,9 @@ class TestVatStatement(TransactionCase):
         self.assertTrue(invoice_lines)
         with self.assertRaises(UserError):
             invoice_lines[0].date = fields.Date.today()
+
+        # Export XLS without errors
+        self._check_export_xls(statement2)
 
     def test_13_no_previous_statement_posted(self):
         statement2 = self.env["l10n.nl.vat.statement"].create({"name": "Statement 2"})
@@ -567,15 +600,3 @@ class TestVatStatement(TransactionCase):
 
         company_ids_full_list = statement_parent._get_company_ids_full_list()
         self.assertEqual(len(company_ids_full_list), 3)
-
-    def test_21_action_xls(self):
-        """Generate XLS report from action"""
-        report = "l10n_nl_tax_statement.action_report_tax_statement_xls_export"
-        self.report_action = self.env.ref(report)
-        self.assertEqual(self.report_action.report_type, "xlsx")
-        model = self.env["report.%s" % self.report_action["report_name"]].with_context(
-            active_model="l10n.nl.vat.statement"
-        )
-        res = model.create_xlsx_report(self.statement_1.ids, data=None)
-        self.assertTrue(res[0])
-        self.assertEqual(res[1], "xlsx")
