@@ -68,7 +68,6 @@ msgstr "De ingevoerde OIN (%s) is ongeldig."
 
 #. module: l10n_nl_oin
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
-#: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
 msgid "Warning!"
 msgstr "Let op!"
