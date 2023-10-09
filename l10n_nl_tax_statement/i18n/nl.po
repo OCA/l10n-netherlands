@@ -181,12 +181,8 @@ msgid "Display Multicompany Fiscal Unit"
 msgstr "Weergeven van de fiscale eenheid"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__display_name
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__display_name
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__display_name
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__display_name
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "Weergave naam"
 
@@ -238,12 +234,8 @@ msgid "Heffing van omzetbelasting is naar u verlegd"
 msgstr "Heffing van omzetbelasting is naar u verlegd"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__id
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__id
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__id
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__id
 msgid "ID"
 msgstr "ID"
 
@@ -315,12 +307,8 @@ msgid "L10N Nl Vat Statement"
 msgstr "NL BTW aangifte"
 
 #. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move____last_update
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement____last_update
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line____last_update
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company____last_update
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "Laatst gewijzigd op"
 
