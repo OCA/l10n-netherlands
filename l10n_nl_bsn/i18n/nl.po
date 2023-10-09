@@ -38,6 +38,21 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: l10n_nl_bsn
+#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_nl_bsn
+#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_nl_bsn
+#: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_nl_bsn
 #: code:addons/l10n_nl_bsn/models/res_partner.py:0
 #, python-format
 msgid "The BSN you entered (%s) is not valid."
