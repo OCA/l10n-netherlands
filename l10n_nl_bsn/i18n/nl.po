@@ -23,8 +23,8 @@ msgstr ""
 #. module: l10n_nl_bsn
 #: code:addons/l10n_nl_bsn/models/res_partner.py:0
 #, python-format
-msgid "Another person (%s) has the same BSN (%s)."
-msgstr "Een ander persoon (%s) heeft dezelfde BSN (%s)."
+msgid "Another person (%(name)s) has the same BSN (%(bsn_number)s)."
+msgstr ""
 
 #. module: l10n_nl_bsn
 #: model:ir.model.fields,field_description:l10n_nl_bsn.field_res_partner__bsn_number
@@ -48,3 +48,7 @@ msgstr "Het ingevoerde BSN nummer (%s) is niet geldig."
 #, python-format
 msgid "Warning!"
 msgstr "Waarschuwing!"
+
+#, python-format
+#~ msgid "Another person (%s) has the same BSN (%s)."
+#~ msgstr "Een ander persoon (%s) heeft dezelfde BSN (%s)."
