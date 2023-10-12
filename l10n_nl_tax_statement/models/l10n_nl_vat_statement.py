@@ -1,4 +1,4 @@
-# Copyright 2017 Onestein (<https://www.onestein.eu>)
+# Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
@@ -79,8 +79,9 @@ class VatStatement(models.Model):
     def _compute_unreported_move_ids(self):
         for statement in self:
             domain = statement._get_unreported_move_domain()
-            move_line_ids = self.env['account.move.line'].search(domain)
-            statement.unreported_move_ids = move_line_ids.mapped('move_id')
+            move_lines = self.env['account.move.line'].search(domain)
+            moves = move_lines.mapped('move_id').sorted('date')
+            statement.unreported_move_ids = moves
 
     @api.multi
     def _get_unreported_move_domain(self):
@@ -129,15 +130,17 @@ class VatStatement(models.Model):
     )
     unreported_move_from_date = fields.Date()
 
-    @api.multi
     def _compute_is_invoice_basis(self):
-        self.is_invoice_basis = False
         has_invoice_basis = self.env['ir.model.fields'].sudo().search_count([
             ('model', '=', 'res.company'),
             ('name', '=', 'l10n_nl_tax_invoice_basis')
         ])
-        if has_invoice_basis:
-            self.is_invoice_basis = self.company_id.l10n_nl_tax_invoice_basis
+        for statement in self:
+            if has_invoice_basis:
+                invoice_basis = statement.company_id.l10n_nl_tax_invoice_basis
+                statement.is_invoice_basis = invoice_basis
+            else:
+                statement.is_invoice_basis = False
 
     is_invoice_basis = fields.Boolean(
         string='NL Tax Invoice Basis',
@@ -349,7 +352,8 @@ class VatStatement(models.Model):
         # calculate lines
         lines = self._prepare_lines()
         taxes = self._compute_taxes()
-        taxes |= self._compute_past_invoices_taxes()
+        self._set_statement_lines(lines, taxes)
+        taxes = self._compute_past_invoices_taxes()
         self._set_statement_lines(lines, taxes)
         self._finalize_lines(lines)
 
@@ -369,15 +373,19 @@ class VatStatement(models.Model):
             'target_move': self.target_move,
             'company_id': self.company_id.id,
             'skip_invoice_basis_domain': True,
+            'unreported_move': True,
             'is_invoice_basis': self.is_invoice_basis,
             'unreported_move_from_date': self.unreported_move_from_date
         }
         taxes = self.env['account.tax'].with_context(ctx)
-        for move in self.unreported_move_ids:
-            for move_line in move.line_ids:
-                if move_line.tax_exigible:
-                    if move_line.tax_line_id:
-                        taxes |= move_line.tax_line_id
+        moves_to_include = self.unreported_move_ids.filtered(
+            lambda m: m.l10n_nl_vat_statement_include)
+        for move_line in moves_to_include.mapped('line_ids'):
+            if move_line.tax_exigible:
+                if move_line.tax_line_id:
+                    taxes |= move_line.tax_line_id
+                if move_line.tax_ids:
+                    taxes |= move_line.tax_ids
         return taxes
 
     def _compute_taxes(self):
@@ -432,7 +440,9 @@ class VatStatement(models.Model):
             'state': 'posted',
             'date_posted': fields.Datetime.now()
         })
-        self.unreported_move_ids.write({
+        self.unreported_move_ids.filtered(
+            lambda m: m.l10n_nl_vat_statement_include
+        ).write({
             'l10n_nl_vat_statement_id': self.id,
         })
         domain = [

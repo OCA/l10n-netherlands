@@ -18,10 +18,11 @@ class AccountTax(models.Model):
         if not self.env.context.get('skip_invoice_basis_domain'):
             return res
 
-        company = self.env['res.company'].browse(company_id)
-        if company.country_id != self.env.ref('base.nl'):
+        if not self.env.context.get('unreported_move'):
             return res
 
+        # Both 'skip_invoice_basis_domain' and 'unreported_move' must be set
+        # in context, in order to get the domain for the unreported invoices
         return expression.AND([
             [('company_id', '=', company_id)],
             [('l10n_nl_vat_statement_id', '=', False)],

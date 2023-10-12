@@ -118,46 +118,47 @@ class VatStatementLine(models.Model):
         return vals
 
     def _get_move_lines_domain(self, tax_or_base):
-        if self.statement_id.state == 'draft':
-            domain = self._get_move_lines_domain_draft(tax_or_base)
+        statement = self.statement_id
+        taxes = self._filter_taxes_by_code(statement._compute_taxes())
+        past_taxes = statement._compute_past_invoices_taxes()
+        past_taxes = self._filter_taxes_by_code(past_taxes)
+        if statement.state == 'draft':
+            domain = self._get_domain_draft(taxes, tax_or_base)
+            past_domain = self._get_domain_draft(past_taxes, tax_or_base)
         else:
-            domain = self._get_move_lines_domain_posted(tax_or_base)
-        return domain
+            domain = self._get_domain_posted(taxes, tax_or_base)
+            past_domain = self._get_domain_posted(past_taxes, tax_or_base)
+        curr_amls = self.env['account.move.line'].search(domain)
+        past_amls = self.env['account.move.line'].search(past_domain)
+        res = [('id', 'in', past_amls.ids + curr_amls.ids)]
+        return res
 
-    def _get_taxes_by_code(self):
+    def _filter_taxes_by_code(self, taxes):
         self.ensure_one()
         tags_map = self.statement_id._get_tags_map()
         filtered_taxes = self.env['account.tax']
-        taxes = self.statement_id._compute_taxes()
-        taxes |= self.statement_id._compute_past_invoices_taxes()
         for tax in taxes:
             for tag in tax.tag_ids:
                 tag_map = tags_map.get(tag.id)
                 if tag_map and tag_map[0] == self.code:
                     filtered_taxes |= tax
-        return filtered_taxes
+        return filtered_taxes.with_context(taxes.env.context)
 
-    def _get_move_lines_domain_draft(self, tax_or_base):
+    def _get_domain_draft(self, taxes, tax_or_base):
         self.ensure_one()
-        taxes = self._get_taxes_by_code()
-        statement = self.statement_id
-        ctx = {
-            'from_date': statement.from_date,
-            'to_date': statement.to_date,
-            'target_move': statement.target_move,
-            'company_id': statement.company_id.id,
-            'l10n_nl_statement_tax_ids': taxes.ids,
-        }
+        ctx = taxes.env.context.copy()
+        ctx.update({
+            'l10n_nl_statement_tax_ids': taxes.ids
+        })
         AccountTax = self.env['account.tax'].with_context(ctx)
         return AccountTax.get_move_lines_domain(tax_or_base=tax_or_base)
 
-    def _get_move_lines_domain_posted(self, tax_or_base):
+    def _get_domain_posted(self, taxes, tax_or_base):
         self.ensure_one()
-        taxes = self._get_taxes_by_code()
         statement = self.statement_id
         domain = [('move_id.l10n_nl_vat_statement_id', '=', statement.id)]
         if tax_or_base == 'tax':
-            tax_domain = [('tax_line_id', '=', taxes.ids)]
+            tax_domain = [('tax_line_id', 'in', taxes.ids)]
         else:
-            tax_domain = [('tax_ids', '=', taxes.ids)]
+            tax_domain = [('tax_ids', 'in', taxes.ids)]
         return expression.AND([domain, tax_domain])
