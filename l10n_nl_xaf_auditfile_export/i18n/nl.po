@@ -43,6 +43,11 @@ msgid "Auditfile %(company_name)s %(current_datetime)s"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__auditfile_success
+msgid "Auditfile Success"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
 #: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.menu_auditfiles
 msgid "Auditfile export"
@@ -70,8 +75,8 @@ msgstr "Aangemaakt op"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_generated
-msgid "Date Generated"
-msgstr ""
+msgid "Date generated"
+msgstr "Datum gegenereerd"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__display_name
@@ -296,9 +301,6 @@ msgstr "ir.qweb.field.auditfile.string999"
 #, python-format
 #~ msgid "Auditfile %s %s"
 #~ msgstr "Auditfile %s %s"
-
-#~ msgid "Date generated"
-#~ msgstr "Datum gegenereerd"
 
 #~ msgid "Followers (Channels)"
 #~ msgstr "Volgers (Kanalen)"
