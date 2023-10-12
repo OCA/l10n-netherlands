@@ -21,7 +21,7 @@
                         name="button_generate"
                         string="Generate auditfile"
                         class="oe_highlight"
-                        attrs="{'invisible': [('auditfile', '!=', False)]}"
+                        attrs="{'invisible': [('auditfile_success', '!=', False)]}"
                     />
                 </header>
                 <sheet>
@@ -60,6 +60,7 @@
                     >
                         <field name="date_generated" />
                         <field name="auditfile" filename="auditfile_name" />
+                        <field name="auditfile_success" />
                         <field name="auditfile_name" invisible="1" />
                     </group>
                 </sheet>
