@@ -81,7 +81,7 @@ class XafAuditfileExport(models.Model):
     @api.model
     def default_get(self, fields_list):
         defaults = super().default_get(fields_list)
-        company = self.env.user.company_id
+        company = self.env.company
         fy_dates = company.compute_fiscalyear_dates(datetime.now())
         defaults.setdefault("date_start", fy_dates["date_from"])
         defaults.setdefault("date_end", fy_dates["date_to"])
@@ -96,7 +96,6 @@ class XafAuditfileExport(models.Model):
                     "current_datetime": datetime.now().strftime("%Y"),
                 },
             )
-
         return defaults
 
     @api.constrains("date_start", "date_end")
