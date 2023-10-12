@@ -36,6 +36,11 @@ msgid "Auditfile %(company_name)s %(current_datetime)s"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__auditfile_success
+msgid "Auditfile Success"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
 #: model:ir.ui.menu,name:l10n_nl_xaf_auditfile_export.menu_auditfiles
 msgid "Auditfile export"
@@ -63,7 +68,7 @@ msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_generated
-msgid "Date Generated"
+msgid "Date generated"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
