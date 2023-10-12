@@ -12,34 +12,35 @@ _logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     """Interface with Dutch Postcode API service."""
-    _inherit = 'res.partner'
+
+    _inherit = "res.partner"
 
     def get_country_state(self, country, state_name):
         """Lookup state within a country."""
-        state_model = self.env['res.country.state']
+        state_model = self.env["res.country.state"]
         if not country or not state_name:
             return state_model
         return state_model.search(
             [
-                ('country_id', '=', country.id),
-                ('name', '=', state_name),
+                ("country_id", "=", country.id),
+                ("name", "=", state_name),
             ],
-            limit=1
+            limit=1,
         )
 
-    @api.onchange('zip', 'street_number', 'country_id')
+    @api.onchange("zip", "street_number", "country_id")
     def on_change_zip_street_number(self):
         """Autocomplete dutch addresses if postalcode and streetnumber are filled.
 
         NB. postal_code is named 'zip' in Odoo, but is this a reserved
         keyword in Python.
         """
-        country_nl = self.env.ref('base.nl')
+        country_nl = self.env.ref("base.nl")
         country = self.country_id
         if country and country != country_nl:
             # Do not check for postal code outside of the Netherlands.
             return
-        postal_code = self.zip and self.zip.replace(' ', '')
+        postal_code = self.zip and self.zip.replace(" ", "")
         if not postal_code or not self.street_number:
             # Only check if both postal code and street number have been filled.
             return
@@ -58,12 +59,12 @@ class ResPartner(models.Model):
                 ),
                 self.display_name,
                 postal_code,
-                self.street_number
+                self.street_number,
             )
             return
         vals = {
             "street_name": pc_info.street,
             "city": pc_info.town,
-            "state_id": self.get_country_state(country_nl, pc_info.province).id
+            "state_id": self.get_country_state(country_nl, pc_info.province).id,
         }
         self.update(vals)

@@ -15,7 +15,7 @@ exclude: |
   # You don't usually want a bot to modify your legal texts
   (LICENSE.*|COPYING.*)
 default_language_version:
-  python: python3.6
+  python: python3
 repos:
   - repo: https://github.com/oca/maintainer-tools
     rev: ab1d7f6
@@ -34,12 +34,12 @@ repos:
           - requirements.txt
           - --header
           - "# generated from manifests external_dependencies"
-  - repo: https://github.com/OCA/mirrors-flake8
-    rev: v3.4.1
+  - repo: https://github.com/PyCQA/flake8
+    rev: 3.7.9
     hooks:
       - id: flake8
-        name: flake8 excluding __init__.py
-        exclude: __init__\.py
+        name: flake8
+        additional_dependencies: ["flake8-bugbear==19.8.0"]
   - repo: https://github.com/pre-commit/mirrors-pylint
     rev: v2.5.3
     hooks:

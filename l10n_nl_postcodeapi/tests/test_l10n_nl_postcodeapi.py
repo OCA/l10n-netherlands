@@ -20,17 +20,17 @@ class TestPostcodeApi(SavepointCase):
         """Setup test."""
         super().setUpClass()
         # Get the pyPostcode.Api from the actual class where used.
-        path_addon = 'odoo.addons.l10n_nl_postcodeapi.'
-        path_file = 'models.ir_config_parameter.'
+        path_addon = "odoo.addons.l10n_nl_postcodeapi."
+        path_file = "models.ir_config_parameter."
         cls.api_handler = path_addon + path_file
         cls.mock_getaddress_patcher = patch(
-            cls.api_handler + 'pyPostcode.Api.getaddress'
+            cls.api_handler + "pyPostcode.Api.getaddress"
         )
         cls.mock_getaddress = cls.mock_getaddress_patcher.start()
-        cls.country_nl = cls.env.ref('base.nl')
-        cls.config_parameter = cls.env.ref('l10n_nl_postcodeapi.parameter_apikey')
+        cls.country_nl = cls.env.ref("base.nl")
+        cls.config_parameter = cls.env.ref("l10n_nl_postcodeapi.parameter_apikey")
         # Make sure there is some value, in the key, otherwise api will not run.
-        cls.config_parameter.write({'value': 'Some random value'})
+        cls.config_parameter.write({"value": "Some random value"})
 
     @classmethod
     def tearDownClass(cls):
@@ -45,14 +45,14 @@ class TestPostcodeApi(SavepointCase):
         # Setting apikey to invalid value should result in Exception.
         with self.assertRaises(UserError):
             self.mock_getaddress.return_value = False
-            self.config_parameter.write({'value': 'KEYXXXXXXXXXXXNOTVALID'})
+            self.config_parameter.write({"value": "KEYXXXXXXXXXXXNOTVALID"})
 
     def test_orm_cache(self):
         """Repeated calls to get_provider_obj should just return existing value."""
         self.mock_getaddress.return_value = ResourceV2(
             {
-                "postcode": 'test 1053NJ',
-                "house_number": '334T',
+                "postcode": "test 1053NJ",
+                "house_number": "334T",
                 "street": "Jacob van Lennepkade",
                 "town": "Amsterdam",
                 "province": {"id": 20, "label": "Noord-Holland"},
@@ -65,35 +65,34 @@ class TestPostcodeApi(SavepointCase):
         parameter_model.get_provider_obj()
         self.assertEqual(saved_call_count, self.mock_getaddress.call_count)
         # Writing new key should cause extra call.
-        self.config_parameter.write({'value': 'Another random value'})
-        self.assertEqual(
-            1,
-            self.mock_getaddress.call_count - saved_call_count
-        )
+        self.config_parameter.write({"value": "Another random value"})
+        self.assertEqual(1, self.mock_getaddress.call_count - saved_call_count)
 
     def test_res_partner_with_province(self):
         """Test setting partner with state/province."""
         # Create In Memory partner (no actual db update).
-        partner = self.env['res.partner'].new({
-            'name': 'test partner',
-            'country_id': self.country_nl.id,
-            'street_number': '10',
-            'zip': 'test 4811DJ',
-        })
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": self.country_nl.id,
+                "street_number": "10",
+                "zip": "test 4811DJ",
+            }
+        )
         self.mock_getaddress.return_value = ResourceV2(
             {
-                "postcode": 'test 4811DJ',
-                "house_number": '10',
+                "postcode": "test 4811DJ",
+                "house_number": "10",
                 "street": "Claudius Prinsenlaan",
                 "town": "Breda",
                 "province": {"id": 1, "label": "Noord-Brabant"},
             }
         )
         partner.on_change_zip_street_number()
-        self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
-        self.assertEqual(partner.city, 'Breda')
-        self.assertEqual(partner.state_id.name, 'Noord-Brabant')
-        self.assertEqual(partner.state_id.code, 'NL-NB')
+        self.assertEqual(partner.street_name, "Claudius Prinsenlaan")
+        self.assertEqual(partner.city, "Breda")
+        self.assertEqual(partner.state_id.name, "Noord-Brabant")
+        self.assertEqual(partner.state_id.code, "NL-NB")
 
     def test_res_partner_no_province(self):
         """Test setting partner with postalcode not linked to province.
@@ -103,69 +102,75 @@ class TestPostcodeApi(SavepointCase):
         based on the ranges of zip-code for each province, part of the module
         l10n_nl_contry_states, is not called.
         """
-        partner = self.env['res.partner'].new({
-            'name': 'test partner',
-            'country_id': self.country_nl.id,
-            'street_number': '10',
-            'state_id': False,
-            'zip': '1018BC',
-        })
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": self.country_nl.id,
+                "street_number": "10",
+                "state_id": False,
+                "zip": "1018BC",
+            }
+        )
         self.mock_getaddress.return_value = ResourceV2(
             {
-                "postcode": '1018BC',
-                "house_number": '10',
+                "postcode": "1018BC",
+                "house_number": "10",
                 "street": "Blankenstraat",
                 "town": "Amsterdam",
                 "province": False,
             }
         )
         partner.on_change_zip_street_number()
-        self.assertEqual(partner.street_name, 'Blankenstraat')
-        self.assertEqual(partner.city, 'Amsterdam')
+        self.assertEqual(partner.street_name, "Blankenstraat")
+        self.assertEqual(partner.city, "Amsterdam")
         self.assertEqual(partner.state_id.name, False)
 
     def test_res_partner_incomplete_information(self):
         """Test on_change for partner in Netherlands without postalcode."""
-        partner = self.env['res.partner'].new({
-            'name': 'test partner',
-            'country_id': self.country_nl.id,
-            'street_number': '10',
-        })
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": self.country_nl.id,
+                "street_number": "10",
+            }
+        )
         self.mock_getaddress.return_value = False
         partner.on_change_zip_street_number()
-        self.assertEqual(partner.street_number, '10')
+        self.assertEqual(partner.street_number, "10")
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
         self.assertFalse(partner.state_id)
 
     def test_res_partner_other_country(self):
         """Test on_change for partner in another country."""
-        country_it = self.env['res.country'].search([
-            ('code', 'like', 'IT')
-        ], limit=1)
-        partner = self.env['res.partner'].new({
-            'name': 'test partner',
-            'country_id': country_it.id,
-            'street_number': '10',
-            'zip': '4811dj',
-        })
+        country_it = self.env["res.country"].search([("code", "like", "IT")], limit=1)
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": country_it.id,
+                "street_number": "10",
+                "zip": "4811dj",
+            }
+        )
         partner.on_change_zip_street_number()
-        self.assertEqual(partner.street_number, '10')
+        self.assertEqual(partner.street_number, "10")
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
         self.assertFalse(partner.state_id)
 
     def test_res_partner_no_key(self):
         """Test on_change while API key not set."""
-        self.config_parameter.write({'value': 'Your API key'})
-        partner = self.env['res.partner'].new({
-            'name': 'test partner',
-            'street_number': '10',
-            'zip': '4811dj',
-            'country_id': self.country_nl.id,
-        })
+        self.config_parameter.write({"value": "Your API key"})
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "street_number": "10",
+                "zip": "4811dj",
+                "country_id": self.country_nl.id,
+            }
+        )
         partner.on_change_zip_street_number()
-        self.assertEqual(partner.street_number, '10')
+        self.assertEqual(partner.street_number, "10")
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
         self.assertFalse(partner.state_id)
@@ -173,7 +178,7 @@ class TestPostcodeApi(SavepointCase):
     def test_get_country_state(self):
         """Test get_country state with and without state_name."""
         state_brabant = self.env.ref("l10n_nl_country_states.state_noordbrabant")
-        partner_model = self.env['res.partner']
+        partner_model = self.env["res.partner"]
         # Call with full information.
         state = partner_model.get_country_state(self.country_nl, "Noord-Brabant")
         self.assertTrue(bool(state))

@@ -15,7 +15,8 @@ from odoo.tools import ormcache
 
 class IrConfigParameter(models.Model):
     """Interface to the configured (or not) Postcode API."""
-    _inherit = 'ir.config_parameter'
+
+    _inherit = "ir.config_parameter"
 
     @api.model
     @ormcache(skiparg=2)
@@ -24,17 +25,19 @@ class IrConfigParameter(models.Model):
         if not pyPostcode:
             # Module not loaded.
             return None  # pragma: no cover
-        apikey = self.sudo().get_param('l10n_nl_postcodeapi.apikey', '').strip()
-        if not apikey or apikey == 'Your API key':
+        apikey = self.sudo().get_param("l10n_nl_postcodeapi.apikey", "").strip()
+        if not apikey or apikey == "Your API key":
             return None
         provider_obj = pyPostcode.Api(apikey, (2, 0, 0))
-        test = provider_obj.getaddress('1053NJ', '334T')
+        test = provider_obj.getaddress("1053NJ", "334T")
         if not test or not test._data:
-            raise UserError(_(
-                'Could not verify the connection with the address lookup service'
-                ' (if you want to get rid of this message, please rename or delete'
-                ' the system parameter \'l10n_nl_postcodeapi.apikey\').'
-            ))
+            raise UserError(
+                _(
+                    "Could not verify the connection with the address lookup service"
+                    " (if you want to get rid of this message, please rename or delete"
+                    " the system parameter 'l10n_nl_postcodeapi.apikey')."
+                )
+            )
         return provider_obj
 
     @api.model
@@ -54,6 +57,6 @@ class IrConfigParameter(models.Model):
     def _check_and_reset_provider(self):
         """Clear provider cache and check wether key valid."""
         for this in self:
-            if this.key == 'l10n_nl_postcodeapi.apikey':
+            if this.key == "l10n_nl_postcodeapi.apikey":
                 this.get_provider_obj.clear_cache(this)
                 this.get_provider_obj()
