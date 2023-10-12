@@ -92,7 +92,7 @@ class TestPostcodeApi(SavepointCase):
         self.assertEqual(partner.street_name, "Claudius Prinsenlaan")
         self.assertEqual(partner.city, "Breda")
         self.assertEqual(partner.state_id.name, "Noord-Brabant")
-        self.assertEqual(partner.state_id.code, "NL-NB")
+        self.assertEqual(partner.state_id.code, "NB")
 
     def test_res_partner_no_province(self):
         """Test setting partner with postalcode not linked to province.
@@ -183,7 +183,7 @@ class TestPostcodeApi(SavepointCase):
         state = partner_model.get_country_state(self.country_nl, "Noord-Brabant")
         self.assertTrue(bool(state))
         self.assertEqual(state.name, state_brabant.name)
-        self.assertEqual(state.code, state_brabant.code)
+        self.assertEqual(state.code, "NB")
         # Call with missing province should return empty recordset.
         state = partner_model.get_country_state(self.country_nl, False)
         self.assertFalse(bool(state))
