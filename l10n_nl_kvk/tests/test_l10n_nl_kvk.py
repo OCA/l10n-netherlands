@@ -337,33 +337,27 @@ class TestNLKvK(TransactionCase):
             wizard_id
         )
 
+        # One line will be for headquarters, one for legal entity.
+        # It turns out the order of these lines is random.
         self.assertEqual(len(wizard.line_ids), 2)
-
-        test_line = wizard.line_ids[1]
-        self.assertEqual(test_line.name, '68727720')
-        self.assertEqual(test_line.kvk, '68727720')
-        self.assertEqual(test_line.partner_name, 'Test NV Katrien')
-        self.assertFalse(test_line.partner_city)
-        self.assertEqual(test_line.entity_type, 'legal_person')
-
-        test_line.set_partner_fields()
-        self.assertEqual(my_partner.name, 'Test NV Katrien')
-        self.assertFalse(my_partner.city)
-        self.assertFalse(my_partner.vat)
-        self.assertEqual(my_partner.country_id, nl_country)
-
-        test_line = wizard.line_ids[0]
-        self.assertEqual(test_line.name, '68727720')
-        self.assertEqual(test_line.kvk, '68727720')
-        self.assertEqual(test_line.partner_name, 'Test NV Katrien')
-        self.assertEqual(test_line.partner_city, 'Veendam')
-        self.assertEqual(test_line.entity_type, 'headquarters')
-
-        test_line.set_partner_fields()
-        self.assertEqual(my_partner.name, 'Test NV Katrien')
-        self.assertEqual(my_partner.city, 'Veendam')
-        self.assertFalse(my_partner.vat)
-        self.assertEqual(my_partner.country_id, nl_country)
+        for test_line in wizard.line_ids:
+            entity_type = test_line.entity_type
+            self.assertIn(entity_type, ['legal_person', 'headquarters'])
+            self.assertEqual(test_line.name, '68727720')
+            self.assertEqual(test_line.kvk, '68727720')
+            self.assertEqual(test_line.partner_name, 'Test NV Katrien')
+            if entity_type == 'legal_person':
+                self.assertFalse(test_line.partner_city)
+            else:
+                self.assertEqual(test_line.partner_city, 'Veendam')
+            test_line.set_partner_fields()
+            self.assertEqual(my_partner.name, 'Test NV Katrien')
+            self.assertFalse(my_partner.vat)
+            self.assertEqual(my_partner.country_id, nl_country)
+            if entity_type == 'legal_person':
+                self.assertFalse(my_partner.city)
+            else:
+                self.assertEqual(my_partner.city, 'Veendam')
 
     def test_14_api_load_no_wizard(self):
 
