@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import api, SUPERUSER_ID
+from odoo import SUPERUSER_ID, api
 
 _logger = logging.getLogger(__name__)
 
@@ -12,6 +12,6 @@ def post_init_hook(cr, _):
     """Define Dutch specific configuration in res.country."""
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        base_nl = env.ref('base.nl')
-        _logger.info('Setting Netherlands NUTS configuration')
-        base_nl.write({'state_level': 3})
+        base_nl = env.ref("base.nl")
+        _logger.info("Setting Netherlands NUTS configuration")
+        base_nl.write({"state_level": 3})

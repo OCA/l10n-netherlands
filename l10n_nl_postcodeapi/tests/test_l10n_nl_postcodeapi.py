@@ -1,217 +1,190 @@
-# Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
+# Copyright 2018-2020 Onestein <https://www.onestein.eu>.
+# Copyright 2021 Therp BV <https://therp.nll>.
+# With inspiration from: https://realpython.com/testing-third-party-apis-with-mocks/
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Test the postcode api using a mock service."""
+# pylint: disable=protected-access,unused-argument
+from mock import patch
 
-from types import SimpleNamespace
-from unittest.mock import Mock, patch
+from pyPostcode import ResourceV2
 
-from odoo.modules.module import get_resource_path
-from odoo.tests.common import TransactionCase
+from odoo.exceptions import UserError
+from odoo.tests.common import SavepointCase
 
 
-class TestNlPostcodeapi(TransactionCase):
+class TestPostcodeApi(SavepointCase):
+    """Test the postcode api using a mock service."""
 
-    def setUp(self):
-        super().setUp()
-
-        # this block of code removes the existing provinces
-        # eventually already created by module l10n_nl_country_states
-        # to avoid conflicts with tests of l10n_nl_country_states
-        # (note: not currently ported to 12.0)
-        is_l10n_nl_country_states_installed = self.env['ir.model']._get(
-            'res.country.state.nl.zip'
+    @classmethod
+    def setUpClass(cls):
+        """Setup test."""
+        super().setUpClass()
+        # Get the pyPostcode.Api from the actual class where used.
+        path_addon = "odoo.addons.l10n_nl_postcodeapi."
+        path_file = "models.ir_config_parameter."
+        cls.api_handler = path_addon + path_file
+        cls.mock_getaddress_patcher = patch(
+            cls.api_handler + "pyPostcode.Api.getaddress"
         )
-        self.country_nl = self.get_country("NL")
-        if is_l10n_nl_country_states_installed:
-            NlZipStateModel = self.env['res.country.state.nl.zip']
-            NlZipStateModel.search([]).unlink()
-            states = self.env['res.country.state'].search([
-                ('country_id', '=', self.country_nl.id)
-            ])
-            states.unlink()
-        states = self.env['res.country.state'].search([
-            ('country_id', '=', self.country_nl.id)
-        ])
-        states.unlink()
+        cls.mock_getaddress = cls.mock_getaddress_patcher.start()
+        cls.country_nl = cls.env.ref("base.nl")
+        cls.config_parameter = cls.env.ref("l10n_nl_postcodeapi.parameter_apikey")
+        # Make sure there is some value, in the key, otherwise api will not run.
+        cls.config_parameter.write({"value": "Some random value"})
 
-    def load_nl_provinces(self):
-        csv_resource = get_resource_path(
-            'l10n_nl_postcodeapi',
-            'examples',
-            'res.country.state.csv',
+    @classmethod
+    def tearDownClass(cls):
+        """Unpatch API."""
+        cls.mock_getaddress = cls.mock_getaddress_patcher.stop()
+        super().tearDownClass()
+
+    def test_ir_config_parameter(self):
+        """Test setting of configuration parameter."""
+        # Verify l10n_nl_postcodeapi.apikey is created.
+        self.assertTrue(self.config_parameter)
+        # Setting apikey to invalid value should result in Exception.
+        with self.assertRaises(UserError):
+            self.mock_getaddress.return_value = False
+            self.config_parameter.write({"value": "KEYXXXXXXXXXXXNOTVALID"})
+
+    def test_orm_cache(self):
+        """Repeated calls to get_provider_obj should just return existing value."""
+        self.mock_getaddress.return_value = ResourceV2(
+            {
+                "postcode": "test 1053NJ",
+                "house_number": "334T",
+                "street": "Jacob van Lennepkade",
+                "town": "Amsterdam",
+                "province": {"id": 20, "label": "Noord-Holland"},
+            }
         )
-        csv_file = open(csv_resource, 'rb').read()
-        import_wizard = self.env['base_import.import'].create({
-            'res_model': 'res.country.state',
-            'file': csv_file,
-            'file_type': 'text/csv'
-        })
+        parameter_model = self.env["ir.config_parameter"]
+        parameter_model.get_provider_obj()
+        saved_call_count = self.mock_getaddress.call_count
+        # Call again...
+        parameter_model.get_provider_obj()
+        self.assertEqual(saved_call_count, self.mock_getaddress.call_count)
+        # Writing new key should cause extra call.
+        self.config_parameter.write({"value": "Another random value"})
+        self.assertEqual(1, self.mock_getaddress.call_count - saved_call_count)
 
-        result = import_wizard.parse_preview({
-            'quoting': '"',
-            'separator': ',',
-            'headers': True,
-        })
-        self.assertIsNone(result.get('error'))
-        results = import_wizard.do(
-            ['id', 'country_id', 'name', 'code'],
-            [],
-            {'headers': True, 'separator': ',', 'quoting': '"'}
-        )["messages"]
-        self.assertFalse(
-            results, "results should be empty on successful import")
+    def test_res_partner_with_province(self):
+        """Test setting partner with state/province."""
+        # Create In Memory partner (no actual db update).
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": self.country_nl.id,
+                "street_number": "10",
+                "zip": "test 4811DJ",
+            }
+        )
+        self.mock_getaddress.return_value = ResourceV2(
+            {
+                "postcode": "test 4811DJ",
+                "house_number": "10",
+                "street": "Claudius Prinsenlaan",
+                "town": "Breda",
+                "province": {"id": 1, "label": "Noord-Brabant"},
+            }
+        )
+        partner.on_change_zip_street_number()
+        self.assertEqual(partner.street_name, "Claudius Prinsenlaan")
+        self.assertEqual(partner.city, "Breda")
+        self.assertEqual(partner.state_id.name, "Noord-Brabant")
+        self.assertEqual(partner.state_id.code, "NB")
 
-    def test_01_ir_config_parameter(self):
-        config_parameter = self.env['ir.config_parameter'].search([
-            ('key', '=', 'l10n_nl_postcodeapi.apikey')
-        ])
-        # Verify l10n_nl_postcodeapi.apikey is created
-        self.assertTrue(config_parameter)
-        self.assertEqual(config_parameter.value, 'Your API key')
+    def test_res_partner_no_province(self):
+        """Test setting partner with postalcode not linked to province.
 
-        # Verify l10n_nl_postcodeapi.apikey is modified
-        config_parameter.write({
-            'value': 'KEYXXXXXXXXXXXNOTVALID'
-        })
-        self.assertEqual(config_parameter.value, 'KEYXXXXXXXXXXXNOTVALID')
+        Province should not be filled. That is because we do not create a partner in
+        the database, but only in memory. So the logic that assigns a province
+        based on the ranges of zip-code for each province, part of the module
+        l10n_nl_contry_states, is not called.
+        """
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": self.country_nl.id,
+                "street_number": "10",
+                "state_id": False,
+                "zip": "1018BC",
+            }
+        )
+        self.mock_getaddress.return_value = ResourceV2(
+            {
+                "postcode": "1018BC",
+                "house_number": "10",
+                "street": "Blankenstraat",
+                "town": "Amsterdam",
+                "province": False,
+            }
+        )
+        partner.on_change_zip_street_number()
+        self.assertEqual(partner.street_name, "Blankenstraat")
+        self.assertEqual(partner.city, "Amsterdam")
+        self.assertEqual(partner.state_id.name, False)
 
-    def test_02_res_country_state(self):
-
-        # Load res.country.state.csv
-        self.load_nl_provinces()
-
-        # Verify res.country.state created
-        states = self.env['res.country.state'].search([
-            ('country_id', '=', self.country_nl.id)
-        ])
-        self.assertTrue(states)
-
-        # Verify res.country.state modified
-        states[0].write({
-            'name': 'test'
-        })
-        self.assertEqual(states[0].name, 'test')
-
-        # Verify res.country.state unlinked
-        states[0].unlink()
-        test_states = self.env['res.country.state'].search([
-            ('name', 'like', 'test')
-        ])
-        self.assertFalse(test_states)
-
-    def test_03_res_partner_with_province(self):
-        self.configure_key()
-
-        # Load res.country.state.csv
-        self.load_nl_provinces()
-
-        partner = self.create_partner()
-        with self.patch_api_get_address():
-            partner.on_change_zip_street_number()
-
-        partner._convert_to_write(partner._cache)
-        self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
-        self.assertEqual(partner.city, 'Breda')
-        self.assertEqual(partner.state_id.name, 'Noord-Brabant')
-        self.assertEqual(partner.state_id.code, 'NB')
-        self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
-
-    def test_04_res_partner_no_province(self):
-        self.configure_key()
-
-        partner = self.create_partner()
-        with self.patch_api_get_address():
-            partner.on_change_zip_street_number()
-
-        partner._convert_to_write(partner._cache)
-        self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
-        self.assertEqual(partner.city, 'Breda')
-        self.assertFalse(partner.state_id)
-        self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
-
-    def test_05_res_partner_other_country(self):
-        self.configure_key()
-
-        partner = self.create_partner(country="IT")
-        with self.patch_api_get_address() as getaddr:
-            partner.on_change_zip_street_number()
-        getaddr.assert_not_called()
-
-        partner._convert_to_write(partner._cache)
-        self.assertFalse(partner.street_name)
-        self.assertFalse(partner.city)
-        self.assertFalse(partner.state_id)
-        self.assertEqual(partner.street, '10')
-
-    def test_06_res_partner_no_key(self):
-        partner = self.create_partner()
-        with self.patch_api_get_address() as getaddr:
-            partner.on_change_zip_street_number()
-        getaddr.assert_not_called()
-
-        partner._convert_to_write(partner._cache)
+    def test_res_partner_incomplete_information(self):
+        """Test on_change for partner in Netherlands without postalcode."""
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": self.country_nl.id,
+                "street_number": "10",
+            }
+        )
+        self.mock_getaddress.return_value = False
+        partner.on_change_zip_street_number()
+        self.assertEqual(partner.street_number, "10")
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
         self.assertFalse(partner.state_id)
 
-    def test_07_res_partner_no_result(self):
-        self.configure_key()
-
-        partner = self.create_partner()
-        with self.patch_api_get_address() as getaddr:
-            getaddr.return_value = False
-            partner.on_change_zip_street_number()
-        getaddr.assert_called_with("3811DJ", "10")
-
-        partner._convert_to_write(partner._cache)
+    def test_res_partner_other_country(self):
+        """Test on_change for partner in another country."""
+        country_it = self.env["res.country"].search([("code", "like", "IT")], limit=1)
+        partner = self.env["res.partner"].new(
+            {
+                "name": "test partner",
+                "country_id": country_it.id,
+                "street_number": "10",
+                "zip": "4811dj",
+            }
+        )
+        partner.on_change_zip_street_number()
+        self.assertEqual(partner.street_number, "10")
         self.assertFalse(partner.street_name)
         self.assertFalse(partner.city)
         self.assertFalse(partner.state_id)
 
-    def test_08_res_partner_no_province(self):
-        self.configure_key()
-        self.load_nl_provinces()
-
-        partner = self.create_partner()
-        with self.patch_api_get_address(province=""):
-            partner.on_change_zip_street_number()
-
-        partner._convert_to_write(partner._cache)
-        self.assertEqual(partner.street_name, 'Claudius Prinsenlaan')
-        self.assertEqual(partner.city, 'Breda')
-        self.assertFalse(partner.state_id)
-        self.assertEqual(partner.street, 'Claudius Prinsenlaan 10')
-
-    def configure_key(self):
-        self.env["ir.config_parameter"].set_param(
-            "l10n_nl_postcodeapi.apikey",
-            "DZyipS65BT6n52jQHpVXs53r4bYK8yng3QWQT2tV",
-        )
-
-    def patch_api_get_address(
-        self,
-        street="Claudius Prinsenlaan",
-        city="Breda",
-        province="Noord-Brabant",
-    ):
-        getaddr = Mock()
-        getaddr.return_value = SimpleNamespace(
-            _data="test", street=street, city=city, province=province
-        )
-        return patch("pyPostcode.Api.getaddress", getaddr)
-
-    def get_country(self, code):
-        country = self.env["res.country"].search(
-            [("code", "=", code)], limit=1
-        )
-        self.assertTrue(country)
-        return country
-
-    def create_partner(self, country="NL"):
-        return self.env["res.partner"].create(
+    def test_res_partner_no_key(self):
+        """Test on_change while API key not set."""
+        self.config_parameter.write({"value": "Your API key"})
+        partner = self.env["res.partner"].new(
             {
                 "name": "test partner",
                 "street_number": "10",
-                "zip": "3811DJ",
-                "country_id": self.get_country(country).id,
+                "zip": "4811dj",
+                "country_id": self.country_nl.id,
             }
         )
+        partner.on_change_zip_street_number()
+        self.assertEqual(partner.street_number, "10")
+        self.assertFalse(partner.street_name)
+        self.assertFalse(partner.city)
+        self.assertFalse(partner.state_id)
+
+    def test_get_country_state(self):
+        """Test get_country state with and without state_name."""
+        state_brabant = self.env.ref("l10n_nl_country_states.state_noordbrabant")
+        partner_model = self.env["res.partner"]
+        # Call with full information.
+        state = partner_model.get_country_state(self.country_nl, "Noord-Brabant")
+        self.assertTrue(bool(state))
+        self.assertEqual(state.name, state_brabant.name)
+        self.assertEqual(state.code, "NB")
+        # Call with missing province should return empty recordset.
+        state = partner_model.get_country_state(self.country_nl, False)
+        self.assertFalse(bool(state))
+        self.assertFalse(state.id)
