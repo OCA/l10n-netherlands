@@ -18,3 +18,20 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#. module: l10n_nl_postcodeapi
+#: code:addons/l10n_nl_postcodeapi/models/ir_config_parameter.py:35
+#, python-format
+msgid "Could not verify the connection with the address lookup service (if you want to get rid of this message, please rename or delete the system parameter 'l10n_nl_postcodeapi.apikey')."
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: code:addons/l10n_nl_postcodeapi/models/res_partner.py:56
+#, python-format
+msgid "No address found for partner %s, with postalcode %s and housenumber %d."
+msgstr ""
+
+#. module: l10n_nl_postcodeapi
+#: model:ir.model,name:l10n_nl_postcodeapi.model_ir_config_parameter
+msgid "System Parameter"
+msgstr ""
+
