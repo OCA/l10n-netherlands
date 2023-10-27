@@ -118,7 +118,6 @@ msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error
-#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -195,11 +194,6 @@ msgstr ""
 #. module: l10n_nl_xaf_auditfile_export
 #: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Opening balance"
-msgstr ""
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
