@@ -18,13 +18,15 @@ class TestNlAccountTaxUnece(TransactionCase):
         self.env.user.company_id = old_company.id
 
         self.unece_type_id = self.env.ref("account_tax_unece.tax_type_vat").id
+        # Allowed NL categories according to NLCIUS
+        # Source: forumstandaardisatie.nl/open-standaarden/nlcius
         self.unece_categ_ids = [
-            self.env.ref("account_tax_unece.tax_categ_h").id,
-            self.env.ref("account_tax_unece.tax_categ_aa").id,
             self.env.ref("account_tax_unece.tax_categ_z").id,
             self.env.ref("account_tax_unece.tax_categ_s").id,
-            self.env.ref("account_tax_unece.tax_categ_b").id,
+            self.env.ref("account_tax_unece.tax_categ_k").id,
             self.env.ref("account_tax_unece.tax_categ_e").id,
+            self.env.ref("account_tax_unece.tax_categ_g").id,
+            self.env.ref("account_tax_unece.tax_categ_ae").id,
         ]
 
     def test_load_coa(self):
