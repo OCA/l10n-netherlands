@@ -72,6 +72,7 @@ class TestTaxStatementIcp(TestVatStatement):
     def test_04_icp_invoice(self):
         self._create_test_invoice()
         self.invoice_1.partner_id.country_id = self.env.ref("base.be")
+        self.invoice_1.partner_id.vat = "BE0477472701"
         self.statement_1.post()
         self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
@@ -90,6 +91,11 @@ class TestTaxStatementIcp(TestVatStatement):
             self.assertEqual(float(amount_products), icp_line.amount_products)
             amount_services = icp_line.format_amount_services
             self.assertEqual(float(amount_services), icp_line.amount_services)
+            self.assertTrue(icp_line.vat)
+            self.assertTrue(icp_line.format_vat)
+
+        # Export XLS without errors
+        self._check_export_xls(self.statement_with_icp)
 
     def test_05_icp_invoice_service(self):
         self.tax_1.name = self.tax_1.name + " dienst"
@@ -117,6 +123,8 @@ class TestTaxStatementIcp(TestVatStatement):
             self.assertEqual(float(amount_products), icp_line.amount_products)
             amount_services = icp_line.format_amount_services
             self.assertEqual(float(amount_services), icp_line.amount_services)
+            self.assertFalse(icp_line.vat)
+            self.assertFalse(icp_line.format_vat)
 
         # Export XLS without errors
         self._check_export_xls(self.statement_with_icp)
