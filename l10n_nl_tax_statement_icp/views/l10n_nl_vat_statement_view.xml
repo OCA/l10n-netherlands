@@ -30,8 +30,8 @@
                     <field name="icp_line_ids">
                         <tree editable="bottom" create="false" delete="false">
                             <field name="partner_id" />
-                            <field name="vat" />
                             <field name="country_code" />
+                            <field name="format_vat" />
                             <field name="currency_id" />
                             <field name="amount_products" />
                             <field name="amount_services" />
