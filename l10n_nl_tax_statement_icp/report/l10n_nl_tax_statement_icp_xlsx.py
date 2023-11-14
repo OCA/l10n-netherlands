@@ -102,8 +102,8 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
         """Define the report columns used to generate report"""
         return {
             0: {"header": _("Partner"), "field": "partner_name", "width": 60},
-            1: {"header": _("VAT"), "field": "vat", "width": 50},
-            2: {"header": _("Country Code"), "field": "country_code", "width": 14},
+            1: {"header": _("Country Code"), "field": "country_code", "width": 14},
+            2: {"header": _("VAT"), "field": "format_vat", "width": 50},
             3: {"header": _("Currency"), "field": "currency_name", "width": 14},
             4: {"header": _("Amount Product"), "field": "amount_products", "width": 20},
             5: {"header": _("Amount Service"), "field": "amount_services", "width": 20},
