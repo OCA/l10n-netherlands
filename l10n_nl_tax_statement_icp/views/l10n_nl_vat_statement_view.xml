@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_l10n_nl_vat_report_form" model="ir.ui.view">
+        <field name="model">l10n.nl.vat.statement</field>
+        <field
+            name="inherit_id"
+            ref="l10n_nl_tax_statement.view_l10n_nl_vat_report_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="icp_statement" string="ICP Statement">
+                    <group name="icp_lines" string="ICP Statement lines">
+                        <div states="posted">
+                            Press the Update button in order to recompute the lines!
+                        </div>
+                        <button
+                            name="icp_update"
+                            string="Update"
+                            states="posted"
+                            type="object"
+                            class="oe_highlight"
+                            icon="fa-repeat"
+                        />
+                    </group>
+                    <field name="icp_line_ids">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="partner_id" />
+                            <field name="vat" />
+                            <field name="country_code" />
+                            <field name="currency_id" />
+                            <field name="amount_products" />
+                            <field name="amount_services" />
+                        </tree>
+                    </field>
+                    <group>
+                        <group>
+
+                        </group>
+                        <group>
+                            <label for="icp_total" />
+                            <field name="icp_total" nolabel="1" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,195 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_nl_tax_statement_icp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "(product + service)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "Amount Product"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__amount_products
+msgid "Amount Products"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "Amount Service"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__amount_services
+msgid "Amount Services"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__country_code
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "Country Code"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__currency_id
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__display_name
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__format_amount_products
+msgid "Format Amount Products"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__format_amount_services
+msgid "Format Amount Services"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "ICP"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__icp_line_ids
+msgid "ICP Lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+msgid "ICP Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+msgid "ICP Statement lines"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model,name:l10n_nl_tax_statement_icp.model_l10n_nl_vat_statement_icp_line
+msgid "Intra-Community transactions (ICP) line"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement____last_update
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.actions.report,name:l10n_nl_tax_statement_icp.action_report_tax_statement_icp
+msgid "NL ICP Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model,name:l10n_nl_tax_statement_icp.model_l10n_nl_vat_statement
+msgid "Netherlands Vat Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+msgid "Press the Update button in order to recompute the lines!"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__statement_id
+msgid "Statement"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__icp_total
+msgid "Total ICP amount"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "Total amount"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,help:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement__icp_total
+msgid "Total amount in currency of the statement."
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form
+msgid "Update"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__vat
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
+msgid "VAT"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:0
+#, python-format
+msgid ""
+"Wrong country code (%s) for ICP report. Please check your configuration."
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:0
+#, python-format
+msgid "Wrong country code (NL) for ICP report."
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp
+#: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "You cannot modify a final statement!"
+msgstr ""
