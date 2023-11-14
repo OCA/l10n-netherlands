@@ -31,8 +31,8 @@
                         >
                             <div class="nl_tax_act_as_row labels">
                                 <div class="nl_tax_act_as_cell left">Partner</div>
-                                <div class="nl_tax_act_as_cell left">VAT</div>
                                 <div class="nl_tax_act_as_cell left">Country Code</div>
+                                <div class="nl_tax_act_as_cell left">VAT</div>
                                 <div class="nl_tax_act_as_cell right">Currency</div>
                                 <div
                                     class="nl_tax_act_as_cell right"
@@ -48,10 +48,10 @@
                                         <span t-field="line.partner_id" />
                                     </div>
                                     <div class="nl_tax_act_as_cell left">
-                                        <span t-field="line.vat" />
+                                        <span t-field="line.country_code" />
                                     </div>
                                     <div class="nl_tax_act_as_cell left">
-                                        <span t-field="line.country_code" />
+                                        <span t-field="line.format_vat" />
                                     </div>
                                     <div class="nl_tax_act_as_cell right">
                                         <span t-field="line.currency_id" />
