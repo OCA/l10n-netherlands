@@ -29,6 +29,13 @@
                     </div>
                 </div>
             </div>
+            <xpath expr="//div[@id='tax_exigibility']" position="attributes">
+                <attribute name="attrs">
+                    {
+                        'invisible': [('l10n_nl_tax_invoice_basis', '=', True)]
+                    }
+                </attribute>
+            </xpath>
         </field>
     </record>
 
