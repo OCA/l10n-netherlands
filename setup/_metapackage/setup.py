@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo13-addon-l10n_nl_account_tax_unece',
         'odoo13-addon-l10n_nl_bank',
+        'odoo13-addon-l10n_nl_base_ubl',
         'odoo13-addon-l10n_nl_bsn',
         'odoo13-addon-l10n_nl_location_nuts',
         'odoo13-addon-l10n_nl_mis_reports',

@@ -23,6 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 13.0.1.1.0 |  | Auto-configure UNECE params on Dutch taxes
 [l10n_nl_bank](l10n_nl_bank/) | 13.0.1.1.0 |  | Import all Dutch banks with BIC code
+[l10n_nl_base_ubl](l10n_nl_base_ubl/) | 13.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) [![thomaspaulb](https://github.com/thomaspaulb.png?size=30px)](https://github.com/thomaspaulb) | Base module for Netherlands-specific UBL dialect (NLCIUS)
 [l10n_nl_bsn](l10n_nl_bsn/) | 13.0.1.0.2 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Burgerservicenummer (BSN) for Partners
 [l10n_nl_location_nuts](l10n_nl_location_nuts/) | 13.0.1.1.0 |  | NUTS specific options for Netherlands
 [l10n_nl_mis_reports](l10n_nl_mis_reports/) | 13.0.1.1.0 | [![hbrunn](https://github.com/hbrunn.png?size=30px)](https://github.com/hbrunn) | Profit & Loss / Balance sheet for the Netherlands
