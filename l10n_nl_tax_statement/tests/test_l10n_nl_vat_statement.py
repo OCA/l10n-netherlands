@@ -165,6 +165,11 @@ class TestVatStatement(TransactionCase):
             values = {"name": line.name}
             self.assertEqual(line.write(values), True)
             self.assertEqual(line.check_field_is_equal("name", values), True)
+        # testing noop writing on tax_id Many2Many allowed
+        for line in self.invoice_1.line_ids:
+            values = {"tax_ids": [(6, 0, line.tax_ids.ids)]}
+            self.assertEqual(line.check_field_is_equal("tax_ids", values), True)
+            self.assertEqual(line.write(values), True)
 
         # testing no protected field code branch:
         line = self.invoice_1.line_ids[0]
