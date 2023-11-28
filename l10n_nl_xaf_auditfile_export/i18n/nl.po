@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-16 06:23+0000\n"
-"PO-Revision-Date: 2021-01-05 15:44+0000\n"
-"Last-Translator: Dennis Sluijk <d.sluijk@onestein.nl>\n"
+"PO-Revision-Date: 2023-11-28 16:33+0000\n"
+"Last-Translator: Yung-Wa <yw.ng@onestein.nl>\n"
 "Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction
@@ -40,12 +40,12 @@ msgstr "Auditfile"
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:0
 #, python-format
 msgid "Auditfile %(company_name)s %(current_datetime)s"
-msgstr ""
+msgstr "Auditfile %(company_name)s %(current_datetime)s"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__auditfile_success
 msgid "Auditfile Success"
-msgstr ""
+msgstr "Auditfile Succes"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.actions.act_window,name:l10n_nl_xaf_auditfile_export.action_auditfiles
@@ -111,7 +111,7 @@ msgstr "Genereer auditfile"
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Heeft Bericht"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__id
@@ -186,7 +186,7 @@ msgstr "Aantal fouten"
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Aantal berichten die actie vereisen"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error_counter
@@ -227,6 +227,14 @@ msgid ""
 "If you want to export an auditfile with the official standard (missing the "
 "Unit4 compatibility) just set this flag to False."
 msgstr ""
+"Het Unit4 systeem verwacht een waarde voor `<xsd:element name=\"docRef\" ..>`"
+" van maximaal 35 tekens, in strijd met de officiële standaard. Als de waarde "
+"groter is dan 35 tekens, geeft Unit4 een foutmelding tijdens het importeren "
+"van het auditbestand. Door deze vlag op WAAR te zetten wordt de `docRef` "
+"waarde eenvoudigweg ingekort tot 35 karakters zodat de auditfile succesvol "
+"kan worden geïmporteerd in Unit4.\n"
+"Als je een auditfile wilt exporteren met de officiële standaard (zonder de "
+"Unit4 compatibiliteit) zet je deze vlag gewoon op ONWAAR."
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__unit4
@@ -270,9 +278,8 @@ msgstr "ir.qweb.field.auditfile.string30"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string35
-#, fuzzy
 msgid "ir.qweb.field.auditfile.string35"
-msgstr "ir.qweb.field.auditfile.string30"
+msgstr "ir.qweb.field.auditfile.string35"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model,name:l10n_nl_xaf_auditfile_export.model_ir_qweb_field_auditfile_string50
