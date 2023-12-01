@@ -126,12 +126,13 @@ class XafAuditfileExport(models.Model):
 
         return defaults
 
-    @api.one
     @api.constrains('date_start', 'date_end')
     def check_dates(self):
-        if self.date_start >= self.date_end:
-            raise exceptions.ValidationError(
-                _('Starting date must be anterior ending date!'))
+        for this in self:
+            if this.date_start >= this.date_end:
+                raise exceptions.ValidationError(
+                    _('Starting date must be anterior ending date!')
+                )
 
     @api.multi
     def button_generate(self):
