@@ -39,14 +39,14 @@ class VatStatementLine(models.Model):
     )
     omzet = fields.Monetary()
     btw = fields.Monetary()
-    format_omzet = fields.Char(compute='_amount_format', string='Omzet')
-    format_btw = fields.Char(compute='_amount_format', string='BTW')
+    format_omzet = fields.Char(compute='_compute_amount_format', string='Omzet')
+    format_btw = fields.Char(compute='_compute_amount_format', string='BTW')
 
     is_group = fields.Boolean(compute='_compute_is_group')
 
     @api.multi
     @api.depends('omzet', 'btw', 'code')
-    def _amount_format(self):
+    def _compute_amount_format(self):
         for line in self:
             omzet = formatLang(self.env, line.omzet, monetary=True)
             btw = formatLang(self.env, line.btw, monetary=True)

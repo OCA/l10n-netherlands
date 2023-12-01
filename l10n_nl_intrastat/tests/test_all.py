@@ -32,7 +32,7 @@ class TestIntrastatNL(TransactionCase):
         company = self.company
 
         # Create a date range type
-        type = self.env['date.range.type'].create({
+        date_range_type = self.env['date.range.type'].create({
             'name': 'Test date range type',
             'company_id': company.id,
             'allow_overlap': False
@@ -46,7 +46,7 @@ class TestIntrastatNL(TransactionCase):
             'date_start': start_date,
             'date_end': fields.Date.today(),
             'company_id': company.id,
-            'type_id': type.id
+            'type_id': date_range_type.id
         })
 
         # Create an empty, draft intracom report

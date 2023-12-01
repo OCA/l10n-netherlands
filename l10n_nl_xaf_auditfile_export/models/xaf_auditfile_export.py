@@ -20,8 +20,18 @@
 ##############################################################################
 import base64
 import collections
-from StringIO import StringIO
+import io
 from lxml import etree
+import logging
+import os
+import psutil
+import shutil
+from tempfile import mkdtemp
+from io import BytesIO
+import sys
+import zipfile
+import time
+import traceback
 from datetime import datetime, timedelta
 from dateutil.rrule import rrule, MONTHLY
 from openerp import _, models, fields, api, exceptions, release, modules
@@ -34,15 +44,47 @@ This is the default for ir.config_parameter
 "l10n_nl_xaf_auditfile_export.max_records"'''
 
 
+def memory_info():
+    """ Modified from odoo/server/service.py """
+    process = psutil.Process(os.getpid())
+    pmem = (getattr(process, 'memory_info', None) or process.get_memory_info)()
+    return pmem.vms
+
+
+# http://stackoverflow.com/questions/1707890/fast-way-to-filter-illegal-xml-unicode-chars-in-python
+ILLEGAL_RANGES = [
+    (0x00, 0x08), (0x0B, 0x1F), (0x7F, 0x84), (0x86, 0x9F),
+    (0xD800, 0xDFFF), (0xFDD0, 0xFDDF), (0xFFFE, 0xFFFF),
+    (0x1FFFE, 0x1FFFF), (0x2FFFE, 0x2FFFF), (0x3FFFE, 0x3FFFF),
+    (0x4FFFE, 0x4FFFF), (0x5FFFE, 0x5FFFF), (0x6FFFE, 0x6FFFF),
+    (0x7FFFE, 0x7FFFF), (0x8FFFE, 0x8FFFF), (0x9FFFE, 0x9FFFF),
+    (0xAFFFE, 0xAFFFF), (0xBFFFE, 0xBFFFF), (0xCFFFE, 0xCFFFF),
+    (0xDFFFE, 0xDFFFF), (0xEFFFE, 0xEFFFF), (0xFFFFE, 0xFFFFF),
+    (0x10FFFE, 0x10FFFF)
+]
+UNICODE_SANITIZE_TRANSLATION = {}
+for low, high in ILLEGAL_RANGES:
+    if low > sys.maxunicode:  # pragma: no cover
+        continue
+    for c in range(low, high+1):
+        UNICODE_SANITIZE_TRANSLATION[c] = ord(u' ')
+
+
 class XafAuditfileExport(models.Model):
     _name = 'xaf.auditfile.export'
     _description = 'XAF auditfile export'
     _inherit = ['mail.thread']
     _order = 'date_start desc'
 
-    @api.depends('name')
-    def _auditfile_name_get(self):
-        self.auditfile_name = '%s.xaf' % self.name
+    @api.depends('name', 'auditfile')
+    def _compute_auditfile_name(self):
+        for item in self:
+            item.auditfile_name = '%s.xaf' % item.name
+            if item.auditfile:
+                auditfile = base64.b64decode(item.auditfile)
+                zf = BytesIO(auditfile)
+                if zipfile.is_zipfile(zf):
+                    item.auditfile_name += '.zip'
 
     @api.multi
     def _compute_fiscalyear_name(self):
@@ -56,7 +98,11 @@ class XafAuditfileExport(models.Model):
     fiscalyear_name = fields.Char(compute='_compute_fiscalyear_name')
     auditfile = fields.Binary('Auditfile', readonly=True, copy=False)
     auditfile_name = fields.Char(
-        'Auditfile filename', compute=_auditfile_name_get)
+        'Auditfile filename',
+        compute='_compute_auditfile_name',
+        store=True
+    )
+    auditfile_success = fields.Boolean()
     date_generated = fields.Datetime(
         'Date generated', readonly=True, copy=False)
     company_id = fields.Many2one('res.company', 'Company', required=True)
@@ -80,15 +126,18 @@ class XafAuditfileExport(models.Model):
 
         return defaults
 
-    @api.one
     @api.constrains('date_start', 'date_end')
     def check_dates(self):
-        if self.date_start >= self.date_end:
-            raise exceptions.ValidationError(
-                _('Starting date must be anterior ending date!'))
+        for this in self:
+            if this.date_start >= this.date_end:
+                raise exceptions.ValidationError(
+                    _('Starting date must be anterior ending date!')
+                )
 
     @api.multi
     def button_generate(self):
+        t0 = time.time()
+        m0 = memory_info()
         self.date_generated = fields.Datetime.now(self)
         xml = self.env.ref('l10n_nl_xaf_auditfile_export.auditfile_template')\
             .render(values={
@@ -96,37 +145,58 @@ class XafAuditfileExport(models.Model):
             })
         # the following is dealing with the fact that qweb templates don't like
         # namespaces, but we need the correct namespaces for validation
-        # we inject them at parse time in order not to traverse the document
-        # multiple times
-        default_namespace = 'http://www.auditfiles.nl/XAF/3.2'
-        iterparse = etree.iterparse(
-            StringIO(xml),
-            remove_blank_text=True, remove_comments=True)
-        for action, element in iterparse:
-            element.tag = '{%s}%s' % (default_namespace, element.tag)
-        del xml
-        xmldoc = etree.Element(
-            iterparse.root.tag,
-            nsmap={
-                None: default_namespace,
-                'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            })
-        for element in iterparse.root:
-            xmldoc.append(element)
-        del iterparse
-
-        xsd = etree.XMLSchema(
-            etree.parse(
-                file(
-                    modules.get_module_resource(
-                        'l10n_nl_xaf_auditfile_export', 'data',
-                        'XmlAuditfileFinancieel3.2.xsd'))))
-        if not xsd.validate(xmldoc):
-            self.message_post('<br><br>\n'.join(map(str, xsd.error_log)))
-            return
-
-        self.auditfile = base64.b64encode(etree.tostring(
-            xmldoc, xml_declaration=True, encoding='UTF-8'))
+        xml = xml.decode('utf-8').strip().replace(
+            u'<auditfile>',
+            u'<?xml version="1.0" encoding="UTF-8"?>'
+            '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            'xmlns="http://www.auditfiles.nl/XAF/3.2">', 1)
+        # removes invalid characters from xml
+        if not self.env.context.get('dont_sanitize_xml'):
+            xml = xml.translate(
+                UNICODE_SANITIZE_TRANSLATION
+            )
+        filename = self.name + '.xaf'
+        tmpdir = mkdtemp()
+        auditfile = os.path.join(tmpdir, filename)
+        archivedir = mkdtemp()
+        archive = os.path.join(archivedir, filename)
+        self.auditfile_success = False
+        try:
+            with io.open(auditfile, 'w+', encoding='utf-8') as tmphandle:
+                tmphandle.write(xml)
+            del xml
+            logging.getLogger(__name__).debug(
+                'Created an auditfile in %ss, using %sk memory',
+                int(time.time() - t0), (memory_info() - m0) / 1024
+            )
+            # Store in compressed format on the auditfile record
+            zip_path = shutil.make_archive(
+                archive, 'zip', tmpdir, verbose=True)
+            with open(zip_path, 'rb') as auditfile_zip:
+                self.auditfile = base64.b64encode(auditfile_zip.read())
+            # Validate the generated XML
+            xsd = etree.XMLSchema(
+                etree.parse(
+                    open(
+                        modules.get_module_resource(
+                            'l10n_nl_xaf_auditfile_export',
+                            'data',
+                            'XmlAuditfileFinancieel3.2.xsd'
+                        )
+                    )
+                )
+            )
+            xsd.assertValid(etree.parse(auditfile))
+            del xsd
+            self.auditfile_success = True
+        except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
+            logging.getLogger(__name__).error(e)
+            logging.getLogger(__name__).info(traceback.format_exc())
+            self.message_post(e)
+            self.auditfile_success = False
+        finally:
+            shutil.rmtree(tmpdir)
+            shutil.rmtree(archivedir)
 
     @api.multi
     def get_odoo_version(self):
