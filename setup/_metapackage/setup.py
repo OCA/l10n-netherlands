@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-l10n_nl_account_tax_unece>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_bank>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_bsn>=15.0dev,<15.1dev',
+        'odoo-addon-l10n_nl_oin>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_postcode>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_tax_statement>=15.0dev,<15.1dev',
         'odoo-addon-l10n_nl_tax_statement_icp>=15.0dev,<15.1dev',
