@@ -19,8 +19,8 @@ msgstr ""
 #. module: l10n_nl_oin
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
-msgid "Another partner (%s) has the same OIN (%s)."
-msgstr "Een andere relatie (%s) heeft dezelfde OIN (%s)."
+msgid "Another partner (%(name)s) has the same OIN (%(oin)s)."
+msgstr ""
 
 #. module: l10n_nl_oin
 #: model:ir.model,name:l10n_nl_oin.model_res_partner
@@ -28,47 +28,48 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: l10n_nl_oin
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__display_name
-msgid "Display Name"
-msgstr "Weergave naam"
-
-#. module: l10n_nl_oin
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__nl_oin
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_users__nl_oin
-msgid "Dutch OIN"
-msgstr "Nederlands OIN"
-
-#. module: l10n_nl_oin
-#: model:ir.model.fields,help:l10n_nl_oin.field_res_partner__nl_oin
-#: model:ir.model.fields,help:l10n_nl_oin.field_res_users__nl_oin
+#: model:ir.model.fields,help:l10n_nl_oin.field_res_partner__l10n_nl_oin
+#: model:ir.model.fields,help:l10n_nl_oin.field_res_users__l10n_nl_oin
 msgid "Dutch Organisatie-identificatienummer (OIN)"
 msgstr "Nederlands Organisatie Identificatie Nummer (OIN)"
 
 #. module: l10n_nl_oin
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__id
-msgid "ID"
-msgstr "ID"
-
-#. module: l10n_nl_oin
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
-
-#. module: l10n_nl_oin
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__nl_oin_display
-#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_users__nl_oin_display
-msgid "Nl Oin Display"
-msgstr "Nl OIN weergave"
+#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_partner__l10n_nl_oin
+#: model:ir.model.fields,field_description:l10n_nl_oin.field_res_users__l10n_nl_oin
+msgid "Organisatie Indentificatie Nummer"
+msgstr ""
 
 #. module: l10n_nl_oin
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
-msgid "The OIN you entered (%s) is not valid."
-msgstr "De ingevoerde OIN (%s) is ongeldig."
+msgid "The OIN you entered (%(oin)s) is not valid."
+msgstr ""
 
 #. module: l10n_nl_oin
-#: code:addons/l10n_nl_oin/models/res_partner.py:0
 #: code:addons/l10n_nl_oin/models/res_partner.py:0
 #, python-format
 msgid "Warning!"
 msgstr "Let op!"
+
+#, python-format
+#~ msgid "Another partner (%s) has the same OIN (%s)."
+#~ msgstr "Een andere relatie (%s) heeft dezelfde OIN (%s)."
+
+#~ msgid "Display Name"
+#~ msgstr "Weergave naam"
+
+#~ msgid "Dutch OIN"
+#~ msgstr "Nederlands OIN"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Laatst gewijzigd op"
+
+#~ msgid "Nl Oin Display"
+#~ msgstr "Nl OIN weergave"
+
+#, python-format
+#~ msgid "The OIN you entered (%s) is not valid."
+#~ msgstr "De ingevoerde OIN (%s) is ongeldig."
