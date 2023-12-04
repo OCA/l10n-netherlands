@@ -46,10 +46,9 @@ class AccountMoveLine(models.Model):
             # we will not accept any modification to protected fields,
             # only the standard 6,0,[ids] coming from the default web edit.
             return (
-                len(values[changed_protected_field]) == 1
-                and values[changed_protected_field][0][0] == 6
-                and values[changed_protected_field][0][2]
-                == self[changed_protected_field].ids
+                len(new_value) == 1
+                and new_value[0][0] == 6
+                and new_value[0][2] == old_value.ids
             )
         if new_value:
             return old_value == new_value
@@ -77,8 +76,7 @@ class AccountMoveLine(models.Model):
             if protected_field not in invalid_fields:
                 values.pop(protected_field)
         for this in self:
-            if this._l10n_nl_vat_statement_should_check_write(values):
-                this._l10n_nl_vat_statement_check_state()
+            this._l10n_nl_vat_statement_check_state()
         return super(AccountMoveLine, self).write(values)
 
     @api.model
