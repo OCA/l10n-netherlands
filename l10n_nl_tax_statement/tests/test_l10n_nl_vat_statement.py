@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import datetime
+import logging
 
 from dateutil.relativedelta import relativedelta
 
@@ -12,6 +13,8 @@ from odoo.modules.module import get_resource_path
 from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 from odoo.tools import convert_file
+
+_logger = logging.getLogger(__name__)
 
 
 class TestVatStatement(TransactionCase):
@@ -156,6 +159,22 @@ class TestVatStatement(TransactionCase):
             line.tax_ids.add(self.tax_2)
         self.invoice_1 = invoice_form.save()
         self.assertEqual(len(self.invoice_1.line_ids), 5)
+
+        # testing noop writing now allowed
+        for line in self.invoice_1.line_ids:
+            values = {"name": line.name}
+            self.assertEqual(line.write(values), True)
+            self.assertEqual(line.check_field_is_equal("name", values), True)
+        # testing noop writing on tax_id Many2Many allowed
+        for line in self.invoice_1.line_ids:
+            values = {"tax_ids": [(6, 0, line.tax_ids.ids)]}
+            self.assertEqual(line.check_field_is_equal("tax_ids", values), True)
+            self.assertEqual(line.write(values), True)
+
+        # testing no protected field code branch:
+        line = self.invoice_1.line_ids[0]
+        values = {"ref": 12345}
+        self.assertEqual(line.write(values), True)
 
     def test_01_onchange(self):
         daterange_type = self.env["date.range.type"].create({"name": "Type 1"})
@@ -355,7 +374,7 @@ class TestVatStatement(TransactionCase):
         )
         self.assertTrue(invoice_lines)
         with self.assertRaises(UserError):
-            invoice_lines[0].date = fields.Date.today()
+            invoice_lines[0].date = fields.Date.today() + relativedelta(day=1)
 
     def test_13_no_previous_statement_posted(self):
         statement2 = self.env["l10n.nl.vat.statement"].create({"name": "Statement 2"})
