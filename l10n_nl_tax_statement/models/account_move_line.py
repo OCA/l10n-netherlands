@@ -75,9 +75,10 @@ class AccountMoveLine(models.Model):
         for protected_field in protected_fields_in_values:
             if protected_field not in invalid_fields:
                 values.pop(protected_field)
-        for this in self:
-            this._l10n_nl_vat_statement_check_state()
-        return super(AccountMoveLine, self).write(values)
+        if self._l10n_nl_vat_statement_should_check_write(values):
+            for this in self:
+                this._l10n_nl_vat_statement_check_state()
+        return super().write(values)
 
     @api.model
     def _l10n_nl_vat_statement_should_check_write(self, values):
