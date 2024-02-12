@@ -13,7 +13,8 @@ class IrQwebAuditfileStringWidget999(models.AbstractModel):
     @api.model
     def value_to_html(self, value, options):
         value = value[: self._max_length] if value else ""
-        return super().value_to_html(value, options)
+        res = super().value_to_html(value, options)
+        return str(res)  # From markup to string
 
 
 class IrQwebAuditfileStringWidget9(models.AbstractModel):
