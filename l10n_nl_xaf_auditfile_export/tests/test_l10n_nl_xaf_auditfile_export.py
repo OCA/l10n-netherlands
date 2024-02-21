@@ -137,6 +137,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
         self.assertTrue(record.name)
         self.assertTrue(record.auditfile)
         self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.auditfile_success)
         self.assertTrue(record.company_id)
         self.assertTrue(record.date_start)
         self.assertTrue(record.date_end)
@@ -156,13 +157,13 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
         record = self.env["xaf.auditfile.export"].create({})
         record.name += f"{os.sep}01"
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
     def test_06_include_moves_from_inactive_journals(self):
         """Include moves off of inactive journals"""
         record = self.env["xaf.auditfile.export"].create({})
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
@@ -175,7 +176,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
 
         record_after = self.env["xaf.auditfile.export"].create({})
         record_after.button_generate()
-        self.assertTrue(record_after)
+        self.assertTrue(record_after.auditfile_success)
 
         line_count_after = record_after.get_move_line_count()
         parsed_count_after = get_transaction_line_count_from_xml(record_after.auditfile)
@@ -199,7 +200,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
         )
         record = self.env["xaf.auditfile.export"].create({})
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
