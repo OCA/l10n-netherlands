@@ -322,3 +322,15 @@ class TestXafAuditfileExport(TransactionCase):
             record.auditfile, "//a:openingBalance/a:linesCount/text()"
         )
         self.assertEqual(lines_count, 2)
+
+    def test_10_ampersand_in_name(self):
+        """Error because of invalid characters in an auditfile"""
+        record = (
+            self.env["xaf.auditfile.export"]
+            .with_context(dont_sanitize_xml=True)
+            .create({})
+        )
+        # add an ampersand
+        record.company_id.name += " & OCA"
+        record.button_generate()
+        self.assertTrue(record.auditfile_success)
