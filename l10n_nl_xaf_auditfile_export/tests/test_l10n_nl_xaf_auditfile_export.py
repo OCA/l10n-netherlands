@@ -3,6 +3,7 @@
 
 import base64
 import os
+from datetime import timedelta
 from io import BytesIO
 from zipfile import ZipFile
 
@@ -13,25 +14,36 @@ from odoo.tests.common import Form, TransactionCase
 from odoo.tools import mute_logger
 
 
-def get_transaction_line_count_from_xml(auditfile):
-    """Helper XML method to parse and return the transaction line count"""
-    line_count = 0
+def xaf_xpath(auditfile, query):
     with ZipFile(BytesIO(base64.b64decode(auditfile)), "r") as z:
         contents = z.read(z.filelist[-1]).decode()
         parser = etree.XMLParser(
             ns_clean=True, recover=True, encoding="utf-8", remove_blank_text=True
         )
         root = etree.XML(bytes(contents, encoding="utf8"), parser=parser)
-        # xpath query to select all element nodes in namespace
-        # Source: https://stackoverflow.com/a/30233635
-        query = "descendant-or-self::*[namespace-uri()!='']"
-        for element in root.xpath(query):
-            element.tag = etree.QName(element).localname
-        journals = root.xpath("/auditfile/company/transactions/journal")
-        for journal in journals:
-            transactions = journal.xpath("transaction/trLine")
-            for _ in transactions:
-                line_count += 1
+        for element in root.xpath(
+            query, namespaces={"a": "http://www.auditfiles.nl/XAF/3.2"}
+        ):
+            yield element
+
+
+def get_transaction_line_count_from_xml(auditfile):
+    """Helper XML method to parse and return the transaction line count"""
+    line_count = 0
+    # xpath query to select all element nodes in namespace
+    # Source: https://stackoverflow.com/a/30233635
+    query = "descendant-or-self::*[namespace-uri()!='']"
+    root = None
+    for element in xaf_xpath(auditfile, query):
+        element.tag = etree.QName(element).localname
+        root = root or element.getroottree()
+    if not root:
+        return 0
+    journals = root.xpath("/auditfile/company/transactions/journal")
+    for journal in journals:
+        transactions = journal.xpath("transaction/trLine")
+        for _ in transactions:
+            line_count += 1
     return line_count
 
 
@@ -215,3 +227,97 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record)
         self.assertTrue(record.name)
         self.assertFalse(record.auditfile_success)
+
+    def test_09_opening_balance(self):
+        """Test that we calculate the opening balance correctly"""
+        record = self.env["xaf.auditfile.export"].create({})
+
+        acc_receivable = self.env["account.account"].search(
+            [
+                (
+                    "account_type",
+                    "=",
+                    "asset_receivable",
+                ),
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
+        )
+        acc_payable = self.env["account.account"].search(
+            [
+                ("account_type", "=", "liability_payable"),
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
+        )
+        acc_revenue = self.env["account.account"].search(
+            [
+                ("account_type", "=", "income"),
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
+        )
+        journal = self.env["account.journal"].search(
+            [
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
+        )
+
+        move_receivable = self.env["account.move"].create(
+            {
+                "journal_id": journal.id,
+                "date": record.date_start - timedelta(days=1),
+                "line_ids": [
+                    (0, 0, {"account_id": acc_receivable.id, "credit": 42, "debit": 0}),
+                    (0, 0, {"account_id": acc_revenue.id, "credit": 0, "debit": 42}),
+                ],
+            }
+        )
+        move_payable = self.env["account.move"].create(
+            {
+                "journal_id": journal.id,
+                "date": record.date_start - timedelta(days=1),
+                "line_ids": [
+                    (0, 0, {"account_id": acc_payable.id, "credit": 0, "debit": 4242}),
+                    (0, 0, {"account_id": acc_revenue.id, "credit": 4242, "debit": 0}),
+                ],
+            }
+        )
+
+        move_receivable.action_post()
+        self.env.flush_all()
+        record.button_generate()
+
+        def xaf_val(auditfile, xpath):
+            return float("".join(xaf_xpath(auditfile, xpath)))
+
+        total_credit = xaf_val(
+            record.auditfile, "//a:openingBalance/a:totalCredit/text()"
+        )
+        self.assertEqual(total_credit, 42)
+        total_debit = xaf_val(
+            record.auditfile, "//a:openingBalance/a:totalDebit/text()"
+        )
+        self.assertEqual(total_debit, 0)
+        lines_count = xaf_val(
+            record.auditfile, "//a:openingBalance/a:linesCount/text()"
+        )
+        self.assertEqual(lines_count, 1)
+
+        move_payable.action_post()
+        record = self.env["xaf.auditfile.export"].create({})
+        self.env.flush_all()
+        record.button_generate()
+        total_credit = xaf_val(
+            record.auditfile, "//a:openingBalance/a:totalCredit/text()"
+        )
+        self.assertEqual(total_credit, 42)
+        total_debit = xaf_val(
+            record.auditfile, "//a:openingBalance/a:totalDebit/text()"
+        )
+        self.assertEqual(total_debit, 4242)
+        lines_count = xaf_val(
+            record.auditfile, "//a:openingBalance/a:linesCount/text()"
+        )
+        self.assertEqual(lines_count, 2)
