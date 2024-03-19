@@ -345,13 +345,19 @@ class TestNLKvK(TransactionCase):
             self.assertIn(entity_type, ['legal_person', 'headquarters'])
             self.assertEqual(test_line.name, '68727720')
             self.assertEqual(test_line.kvk, '68727720')
-            self.assertEqual(test_line.partner_name, 'Test NV Katrien')
             if entity_type == 'legal_person':
                 self.assertFalse(test_line.partner_city)
+                self.assertEqual(
+                    test_line.partner_name, 'Test NV Katrien - Statutory Naam')
             else:
                 self.assertEqual(test_line.partner_city, 'Veendam')
+                self.assertEqual(
+                    test_line.partner_name, 'Test NV Katrien - Handelsnaam')
             test_line.set_partner_fields()
-            self.assertEqual(my_partner.name, 'Test NV Katrien')
+            if entity_type == 'legal_person':
+                self.assertEqual(my_partner.name, 'Test NV Katrien - Statutory Naam')
+            else:
+                self.assertEqual(my_partner.name, 'Test NV Katrien - Handelsnaam')
             self.assertFalse(my_partner.vat)
             self.assertEqual(my_partner.country_id, nl_country)
             if entity_type == 'legal_person':
@@ -377,8 +383,8 @@ class TestNLKvK(TransactionCase):
         self.assertFalse(wizard_action)
 
         # partner fields directly set (without popup)
-        self.assertEqual(my_partner.name, 'Local Funzoom N.V.')
-        self.assertEqual(my_partner.city, 'Leiderdorp')
+        self.assertEqual(my_partner.name, 'Local Funzoom N.V. - Statutory Naam')
+        self.assertEqual(my_partner.city, 'Denekamp')
         self.assertFalse(my_partner.vat)
         self.assertEqual(my_partner.country_id, nl_country)
 
