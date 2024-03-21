@@ -204,19 +204,23 @@
             <opBalDate><t t-esc="self.date_start" /></opBalDate>
             <opBalDesc>Opening balance</opBalDesc>
             <linesCount><t t-esc="ob_totals['count']" /></linesCount>
-            <totalDebit><t t-esc="ob_totals['debit']" /></totalDebit>
-            <totalCredit><t t-esc="ob_totals['credit']" /></totalCredit>
+            <totalDebit><t t-esc="round(ob_totals['debit'], 2)" /></totalDebit>
+            <totalCredit><t t-esc="round(ob_totals['credit'], 2)" /></totalCredit>
             <obLine t-foreach="self.get_ob_lines()" t-as="l">
                 <nr><t t-esc="l['account_id']" /></nr>
                 <accID><t t-esc="l['account_code']" /></accID>
-                <amnt><t t-esc="abs(l['balance'])" /></amnt>
+                <amnt><t t-esc="round(abs(l['balance']), 2)" /></amnt>
                 <amntTp><t t-esc="'C' if l['balance'] &lt; 0 else 'D'" /></amntTp>
             </obLine>
         </openingBalance>
         <transactions>
             <linesCount><t t-esc="self.get_move_line_count()" /></linesCount>
-            <totalDebit><t t-esc="self.get_move_line_total_debit()" /></totalDebit>
-            <totalCredit><t t-esc="self.get_move_line_total_credit()" /></totalCredit>
+            <totalDebit><t
+                            t-esc="round(self.get_move_line_total_debit(), 2)"
+                        /></totalDebit>
+            <totalCredit><t
+                            t-esc="round(self.get_move_line_total_credit(), 2)"
+                        /></totalCredit>
             <journal t-foreach="self.get_journals()" t-as="j">
                 <jrnID><t t-esc="j.code" /></jrnID>
                 <desc><t t-esc="j.name" /></desc>
