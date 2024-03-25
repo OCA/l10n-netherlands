@@ -10,6 +10,7 @@ from zipfile import ZipFile
 from lxml import etree
 
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tests.common import Form, TransactionCase
 from odoo.tools import mute_logger
@@ -61,7 +62,7 @@ class TestXafAuditfileExport(TransactionCase):
                 }
             )
         self.invoice = move_form.save()
-        self.invoice.post()
+        self.invoice.action_post()
 
     def test_01_default_values(self):
         """Check that the default values are filled on creation"""
@@ -77,6 +78,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertFalse(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertFalse(record.unit4)
+        self.assertFalse(record.auditfile_success)
 
     def test_02_export_success(self):
         """Do a basic auditfile export"""
@@ -92,6 +94,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertFalse(record.unit4)
+        self.assertTrue(record.auditfile_success)
 
         zf = BytesIO(base64.b64decode(record.auditfile))
         with ZipFile(zf, "r") as archive:
@@ -108,7 +111,8 @@ class TestXafAuditfileExport(TransactionCase):
 
         self.assertTrue(record)
         self.assertTrue(record.name)
-        self.assertFalse(record.auditfile)
+        # still contains the faulty auditfile for debugging purposes
+        self.assertTrue(record.auditfile)
         self.assertTrue(record.auditfile_name)
         self.assertTrue(record.company_id)
         self.assertTrue(record.date_start)
@@ -116,6 +120,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertFalse(record.unit4)
+        self.assertFalse(record.auditfile_success)
 
     def test_04_export_success_unit4(self):
         """Do a basic auditfile export (no Unit4)"""
@@ -132,6 +137,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.date_generated)
         self.assertTrue(record.fiscalyear_name)
         self.assertTrue(record.unit4)
+        self.assertTrue(record.auditfile_success)
 
         if record.auditfile_name[-4:] == ".zip":
             zf = BytesIO(base64.b64decode(record.auditfile))
@@ -193,3 +199,35 @@ class TestXafAuditfileExport(TransactionCase):
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
         self.assertEqual(parsed_line_count, line_count)
+
+    @mute_logger("odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export")
+    def test_08_invalid_characters(self):
+        """Error because of invalid characters in an auditfile"""
+        record = (
+            self.env["xaf.auditfile.export"]
+            .with_context(dont_sanitize_xml=True)
+            .create({})
+        )
+        # add an invalid character
+        record.company_id.name += chr(0x0B)
+        record.button_generate()
+
+        self.assertTrue(record)
+        self.assertTrue(record.name)
+        self.assertFalse(record.auditfile_success)
+        self.assertTrue(record.auditfile)
+        self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.company_id)
+        self.assertTrue(record.date_start)
+        self.assertTrue(record.date_end)
+        self.assertTrue(record.date_generated)
+        self.assertTrue(record.fiscalyear_name)
+
+    @mute_logger("odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export")
+    def test_08_prevent_parallel_execution(self):
+        """Attempt at parallel execution should raise error."""
+        record = self.env["xaf.auditfile.export"].create({})
+        record._acquire_in_use()
+        with self.assertRaises(UserError):
+            record._acquire_in_use()
+        record._release_in_use()
