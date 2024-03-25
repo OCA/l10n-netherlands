@@ -252,6 +252,46 @@ class XafAuditfileExport(models.Model):
         ])
 
     @api.multi
+    def get_ob_totals(self):
+        """return totals of opening balance"""
+        result = dict(
+            credit=0.0,
+            debit=0.0,
+            count=0
+        )
+        for line in self.get_ob_lines():
+            balance = line['balance']
+            if balance > 0:
+                result['debit'] += balance
+            else:
+                result['credit'] -= balance
+            result['count'] += 1
+        return result
+
+    @api.multi
+    def get_ob_lines(self):
+        """return opening balance entries"""
+        self.env.cr.execute(
+            # pylint: disable=sql-injection
+            "select a.id, a.code, sum(l.balance) " +
+            "from account_move_line l, account_account a, "
+            "     account_move m, account_account_type t "
+            "where a.user_type_id = t.id "
+            "and a.id = l.account_id and l.date < %s "
+            "and l.move_id = m.id and m.state = 'posted' "
+            "and l.company_id=%s "
+            "and t.include_initial_balance = true "
+            "group by a.id, a.code",
+            (self.date_start, self.company_id.id),
+        )
+        for result in self.env.cr.fetchall():
+            yield dict(
+                account_id=result[0],
+                account_code=result[1],
+                balance=round(result[2], 2),
+            )
+
+    @api.multi
     def get_move_line_count(self):
         '''return amount of move lines'''
         self.env.cr.execute(

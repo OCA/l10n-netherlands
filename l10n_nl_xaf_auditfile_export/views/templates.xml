@@ -100,9 +100,6 @@
                 <glAccountHistory />
             </ledgerAccount>
         </generalLedger>
-        <!-- we might fill in those later
-        <openingBalance />
-        /-->
         <vatCodes>
             <vatCode t-foreach="self.get_taxes()" t-as="t">
                 <vatID><t t-esc="t.id" /></vatID>
@@ -119,10 +116,24 @@
                 <endDatePeriod><t t-esc="p.date_end" /></endDatePeriod>
             </period>
         </periods>
+        <openingBalance>
+            <t t-set="ob_totals" t-value="self.get_ob_totals()" />
+            <opBalDate><t t-esc="self.date_start" /></opBalDate>
+            <opBalDesc>Opening balance</opBalDesc>
+            <linesCount><t t-esc="ob_totals['count']" /></linesCount>
+            <totalDebit><t t-esc="round(ob_totals['debit'], 2)" /></totalDebit>
+            <totalCredit><t t-esc="round(ob_totals['credit'], 2)" /></totalCredit>
+            <obLine t-foreach="self.get_ob_lines()" t-as="l">
+                <nr><t t-esc="l['account_id']" /></nr>
+                <accID><t t-esc="l['account_code']" /></accID>
+                <amnt><t t-esc="round(abs(l['balance']), 2)" /></amnt>
+                <amntTp><t t-esc="'C' if l['balance'] &lt; 0 else 'D'" /></amntTp>
+            </obLine>
+        </openingBalance>
         <transactions>
             <linesCount><t t-esc="self.get_move_line_count()" /></linesCount>
-            <totalDebit><t t-esc="self.get_move_line_total_debit()" /></totalDebit>
-            <totalCredit><t t-esc="self.get_move_line_total_credit()" /></totalCredit>
+            <totalDebit><t t-esc="round(self.get_move_line_total_debit(), 2)" /></totalDebit>
+            <totalCredit><t t-esc="round(self.get_move_line_total_credit(), 2)" /></totalCredit>
             <journal t-foreach="self.get_journals()" t-as="j">
                 <jrnID><t t-esc="j.code" /></jrnID>
                 <desc><t t-esc="j.name" /></desc>
@@ -136,7 +147,7 @@
                     <desc><t t-esc="m.name" /></desc>
                     <periodNumber><t t-esc="self.get_move_period_number(m)" /></periodNumber>
                     <trDt><t t-esc="m.date" /></trDt>
-                    <amnt><t t-esc="m.amount" /></amnt>
+                    <amnt><t t-esc="round(m.amount,2)" /></amnt>
                     <!-- left to inheriting modules
                     <sourceID />
                     <userID />
@@ -147,7 +158,7 @@
                         <docRef><t t-esc="l.ref and l.ref[:35] if self.unit4 == True else l.ref" t-options='{"widget": "auditfile.string999"}' /></docRef>
                         <effDate><t t-esc="l.date" /></effDate>
                         <desc><t t-esc="l.name" /></desc>
-                        <amnt><t t-esc="abs(l.balance)" /></amnt>
+                        <amnt><t t-esc="abs(round(l.balance,2))" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
                         <recRef t-if="l.full_reconcile_id"><t t-esc="l.full_reconcile_id.name" /></recRef>
                         <custSupID t-if="l.partner_id"><t t-esc="l.partner_id.id" /></custSupID>
@@ -170,7 +181,7 @@
                         /-->
                         <currency t-if="l.currency_id and l.amount_currency">
                             <curCode><t t-esc="l.currency_id.name" /></curCode>
-                            <curAmnt><t t-esc="l.amount_currency" /></curAmnt>
+                            <curAmnt><t t-esc="round(l.amount_currency,2)" /></curAmnt>
                         </currency>
                     </trLine>
                 </transaction>
