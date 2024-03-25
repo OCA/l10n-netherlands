@@ -12,6 +12,7 @@ from odoo.tools.misc import formatLang
 
 
 class VatStatement(models.Model):
+    _inherit = ["mail.thread"]
     _name = "l10n.nl.vat.statement"
     _description = "Netherlands Vat Statement"
 
