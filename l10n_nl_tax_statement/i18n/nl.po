@@ -51,7 +51,7 @@ msgid "1d"
 msgstr "1d"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:287
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:288
 #, python-format
 msgid "1d Prive-gebruik"
 msgstr "1d Prive-gebruik"
@@ -117,6 +117,11 @@ msgid "Aangifte omzetbelasting"
 msgstr "Aangifte omzetbelasting"
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Add Invoice"
 msgstr ""
@@ -135,6 +140,11 @@ msgstr "Alle mutaties"
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 msgid "Apply"
 msgstr "Toepassen"
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -269,6 +279,21 @@ msgid "Fiscal Unit Company"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__format_btw
 msgid "Format Btw"
 msgstr "Btw Formaat"
@@ -285,7 +310,7 @@ msgid "From Date"
 msgstr "Vanaf Datum"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:296
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:297
 #, python-format
 msgid "Heffing van omzetbelasting is naar u verlegd"
 msgstr "Heffing van omzetbelasting is naar u verlegd"
@@ -297,6 +322,21 @@ msgstr "Heffing van omzetbelasting is naar u verlegd"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__id
 msgid "ID"
 msgstr "ID"
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -318,10 +358,15 @@ msgid "Include in VAT Statement"
 msgstr "BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:308
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:309
 #, python-format
 msgid "Installatie/afstandsverkopen binnen de EU"
 msgstr "Installatie/afstandsverkopen binnen de EU"
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_is_follower
+msgid "Is Follower"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__is_group
@@ -375,58 +420,58 @@ msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:274
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:275
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Leveringen en/of diensten binnenland"
 msgstr "Leveringen en/of diensten binnenland"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:299
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:300
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Leveringen naar het buitenland"
 msgstr "Leveringen naar het buitenland"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:305
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:306
 #, python-format
 msgid "Leveringen naar landen binnen de EU"
 msgstr "Leveringen naar landen binnen de EU"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:302
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:303
 #, python-format
 msgid "Leveringen naar landen buiten de EU"
 msgstr "Leveringen naar landen buiten de EU"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:311
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:312
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Leveringen vanuit het buitenland"
 msgstr "Leveringen vanuit het buitenland"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:290
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:291
 #, python-format
 msgid "Leveringen/diensten belast met 0%"
 msgstr "Leveringen/diensten belast met 0%"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:277
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:278
 #, python-format
 msgid "Leveringen/diensten belast met hoog tarief"
 msgstr "Leveringen/diensten belast met hoog tarief"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:280
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:281
 #, python-format
 msgid "Leveringen/diensten belast met laag tarief"
 msgstr "Leveringen/diensten belast met laag tarief"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:283
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:284
 #, python-format
 msgid "Leveringen/diensten belast met overige tarieven behalve 0%"
 msgstr "Leveringen/diensten belast met overige tarieven behalve 0%"
@@ -435,6 +480,21 @@ msgstr "Leveringen/diensten belast met overige tarieven behalve 0%"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__line_ids
 msgid "Lines"
 msgstr "Regels"
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_ids
+msgid "Messages"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__multicompany_fiscal_unit
@@ -487,6 +547,31 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_l10n_nl_vat_statement_line
 msgid "Netherlands Vat Statement Line"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_unread_counter
+msgid "Number of unread messages"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
@@ -549,13 +634,13 @@ msgid "Reset to Draft"
 msgstr "Terugzetten naar concept"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:338
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:339
 #, python-format
 msgid "Schatting deze aangifte"
 msgstr "Schatting deze aangifte"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:335
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:336
 #, python-format
 msgid "Schatting vorige aangifte(n)"
 msgstr "Schatting vorige aangifte(n)"
@@ -572,7 +657,7 @@ msgid "Status"
 msgstr "Status"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:329
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:330
 #, python-format
 msgid "Subtotaal (rubriek 5a min 5b)"
 msgstr "Subtotaal (rubriek 5a min 5b)"
@@ -699,7 +784,7 @@ msgid "Tag 5B Btw"
 msgstr "Tag 5B Btw"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:384
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:385
 #, python-format
 msgid ""
 "Tags mapping not configured for this Company! Check the NL BTW Tags "
@@ -729,7 +814,7 @@ msgid "Tax Statement"
 msgstr "BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:601
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:602
 #, python-format
 msgid "The Companies belonging to a fiscal unit must be in The Netherlands."
 msgstr ""
@@ -738,6 +823,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__to_date
 msgid "To Date"
 msgstr "Tot Datum"
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__unreported_move_ids
@@ -760,32 +855,32 @@ msgid "Utility field to express amount currency"
 msgstr "Hulpveld om de valuta uit te drukken"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:293
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:294
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Verleggingsregelingen: BTW naar u verlegd"
 msgstr "Verleggingsregelingen: BTW naar u verlegd"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:332
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:333
 #, python-format
 msgid "Vermindering volgens de kleineondernemersregeling"
 msgstr "Vermindering volgens de kleineondernemersregeling"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:323
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:324
 #, python-format
 msgid "Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
 msgstr "Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:314
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:315
 #, python-format
 msgid "Verwerving uit landen buiten de EU"
 msgstr "Verwerving uit landen buiten de EU"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:317
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:318
 #, python-format
 msgid "Verwerving van goederen uit landen binnen de EU"
 msgstr "Verwerving van goederen uit landen binnen de EU"
@@ -801,15 +896,25 @@ msgid "View tax lines"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:320
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:326
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:321
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:327
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_account_vat_statement_nl_config
 #, python-format
 msgid "Voorbelasting"
 msgstr "Voorbelasting"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:580
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:581
 #, python-format
 msgid ""
 "You cannot delete a posted statement! Reset the statement to draft first."
@@ -818,7 +923,7 @@ msgstr ""
 "naar concept."
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:584
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:585
 #, fuzzy, python-format
 msgid "You cannot delete a statement set as final!"
 msgstr ""
@@ -844,13 +949,13 @@ msgstr ""
 "eerst terug naar concept."
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:413
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:414
 #, python-format
 msgid "You cannot modify a posted statement!"
 msgstr "U kunt een ingediende aangifte niet aanpassen!"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:572
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:573
 #, python-format
 msgid ""
 "You cannot modify a posted statement! Reset the statement to draft first."
@@ -859,13 +964,13 @@ msgstr ""
 "naar concept."
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:566
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:567
 #, fuzzy, python-format
 msgid "You cannot modify a statement set as final!"
 msgstr "U kunt een ingediende aangifte niet aanpassen!"
 
 #. module: l10n_nl_tax_statement
-#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:503
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:504
 #, python-format
 msgid ""
 "You cannot post a statement if all the previous statements are not yet "
