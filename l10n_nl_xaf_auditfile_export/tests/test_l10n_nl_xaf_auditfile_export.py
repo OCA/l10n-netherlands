@@ -10,8 +10,10 @@ from zipfile import ZipFile
 from lxml import etree
 
 from odoo import fields
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests.common import Form, tagged
 from odoo.tools import mute_logger
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 def xaf_xpath(auditfile, query):
@@ -21,10 +23,9 @@ def xaf_xpath(auditfile, query):
             ns_clean=True, recover=True, encoding="utf-8", remove_blank_text=True
         )
         root = etree.XML(bytes(contents, encoding="utf8"), parser=parser)
-        for element in root.xpath(
+        yield from root.xpath(
             query, namespaces={"a": "http://www.auditfiles.nl/XAF/3.2"}
-        ):
-            yield element
+        )
 
 
 def get_transaction_line_count_from_xml(auditfile):
@@ -47,23 +48,13 @@ def get_transaction_line_count_from_xml(auditfile):
     return line_count
 
 
-class TestXafAuditfileExport(TransactionCase):
+@tagged("post_install_l10n", "post_install", "-at_install")
+class TestXafAuditfileExport(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref="nl"):
+        super().setUpClass(chart_template_ref=chart_template_ref)
 
-        cls.eur = cls.env["res.currency"].search([("name", "=", "EUR")])
-        cls.coa = cls.env.ref("l10n_nl.l10nnl_chart_template", raise_if_not_found=False)
-        cls.coa = cls.coa or cls.env.ref("l10n_generic_coa.configurable_chart_template")
-        cls.company_nl = cls.env["res.company"].create(
-            {
-                "name": "XAF Company1",
-                "country_id": cls.env.ref("base.nl").id,
-                "currency_id": cls.eur.id,
-            }
-        )
-        cls.env.user.company_id = cls.company_nl
-        cls.coa.try_loading(cls.company_nl, install_demo=False)
+        cls.env.user.company_id = cls.company_data["company"]
 
         # create an invoice and post it, to ensure that there's some data to export
         move_form = Form(

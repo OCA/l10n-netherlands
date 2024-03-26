@@ -100,7 +100,6 @@ class XafAuditfileExport(models.Model):
     auditfile_name = fields.Char(
         "Auditfile filename", compute="_compute_auditfile_name", store=True
     )
-    date_generated = fields.Datetime(readonly=True, copy=False)
     company_id = fields.Many2one("res.company", required=True)
 
     unit4 = fields.Boolean(
@@ -116,7 +115,6 @@ class XafAuditfileExport(models.Model):
     )
     auditfile_success = fields.Boolean(copy=False)
     date_generated = fields.Datetime("Date generated", readonly=True, copy=False)
-    company_id = fields.Many2one("res.company", "Company", required=True)
 
     @api.model
     def default_get(self, fields_list):
@@ -146,7 +144,8 @@ class XafAuditfileExport(models.Model):
                     _("Starting date must be anterior ending date!")
                 )
 
-    def _get_auditfile_template(self):
+    @staticmethod
+    def _get_auditfile_template():
         """return the qweb template to be rendered"""
         return "l10n_nl_xaf_auditfile_export.auditfile_template"
 
@@ -227,7 +226,8 @@ class XafAuditfileExport(models.Model):
             shutil.rmtree(tmpdir)
             shutil.rmtree(archivedir)
 
-    def get_odoo_version(self):
+    @staticmethod
+    def get_odoo_version():
         """return odoo version"""
         return release.version
 
@@ -249,8 +249,7 @@ class XafAuditfileExport(models.Model):
         )
         self.env["res.partner"].invalidate_model()
         for chunk in chunks(partner_ids):
-            for partner in self.env["res.partner"].browse(chunk):
-                yield partner
+            yield from self.env["res.partner"].browse(chunk)
             self.env["res.partner"].invalidate_model()
 
     def get_accounts(self):
@@ -397,8 +396,7 @@ class XafAuditfileExport(models.Model):
         )
         self.env["account.move"].invalidate_model()
         for chunk in chunks(move_ids):
-            for move in self.env["account.move"].browse(chunk):
-                yield move
+            yield from self.env["account.move"].browse(chunk)
             self.env["account.move"].invalidate_model()
 
     @api.model
