@@ -4,7 +4,7 @@
 {
     "name": "L10n NL Account Tax UNECE",
     "summary": "Auto-configure UNECE params on Dutch taxes",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.1.1",
     "category": "Localization",
     "author": "Onestein, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",

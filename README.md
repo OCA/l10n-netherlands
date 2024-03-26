@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 14.0.1.0.0 |  | Auto-configure UNECE params on Dutch taxes
+[l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 14.0.1.1.1 |  | Auto-configure UNECE params on Dutch taxes
 [l10n_nl_bank](l10n_nl_bank/) | 14.0.1.0.0 |  | Import all Dutch banks with BIC code
 [l10n_nl_bsn](l10n_nl_bsn/) | 14.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Burgerservicenummer (BSN) for Partners
 [l10n_nl_business_document_import](l10n_nl_business_document_import/) | 14.0.1.0.0 | [![bosd](https://github.com/bosd.png?size=30px)](https://github.com/bosd) | Adapt the module base_business_document_import for the Netherlands
