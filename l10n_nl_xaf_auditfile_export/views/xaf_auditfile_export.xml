@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tree_xaf_auditfile_export" model="ir.ui.view">
+        <field name="model">xaf.auditfile.export</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="date_generated" />
+            </tree>
+        </field>
+    </record>
+    <record id="form_xaf_auditfile_export" model="ir.ui.view">
+        <field name="model">xaf.auditfile.export</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        type="object"
+                        name="button_generate"
+                        string="Generate auditfile"
+                        class="oe_highlight"
+                        invisible="auditfile_success"
+                    />
+                </header>
+                <sheet>
+                    <group name="input_data">
+                        <group>
+                            <field name="name" readonly="auditfile" />
+                            <field
+                                name="company_id"
+                                readonly="auditfile"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                        <group>
+                            <field name="date_start" readonly="auditfile" />
+                            <field name="date_end" readonly="auditfile" />
+                        </group>
+                    </group>
+                    <group name="input_options">
+                        <field name="unit4" readonly="auditfile" />
+                    </group>
+                    <group name="output_data" invisible="auditfile == False">
+                        <field name="date_generated" />
+                        <field name="auditfile" filename="auditfile_name" />
+                        <field name="auditfile_success" />
+                        <field name="auditfile_name" invisible="1" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_auditfiles" model="ir.actions.act_window">
+        <field name="name">Auditfile export</field>
+        <field name="res_model">xaf.auditfile.export</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="tree_xaf_auditfile_export" />
+        <field name="target">current</field>
+    </record>
+</odoo>
