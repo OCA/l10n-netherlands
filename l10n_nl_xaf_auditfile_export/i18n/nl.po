@@ -125,6 +125,7 @@ msgstr "Indien aangevinkt vereisen nieuwe berichten uw aandacht."
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error
+#: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Indien aangevinkt hebben een aantal berichten een leveringsfout."
 
@@ -132,11 +133,6 @@ msgstr "Indien aangevinkt hebben een aantal berichten een leveringsfout."
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_is_follower
 msgid "Is Follower"
 msgstr "Is volger"
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__write_uid
@@ -152,11 +148,6 @@ msgstr "Laatst bijgewerkt op"
 #: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
 msgid "Last write"
 msgstr "Laast geschreven"
-
-#. module: l10n_nl_xaf_auditfile_export
-#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Hoofdbijlage"
 
 #. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_error
@@ -204,6 +195,11 @@ msgid "Opening balance"
 msgstr "Openingsbalans"
 
 #. module: l10n_nl_xaf_auditfile_export
+#: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS afleveringsfout"
+
+#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,field_description:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__date_start
 msgid "Start date"
 msgstr "Startdatum"
@@ -227,12 +223,12 @@ msgid ""
 "If you want to export an auditfile with the official standard (missing the "
 "Unit4 compatibility) just set this flag to False."
 msgstr ""
-"Het Unit4 systeem verwacht een waarde voor `<xsd:element name=\"docRef\" ..>`"
-" van maximaal 35 tekens, in strijd met de officiële standaard. Als de waarde "
-"groter is dan 35 tekens, geeft Unit4 een foutmelding tijdens het importeren "
-"van het auditbestand. Door deze vlag op WAAR te zetten wordt de `docRef` "
-"waarde eenvoudigweg ingekort tot 35 karakters zodat de auditfile succesvol "
-"kan worden geïmporteerd in Unit4.\n"
+"Het Unit4 systeem verwacht een waarde voor `<xsd:element name=\"docRef\" .."
+">` van maximaal 35 tekens, in strijd met de officiële standaard. Als de "
+"waarde groter is dan 35 tekens, geeft Unit4 een foutmelding tijdens het "
+"importeren van het auditbestand. Door deze vlag op WAAR te zetten wordt de "
+"`docRef` waarde eenvoudigweg ingekort tot 35 karakters zodat de auditfile "
+"succesvol kan worden geïmporteerd in Unit4.\n"
 "Als je een auditfile wilt exporteren met de officiële standaard (zonder de "
 "Unit4 compatibiliteit) zet je deze vlag gewoon op ONWAAR."
 
@@ -296,8 +292,11 @@ msgstr "ir.qweb.field.auditfile.string9"
 msgid "ir.qweb.field.auditfile.string999"
 msgstr "ir.qweb.field.auditfile.string999"
 
-#~ msgid "SMS Delivery error"
-#~ msgstr "SMS afleveringsfout"
+#~ msgid "Last Modified on"
+#~ msgstr "Laatst gewijzigd op"
+
+#~ msgid "Main Attachment"
+#~ msgstr "Hoofdbijlage"
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Aantal berichten welke actie vereisen"
