@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addons-oca-l10n-netherlands"
+version = "17.0.20240404.0"
+dependencies = [
+    "odoo-addon-l10n_nl_xaf_auditfile_export>=17.0dev,<17.1dev",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 17.0",
+]
