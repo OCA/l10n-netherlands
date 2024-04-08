@@ -160,7 +160,7 @@ class XafAuditfileExport(models.Model):
         )
         # convert to string and prepend XML encoding declaration
         xml = (
-            xml.unescape()
+            str(xml)
             .strip()
             .replace(
                 "<auditfile ",

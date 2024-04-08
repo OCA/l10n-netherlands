@@ -144,6 +144,7 @@ class TestXafAuditfileExport(TransactionCase):
         self.assertTrue(record.name)
         self.assertTrue(record.auditfile)
         self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.auditfile_success)
         self.assertTrue(record.company_id)
         self.assertTrue(record.date_start)
         self.assertTrue(record.date_end)
@@ -163,13 +164,13 @@ class TestXafAuditfileExport(TransactionCase):
         record = self.env["xaf.auditfile.export"].create({})
         record.name += "%s01" % os.sep
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
     def test_06_include_moves_from_inactive_journals(self):
         """Include moves off of inactive journals"""
         record = self.env["xaf.auditfile.export"].create({})
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
@@ -182,7 +183,7 @@ class TestXafAuditfileExport(TransactionCase):
 
         record_after = self.env["xaf.auditfile.export"].create({})
         record_after.button_generate()
-        self.assertTrue(record_after)
+        self.assertTrue(record_after.auditfile_success)
 
         line_count_after = record_after.get_move_line_count()
         parsed_count_after = get_transaction_line_count_from_xml(record_after.auditfile)
@@ -206,7 +207,7 @@ class TestXafAuditfileExport(TransactionCase):
         )
         record = self.env["xaf.auditfile.export"].create({})
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
@@ -321,3 +322,15 @@ class TestXafAuditfileExport(TransactionCase):
             record.auditfile, "//a:openingBalance/a:linesCount/text()"
         )
         self.assertEqual(lines_count, 2)
+
+    def test_10_ampersand_in_name(self):
+        """Error because of invalid characters in an auditfile"""
+        record = (
+            self.env["xaf.auditfile.export"]
+            .with_context(dont_sanitize_xml=True)
+            .create({})
+        )
+        # add an ampersand
+        record.company_id.name += " & OCA"
+        record.button_generate()
+        self.assertTrue(record.auditfile_success)
