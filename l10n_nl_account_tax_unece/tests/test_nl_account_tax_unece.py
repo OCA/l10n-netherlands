@@ -40,8 +40,8 @@ class TestNlAccountTaxUnece(TransactionCase):
 
         # For each tax account verify that the UNECE values are set
         for tax in taxes:
-            self.assertTrue(tax.unece_type_id.id == unece_type_id)
-            self.assertTrue(tax.unece_categ_id.id in unece_categ_ids)
+            self.assertEqual(tax.unece_type_id.id, unece_type_id)
+            self.assertIn(tax.unece_categ_id.id, unece_categ_ids)
 
     def test_existing_coa_update(self):
 
@@ -62,8 +62,8 @@ class TestNlAccountTaxUnece(TransactionCase):
 
         # For each tax account verify that the UNECE values are set
         for tax in taxes:
-            self.assertTrue(tax.unece_type_id.id == unece_type_id)
-            self.assertTrue(tax.unece_categ_id.id in unece_categ_ids)
+            self.assertEqual(tax.unece_type_id.id, unece_type_id)
+            self.assertIn(tax.unece_categ_id.id, unece_categ_ids)
 
     def test_post_init_hook(self):
 
