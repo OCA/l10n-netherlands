@@ -48,6 +48,7 @@ MAPPING = {
     "btw_E1_d_9": {"categ": "tax_categ_s"},
     "btw_E2_d": {"categ": "tax_categ_s"},
     "btw_E_overig_d": {"categ": "tax_categ_s"},
+    "btw_X0_ABC_levering": {"categ": "tax_categ_s"},
 }
 
 

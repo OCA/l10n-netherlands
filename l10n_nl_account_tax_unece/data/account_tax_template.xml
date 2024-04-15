@@ -118,6 +118,10 @@
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')" />
         <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_k')" />
     </record>
+    <record id="l10n_nl.btw_X0_ABC_levering" model="account.tax.template">
+        <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')" />
+        <field name="unece_categ_id" eval="ref('account_tax_unece.tax_categ_k')" />
+    </record>
     <!-- BTW verkoop -->
     <record id="l10n_nl.btw_X0_producten" model="account.tax.template">
         <field name="unece_type_id" eval="ref('account_tax_unece.tax_type_vat')" />
