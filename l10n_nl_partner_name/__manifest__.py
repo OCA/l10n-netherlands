@@ -2,9 +2,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Dutch partner names",
-    "version": "13.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": "Adapt parter names to Dutch conventions (support infix)",
-    "author": "Therp BV, Odoo Community Association (OCA)",
+    "author": "Hunki Enterprises BV, Therp BV, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-netherlands",
     "category": "Contact management",
     "depends": ["partner_firstname"],
