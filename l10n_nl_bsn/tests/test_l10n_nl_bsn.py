@@ -11,6 +11,7 @@ class TestBsn(TransactionCase):
         self.partner_bsn = self.env["res.partner"].create(
             {
                 "name": "Partner with BSN",
+                "is_company": True,
                 "company_id": self.env.company.id,
             }
         )
@@ -40,6 +41,7 @@ class TestBsn(TransactionCase):
         new_partner_bsn = self.env["res.partner"].create(
             {
                 "name": "Partner with BSN - NEW",
+                "is_company": True,
                 "bsn_number": "1000.00.009",
                 "company_id": self.env.company.id,
             }
