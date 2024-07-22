@@ -11,6 +11,7 @@ class TestOin(TransactionCase):
         self.partner_oin = self.env["res.partner"].create(
             {
                 "name": "Partner with OIN",
+                "is_company": True,
                 "company_id": self.env.company.id,
                 "country_id": self.env.ref("base.nl").id,
                 "company_type": "company",
@@ -42,6 +43,7 @@ class TestOin(TransactionCase):
         new_partner_oin = self.env["res.partner"].create(
             {
                 "name": "Partner with OIN - NEW",
+                "is_company": True,
                 "l10n_nl_oin": "12345678901234567890",
                 "company_id": self.env.company.id,
             }
