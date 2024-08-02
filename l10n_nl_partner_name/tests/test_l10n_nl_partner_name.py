@@ -31,3 +31,12 @@ class TestL10nNlPartnerName(TransactionCase):
         self.assertEqual(partner.name, "Alfred (A.J.) Kwack")
         partner.name = "Willem-Alexander van Oranje Nassau"
         self.assertEqual(partner.lastname, "Oranje Nassau")
+        self.env["ir.config_parameter"].set_param(
+            "l10n_nl_partner_name_infixes", "von der, van"
+        )
+        partner.name = "Ursula von der Leyen"
+        self.assertEqual(partner.lastname, "Leyen")
+        self.assertEqual(partner.firstname, "Ursula")
+        self.assertEqual(partner.infix, "von der")
+        partner.name = "Willem-Alexander van Oranje Nassau"
+        self.assertEqual(partner.lastname, "Oranje Nassau")
