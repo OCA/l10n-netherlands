@@ -581,3 +581,8 @@ class TestVatStatement(TransactionCase):
 
         company_ids_full_list = statement_parent._get_company_ids_full_list()
         self.assertEqual(len(company_ids_full_list), 3)
+
+    def test_21_write_id_list(self):
+        self._create_test_invoice()
+        self.invoice_1.line_ids.write({"tax_tag_ids": self.tag_1.ids})
+        self.assertEqual(self.invoice_1.mapped("line_ids.tax_tag_ids"), self.tag_1)

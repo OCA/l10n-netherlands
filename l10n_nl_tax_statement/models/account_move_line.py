@@ -37,7 +37,9 @@ class AccountMoveLine(models.Model):
         old_value = self[changed_protected_field]
         new_value = values[changed_protected_field]
         if field.type in ["many2many", "one2many"]:
-            # if field is X2M , the only acceptable value is
+            if all(isinstance(_id, int) for _id in new_value):
+                return new_value == old_value.ids
+            # if field is X2M , the only other acceptable value is
             # [[6,0,self[changed_protected_field].ids]]
             # wich is what the web client posts in case there is a editable X2M in form
             # that is unchanged.
