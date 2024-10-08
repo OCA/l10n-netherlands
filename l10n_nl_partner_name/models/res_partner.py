@@ -69,6 +69,7 @@ class ResPartner(models.Model):
             map(
                 str.strip,
                 self.env["ir.config_parameter"]
+                .sudo()
                 .get_param(
                     "l10n_nl_partner_name_infixes", "van,der,den,op,ter,de,v/d,d','t,te"
                 )
