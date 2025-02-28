@@ -1,0 +1,6 @@
+# Don't cause leading whitespace in the text of tags like 'fiscalYear'.
+# It does not pass the XSD:
+#  File "/home/odoo/l10n-netherlands/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py", line 218, in button_generate
+#    xsd.assertValid(etree.parse(auditfile))
+#  File "src/lxml/etree.pyx", line 3672, in lxml.etree._Validator.assertValid
+l10n_nl_xaf_auditfile_export/views/templates.xml
