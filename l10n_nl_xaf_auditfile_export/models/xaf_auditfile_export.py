@@ -18,7 +18,8 @@ import psutil
 from dateutil.rrule import MONTHLY, rrule
 from lxml import etree
 
-from odoo import _, api, exceptions, fields, models, modules, release
+from odoo import _, api, exceptions, fields, models, release
+from odoo.tools import file_path
 
 
 def chunks(items, n=None):
@@ -80,7 +81,7 @@ class XafAuditfileExport(models.Model):
     @api.depends("name", "auditfile")
     def _compute_auditfile_name(self):
         for item in self:
-            item.auditfile_name = "%s.xaf" % item.name
+            item.auditfile_name = f"{item.name}.xaf"
             if item.auditfile:
                 auditfile = base64.b64decode(item.auditfile)
                 zf = BytesIO(auditfile)
@@ -150,6 +151,7 @@ class XafAuditfileExport(models.Model):
         return "l10n_nl_xaf_auditfile_export.auditfile_template"
 
     def button_generate(self):
+        self = self.with_company(self.company_id)
         t0 = time.time()
         m0 = memory_info()
         self.date_generated = fields.Datetime.now()
@@ -203,10 +205,9 @@ class XafAuditfileExport(models.Model):
             xsd = etree.XMLSchema(
                 etree.parse(
                     open(
-                        modules.get_resource_path(
-                            "l10n_nl_xaf_auditfile_export",
-                            "data",
-                            "XmlAuditfileFinancieel3.2.xsd",
+                        file_path(
+                            "l10n_nl_xaf_auditfile_export/data"
+                            "/XmlAuditfileFinancieel3.2.xsd",
                         )
                     )
                 )
@@ -255,7 +256,7 @@ class XafAuditfileExport(models.Model):
     def get_accounts(self):
         """return recordset of accounts"""
         return self.env["account.account"].search(
-            [("company_id", "=", self.company_id.id)]
+            [("company_ids", "=", self.company_id.id)]
         )
 
     @api.model
@@ -316,15 +317,19 @@ class XafAuditfileExport(models.Model):
     def get_ob_lines(self):
         """return opening balance entries"""
         self.env.cr.execute(
-            "select a.id, a.code, sum(l.balance) "
+            "select a.id, a.code_store->>%(company_id)s as code, sum(l.balance) "
             "from account_move_line l, account_account a "
-            "where a.id = l.account_id and l.date < %s "
-            "and l.company_id=%s "
+            "where a.id = l.account_id and l.date < %(date_start)s "
+            "and l.company_id=%(company_id)s "
             "and l.parent_state = 'posted' "
             "and l.display_type NOT IN ('line_section', 'line_note') "
-            "and a.include_initial_balance = true "
-            "group by a.id, a.code",
-            (self.date_start, self.company_id.id),
+            # Select by unstored, computed field include_initial_balance
+            "and split_part(a.account_type, '_', 1) not in ('income', 'expense') "
+            "group by a.id, a.code_store->>%(company_id)s ",
+            {
+                "date_start": self.date_start,
+                "company_id": self.company_id.id,
+            },
         )
         for result in self.env.cr.fetchall():
             yield dict(

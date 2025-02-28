@@ -10,7 +10,7 @@ from zipfile import ZipFile
 from lxml import etree
 
 from odoo import fields
-from odoo.tests.common import Form, tagged
+from odoo.tests import Form, tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -50,9 +50,11 @@ def get_transaction_line_count_from_xml(auditfile):
 
 @tagged("post_install_l10n", "post_install", "-at_install")
 class TestXafAuditfileExport(AccountTestInvoicingCommon):
+    chart_template = "nl"
+
     @classmethod
-    def setUpClass(cls, chart_template_ref="nl"):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
 
         cls.env.user.company_id = cls.company_data["company"]
 
@@ -152,7 +154,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
     def test_05_export_success(self):
         """Export auditfile with / character in filename"""
         record = self.env["xaf.auditfile.export"].create({})
-        record.name += "%s01" % os.sep
+        record.name += f"{os.sep}01"
         record.button_generate()
         self.assertTrue(record)
 
@@ -230,21 +232,21 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
                     "=",
                     "asset_receivable",
                 ),
-                ("company_id", "=", self.env.company.id),
+                ("company_ids", "=", self.env.company.id),
             ],
             limit=1,
         )
         acc_payable = self.env["account.account"].search(
             [
                 ("account_type", "=", "liability_payable"),
-                ("company_id", "=", self.env.company.id),
+                ("company_ids", "=", self.env.company.id),
             ],
             limit=1,
         )
         acc_revenue = self.env["account.account"].search(
             [
                 ("account_type", "=", "income"),
-                ("company_id", "=", self.env.company.id),
+                ("company_ids", "=", self.env.company.id),
             ],
             limit=1,
         )

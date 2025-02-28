@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
-        <template id="auditfile_template">
+<!--
+    Make sure this file is added to .prettierignore to prevent validation errors
+    caused by the additional whitespace in length limited values.
+-->
+<template id="auditfile_template">
 <auditfile
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns="http://www.auditfiles.nl/XAF/3.2"
@@ -293,5 +296,5 @@
         </transactions>
     </company>
 </auditfile>
-        </template>
+</template>
 </odoo>
