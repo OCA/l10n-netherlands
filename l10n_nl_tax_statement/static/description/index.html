@@ -8,10 +8,11 @@
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
 
 See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
 customize this style sheet.
@@ -274,7 +275,7 @@ pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-left: 2em ;
   margin-right: 2em }
 
-pre.code .ln { color: grey; } /* line numbers */
+pre.code .ln { color: gray; } /* line numbers */
 pre.code, code { background-color: #eeeeee }
 pre.code .comment, code .comment { color: #5C6576 }
 pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
@@ -300,7 +301,7 @@ span.option {
 span.pre {
   white-space: pre }
 
-span.problematic {
+span.problematic, pre.problematic {
   color: red }
 
 span.section-subtitle {
@@ -368,19 +369,21 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:6edd90e9af645c0401e7fea3611e14040b388ffdc247eb7373e66b8c64017670
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/l10n-netherlands/tree/16.0/l10n_nl_tax_statement"><img alt="OCA/l10n-netherlands" src="https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/l10n-netherlands-16-0/l10n-netherlands-16-0-l10n_nl_tax_statement"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/l10n-netherlands&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/l10n-netherlands/tree/18.0/l10n_nl_tax_statement"><img alt="OCA/l10n-netherlands" src="https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/l10n-netherlands-18-0/l10n-netherlands-18-0-l10n_nl_tax_statement"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/l10n-netherlands&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This module provides you with the Tax Statement in the Dutch format.</p>
-<p>The Tax Statement can be generated in two ways, according to
-the chosen Dutch accounting system:</p>
+<p>The Tax Statement can be generated in two ways, according to the chosen
+Dutch accounting system:</p>
 <ul class="simple">
 <li>Kasstelsel</li>
 <li>Factuurstelsel</li>
 </ul>
-<p>By default the Tax Statement is generated according to the <em>Factuurstelsel</em> system.
-It means that, when validating an invoice, the system uses the invoice date instead of accounting date to determine the date of the move line for tax lines.
-See <a class="reference external" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/factuurstelsel">https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/factuurstelsel</a></p>
-<p>About the <em>Kasstelsel</em> system instead, more information can be found
-in: <a class="reference external" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/kasstelsel/kasstelsel">https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/kasstelsel/kasstelsel</a></p>
+<p>By default the Tax Statement is generated according to the
+<em>Factuurstelsel</em> system. It means that, when validating an invoice, the
+system uses the invoice date instead of accounting date to determine the
+date of the move line for tax lines. See
+<a class="reference external" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/factuurstelsel">https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/factuurstelsel</a></p>
+<p>About the <em>Kasstelsel</em> system instead, more information can be found in:
+<a class="reference external" href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/kasstelsel/kasstelsel">https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/bereken_het_bedrag/hoe_berekent_u_het_btw_bedrag/kasstelsel/kasstelsel</a></p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -398,77 +401,101 @@ in: <a class="reference external" href="https://www.belastingdienst.nl/wps/wcm/c
 </div>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
-<p>This module makes use of the tax tags (eg.: 1a, 1b, 1c, 1d, 2a…) as prescribed by the Dutch tax laws.</p>
-<p>If the default Odoo Dutch chart of accounts is installed (module <tt class="docutils literal">l10n_nl</tt>) then these tags are automatically present in the database.</p>
-<p>If a non-standard chart of accounts is installed, you have to manually create the tax tags and properly set them into the tax definition.
-The name of the tags must be formatted this way: “+1a (omzet)”, “+1a (btw)”, “-1a (omzet)”, “-1a (btw)”, “+2a (omzet)”, “+2a (btw)”, etc…</p>
-<p>This module provides an accounting setting <em>Invoice basis</em> (Factuurstelsel)
-that is enabled by default. This option makes the <em>invoice date</em> leading for
-the tax declaration of a period, rather than the accounting date, and
-allows you to change the accounting date of incoming invoices to the period
-to which the costs apply and still create a legally valid Dutch tax
-declaration. Without this option, the entries on the tax statement are
-collected using only their accounting dates (what Odoo calls <em>standard
-taxes</em>).</p>
-<p>This setting is not compatible with the Odoo <em>Cash basis</em> (Kasstelsel) setting
-which leads to the creation of tax journal lines at the moment that a payment
-is received, so when using <em>Cash basis</em> you need to disable the <em>Invoice
-basis</em> setting to create a valid Dutch tax declaration using this module.
-To disable the <em>Invoice basis</em> for a company, you need to:</p>
+<p>This module makes use of the tax tags (eg.: 1a, 1b, 1c, 1d, 2a…) as
+prescribed by the Dutch tax laws.</p>
+<p>If the default Odoo Dutch chart of accounts is installed (module
+<tt class="docutils literal">l10n_nl</tt>) then these tags are automatically present in the database.</p>
+<p>If a non-standard chart of accounts is installed, you have to manually
+create the tax tags and properly set them into the tax definition. The
+name of the tags must be formatted this way: “+1a (omzet)”, “+1a (btw)”,
+“-1a (omzet)”, “-1a (btw)”, “+2a (omzet)”, “+2a (btw)”, etc…</p>
+<p>This module provides an accounting setting <em>Invoice basis</em>
+(Factuurstelsel) that is enabled by default. This option makes the
+<em>invoice date</em> leading for the tax declaration of a period, rather than
+the accounting date, and allows you to change the accounting date of
+incoming invoices to the period to which the costs apply and still
+create a legally valid Dutch tax declaration. Without this option, the
+entries on the tax statement are collected using only their accounting
+dates (what Odoo calls <em>standard taxes</em>).</p>
+<p>This setting is not compatible with the Odoo <em>Cash basis</em> (Kasstelsel)
+setting which leads to the creation of tax journal lines at the moment
+that a payment is received, so when using <em>Cash basis</em> you need to
+disable the <em>Invoice basis</em> setting to create a valid Dutch tax
+declaration using this module. To disable the <em>Invoice basis</em> for a
+company, you need to:</p>
 <ol class="arabic simple">
-<li>Open your Company form and verify that Country is set to <tt class="docutils literal">Netherlands</tt>.</li>
-<li>Go to <tt class="docutils literal">Invoicing <span class="pre">-&gt;</span> Configuration <span class="pre">-&gt;</span> Settings</tt>, enable/disable <tt class="docutils literal">NL Tax Invoice Basis (Factuurstelsel)</tt> and <tt class="docutils literal">Apply</tt>.</li>
+<li>Open your Company form and verify that Country is set to
+<tt class="docutils literal">Netherlands</tt>.</li>
+<li>Go to <tt class="docutils literal">Invoicing <span class="pre">-&gt;</span> Configuration <span class="pre">-&gt;</span> Settings</tt>, enable/disable
+<tt class="docutils literal">NL Tax Invoice Basis (Factuurstelsel)</tt> and <tt class="docutils literal">Apply</tt>.</li>
 </ol>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
 <p>To create a statement you need to:</p>
 <ol class="arabic simple">
-<li>Verify that you have enough permits. You need to belong at least to the <em>Billing Manager</em> or the <em>Accountant</em> group.</li>
-<li>Go to the menu: <cite>Invoicing -&gt; Reporting &gt; NL BTW Statement</cite></li>
-<li>Create a statement, providing a name and specifying start date and end date</li>
-<li>Press the Update button to calculate the report: the report lines will be displayed in the tab <cite>Statement</cite></li>
-<li>Manually enter the BTW amounts of lines ‘5d’, ‘5e’, ‘5f’ (in Edit mode, click on the amount of the line to be able to change it)</li>
-<li>Press the Post button to set the status of the statement to Posted; the statements set to this state cannot be modified</li>
+<li>Verify that you have enough permits. You need to belong at least to
+the <em>Billing Manager</em> or the <em>Accountant</em> group.</li>
+<li>Go to the menu: Invoicing -&gt; Reporting &gt; NL BTW Statement</li>
+<li>Create a statement, providing a name and specifying start date and
+end date</li>
+<li>Press the Update button to calculate the report: the report lines
+will be displayed in the tab Statement</li>
+<li>Manually enter the BTW amounts of lines ‘5d’, ‘5e’, ‘5f’ (in Edit
+mode, click on the amount of the line to be able to change it)</li>
+<li>Press the Post button to set the status of the statement to Posted;
+the statements set to this state cannot be modified</li>
 </ol>
 <p>To add past undeclared invoices/moves:</p>
 <ol class="arabic simple">
-<li>Open the tab <cite>Past Undeclared Moves</cite>, available when the statement is in status Draft.</li>
-<li>Set an initial date (field From Date) from which the past undeclared moves will be displayed.</li>
-<li>One by one, add the displayed undeclared moves, by clicking on the <cite>Add Move</cite> button present in each line.</li>
+<li>Open the tab Past Undeclared Moves, available when the statement is
+in status Draft.</li>
+<li>Set an initial date (field From Date) from which the past undeclared
+moves will be displayed.</li>
+<li>One by one, add the displayed undeclared moves, by clicking on the
+Add Move button present in each line.</li>
 <li>Press the Update button in order to recompute the statement lines.</li>
 </ol>
 <p>Extra info about the workflow:</p>
 <ol class="arabic simple">
-<li>If you need to recalculate or modify or delete a statement already set to Posted status you need first to set it back to Draft status: press the button Reset to Draft</li>
-<li>Instead, if you send the statement to the Tax Authority, you may want to avoid that the statement is set back to Draft: to avoid this, press the button Final. If you then confirm, it will be not possible to modify this Statement or reset it back to draft anymore.</li>
+<li>If you need to recalculate or modify or delete a statement already
+set to Posted status you need first to set it back to Draft status:
+press the button Reset to Draft</li>
+<li>Instead, if you send the statement to the Tax Authority, you may want
+to avoid that the statement is set back to Draft: to avoid this,
+press the button Final. If you then confirm, it will be not possible
+to modify this Statement or reset it back to draft anymore.</li>
 </ol>
 <p>Printing a PDF report:</p>
 <ol class="arabic simple">
-<li>If you need to print the report in PDF, open a statement form and click: <cite>Print -&gt; NL Tax Statement</cite></li>
+<li>If you need to print the report in PDF, open a statement form and
+click: Print -&gt; NL Tax Statement</li>
 </ol>
 <p>Exporting a XLS report:</p>
 <ol class="arabic simple">
-<li>If you need to export the report in XLSX, open a statement form and click: <cite>Print -&gt; NL Tax Statement XLS export</cite></li>
+<li>If you need to export the report in XLSX, open a statement form and
+click: Print -&gt; NL Tax Statement XLS export</li>
 </ol>
 <p>Multicompany fiscal unit:</p>
 <ol class="arabic simple">
-<li>According the Dutch Tax Authority, for all the companies belonging to a
-fiscal unit, it’s possible to declare one single tax statement.</li>
+<li>According the Dutch Tax Authority, for all the companies belonging to
+a fiscal unit, it’s possible to declare one single tax statement.</li>
 <li>To create one tax statement for a fiscal unit, log in into the parent
-company and select the child companies in the statement (be sure the user
-belongs to the multicompany group).</li>
-<li>The child companies must have the same Tax codes labels (Tax Tags) as the
-parent company, the same currency as the parent company and must be located
-in The Netherlands.</li>
+company and select the child companies in the statement (be sure the
+user belongs to the multicompany group).</li>
+<li>The child companies must have the same Tax codes labels (Tax Tags) as
+the parent company, the same currency as the parent company and must
+be located in The Netherlands.</li>
 </ol>
 </div>
 <div class="section" id="known-issues-roadmap">
 <h1><a class="toc-backref" href="#toc-entry-3">Known issues / Roadmap</a></h1>
 <ul class="simple">
 <li>Exporting in SBR/XBLR format not yet available</li>
-<li>Limit invoices to last 5 year based on fiscal year end date (legal requirement)</li>
-<li>The unreported from date is calculate as 1 quarter, it should take 1 fiscal year based on fiscal year end date</li>
+<li>Limit invoices to last 5 year based on fiscal year end date (legal
+requirement)</li>
+<li>The unreported from date is calculate as 1 quarter, it should take 1
+fiscal year based on fiscal year end date</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
@@ -476,7 +503,7 @@ in The Netherlands.</li>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/l10n-netherlands/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_tax_statement%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_tax_statement%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -497,11 +524,13 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <div class="section" id="maintainers">
 <h2><a class="toc-backref" href="#toc-entry-8">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
-<a class="reference external image-reference" href="https://odoo-community.org"><img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" /></a>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/l10n-netherlands/tree/16.0/l10n_nl_tax_statement">OCA/l10n-netherlands</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/l10n-netherlands/tree/18.0/l10n_nl_tax_statement">OCA/l10n-netherlands</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
