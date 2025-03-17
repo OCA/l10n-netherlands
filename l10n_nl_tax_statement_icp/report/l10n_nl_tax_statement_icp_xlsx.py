@@ -141,7 +141,6 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
             value = line[column["field"]]
 
             if isinstance(value, float):
-
                 report_format = (
                     report_data["formats"]["row_amount_pair"]
                     if is_pair_line
@@ -152,7 +151,6 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
                     report_data["row_pos"], col_pos, float(value), report_format
                 )
             else:
-
                 report_format = (
                     report_data["formats"]["row_pair"]
                     if is_pair_line
@@ -211,7 +209,6 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
         Columns are defined with `_get_report_columns` method.
         """
         for col_pos, column in report_data["columns"].items():
-
             report_format = (
                 report_data["formats"]["header_right"]
                 if column["field"] in ["amount_products", "amount_services"]
