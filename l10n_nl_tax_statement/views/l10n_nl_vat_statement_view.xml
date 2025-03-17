@@ -18,7 +18,7 @@
                         <button
                             name="statement_update"
                             string="Update"
-                            states="draft"
+                            invisible="state != 'draft'"
                             type="object"
                             class="oe_stat_button"
                             icon="fa-repeat"
@@ -26,7 +26,7 @@
                         <button
                             name="post"
                             string="Post"
-                            states="draft"
+                            invisible="state != 'draft'"
                             type="object"
                             class="oe_stat_button"
                             icon="fa-arrow-right text-success"
@@ -34,7 +34,7 @@
                         <button
                             name="reset"
                             string="Reset to Draft"
-                            states="posted"
+                            invisible="state != 'posted'"
                             type="object"
                             class="oe_stat_button"
                             icon="fa-arrow-left text-success"
@@ -42,7 +42,7 @@
                         <button
                             name="finalize"
                             string="Finalize"
-                            states="posted"
+                            invisible="state != 'posted'"
                             type="object"
                             class="oe_stat_button"
                             icon="fa-stop-circle-o text-success"
@@ -63,10 +63,7 @@
                                 groups="base.group_multi_company"
                             />
                             <field name="is_invoice_basis" />
-                            <field
-                                name="parent_id"
-                                attrs="{'invisible': [('parent_id', '=', False)]}"
-                            />
+                            <field name="parent_id" invisible="not parent_id" />
                             <field
                                 name="display_multicompany_fiscal_unit"
                                 invisible="1"
@@ -74,40 +71,26 @@
                             />
                             <field
                                 name="multicompany_fiscal_unit"
-                                attrs="{'readonly': [('state','in',['posted','final'])],'invisible': [('display_multicompany_fiscal_unit', '=', False)]}"
+                                readonly="state in ['posted','final']"
+                                invisible="not display_multicompany_fiscal_unit"
                                 groups="base.group_multi_company"
                             />
                             <field
                                 name="fiscal_unit_company_ids"
                                 widget="many2many_tags"
                                 domain="[('parent_id', '=', company_id)]"
-                                attrs="{'readonly': [('state','in',['posted','final'])],'invisible': [('multicompany_fiscal_unit', '=', False)]}"
+                                readonly="state in ['posted','final']"
+                                invisible="not multicompany_fiscal_unit"
                                 groups="base.group_multi_company"
                             />
-                            <label for="from_date" string="Date" />
-                            <div class="o_row">
-                                <field
-                                    name="from_date"
-                                    widget="daterange"
-                                    nolabel="1"
-                                    class="oe_inline"
-                                    options="{'related_end_date': 'to_date'}"
-                                    attrs="{'readonly': [('state','in',['posted','final'])]}"
-                                />
-                                <i
-                                    class="fa fa-long-arrow-right mx-2"
-                                    aria-label="Arrow icon"
-                                    title="Arrow"
-                                />
-                                <field
-                                    name="to_date"
-                                    widget="daterange"
-                                    nolabel="1"
-                                    class="oe_inline"
-                                    options="{'related_start_date': 'from_date'}"
-                                    attrs="{'readonly': [('state','in',['posted','final'])]}"
-                                />
-                            </div>
+                            <field
+                                name="from_date"
+                                widget="daterange"
+                                string="Date"
+                                options="{'end_date_field': 'to_date'}"
+                                readonly="state in ['posted','final']"
+                            />
+                            <field name="to_date" invisible="1" />
                         </group>
                         <group name="extra_parameters">
                             <field name="date_posted" />
@@ -117,7 +100,7 @@
                     </group>
                     <notebook name="notebook">
                         <page name="statement" string="BTW Statement">
-                            <group attrs="{'invisible': [('parent_id','=',False)]}">
+                            <group invisible="not parent_id">
                                 <span class="text-muted" />
                                 <div
                                     class="o_row o_row_readonly"
@@ -126,27 +109,24 @@
                             <group
                                 name="statement_lines"
                                 string="BTW Statement lines"
-                                attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}"
+                                invisible="state != 'draft' or parent_id"
                             >
                                 <span class="text-muted" />
                                 <div class="o_row o_row_readonly">
                                     <div
-                                        states="draft"
+                                        invisible="state != 'draft'"
                                     >Press the Update button in order to recompute the statement lines!</div>
                                     <button
                                         name="statement_update"
                                         string="Update"
-                                        states="draft"
+                                        invisible="state != 'draft'"
                                         type="object"
                                         class="oe_highlight"
                                         icon="fa-repeat"
                                     />
                                 </div>
                             </group>
-                            <field
-                                name="line_ids"
-                                attrs="{'invisible': [('parent_id','!=',False)]}"
-                            >
+                            <field name="line_ids" invisible="parent_id">
                                 <form>
                                     <group>
                                         <group>
@@ -159,7 +139,7 @@
                                         </group>
                                     </group>
                                 </form>
-                                <tree
+                                <list
                                     decoration-muted="is_group"
                                     editable="bottom"
                                     create="false"
@@ -174,29 +154,31 @@
                                     <field name="format_btw" invisible="1" />
                                     <field
                                         name="omzet"
-                                        attrs="{'invisible': [('format_omzet', '=', False)],'readonly': [('is_readonly', '=', True)]}"
+                                        invisible="not format_omzet"
+                                        readonly="is_readonly"
                                     />
                                     <button
                                         name="view_base_lines"
                                         title="View Base Lines"
                                         type="object"
                                         icon="fa-search-plus"
-                                        attrs="{'invisible': ['|',('format_omzet', '=', False),('is_total', '=', True)]}"
+                                        invisible="not format_omzet or is_total"
                                     />
                                     <field
                                         name="btw"
-                                        attrs="{'invisible': [('format_btw', '=', False)],'readonly': [('is_readonly', '=', True)]}"
+                                        invisible="not format_btw"
+                                        readonly="is_readonly"
                                     />
                                     <button
                                         name="view_tax_lines"
                                         title="View Tax Lines"
                                         type="object"
                                         icon="fa-search-plus"
-                                        attrs="{'invisible': ['|',('format_btw', '=', False),('is_total', '=', True)]}"
+                                        invisible="not format_btw or is_total"
                                     />
-                                </tree>
+                                </list>
                             </field>
-                            <group attrs="{'invisible': [('parent_id','!=',False)]}">
+                            <group invisible="parent_id">
                                 <group />
                                 <group>
                                     <label for="btw_total" />
@@ -207,7 +189,7 @@
                         <page
                             name="entry_lines"
                             string="Past Undeclared Moves"
-                            attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}"
+                            invisible="state != 'draft' or parent_id"
                         >
                             <group
                                 name="unreported_move_filter"
@@ -217,7 +199,7 @@
                                     <field
                                         name="unreported_move_from_date"
                                         string="From Date"
-                                        attrs="{'readonly': [('state','in',['posted','final'])]}"
+                                        readonly="state in ['posted','final']"
                                     />
                                 </group>
                                 <group>
@@ -231,12 +213,12 @@
                                         type="object"
                                         class="oe_highlight"
                                         icon="fa-plus"
-                                        attrs="{'invisible':[('display_button_add_all_undeclared_invoices', '!=', True)]}"
+                                        invisible="not display_button_add_all_undeclared_invoices"
                                     />
                                 </group>
                             </group>
                             <field name="unreported_move_ids">
-                                <tree
+                                <list
                                     editable="bottom"
                                     create="false"
                                     delete="false"
@@ -257,31 +239,28 @@
                                         icon="fa-play"
                                         string="Add Move"
                                         type="object"
-                                        attrs="{'invisible': [('l10n_nl_vat_statement_include', '=', True)]}"
+                                        invisible="l10n_nl_vat_statement_include"
                                     />
                                     <button
                                         name="l10n_nl_unlink_move_from_statement"
                                         icon="fa-remove"
                                         string="Remove Move"
                                         type="object"
-                                        attrs="{'invisible': [('l10n_nl_vat_statement_include', '!=', True)]}"
+                                        invisible="not l10n_nl_vat_statement_include"
                                     />
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" />
-                    <field name="message_ids" />
-                </div>
+                <chatter />
             </form>
         </field>
     </record>
     <record id="view_l10n_nl_vat_report_tree" model="ir.ui.view">
         <field name="model">l10n.nl.vat.statement</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                 decoration-info="state=='draft'"
                 decoration-muted="state in ('final')"
             >
@@ -291,13 +270,13 @@
                 <field name="btw_total" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="state" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="action_account_vat_statement_nl" model="ir.actions.act_window">
         <field name="name">NL BTW Statement</field>
         <field name="res_model">l10n.nl.vat.statement</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="menu_account_vat_statement_nl"
