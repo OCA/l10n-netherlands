@@ -12,7 +12,7 @@
             <xpath expr="//notebook" position="inside">
                 <page name="icp_statement" string="ICP Statement">
                     <group name="icp_lines" string="ICP Statement lines">
-                        <span class="text-muted"> </span>
+                        <span class="text-muted" />
                         <div class="o_row o_row_readonly">
                             <div
                                 states="posted"
@@ -38,9 +38,7 @@
                         </tree>
                     </field>
                     <group>
-                        <group>
-
-                        </group>
+                        <group />
                         <group>
                             <label for="icp_total" />
                             <field name="icp_total" nolabel="1" />
