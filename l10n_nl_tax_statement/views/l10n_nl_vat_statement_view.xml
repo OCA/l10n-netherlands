@@ -51,7 +51,9 @@
                     </div>
                     <div class="oe_title" colspan="4">
                         <label for="name" />
-                        <h1><field name="name" /></h1>
+                        <h1>
+                            <field name="name" />
+                        </h1>
                     </div>
                     <group>
                         <group name="tax_report">
@@ -116,7 +118,7 @@
                     <notebook name="notebook">
                         <page name="statement" string="BTW Statement">
                             <group attrs="{'invisible': [('parent_id','=',False)]}">
-                                <span class="text-muted"> </span>
+                                <span class="text-muted" />
                                 <div
                                     class="o_row o_row_readonly"
                                 >Check the statement of the parent Company.</div>
@@ -126,7 +128,7 @@
                                 string="BTW Statement lines"
                                 attrs="{'invisible':['|',('state','!=','draft'),('parent_id','!=',False)]}"
                             >
-                                <span class="text-muted"> </span>
+                                <span class="text-muted" />
                                 <div class="o_row o_row_readonly">
                                     <div
                                         states="draft"
@@ -195,8 +197,7 @@
                                 </tree>
                             </field>
                             <group attrs="{'invisible': [('parent_id','!=',False)]}">
-                                <group>
-                                </group>
+                                <group />
                                 <group>
                                     <label for="btw_total" />
                                     <field name="btw_total" nolabel="1" />
