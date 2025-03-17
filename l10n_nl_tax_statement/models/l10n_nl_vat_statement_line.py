@@ -56,8 +56,8 @@ class VatStatementLine(models.Model):
     @api.depends("omzet", "btw", "code")
     def _compute_amount_format(self):
         for line in self:
-            omzet = formatLang(self.env, line.omzet, monetary=True)
-            btw = formatLang(self.env, line.btw, monetary=True)
+            omzet = formatLang(self.env, line.omzet)
+            btw = formatLang(self.env, line.btw)
             line.format_omzet = False
             line.format_btw = False
             if line.code in OMZET_DISPLAY:

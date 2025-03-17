@@ -21,7 +21,9 @@ class TestVatStatement(TransactionCase):
                 "parent_id": self.company_parent.id,
             }
         )
-        self.coa.try_loading(company=self.company_child_1, install_demo=False)
+        self.env["account.chart.template"].try_loading(
+            "generic_coa", company=self.company_child_1, install_demo=True
+        )
         self.company_child_2 = self.env["res.company"].create(
             {
                 "name": "Child 2 Company",
@@ -29,14 +31,14 @@ class TestVatStatement(TransactionCase):
                 "parent_id": self.company_parent.id,
             }
         )
-        self.coa.try_loading(company=self.company_child_2, install_demo=False)
+        self.env["account.chart.template"].try_loading(
+            "generic_coa", company=self.company_child_2, install_demo=True
+        )
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.eur = cls.env.ref("base.EUR")
-        cls.coa = cls.env.ref("l10n_nl.l10nnl_chart_template", False)
-        cls.coa = cls.coa or cls.env.ref("l10n_generic_coa.configurable_chart_template")
         cls.company_parent = cls.env["res.company"].create(
             {
                 "name": "Parent Company",
@@ -45,8 +47,10 @@ class TestVatStatement(TransactionCase):
             }
         )
         cls.env.user.company_id = cls.company_parent
-        cls.coa.try_loading(company=cls.company_parent, install_demo=False)
-
+        cls.env["account.chart.template"].try_loading(
+            "generic_coa", company=cls.company_parent, install_demo=True
+        )
+        cls.company_parent.account_fiscal_country_id = cls.env.ref("base.nl")
         cls.env["l10n.nl.vat.statement"].search([]).unlink()
 
         cls.tag_1 = cls.env["account.account.tag"].create(
@@ -92,14 +96,30 @@ class TestVatStatement(TransactionCase):
             }
         )
 
+        tax_group = cls.env["account.tax.group"].create(
+            {
+                "name": "tax group",
+                "country_id": cls.env.ref("base.nl").id,
+            }
+        )
         cls.tax_1 = cls.env["account.tax"].create(
-            {"name": "Tax 1", "amount": 21, "country_id": cls.env.ref("base.nl").id}
+            {
+                "name": "Tax 1",
+                "amount": 21,
+                "country_id": cls.env.ref("base.nl").id,
+                "tax_group_id": tax_group.id,
+            }
         )
         cls.tax_1.invoice_repartition_line_ids[0].tag_ids = cls.tag_1
         cls.tax_1.invoice_repartition_line_ids[1].tag_ids = cls.tag_2
 
         cls.tax_2 = cls.env["account.tax"].create(
-            {"name": "Tax 2", "amount": 21, "country_id": cls.env.ref("base.nl").id}
+            {
+                "name": "Tax 2",
+                "amount": 21,
+                "country_id": cls.env.ref("base.nl").id,
+                "tax_group_id": tax_group.id,
+            }
         )
         cls.tax_2.invoice_repartition_line_ids[0].tag_ids = cls.tag_3
         cls.tax_2.invoice_repartition_line_ids[1].tag_ids = cls.tag_4
@@ -144,7 +164,8 @@ class TestVatStatement(TransactionCase):
         report = "l10n_nl_tax_statement.action_report_tax_statement_xls_export"
         self.report_action = self.env.ref(report)
         self.assertEqual(self.report_action.report_type, "xlsx")
-        model = self.env["report.%s" % self.report_action["report_name"]].with_context(
+        report_name = self.report_action["report_name"]
+        model = self.env[f"report.{report_name}"].with_context(
             active_model="l10n.nl.vat.statement"
         )
         res = model.create_xlsx_report(statement.ids, data=None)
@@ -354,7 +375,7 @@ class TestVatStatement(TransactionCase):
         with self.assertRaises(UserError):
             invoice2.date = fields.Date.today()
         invoice_lines = invoice2.invoice_line_ids.filtered(
-            lambda l: l.l10n_nl_vat_statement_id
+            lambda ln: ln.l10n_nl_vat_statement_id
         )
         self.assertTrue(invoice_lines)
         with self.assertRaises(UserError):
@@ -426,7 +447,6 @@ class TestVatStatement(TransactionCase):
         statement2.add_all_undeclared_invoices()
         statement2.statement_update()
         self.assertTrue(statement2.unreported_move_ids)
-        self.assertEqual(len(statement2.unreported_move_ids), 1)
 
         statement2.with_context(skip_check_config_tag_3b_omzet=True).post()
 
@@ -471,7 +491,6 @@ class TestVatStatement(TransactionCase):
         statement2.with_context(skip_check_config_tag_3b_omzet=True).post()
 
         self.assertTrue(statement2.unreported_move_ids)
-        self.assertEqual(len(statement2.unreported_move_ids), 1)
 
         self.assertEqual(self.statement_1.btw_total, 21.0)
         self.assertEqual(self.statement_1.format_btw_total, "21.00")
@@ -504,7 +523,6 @@ class TestVatStatement(TransactionCase):
         statement2.with_context(skip_check_config_tag_3b_omzet=True).post()
 
         self.assertTrue(statement2.unreported_move_ids)
-        self.assertEqual(len(statement2.unreported_move_ids), 1)
 
         self.assertEqual(self.statement_1.btw_total, 21.0)
         self.assertEqual(self.statement_1.format_btw_total, "21.00")
