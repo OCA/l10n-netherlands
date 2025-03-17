@@ -191,7 +191,7 @@ class VatStatement(models.Model):
     @api.depends("btw_total")
     def _compute_amount_format_btw_total(self):
         for statement in self:
-            btw = formatLang(self.env, statement.btw_total, monetary=True)
+            btw = formatLang(self.env, statement.btw_total)
             statement.format_btw_total = btw
 
     @api.model
@@ -550,7 +550,7 @@ class VatStatement(models.Model):
     def _compute_btw_total(self):
         for statement in self:
             lines = statement.line_ids
-            total_lines = lines.filtered(lambda l: l.code in ["5c", "5d"])
+            total_lines = lines.filtered(lambda ln: ln.code in ["5c", "5d"])
             statement.btw_total = sum(line.btw for line in total_lines)
 
     @api.constrains("fiscal_unit_company_ids")
