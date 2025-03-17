@@ -83,7 +83,7 @@ class VatStatement(models.Model):
         if not move_lines and self.sudo().parent_id:
             move_lines = self.sudo().parent_id._get_all_statement_move_lines()
         move_lines = move_lines.sudo().filtered(
-            lambda l: l.company_id == self.company_id
+            lambda ml: ml.company_id == self.company_id
         )
         for line in move_lines:
             is_3b_omzet = self._is_3b_omzet_line(line)

@@ -20,7 +20,8 @@ class TestTaxStatementIcp(TestVatStatement):
         report = "l10n_nl_tax_statement_icp.action_report_tax_statement_icp_xls_export"
         self.report_action = self.env.ref(report)
         self.assertEqual(self.report_action.report_type, "xlsx")
-        model = self.env["report.%s" % self.report_action["report_name"]].with_context(
+        report_name = self.report_action["report_name"]
+        model = self.env[f"report.{report_name}"].with_context(
             active_model="l10n.nl.vat.statement"
         )
         res = model.create_xlsx_report(statement.ids, data=None)

@@ -46,8 +46,8 @@ class VatStatementIcpLine(models.Model):
     @api.depends("amount_products", "amount_services")
     def _compute_icp_amount_format(self):
         for line in self:
-            amount_products = formatLang(self.env, line.amount_products, monetary=True)
-            amount_services = formatLang(self.env, line.amount_services, monetary=True)
+            amount_products = formatLang(self.env, line.amount_products)
+            amount_services = formatLang(self.env, line.amount_services)
             line.format_amount_products = amount_products
             line.format_amount_services = amount_services
 
