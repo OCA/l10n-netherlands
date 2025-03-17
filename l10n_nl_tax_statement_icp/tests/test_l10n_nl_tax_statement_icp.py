@@ -10,7 +10,6 @@ from odoo.addons.l10n_nl_tax_statement.tests.test_l10n_nl_vat_statement import (
 
 class TestTaxStatementIcp(TestVatStatement):
     def _prepare_icp_invoice(self):
-
         self.invoice_1._post()
         for invoice_line in self.invoice_1.invoice_line_ids:
             invoice_line.tax_tag_ids = self.tag_5

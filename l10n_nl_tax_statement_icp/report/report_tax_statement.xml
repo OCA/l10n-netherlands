@@ -66,9 +66,9 @@
                             </t>
                             <div class="nl_tax_act_as_row labels">
                                 <!--## total amount-->
-                                <div class="nl_tax_act_as_cell left"> </div>
-                                <div class="nl_tax_act_as_cell left"> </div>
-                                <div class="nl_tax_act_as_cell left"> </div>
+                                <div class="nl_tax_act_as_cell left" />
+                                <div class="nl_tax_act_as_cell left" />
+                                <div class="nl_tax_act_as_cell left" />
                                 <div class="nl_tax_act_as_cell right">Total amount</div>
                                 <div
                                     class="nl_tax_act_as_cell right"
