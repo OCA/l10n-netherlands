@@ -1,0 +1,52 @@
+.nl_tax > table,
+.nl_tax > td,
+.nl_tax > span,
+.nl_tax > div {
+    font-family: Helvetica, Arial;
+}
+.nl_tax_act_as_table {
+    display: table;
+}
+.nl_tax_act_as_row {
+    display: table-row !important;
+    page-break-inside: avoid;
+}
+.nl_tax_act_as_cell {
+    display: table-cell;
+    page-break-inside: avoid;
+    font-size: 18px;
+}
+.nl_tax_act_as_row.labels {
+    background-color: #f0f0f0;
+}
+.nl_tax_table {
+    width: 100%;
+    table-layout: fixed;
+    border-left: 0px;
+    border-right: 0px;
+    text-align: left;
+    font-size: 18px;
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-collapse: collapse;
+}
+.nl_tax_table .nl_tax_act_as_cell {
+    border-bottom: 1px solid lightGrey;
+    text-align: center;
+    word-wrap: break-word;
+}
+.nl_tax_table .nl_tax_act_as_row.labels {
+    font-weight: bold;
+}
+.nl_tax_act_as_cell.right {
+    word-wrap: normal;
+    text-align: right;
+}
+.nl_tax_act_as_cell.left {
+    text-align: left;
+}
+.nl_tax_footer {
+    font-size: 18px;
+}
