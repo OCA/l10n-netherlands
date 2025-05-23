@@ -7,11 +7,8 @@
             ref="l10n_nl_tax_statement.view_l10n_nl_vat_report_form"
         />
         <field name="arch" type="xml">
-            <xpath expr="//label[@for='from_date']" position="before">
-                <field
-                    name="date_range_id"
-                    attrs="{'readonly': [('state','in',['posted','final'])]}"
-                />
+            <xpath expr="//field[@name='from_date']" position="before">
+                <field name="date_range_id" readonly="state in ['posted','final']" />
             </xpath>
         </field>
     </record>
