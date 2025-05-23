@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 18.0.1.0.0 |  | Netherlands BTW Statement
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 18.0.1.0.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
