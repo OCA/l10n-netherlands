@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <!-- base_vat moving the field inside a div makes the expression elaborate -->
+            <xpath
+                expr="//field[@name='vat']/ancestor::group[position()=1]"
+                position="inside"
+            >
+                <field
+                    name="l10n_nl_kvk"
+                    invisible="not is_company or country_code != 'NL'"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
