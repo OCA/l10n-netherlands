@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,7 +17,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "(product + service)"
 msgstr ""
 
@@ -25,7 +24,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "Amount Product"
 msgstr ""
 
@@ -38,7 +36,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "Amount Service"
 msgstr ""
 
@@ -52,7 +49,6 @@ msgstr ""
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__country_code
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "Country Code"
 msgstr ""
 
@@ -71,7 +67,6 @@ msgstr ""
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__currency_id
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "Currency"
 msgstr ""
 
@@ -88,14 +83,12 @@ msgstr ""
 #. module: l10n_nl_tax_statement_icp
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
-#, python-format
 msgid "Date from"
 msgstr ""
 
 #. module: l10n_nl_tax_statement_icp
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
-#, python-format
 msgid "Date to"
 msgstr ""
 
@@ -150,11 +143,6 @@ msgid "Intra-Community transactions (ICP) line"
 msgstr ""
 
 #. module: l10n_nl_tax_statement_icp
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: l10n_nl_tax_statement_icp
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -194,7 +182,6 @@ msgstr ""
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__partner_id
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "Partner"
 msgstr ""
 
@@ -217,7 +204,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "Total amount"
 msgstr ""
 
@@ -236,14 +222,12 @@ msgstr ""
 #: code:addons/l10n_nl_tax_statement_icp/report/l10n_nl_tax_statement_icp_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp.field_l10n_nl_vat_statement_icp_line__vat
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement_icp.report_tax_statement_icp
-#, python-format
 msgid "VAT"
 msgstr ""
 
 #. module: l10n_nl_tax_statement_icp
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:0
-#, python-format
 msgid ""
 "Wrong country code (%s) for ICP report. Please check your configuration."
 msgstr ""
@@ -251,13 +235,11 @@ msgstr ""
 #. module: l10n_nl_tax_statement_icp
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement_icp_line.py:0
-#, python-format
 msgid "Wrong country code (NL) for ICP report."
 msgstr ""
 
 #. module: l10n_nl_tax_statement_icp
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement_icp/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "You cannot modify a final statement!"
 msgstr ""
