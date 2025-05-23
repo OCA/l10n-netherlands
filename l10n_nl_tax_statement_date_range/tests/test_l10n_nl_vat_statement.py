@@ -24,7 +24,8 @@ class TestTaxStatementIcp(TestVatStatement):
         cls.daterange = cls.env["date.range"].create(daterange_vals)
 
     def test_01_date_range(self):
-        """When setting the Date Range, the From Date and To Date are updated accordingly"""
+        """When setting the Date Range, the From Date and To Date
+        are updated accordingly"""
         self.assertEqual(self.statement_1.state, "draft")
         self.assertNotEqual(self.statement_1.from_date, datetime.date(2016, 1, 1))
         self.assertNotEqual(self.statement_1.to_date, datetime.date(2016, 12, 31))
