@@ -1,6 +1,8 @@
 # Copyright 2025 Hunki Enterprises BV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
+import json
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.osv.expression import is_leaf
@@ -48,8 +50,8 @@ class L10nNlIcpStatement(models.Model):
                 vals["error"] = ",".join(error.args)
             if not record.partner_id:
                 vals["error"] = _("No partner set")
-            vals["move_line_ids"] = list(
-                partner_amounts_map[vals["partner_id"]]["move_line_ids"]
+            vals["move_line_ids"] = json.dumps(
+                list(partner_amounts_map[vals["partner_id"]]["move_line_ids"])
             )
         return result
 

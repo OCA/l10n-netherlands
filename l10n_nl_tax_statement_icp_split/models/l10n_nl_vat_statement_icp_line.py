@@ -10,7 +10,7 @@ class L10nNlVatStatementIcpLine(models.Model):
     partner_id = fields.Many2one(required=False)
     icp_statement_id = fields.Many2one("l10n.nl.icp.statement", ondelete="cascade")
     error = fields.Text()
-    move_line_ids = fields.Json()
+    move_line_ids = fields.Serialized()
 
     def _check_country_code(self):
         # remove the constraint
