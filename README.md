@@ -23,18 +23,18 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [l10n_nl_account_tax_unece](l10n_nl_account_tax_unece/) | 12.0.1.0.0 |  | Auto-configure UNECE params on Dutch taxes
 [l10n_nl_bank](l10n_nl_bank/) | 12.0.1.0.0 |  | Import all Dutch banks with BIC code
-[l10n_nl_bsn](l10n_nl_bsn/) | 12.0.1.1.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Burgerservicenummer (BSN) for Partners
+[l10n_nl_bsn](l10n_nl_bsn/) | 12.0.1.1.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Burgerservicenummer (BSN) for Partners
 [l10n_nl_country_states](l10n_nl_country_states/) | 12.0.1.1.0 |  | Dutch country states (Provincies)
 [l10n_nl_dutch_company_type](l10n_nl_dutch_company_type/) | 12.0.2.1.0 |  | Adds the Dutch company types
 [l10n_nl_kvk](l10n_nl_kvk/) | 12.0.2.0.1 |  | Autocomplete company info using KvK API Search
 [l10n_nl_location_nuts](l10n_nl_location_nuts/) | 12.0.1.0.0 |  | NUTS specific options for Netherlands
-[l10n_nl_mis_reports](l10n_nl_mis_reports/) | 12.0.1.1.0 | [![hbrunn](https://github.com/hbrunn.png?size=30px)](https://github.com/hbrunn) | Profit & Loss / Balance sheet for the Netherlands
+[l10n_nl_mis_reports](l10n_nl_mis_reports/) | 12.0.1.1.0 | <a href='https://github.com/hbrunn'><img src='https://github.com/hbrunn.png' width='32' height='32' style='border-radius:50%;' alt='hbrunn'/></a> | Profit & Loss / Balance sheet for the Netherlands
 [l10n_nl_openkvk](l10n_nl_openkvk/) | 12.0.1.0.0 |  | Autocomplete company info using OpenKvK API
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 12.0.1.0.0 |  | Dutch partner names
 [l10n_nl_partner_salutation](l10n_nl_partner_salutation/) | 12.0.1.0.0 |  | Full salutation for partners, Dutch style
 [l10n_nl_postcode](l10n_nl_postcode/) | 12.0.1.0.0 |  | Dutch postcode validation for Partners
-[l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 12.0.2.0.0 | [![NL66278](https://github.com/NL66278.png?size=30px)](https://github.com/NL66278) | Autocomplete Dutch addresses using PostcodeApi.nu
-[l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 12.0.1.0.0 | [![astirpe](https://github.com/astirpe.png?size=30px)](https://github.com/astirpe) | Enable invoice basis on tax according to the Dutch law
+[l10n_nl_postcodeapi](l10n_nl_postcodeapi/) | 12.0.2.0.0 | <a href='https://github.com/NL66278'><img src='https://github.com/NL66278.png' width='32' height='32' style='border-radius:50%;' alt='NL66278'/></a> | Autocomplete Dutch addresses using PostcodeApi.nu
+[l10n_nl_tax_invoice_basis](l10n_nl_tax_invoice_basis/) | 12.0.1.0.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Enable invoice basis on tax according to the Dutch law
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 12.0.2.0.4 |  | Netherlands BTW Statement
 [l10n_nl_tax_statement_icp](l10n_nl_tax_statement_icp/) | 12.0.1.1.0 |  | Netherlands ICP Statement
 [l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 12.0.1.1.1 |  | Export XAF auditfiles for Dutch tax authorities
