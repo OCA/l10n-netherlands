@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import _, api, models
+from odoo import api, models
 
 _logger = logging.getLogger(__name__)
 try:
@@ -17,8 +17,8 @@ class ResPartner(models.Model):
 
     def _l10n_nl_postcode_get_warning(self):
         self.ensure_one()
-        msg = _("The Postcode you entered (%s) is not valid.")
-        return {"title": _("Warning!"), "message": msg % self.zip}
+        msg = self.env._("The Postcode you entered (%s) is not valid.")
+        return {"title": self.env._("Warning!"), "message": msg % self.zip}
 
     def _l10n_nl_postcode_check_country(self):
         self.ensure_one()
