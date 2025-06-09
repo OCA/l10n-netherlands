@@ -1,6 +1,7 @@
 This module adds the BSN (Burgerservicenummer) field on partner forms.
 
-The field is visible when the field ``company_type`` is set to ``Individual``.
+The field is visible when the field `company_type` is set to
+`Individual`.
 
 A double check on the BSN is done when inserting/modifying its value:
 
