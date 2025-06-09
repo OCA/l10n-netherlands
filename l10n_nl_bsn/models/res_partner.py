@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
@@ -45,21 +45,24 @@ class ResPartner(models.Model):
         self.ensure_one()
         warning = {}
         if not bsn.is_valid(self.bsn_number):
-            msg = _("The BSN you entered (%s) is not valid.")
-            warning = {"title": _("Warning!"), "message": msg % self.bsn_number}
+            msg = self.env._("The BSN you entered (%s) is not valid.")
+            warning = {
+                "title": self.env._("Warning!"),
+                "message": msg % self.bsn_number,
+            }
         return warning
 
     def _warn_bsn_existing(self):
         self.ensure_one()
-        msg = _("Another person (%(name)s) has the same BSN (%(bsn_number)s).")
+        msg = self.env._("Another person (%(name)s) has the same BSN (%(bsn_number)s).")
         warning = {
-            "title": _("Warning!"),
+            "title": self.env._("Warning!"),
             "message": msg % {"name": self.name, "bsn_number": self.bsn_number},
         }
         return warning
 
     @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
+    def _search(self, args, offset=0, limit=None, order=None):
         res_domain = []
         for domain in args:
             if (
@@ -87,6 +90,4 @@ class ResPartner(models.Model):
                 res_domain += bsn_domain
             else:
                 res_domain.append(domain)
-        return super().search(
-            res_domain, offset=offset, limit=limit, order=order, count=count
-        )
+        return super()._search(res_domain, offset=offset, limit=limit, order=order)

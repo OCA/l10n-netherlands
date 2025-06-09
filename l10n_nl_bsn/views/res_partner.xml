@@ -7,10 +7,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='function']" position="before">
-                <field
-                    name="bsn_number"
-                    attrs="{'invisible': [('is_company','=', True)]}"
-                />
+                <field name="bsn_number" invisible="is_company" />
             </xpath>
         </field>
     </record>

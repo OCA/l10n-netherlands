@@ -1,19 +1,22 @@
 # Copyright 2017-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestBsn(TransactionCase):
-    def setUp(self):
-        super().setUp()
+class TestBsn(BaseCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
 
-        self.partner_bsn = self.env["res.partner"].create(
-            {
-                "name": "Partner with BSN",
-                "is_company": True,
-                "company_id": self.env.company.id,
-            }
+        cls.partner_bsn = cls.env["res.partner"].create(
+            [
+                {
+                    "name": "Partner with BSN",
+                    "is_company": True,
+                    "company_id": cls.env.company.id,
+                }
+            ]
         )
 
     def test_01_bsn_not_valid(self):
@@ -39,12 +42,14 @@ class TestBsn(TransactionCase):
 
     def test_03_bsn_another_partner(self):
         new_partner_bsn = self.env["res.partner"].create(
-            {
-                "name": "Partner with BSN - NEW",
-                "is_company": True,
-                "bsn_number": "1000.00.009",
-                "company_id": self.env.company.id,
-            }
+            [
+                {
+                    "name": "Partner with BSN - NEW",
+                    "is_company": True,
+                    "bsn_number": "1000.00.009",
+                    "company_id": self.env.company.id,
+                }
+            ]
         )
         self.partner_bsn.bsn_number = "100000009"
         res = self.partner_bsn.onchange_bsn_number()
