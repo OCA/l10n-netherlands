@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="view_l10n_nl_icp_statement_form" model="ir.ui.view">
+        <field name="model">l10n.nl.icp.statement</field>
+        <field
+            name="inherit_id"
+            ref="l10n_nl_tax_statement_icp.view_l10n_nl_vat_report_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <page name="statement" position="before">
+                <page name="icp_statement" position="move" />
+            </page>
+            <page name="icp_statement" position="attributes">
+                <attribute name="invisible">False</attribute>
+            </page>
+            <page name="statement" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </page>
+            <page name="entry_lines" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </page>
+            <xpath
+                expr="//field[@name='icp_line_ids']/tree/field[@name='partner_id']"
+                position="after"
+            >
+                <field
+                    name="error"
+                    attrs="{'column_invisible': [('parent.icp_line_ids_has_errors', '=', False)]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='icp_line_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">error</attribute>
+            </xpath>
+            <xpath expr="//field[@name='icp_line_ids']/tree" position="inside">
+                <button
+                    name="view_tax_lines"
+                    title="View Tax Lines"
+                    type="object"
+                    icon="fa-search-plus"
+                />
+            </xpath>
+            <field name="icp_line_ids" position="after">
+                <field name="icp_line_ids_has_errors" invisible="True" />
+            </field>
+            <button name="post" position="attributes">
+                <attribute name="states" />
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('icp_line_ids_has_errors', '=', True), ('state', '!=', 'draft')]}</attribute>
+            </button>
+            <button name="finalize" position="attributes">
+                <attribute name="states" />
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('icp_line_ids_has_errors', '=', True), ('state', '!=', 'posted')]}</attribute>
+            </button>
+        </field>
+    </record>
+    <record id="view_l10n_nl_icp_statement_tree" model="ir.ui.view">
+        <field name="model">l10n.nl.icp.statement</field>
+        <field
+            name="inherit_id"
+            ref="l10n_nl_tax_statement.view_l10n_nl_vat_report_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree />
+        </field>
+    </record>
+    <record id="action_l10n_nl_icp_statement" model="ir.actions.act_window">
+        <field name="name">NL ICP Statement</field>
+        <field name="res_model">l10n.nl.icp.statement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_l10n_nl_icp_statement"
+        parent="account.menu_finance_reports"
+        groups="account.group_account_manager"
+        action="action_l10n_nl_icp_statement"
+    />
+
+</data>
