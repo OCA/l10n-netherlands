@@ -202,6 +202,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_icp_statement__state__draft
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__draft
 msgid "Draft"
 msgstr ""
@@ -212,6 +213,7 @@ msgid "Entry Lines"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_icp_statement__state__final
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__final
 msgid "Final"
 msgstr ""
@@ -549,6 +551,7 @@ msgid "Post"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_icp_statement__state__posted
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__posted
 msgid "Posted"
 msgstr ""
