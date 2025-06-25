@@ -51,24 +51,24 @@ msgstr "5g. Totaal (5c + 5d)"
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid ""
-"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
-"\"Arrow\"/>"
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 msgstr ""
-"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
-"\"Arrow\"/>"
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
 msgid ""
 "<span class=\"o_form_label\">NL Tax Invoice Basis</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title="
-"\"Values set here are company-specific.\" aria-label=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
+"                        <span class=\"fa fa-lg fa-building-o\" "
+"title=\"Values set here are company-specific.\" aria-label=\"Values set here "
+"are company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
 "<span class=\"o_form_label\">NL Factuurstelsel</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title="
-"\"Values set here are company-specific.\" aria-label=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
+"                        <span class=\"fa fa-lg fa-building-o\" "
+"title=\"Values set here are company-specific.\" aria-label=\"Values set here "
+"are company-specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -218,6 +218,7 @@ msgid "Display Name"
 msgstr "Weergave naam"
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_icp_statement__state__draft
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__draft
 msgid "Draft"
 msgstr "Concept"
@@ -228,6 +229,7 @@ msgid "Entry Lines"
 msgstr "Alle boekingen"
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_icp_statement__state__final
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__final
 msgid "Final"
 msgstr "Definitief"
@@ -567,6 +569,7 @@ msgid "Post"
 msgstr "Versturen"
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_icp_statement__state__posted
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__posted
 msgid "Posted"
 msgstr "Ingezonden"
