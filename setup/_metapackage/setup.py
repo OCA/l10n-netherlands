@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo-addon-l10n_nl_tax_statement>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_tax_statement_date_range>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_tax_statement_icp>=16.0dev,<16.1dev',
+        'odoo-addon-l10n_nl_tax_statement_icp_split>=16.0dev,<16.1dev',
         'odoo-addon-l10n_nl_xaf_auditfile_export>=16.0dev,<16.1dev',
     ],
     classifiers=[

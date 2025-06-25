@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 16.0.1.0.2 |  | Netherlands BTW Statement
 [l10n_nl_tax_statement_date_range](l10n_nl_tax_statement_date_range/) | 16.0.1.0.0 |  | Netherlands BTW Statement - Date range
 [l10n_nl_tax_statement_icp](l10n_nl_tax_statement_icp/) | 16.0.1.1.0 |  | Netherlands ICP Statement
+[l10n_nl_tax_statement_icp_split](l10n_nl_tax_statement_icp_split/) | 16.0.1.0.0 | <a href='https://github.com/hbrunn'><img src='https://github.com/hbrunn.png' width='32' height='32' style='border-radius:50%;' alt='hbrunn'/></a> | Manage your BTW and ICP statements separately
 [l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 16.0.1.2.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
