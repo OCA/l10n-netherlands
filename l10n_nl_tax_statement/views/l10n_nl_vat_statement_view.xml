@@ -139,7 +139,7 @@
                                         </group>
                                     </group>
                                 </form>
-                                <list
+                                <tree
                                     decoration-muted="is_group"
                                     editable="bottom"
                                     create="false"
@@ -176,7 +176,7 @@
                                         icon="fa-search-plus"
                                         invisible="not format_btw or is_total"
                                     />
-                                </list>
+                                </tree>
                             </field>
                             <group invisible="parent_id">
                                 <group />
@@ -218,7 +218,7 @@
                                 </group>
                             </group>
                             <field name="unreported_move_ids">
-                                <list
+                                <tree
                                     editable="bottom"
                                     create="false"
                                     delete="false"
@@ -248,19 +248,22 @@
                                         type="object"
                                         invisible="not l10n_nl_vat_statement_include"
                                     />
-                                </list>
+                                </tree>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <chatter />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                </div>
             </form>
         </field>
     </record>
     <record id="view_l10n_nl_vat_report_tree" model="ir.ui.view">
         <field name="model">l10n.nl.vat.statement</field>
         <field name="arch" type="xml">
-            <list
+            <tree
                 decoration-info="state=='draft'"
                 decoration-muted="state in ('final')"
             >
@@ -270,13 +273,13 @@
                 <field name="btw_total" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="state" />
-            </list>
+            </tree>
         </field>
     </record>
     <record id="action_account_vat_statement_nl" model="ir.actions.act_window">
         <field name="name">NL BTW Statement</field>
         <field name="res_model">l10n.nl.vat.statement</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
     </record>
     <menuitem
         id="menu_account_vat_statement_nl"

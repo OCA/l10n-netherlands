@@ -73,8 +73,8 @@
                                         class="nl_tax_act_as_cell left"
                                         style="width: 900px;"
                                     ><span t-field="line.code" /> - <span
-                                        t-field="line.name"
-                                    /></div>
+                                            t-field="line.name"
+                                        /></div>
                                     <div class="nl_tax_act_as_cell right" />
                                     <div class="nl_tax_act_as_cell right" />
                                 </div>
@@ -87,8 +87,8 @@
                                         class="nl_tax_act_as_cell left"
                                         style="width: 900px;"
                                     > &amp;nbsp; &amp;nbsp; <span
-                                        t-field="line.code"
-                                    /> - <span t-field="line.name" /></div>
+                                            t-field="line.code"
+                                        /> - <span t-field="line.name" /></div>
                                     <div class="nl_tax_act_as_cell right">
                                         <span t-field="line.format_omzet" />
                                     </div>
