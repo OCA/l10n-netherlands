@@ -38,7 +38,6 @@ msgstr "Auditfile"
 #. module: l10n_nl_xaf_auditfile_export
 #. odoo-python
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:0
-#, python-format
 msgid "Auditfile %(company_name)s %(current_datetime)s"
 msgstr "Auditfile %(company_name)s %(current_datetime)s"
 
@@ -201,7 +200,6 @@ msgstr "Startdatum"
 #. module: l10n_nl_xaf_auditfile_export
 #. odoo-python
 #: code:addons/l10n_nl_xaf_auditfile_export/models/xaf_auditfile_export.py:0
-#, python-format
 msgid "Starting date must be anterior ending date!"
 msgstr "Startdatum moet liggen voor de einddatum!"
 
