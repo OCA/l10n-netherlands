@@ -258,7 +258,6 @@ msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_error
-#: model:ir.model.fields,help:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -524,11 +523,6 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Reset to Draft"
-msgstr ""
-
-#. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: l10n_nl_tax_statement
