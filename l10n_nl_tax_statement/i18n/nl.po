@@ -34,7 +34,6 @@ msgstr "&amp;nbsp; &amp;nbsp; 5g - Totaal"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "1d Prive-gebruik"
 msgstr "1d Prive-gebruik"
 
@@ -47,28 +46,6 @@ msgstr "5g - Totaal"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__btw_total
 msgid "5g. Total (5c + 5d)"
 msgstr "5g. Totaal (5c + 5d)"
-
-#. module: l10n_nl_tax_statement
-#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
-msgid ""
-"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
-"\"Arrow\"/>"
-msgstr ""
-"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title="
-"\"Arrow\"/>"
-
-#. module: l10n_nl_tax_statement
-#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
-msgid ""
-"<span class=\"o_form_label\">NL Tax Invoice Basis</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title="
-"\"Values set here are company-specific.\" aria-label=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-"<span class=\"o_form_label\">NL Factuurstelsel</span>\n"
-"                        <span class=\"fa fa-lg fa-building-o\" title="
-"\"Values set here are company-specific.\" aria-label=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
@@ -119,7 +96,6 @@ msgstr "Controleer de aangifte van het moederbedrijf."
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__code
-#, python-format
 msgid "Code"
 msgstr "Rubriek"
 
@@ -175,7 +151,6 @@ msgstr "Wijzigingsdatum"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
-#, python-format
 msgid "Date from"
 msgstr "Datum vanaf"
 
@@ -192,7 +167,6 @@ msgstr "Tijdvak"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
-#, python-format
 msgid "Date to"
 msgstr "Datum tot"
 
@@ -276,7 +250,6 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Heffing van omzetbelasting is naar u verlegd"
 msgstr "Heffing van omzetbelasting is naar u verlegd"
 
@@ -321,14 +294,12 @@ msgstr "inclusief niet-aangegeven facturen/mutaties"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_include
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move_line__l10n_nl_vat_statement_include
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_payment__l10n_nl_vat_statement_include
 msgid "Include in VAT Statement"
 msgstr "Toevoegen aan BTW-aangifte"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Installatie/afstandsverkopen binnen de EU"
 msgstr "Installatie/afstandsverkopen binnen de EU"
 
@@ -365,15 +336,8 @@ msgstr "Journaal Post"
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_id
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_move__l10n_nl_vat_statement_id
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_payment__l10n_nl_vat_statement_id
 msgid "L10N Nl Vat Statement"
 msgstr "NL BTW aangifte"
-
-#. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement____last_update
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__write_uid
@@ -390,63 +354,54 @@ msgstr "Laatst bijgewerkt op"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen en/of diensten binnenland"
 msgstr "Leveringen en/of diensten binnenland"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen naar het buitenland"
 msgstr "Leveringen naar het buitenland"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen naar landen binnen de EU"
 msgstr "Leveringen naar landen binnen de EU"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen naar landen buiten de EU"
 msgstr "Leveringen naar landen buiten de EU"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen vanuit het buitenland"
 msgstr "Leveringen vanuit het buitenland"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen/diensten belast met 0%"
 msgstr "Leveringen/diensten belast met 0%"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen/diensten belast met hoog tarief"
 msgstr "Leveringen/diensten belast met hoog tarief"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen/diensten belast met laag tarief"
 msgstr "Leveringen/diensten belast met laag tarief"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Leveringen/diensten belast met overige tarieven behalve 0%"
 msgstr "Leveringen/diensten belast met overige tarieven behalve 0%"
 
@@ -454,11 +409,6 @@ msgstr "Leveringen/diensten belast met overige tarieven behalve 0%"
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__line_ids
 msgid "Lines"
 msgstr "Regels"
-
-#. module: l10n_nl_tax_statement
-#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_main_attachment_id
-msgid "Main Attachment"
-msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__message_has_error
@@ -489,11 +439,6 @@ msgid "NL Tax Invoice Basis"
 msgstr "NL Factuurstelsel"
 
 #. module: l10n_nl_tax_statement
-#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
-msgid "NL Tax Invoice Basis (Factuurstelsel)"
-msgstr "NL Factuurstelsel"
-
-#. module: l10n_nl_tax_statement
 #: model:ir.actions.report,name:l10n_nl_tax_statement.action_report_tax_statement
 msgid "NL Tax Statement"
 msgstr "BTW aangifte"
@@ -512,7 +457,6 @@ msgstr "NL BTW Aangifte XLSX report"
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__name
-#, python-format
 msgid "Name"
 msgstr "Naam"
 
@@ -594,14 +538,12 @@ msgstr "Terugzetten naar concept"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Schatting deze aangifte"
 msgstr "Schatting deze aangifte"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Schatting vorige aangifte(n)"
 msgstr "Schatting vorige aangifte(n)"
 
@@ -618,14 +560,12 @@ msgstr "Status"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Subtotaal (rubriek 5a min 5b)"
 msgstr "Subtotaal (rubriek 5a min 5b)"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid ""
 "Tags mapping not configured for The Netherlands! Check the NL BTW Tags "
 "Configuration."
@@ -641,7 +581,6 @@ msgstr "BTW Aangifte"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "The Companies belonging to a fiscal unit must be in The Netherlands."
 msgstr ""
 "De bedrijven welke tot een fiscale eenheid behoren moeten Nederlands zijn."
@@ -655,7 +594,6 @@ msgstr "Tot Datum"
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__omzet
-#, python-format
 msgid "Turnover"
 msgstr "Omzet"
 
@@ -672,7 +610,6 @@ msgstr "Niet aangegeven mutaties vanaf datum"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Unreported moves: unsupported search operator"
 msgstr "niet aangegeven mutaties: Ongeldige zoekparameter"
 
@@ -690,42 +627,36 @@ msgstr "Hulpveld om de valuta uit te drukken"
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/report/l10n_nl_tax_statement_xlsx.py:0
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement_line__btw
-#, python-format
 msgid "VAT"
 msgstr "BTW"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Verleggingsregelingen: BTW naar u verlegd"
 msgstr "Verleggingsregelingen: BTW naar u verlegd"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Vermindering volgens de kleineondernemersregeling"
 msgstr "Vermindering volgens de kleineondernemersregeling"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
 msgstr "Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Verwerving uit landen buiten de EU"
 msgstr "Verwerving uit landen buiten de EU"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Verwerving van goederen uit landen binnen de EU"
 msgstr "Verwerving van goederen uit landen binnen de EU"
 
@@ -742,7 +673,6 @@ msgstr "Toon BTW Regels"
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "Voorbelasting"
 msgstr "Voorbelasting"
 
@@ -759,7 +689,6 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid ""
 "You cannot delete a posted statement! Reset the statement to draft first."
 msgstr ""
@@ -769,14 +698,12 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "You cannot delete a statement set as final!"
 msgstr "U kunt een ingezonden aangifte niet verwijderen!"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
-#, python-format
 msgid ""
 "You cannot delete lines of a posted statement! Reset the statement to draft "
 "first."
@@ -787,7 +714,6 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement_line.py:0
-#, python-format
 msgid "You cannot delete lines of a statement set as final!"
 msgstr ""
 "U kunt regels van een ingezonden/definitieve aangifte niet verwijderen!"
@@ -795,28 +721,24 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/account_move.py:0
-#, python-format
 msgid "You cannot modify a Journal Entry in a posted/final tax statement: %s"
 msgstr "U kunt een ingezonden/definitieve aangifte niet bewerken: %s"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/account_move_line.py:0
-#, python-format
 msgid "You cannot modify a Journal Item in a posted/final tax statement: %s"
 msgstr "U kunt een ingezonden/definitieve aangifte niet bewerken: %s"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "You cannot modify a posted statement!"
 msgstr "U kunt een ingezonden aangifte niet bewerken!"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid ""
 "You cannot modify a posted statement! Reset the statement to draft first."
 msgstr ""
@@ -826,20 +748,42 @@ msgstr ""
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid "You cannot modify a statement set as final!"
 msgstr "U kunt een definitieve aangifte niet bewerken!"
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
 #: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
-#, python-format
 msgid ""
 "You cannot post a statement if all the previous statements are not yet "
 "posted! Please Post all the other statements first."
 msgstr ""
 "U kunt geen aangifte indienen indien wanneer niet alle voorgaande aangiftes "
 "zijn ingedient. Dien eerst de voorgaande aangiftes in."
+
+#~ msgid ""
+#~ "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+#~ "title=\"Arrow\"/>"
+#~ msgstr ""
+#~ "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+#~ "title=\"Arrow\"/>"
+
+#~ msgid ""
+#~ "<span class=\"o_form_label\">NL Tax Invoice Basis</span>\n"
+#~ "                        <span class=\"fa fa-lg fa-building-o\" "
+#~ "title=\"Values set here are company-specific.\" aria-label=\"Values set "
+#~ "here are company-specific.\" groups=\"base.group_multi_company\"/>"
+#~ msgstr ""
+#~ "<span class=\"o_form_label\">NL Factuurstelsel</span>\n"
+#~ "                        <span class=\"fa fa-lg fa-building-o\" "
+#~ "title=\"Values set here are company-specific.\" aria-label=\"Values set "
+#~ "here are company-specific.\" groups=\"base.group_multi_company\"/>"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Laatst gewijzigd op"
+
+#~ msgid "NL Tax Invoice Basis (Factuurstelsel)"
+#~ msgstr "NL Factuurstelsel"
 
 #~ msgid ""
 #~ "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are "
