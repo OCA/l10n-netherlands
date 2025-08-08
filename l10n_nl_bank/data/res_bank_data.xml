@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="ABNA" model="res.bank">
+        <field name="name">ABN AMRO Bank N.V.</field>
+        <field name="bic">ABNANL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ABNC" model="res.bank">
+        <field name="name">ABN AMRO Clearing Bank N.V.</field>
+        <field name="bic">ABNCNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ADYEN" model="res.bank">
+        <field name="name">Adyen</field>
+        <field name="bic">ADYBNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ANDL" model="res.bank">
+        <field name="name">Anadolubank Nederland N.V.</field>
+        <field name="bic">ANDLNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ARBN" model="res.bank">
+        <field name="name">Achmea Bank N.V.</field>
+        <field name="bic">ARBNNL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ARSN" model="res.bank">
+        <field name="name">Argenta Spaarbank N.V.</field>
+        <field name="bic">ARSNNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ASNB" model="res.bank">
+        <field name="name">ASN Bank</field>
+        <field name="bic">ASNBNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ATBA" model="res.bank">
+        <field name="name">Amsterdam Trade Bank</field>
+        <field name="bic">ATBANL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BARC" model="res.bank">
+        <field name="name">Barclays Bank</field>
+        <field name="bic">BARCNL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BCDM" model="res.bank">
+        <field name="name">Banque Chaabi du Maroc</field>
+        <field name="bic">BCDMNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BCIT" model="res.bank">
+        <field name="name">Intesa Sanpaolo S.P.A.</field>
+        <field name="bic">BCITNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BICK" model="res.bank">
+        <field name="name">BinckBank N.V.</field>
+        <field name="bic">BICKNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BINK" model="res.bank">
+        <field name="name">BinckBank, PROF</field>
+        <field name="bic">BINKNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BITS" model="res.bank">
+        <field name="name">Bitsafe Payments</field>
+        <field name="bic">BITSNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BKCH" model="res.bank">
+        <field name="name">Bank of China (Luxembourg) S.A</field>
+        <field name="bic">BKCHNL2R</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BKMG" model="res.bank">
+        <field name="name">Bank Mendes Gans N.V.</field>
+        <field name="bic">BKMGNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BLGW" model="res.bank">
+        <field name="name">BLG Wonen</field>
+        <field name="bic">BLGWNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BMEU" model="res.bank">
+        <field name="name">BMCE Euroservices S.A.</field>
+        <field name="bic">BMEUNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BNDA" model="res.bank">
+        <field name="name">Brand New Day Bank N.V.</field>
+        <field name="bic">BNDANL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BNGH" model="res.bank">
+        <field name="name">BANK NEDERLANDSE GEMEENTEN</field>
+        <field name="bic">BNGHNL2G</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BNPA" model="res.bank">
+        <field name="name">BNP PARIBAS S.A. - THE NETHERLANDS</field>
+        <field name="bic">BNPANL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BOFA" model="res.bank">
+        <field name="name">BANK OF AMERICA, N.A. AMSTERDAM</field>
+        <field name="bic">BOFANLNX</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BOFS" model="res.bank">
+        <field name="name">Bank of Scotland PLC</field>
+        <field name="bic">BOFSNL21002</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BOTK" model="res.bank">
+        <field name="name">MUFG Bank (Europe) N.V.</field>
+        <field name="bic">BOTKNL2X</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="BUNQ" model="res.bank">
+        <field name="name">BUNQ</field>
+        <field name="bic">BUNQNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="CHAS" model="res.bank">
+        <field name="name">JPMorgan Chase</field>
+        <field name="bic">CHASNL2X</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="CITC" model="res.bank">
+        <field name="name">Citco Bank Nederland N.V.</field>
+        <field name="bic">CITCNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="CITI" model="res.bank">
+        <field name="name">Citibank International</field>
+        <field name="bic">CITINL2X</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="COBA" model="res.bank">
+        <field name="name">Commerzbank AG</field>
+        <field name="bic">COBANL2X</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="DELE" model="res.bank">
+        <field name="name">OYENS VAN EEGHEN - part of Delen Private Bank</field>
+        <field name="bic">DELENL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="DEUT" model="res.bank">
+        <field name="name">Deutsche Bank AG</field>
+        <field name="bic">DEUTNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="DHBN" model="res.bank">
+        <field name="name">DemiR-Halk Bank (Nederland) N.V.</field>
+        <field name="bic">DHBNNL2R</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="DLBK" model="res.bank">
+        <field name="name">Delta Lloyd</field>
+        <field name="bic">DLBKNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="DNIB" model="res.bank">
+        <field name="name">NIBC Bank N.V.</field>
+        <field name="bic">DNIBNL2G</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="EBPB" model="res.bank">
+        <field name="name">EBURY NETHERLANDS (Brussel entiteit)</field>
+        <field name="bic">EBPBNL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="EBUR" model="res.bank">
+        <field name="name">EBURY NETHERLANDS (Londen entiteit)</field>
+        <field name="bic">EBURNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="FBHL" model="res.bank">
+        <field name="name">Credit Europe Bank N.V.</field>
+        <field name="bic">FBHLNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="FLOR" model="res.bank">
+        <field name="name">De Nederlandsche Bank N.V.</field>
+        <field name="bic">FLORNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="FRNX" model="res.bank">
+        <field name="name">FRANX</field>
+        <field name="bic">FRNXNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="FVLB" model="res.bank">
+        <field name="name">Van Lanschot Bankiers</field>
+        <field name="bic">FVLBNL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="FXBB" model="res.bank">
+        <field name="name">IBANFIRST</field>
+        <field name="bic">FXBBNL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="GILL" model="res.bank">
+        <field name="name">InsingerGilissen</field>
+        <field name="bic">GILLNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="HAND" model="res.bank">
+        <field name="name">Svenska Handelsbanken</field>
+        <field name="bic">HANDNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="HHBA" model="res.bank">
+        <field name="name">Hof Hoorneman Bankiers</field>
+        <field name="bic">HHBANL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="HSBC" model="res.bank">
+        <field name="name">HSBC Bank</field>
+        <field name="bic">HSBCNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ICBC" model="res.bank">
+        <field name="name">Mega International Commercial Bank</field>
+        <field name="bic">ICBCNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ICBK" model="res.bank">
+        <field name="name">Industrial and Commercial Bank of China (Europe) S.A.</field>
+        <field name="bic">ICBKNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ICEP" model="res.bank">
+        <field name="name">ICEPAY</field>
+        <field name="bic">ICEPNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="INGB" model="res.bank">
+        <field name="name">ING Bank N.V.</field>
+        <field name="bic">INGBNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="INKB" model="res.bank">
+        <field name="name">Interbank N.V.</field>
+        <field name="bic">INKBNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ISAE" model="res.bank">
+        <field name="name">CACEIS Bank, Netherlands Branch</field>
+        <field name="bic">ISAENL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ISBK" model="res.bank">
+        <field name="name">Isbank</field>
+        <field name="bic">ISBKNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="KABA" model="res.bank">
+        <field name="name">Yapi Kredi Bank Nederland N.V.</field>
+        <field name="bic">KABANL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="KASA" model="res.bank">
+        <field name="name">KAS BANK N.V.</field>
+        <field name="bic">KASANL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="KNAB" model="res.bank">
+        <field name="name">KNAB</field>
+        <field name="bic">KNABNL2H</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="KOEX" model="res.bank">
+        <field name="name">KEB Hana Bank</field>
+        <field name="bic">KOEXNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="KRED" model="res.bank">
+        <field name="name">KBC BANK NEDERLAND N.V.</field>
+        <field name="bic">KREDNL2X</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="LOCY" model="res.bank">
+        <field name="name">LOMBARD ODIER DARIER HENTSCH AND CIE</field>
+        <field name="bic">LOCYNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="LOYD" model="res.bank">
+        <field name="name">LLOYDS TSB BANK</field>
+        <field name="bic">LOYDNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="LPLN" model="res.bank">
+        <field name="name">Leaseplan Corporation N.V.</field>
+        <field name="bic">LPLNNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="MHCB" model="res.bank">
+        <field name="name">Mizuho Bank Europe N.V.</field>
+        <field name="bic">MHCBNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="MOYO" model="res.bank">
+        <field name="name">MONEYOU</field>
+        <field name="bic">MOYONL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="NNBA" model="res.bank">
+        <field name="name">Nationale-Nederlanden Bank</field>
+        <field name="bic">NNBANL2G</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="NWAB" model="res.bank">
+        <field name="name">Nederlandse Waterschapsbank N.V.</field>
+        <field name="bic">NWABNL2G</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="PCBC" model="res.bank">
+        <field name="name">China Construction Bank, Amsterdam Branch</field>
+        <field name="bic">PCBCNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="RABO" model="res.bank">
+        <field name="name">Rabobank Nederland</field>
+        <field name="bic">RABONL2U</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="RBRB" model="res.bank">
+        <field name="name">Regiobank</field>
+        <field name="bic">RBRBNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="RBOS" model="res.bank">
+        <field name="name">THE ROYAL BANK OF SCOTLAND</field>
+        <field name="bic">RBOSNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="SNSB" model="res.bank">
+        <field name="name">SNS Bank</field>
+        <field name="bic">SNSBNL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="SOGE" model="res.bank">
+        <field name="name">Societe Generale</field>
+        <field name="bic">SOGENL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="TRIO" model="res.bank">
+        <field name="name">Triodos Bank N.V.</field>
+        <field name="bic">TRIONL2U</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="UGBI" model="res.bank">
+        <field name="name">Garantibank International N.V.</field>
+        <field name="bic">UGBINL2A</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="VOWA" model="res.bank">
+        <field name="name">Volkswagen Bank</field>
+        <field name="bic">VOWANL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="VPAY" model="res.bank">
+        <field name="name">Viva Payment Services S.A.</field>
+        <field name="bic">VPAYNL22</field>
+        <field name="country" ref="base.nl" />
+    </record>
+    <record id="ZWLB" model="res.bank">
+        <field name="name">SNS ( ex ZWITSERLEVENBANK)</field>
+        <field name="bic">ZWLBNL21</field>
+        <field name="country" ref="base.nl" />
+    </record>
+</odoo>
