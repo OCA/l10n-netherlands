@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [l10n_nl_postcode](l10n_nl_postcode/) | 14.0.1.0.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Dutch postcode validation for Partners
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 14.0.1.2.0 |  | Netherlands BTW Statement
 [l10n_nl_tax_statement_icp](l10n_nl_tax_statement_icp/) | 14.0.1.0.0 |  | Netherlands ICP Statement
+[l10n_nl_tax_statement_icp_split](l10n_nl_tax_statement_icp_split/) | 14.0.1.0.0 | <a href='https://github.com/hbrunn'><img src='https://github.com/hbrunn.png' width='32' height='32' style='border-radius:50%;' alt='hbrunn'/></a> | Manage your BTW and ICP statements separately
 [l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 14.0.3.2.1 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)

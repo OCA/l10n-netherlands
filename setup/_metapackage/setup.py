@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo14-addon-l10n_nl_postcode',
         'odoo14-addon-l10n_nl_tax_statement',
         'odoo14-addon-l10n_nl_tax_statement_icp',
+        'odoo14-addon-l10n_nl_tax_statement_icp_split',
         'odoo14-addon-l10n_nl_xaf_auditfile_export',
     ],
     classifiers=[
