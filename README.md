@@ -23,7 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [l10n_nl_bank](l10n_nl_bank/) | 17.0.1.0.0 |  | Import all Dutch banks with BIC code
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 17.0.1.0.0 |  | Adapt parter names to Dutch conventions (support infix)
-[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 17.0.1.0.0 |  | Export XAF auditfiles for Dutch tax authorities
+[l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 17.0.1.1.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)
 
