@@ -261,7 +261,7 @@
                         <amnt><t t-esc="abs(round(l.balance,2))" /></amnt>
                         <amntTp><t t-esc="'C' if l.credit else 'D'" /></amntTp>
                         <recRef t-if="l.full_reconcile_id"><t
-                                        t-esc="l.full_reconcile_id.name"
+                                        t-esc="l.full_reconcile_id.id"
                                     /></recRef>
                         <custSupID t-if="l.partner_id"><t
                                         t-esc="l.partner_id.id"
