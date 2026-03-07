@@ -6,7 +6,10 @@
             <xpath expr="//field[@name='firstname']" position="after">
                 <field name="initials" placeholder="Initials" />
             </xpath>
-            <xpath expr="//field[@name='lastname']" position="before">
+            <xpath
+                expr="//field[@name='lastname' and @invisible='form_has_lastname_first']"
+                position="before"
+            >
                 <field name="infix" placeholder="Infix" />
             </xpath>
         </field>
@@ -18,7 +21,10 @@
             <xpath expr="//field[@name='firstname']" position="after">
                 <field name="initials" placeholder="Initials" />
             </xpath>
-            <xpath expr="//field[@name='lastname']" position="before">
+            <xpath
+                expr="//field[@name='lastname' and @invisible='form_has_lastname_first']"
+                position="before"
+            >
                 <field name="infix" placeholder="Infix" />
             </xpath>
             <xpath
@@ -28,7 +34,7 @@
                 <field name="initials" />
             </xpath>
             <xpath
-                expr="//field[@name='child_ids']/form/sheet//group/field[@name='lastname']"
+                expr="//field[@name='child_ids']/form/sheet//group/field[@name='lastname' and @invisible='form_has_lastname_first']"
                 position="before"
             >
                 <field name="infix" />
