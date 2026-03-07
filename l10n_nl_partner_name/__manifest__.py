@@ -11,6 +11,7 @@
     "data": [
         "views/res_partner.xml",
         "views/res_users.xml",
+        "views/res_config_settings.xml",
         "data/ir.config_parameter.xml",
     ],
     "installable": True,
