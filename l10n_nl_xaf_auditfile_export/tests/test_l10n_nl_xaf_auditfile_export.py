@@ -3,8 +3,10 @@
 
 import base64
 import os
+import subprocess
 from datetime import timedelta
 from io import BytesIO
+from unittest import mock
 from zipfile import ZipFile
 
 from lxml import etree
@@ -113,7 +115,9 @@ class TestXafAuditfileExport(TransactionCase):
         with ZipFile(zf, "r") as archive:
             filelist = archive.filelist
             contents = archive.read(filelist[-1]).decode()
-        self.assertTrue(contents.startswith("<?xml "))
+        self.assertTrue(
+            contents.startswith('<?xml version="1.0" encoding="UTF-8"?>\n<auditfile ')
+        )
 
     @mute_logger("odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export")
     def test_03_export_error(self):
@@ -157,7 +161,11 @@ class TestXafAuditfileExport(TransactionCase):
             with ZipFile(zf, "r") as archive:
                 filelist = archive.filelist
                 contents = archive.read(filelist[-1]).decode()
-            self.assertTrue(contents.startswith("<?xml "))
+            self.assertTrue(
+                contents.startswith(
+                    '<?xml version="1.0" encoding="UTF-8"?>\n<auditfile '
+                )
+            )
 
     def test_05_export_success(self):
         """Export auditfile with / character in filename"""
@@ -334,3 +342,13 @@ class TestXafAuditfileExport(TransactionCase):
         record.company_id.name += " & OCA"
         record.button_generate()
         self.assertTrue(record.auditfile_success)
+
+    def test_11_xmllint(self):
+        """
+        Test behavior with xmllint available
+        """
+        with mock.patch("shutil.which") as which, mock.patch("subprocess.run") as run:
+            which.return_value = "/mock/xmllint"
+            self.test_02_export_success()
+            run.side_effect = subprocess.CalledProcessError(-1, "xmllint")
+            self.test_03_export_error()
