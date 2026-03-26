@@ -111,7 +111,7 @@ class XafAuditfileExport(models.Model):
         "If you want to export an auditfile with the official standard "
         "(missing the Unit4 compatibility) just set this flag to False."
     )
-    auditfile_success = fields.Boolean(copy=False)
+    auditfile_success = fields.Boolean(copy=False, readonly=True)
     date_generated = fields.Datetime("Date generated", readonly=True, copy=False)
     company_id = fields.Many2one("res.company", "Company", required=True)
 
