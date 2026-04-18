@@ -254,7 +254,7 @@ class VatStatement(models.Model):
             "code": "1c",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Leveringen/diensten belast met overige tarieven " "behalve 0%"),
+            "name": _("Leveringen/diensten belast met overige tarieven behalve 0%"),
         }
         lines["1d"] = {
             "code": "1d",
