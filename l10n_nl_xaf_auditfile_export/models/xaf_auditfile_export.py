@@ -6,7 +6,9 @@ import collections
 import logging
 import os
 import shutil
+import sys
 import time
+import traceback
 import zipfile
 from datetime import datetime, timedelta
 from io import BytesIO
@@ -17,6 +19,8 @@ from dateutil.rrule import MONTHLY, rrule
 from lxml import etree
 
 from odoo import _, api, exceptions, fields, models, modules, release
+
+_logger = logging.getLogger(__name__)
 
 STATEMENT_UNDIVIDED_PROFIT_BALANCE = """
 SELECT SUM(l.balance)
@@ -76,6 +80,39 @@ SELECT a.id, c.max_code
   AND a.company_id = %(company_id)s
 """
 
+# http://stackoverflow.com/questions/1707890/fast-way-to-filter-illegal-xml-unicode-chars-in-python  # noqa: B950
+ILLEGAL_RANGES = [
+    (0x00, 0x08),
+    (0x0B, 0x1F),
+    (0x7F, 0x84),
+    (0x86, 0x9F),
+    (0xD800, 0xDFFF),
+    (0xFDD0, 0xFDDF),
+    (0xFFFE, 0xFFFF),
+    (0x1FFFE, 0x1FFFF),
+    (0x2FFFE, 0x2FFFF),
+    (0x3FFFE, 0x3FFFF),
+    (0x4FFFE, 0x4FFFF),
+    (0x5FFFE, 0x5FFFF),
+    (0x6FFFE, 0x6FFFF),
+    (0x7FFFE, 0x7FFFF),
+    (0x8FFFE, 0x8FFFF),
+    (0x9FFFE, 0x9FFFF),
+    (0xAFFFE, 0xAFFFF),
+    (0xBFFFE, 0xBFFFF),
+    (0xCFFFE, 0xCFFFF),
+    (0xDFFFE, 0xDFFFF),
+    (0xEFFFE, 0xEFFFF),
+    (0xFFFFE, 0xFFFFF),
+    (0x10FFFE, 0x10FFFF),
+]
+UNICODE_SANITIZE_TRANSLATION = {}
+for low, high in ILLEGAL_RANGES:
+    if low > sys.maxunicode:  # pragma: no cover
+        continue
+    for c in range(low, high + 1):
+        UNICODE_SANITIZE_TRANSLATION[c] = ord(" ")
+
 
 def chunks(items, n=None):
     """Yield successive n-sized chunks from items."""
@@ -100,13 +137,14 @@ class XafAuditfileExport(models.Model):
 
     @api.depends("name", "auditfile")
     def _compute_auditfile_name(self):
-        for item in self:
-            item.auditfile_name = "%s.xaf" % item.name
-            if item.auditfile:
-                auditfile = base64.b64decode(item.auditfile)
+        for record in self:
+            filename = "%s.xaf" % record.name
+            record.auditfile_name = filename.replace(os.sep, " ")
+            if record.auditfile:
+                auditfile = base64.b64decode(record.auditfile)
                 zf = BytesIO(auditfile)
                 if zipfile.is_zipfile(zf):
-                    item.auditfile_name += ".zip"
+                    record.auditfile_name += ".zip"
 
     def _compute_fiscalyear_name(self):
         for auditfile in self:
@@ -127,7 +165,6 @@ class XafAuditfileExport(models.Model):
         readonly=True,
         default=lambda self: self.env.company,
     )
-
     unit4 = fields.Boolean(
         help="The Unit4 system expects a value for "
         '`<xsd:element name="docRef" ..>` of maximum 35 characters, '
@@ -139,6 +176,7 @@ class XafAuditfileExport(models.Model):
         "If you want to export an auditfile with the official standard "
         "(missing the Unit4 compatibility) just set this flag to False."
     )
+    auditfile_success = fields.Boolean()
 
     @api.model
     def default_get(self, fields_list):
@@ -169,9 +207,86 @@ class XafAuditfileExport(models.Model):
         return "l10n_nl_xaf_auditfile_export.auditfile_template"
 
     def button_generate(self):
+        """Generate, store and validate auditfile."""
+        # First check wether file is already there. Should not be possible, because of
+        # the locking, but there is a corner case for single threaded servers, where
+        # this button can be pressed after another sessions has already started the
+        # generation. Then this method will only run after the first job released the
+        # lock and finished processing.
+        if self.auditfile:
+            raise exceptions.UserError(_("Auditfile has already been generated."))
+        tmpdir = mkdtemp()
+        self._acquire_in_use()
+        try:
+            self._generate_audit_file(tmpdir)
+        except Exception as exception:
+            _logger.info(traceback.format_exc())
+            self.message_post(body=exception)
+        finally:
+            # tmpdir also contains uncompressed auditfile.
+            shutil.rmtree(tmpdir)
+        self._release_in_use()
+
+    def _acquire_in_use(self):
+        """Lock record for this by current thread of process.
+
+        Use separate cursor, to force immediate visibility of update.
+        """
+        self.ensure_one()
+        lock_file_path = self._get_lockfile_path()
+        if os.path.exists(lock_file_path):
+            raise exceptions.UserError(
+                _("Generation of auditfile is already in progress.")
+            )
+        lock_info = "User {user} already generating auditfile {auditfile}".format(
+            user=self.env.user.display_name,
+            auditfile=self.name,
+        )
+        with open(lock_file_path, "w+") as tmphandle:
+            tmphandle.write(lock_info)
+
+    def button_release(self):
+        """Manually release lock."""
+        self._release_in_use()
+
+    def _release_in_use(self):
+        """Release record for this by current thread of process.
+
+        Use separate cursor, to force immediate visibility of update.
+        Ignore situation that record already is released.
+        """
+        self.ensure_one()
+        lock_file_path = self._get_lockfile_path()
+        if os.path.exists(lock_file_path):
+            os.remove(lock_file_path)
+
+    @api.model
+    def _get_lockfile_path(self):
+        """Get path for lockfile, used to prevent parallel execution."""
+        filestore_path = self.env["ir.attachment"]._filestore()
+        return os.path.join(filestore_path, "__lock_auditfile_export__")
+
+    def _generate_audit_file(self, tmpdir):
+        """Generate audit file in directory passed, and then attach it to record."""
         t0 = time.time()
         m0 = memory_info()
+        self.auditfile_success = False
         self.date_generated = fields.Datetime.now()
+        xml = self._generateAuditFileXML()
+        auditfile_path = self._storeAuditFileXML(xml, tmpdir)
+        if not self.auditfile:
+            return
+        _logger.debug(
+            "Created an auditfile in %ss, using %sk memory",
+            int(time.time() - t0),
+            (memory_info() - m0) / 1024,
+        )
+        # Validate the generated XML
+        self._validateAuditFile(auditfile_path)
+        self.auditfile_success = True
+
+    def _generateAuditFileXML(self):
+        """Generate the xml contents for the audit file."""
         auditfile_template = self._get_auditfile_template()
         xml = self.env["ir.ui.view"]._render_template(
             auditfile_template, values={"self": self}
@@ -189,51 +304,51 @@ class XafAuditfileExport(models.Model):
                 1,
             )
         )
+        if self.env.context.get("dont_sanitize_xml"):
+            return xml
+        # removes invalid characters from xml
+        return xml.translate(UNICODE_SANITIZE_TRANSLATION)
 
+    def _storeAuditFileXML(self, xml, tmpdir):
+        """Store the compressed contents of the xml in the record.
+
+        Return: path to auditfile.
+        """
         filename = self.name + ".xaf"
         filename = filename.replace(os.sep, " ")
-        tmpdir = mkdtemp()
-        auditfile = os.path.join(tmpdir, filename)
+        auditfile_path = os.path.join(tmpdir, filename)
         archivedir = mkdtemp()
         archive = os.path.join(archivedir, filename)
         try:
-            with open(auditfile, "w+") as tmphandle:
+            with open(auditfile_path, "w+") as tmphandle:
                 tmphandle.write(xml)
             del xml
-
-            # Validate the generated XML
-            xsd = etree.XMLParser(
-                schema=etree.XMLSchema(
-                    etree.parse(
-                        open(
-                            modules.get_resource_path(
-                                "l10n_nl_xaf_auditfile_export",
-                                "data",
-                                "XmlAuditfileFinancieel3.2.xsd",
-                            )
-                        )
-                    )
-                )
-            )
-            etree.parse(auditfile, parser=xsd)
-            del xsd
-
             # Store in compressed format on the auditfile record
             zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
             with open(zip_path, "rb") as auditfile_zip:
                 self.auditfile = base64.b64encode(auditfile_zip.read())
-            logging.getLogger(__name__).debug(
-                "Created an auditfile in %ss, using %sk memory",
-                int(time.time() - t0),
-                (memory_info() - m0) / 1024,
-            )
-
-        except etree.XMLSyntaxError as e:
-            logging.getLogger(__name__).error(e)
-            self.message_post(body=e)
+        except Exception as exception:
+            _logger.info(traceback.format_exc())
+            self.message_post(body=exception)
         finally:
-            shutil.rmtree(tmpdir)
             shutil.rmtree(archivedir)
+        return auditfile_path
+
+    def _validateAuditFile(self, auditfile_path):
+        """Validate auditfile with XSD."""
+        xsd = etree.XMLSchema(
+            etree.parse(
+                open(
+                    modules.get_resource_path(
+                        "l10n_nl_xaf_auditfile_export",
+                        "data",
+                        "XmlAuditfileFinancieel3.2.xsd",
+                    )
+                )
+            )
+        )
+        xsd.assertValid(etree.parse(auditfile_path))
+        del xsd
 
     def get_odoo_version(self):
         """return odoo version"""
@@ -303,7 +418,6 @@ class XafAuditfileExport(models.Model):
                     date_end=date_end,
                 )
             )
-
         return periods
 
     def get_taxes(self):
