@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [l10n_nl_bank](l10n_nl_bank/) | 18.0.1.0.0 |  | Import all Dutch banks with BIC code
 [l10n_nl_bsn](l10n_nl_bsn/) | 18.0.1.0.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Burgerservicenummer (BSN) for Partners
 [l10n_nl_kvk_partner](l10n_nl_kvk_partner/) | 18.0.1.0.0 |  | Use the Peppol Endpoint as the Dutch Chamber of Commerce number
+[l10n_nl_partner_name](l10n_nl_partner_name/) | 18.0.1.0.0 |  | Adapt parter names to Dutch conventions (support infix)
 [l10n_nl_postcode](l10n_nl_postcode/) | 18.0.1.0.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Dutch postcode validation for Partners
 [l10n_nl_tax_statement](l10n_nl_tax_statement/) | 18.0.1.0.0 |  | Netherlands BTW Statement
 [l10n_nl_tax_statement_date_range](l10n_nl_tax_statement_date_range/) | 18.0.1.0.0 |  | Netherlands BTW Statement - Date range
