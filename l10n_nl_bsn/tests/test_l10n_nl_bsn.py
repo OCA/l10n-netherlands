@@ -58,7 +58,7 @@ class TestBsn(BaseCommon):
         message = warning.get("message")
         self.assertTrue(message)
         msg_txt = (
-            "Another person (Partner with BSN - NEW) has the same BSN (1000.00.009)."
+            f"Another person ({new_partner_bsn.name}) has the same BSN (1000.00.009)."
         )
         self.assertEqual(message, msg_txt)
         self.assertEqual(message, res["warning"]["message"])
