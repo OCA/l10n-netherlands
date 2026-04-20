@@ -197,6 +197,11 @@ msgid "Starting date must be anterior ending date!"
 msgstr ""
 
 #. module: l10n_nl_xaf_auditfile_export
+#: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
+msgid "T"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__unit4
 msgid ""
 "The Unit4 system expects a value for `<xsd:element name=\"docRef\" ..>` of maximum 35 characters, infringing the official standard. In case the value exceeds 35 characters, an error is raised by Unit4 while importing the audit file. By setting this flag to true, the `docRef` value is simply truncated to 35 characters so that the auditfile can be successfully imported into Unit4.\n"
