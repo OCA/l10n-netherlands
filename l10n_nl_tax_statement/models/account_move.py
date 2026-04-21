@@ -1,7 +1,7 @@
 # Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -46,9 +46,9 @@ class AccountMove(models.Model):
         for line in self.filtered("l10n_nl_vat_statement_id"):
             if line.l10n_nl_vat_statement_id.state != "draft":
                 raise UserError(
-                    _(
+                    self.env._(
                         "You cannot modify a Journal Entry in a posted/final "
-                        "tax statement: %s"
+                        "tax statement: %(name)s",
+                        name=line.l10n_nl_vat_statement_id.name,
                     )
-                    % (line.l10n_nl_vat_statement_id.name,)
                 )

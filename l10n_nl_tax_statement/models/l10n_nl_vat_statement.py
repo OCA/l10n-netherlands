@@ -1,4 +1,5 @@
 # Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
+# Copyright 2026 Therp BV (<https://therp.nl>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import re
@@ -6,8 +7,9 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.fields import Domain
 from odoo.tools.misc import formatLang
 
 
@@ -86,9 +88,11 @@ class VatStatement(models.Model):
 
     def _search_unreported_move_ids(self, operator, value):
         if operator == "in":
-            return [("id", operator, value)]
+            return Domain("id", operator, value)
         else:
-            raise ValueError(_("Unreported moves: unsupported search operator"))
+            raise ValueError(
+                self.env._("Unreported moves: unsupported search operator")
+            )
 
     @api.depends(
         "company_id",
@@ -126,47 +130,40 @@ class VatStatement(models.Model):
                 statement.parent_id = parent
 
     def _init_move_line_domain(self):
-        return [
-            ("company_id", "in", self._get_company_ids_full_list()),
-            ("l10n_nl_vat_statement_id", "=", False),
-            ("parent_state", "=", "posted"),
-            "|",
-            ("tax_ids", "!=", False),
-            ("tax_line_id", "!=", False),
-        ]
+        return Domain("company_id", "in", self._get_company_ids_full_list()) & Domain(
+            "l10n_nl_vat_statement_id", "=", False
+        ) & Domain("parent_state", "=", "posted") | (
+            Domain("tax_ids", "!=", False) & Domain("tax_line_id", "!=", False)
+        )
 
     def _get_unreported_move_domain(self):
         self.ensure_one()
         domain = self._init_move_line_domain()
         if self.is_invoice_basis and not self.unreported_move_from_date:
-            domain += [
-                "|",
-                "&",
-                ("move_id.invoice_date", "=", False),
-                ("date", "<", self.from_date),
-                "&",
-                ("move_id.invoice_date", "!=", False),
-                ("move_id.invoice_date", "<", self.from_date),
-            ]
+            extra_domain = (
+                Domain("move_id.invoice_date", "=", False)
+                & Domain("date", "<", self.from_date)
+            ) | (
+                Domain("move_id.invoice_date", "!=", False)
+                & Domain("move_id.invoice_date", "<", self.from_date)
+            )
         elif self.is_invoice_basis and self.unreported_move_from_date:
-            domain += [
-                "|",
-                "&",
-                "&",
-                ("move_id.invoice_date", "=", False),
-                ("date", "<", self.from_date),
-                ("date", ">=", self.unreported_move_from_date),
-                "&",
-                "&",
-                ("move_id.invoice_date", "!=", False),
-                ("move_id.invoice_date", "<", self.from_date),
-                ("move_id.invoice_date", ">=", self.unreported_move_from_date),
-            ]
+            extra_domain = (
+                Domain("move_id.invoice_date", "=", False)
+                & Domain("date", "<", self.from_date)
+                & Domain("date", ">=", self.unreported_move_from_date)
+            ) | (
+                Domain("move_id.invoice_date", "!=", False)
+                & Domain("move_id.invoice_date", "<", self.from_date)
+                & Domain("move_id.invoice_date", ">=", self.unreported_move_from_date)
+            )
         else:
-            domain += [("date", "<", self.from_date)]
+            extra_domain = Domain("date", "<", self.from_date)
             if self.unreported_move_from_date:
-                domain += [("date", ">=", self.unreported_move_from_date)]
-        return domain
+                extra_domain = extra_domain & Domain(
+                    "date", ">=", self.unreported_move_from_date
+                )
+        return domain & extra_domain
 
     def _get_company_ids_full_list(self):
         self.ensure_one()
@@ -237,98 +234,110 @@ class VatStatement(models.Model):
 
     def _prepare_lines(self):
         lines = {}
-        lines["1"] = {"code": "1", "name": _("Leveringen en/of diensten binnenland")}
+        lines["1"] = {
+            "code": "1",
+            "name": self.env._("Leveringen en/of diensten binnenland"),
+        }
         lines["1a"] = {
             "code": "1a",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Leveringen/diensten belast met hoog tarief"),
+            "name": self.env._("Leveringen/diensten belast met hoog tarief"),
         }
         lines["1b"] = {
             "code": "1b",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Leveringen/diensten belast met laag tarief"),
+            "name": self.env._("Leveringen/diensten belast met laag tarief"),
         }
         lines["1c"] = {
             "code": "1c",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Leveringen/diensten belast met overige tarieven behalve 0%"),
+            "name": self.env._(
+                "Leveringen/diensten belast met overige tarieven behalve 0%"
+            ),
         }
         lines["1d"] = {
             "code": "1d",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("1d Prive-gebruik"),
+            "name": self.env._("1d Prive-gebruik"),
         }
         lines["1e"] = {
             "code": "1e",
             "omzet": 0.0,
-            "name": _("Leveringen/diensten belast met 0%"),
+            "name": self.env._("Leveringen/diensten belast met 0%"),
         }
         lines["2"] = {
             "code": "2",
-            "name": _("Verleggingsregelingen: BTW naar u verlegd"),
+            "name": self.env._("Verleggingsregelingen: BTW naar u verlegd"),
         }
         lines["2a"] = {
             "code": "2a",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Heffing van omzetbelasting is naar u verlegd"),
+            "name": self.env._("Heffing van omzetbelasting is naar u verlegd"),
         }
-        lines["3"] = {"code": "3", "name": _("Leveringen naar het buitenland")}
+        lines["3"] = {"code": "3", "name": self.env._("Leveringen naar het buitenland")}
         lines["3a"] = {
             "code": "3a",
             "omzet": 0.0,
-            "name": _("Leveringen naar landen buiten de EU"),
+            "name": self.env._("Leveringen naar landen buiten de EU"),
         }
         lines["3b"] = {
             "code": "3b",
             "omzet": 0.0,
-            "name": _("Leveringen naar landen binnen de EU"),
+            "name": self.env._("Leveringen naar landen binnen de EU"),
         }
         lines["3c"] = {
             "code": "3c",
             "omzet": 0.0,
-            "name": _("Installatie/afstandsverkopen binnen de EU"),
+            "name": self.env._("Installatie/afstandsverkopen binnen de EU"),
         }
-        lines["4"] = {"code": "4", "name": _("Leveringen vanuit het buitenland")}
+        lines["4"] = {
+            "code": "4",
+            "name": self.env._("Leveringen vanuit het buitenland"),
+        }
         lines["4a"] = {
             "code": "4a",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Verwerving uit landen buiten de EU"),
+            "name": self.env._("Verwerving uit landen buiten de EU"),
         }
         lines["4b"] = {
             "code": "4b",
             "omzet": 0.0,
             "btw": 0.0,
-            "name": _("Verwerving van goederen uit landen binnen de EU"),
+            "name": self.env._("Verwerving van goederen uit landen binnen de EU"),
         }
-        lines["5"] = {"code": "5", "name": _("Voorbelasting")}
+        lines["5"] = {"code": "5", "name": self.env._("Voorbelasting")}
         lines["5a"] = {
             "code": "5a",
             "btw": 0.0,
-            "name": _("Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"),
+            "name": self.env._("Verschuldigde omzetbelasting (rubrieken 1a t/m 4b)"),
         }
-        lines["5b"] = {"code": "5b", "btw": 0.0, "name": _("Voorbelasting")}
+        lines["5b"] = {"code": "5b", "btw": 0.0, "name": self.env._("Voorbelasting")}
         lines["5c"] = {
             "code": "5c",
             "btw": 0.0,
-            "name": _("Subtotaal (rubriek 5a min 5b)"),
+            "name": self.env._("Subtotaal (rubriek 5a min 5b)"),
         }
         lines["5d"] = {
             "code": "5d",
             "btw": 0.0,
-            "name": _("Vermindering volgens de kleineondernemersregeling"),
+            "name": self.env._("Vermindering volgens de kleineondernemersregeling"),
         }
         lines["5e"] = {
             "code": "5e",
             "btw": 0.0,
-            "name": _("Schatting vorige aangifte(n)"),
+            "name": self.env._("Schatting vorige aangifte(n)"),
         }
-        lines["5f"] = {"code": "5f", "btw": 0.0, "name": _("Schatting deze aangifte")}
+        lines["5f"] = {
+            "code": "5f",
+            "btw": 0.0,
+            "name": self.env._("Schatting deze aangifte"),
+        }
         return lines
 
     def _finalize_lines(self, lines):
@@ -372,7 +381,7 @@ class VatStatement(models.Model):
         )
         if not nl_tags:
             raise UserError(
-                _(
+                self.env._(
                     "Tags mapping not configured for The Netherlands! "
                     "Check the NL BTW Tags Configuration."
                 )
@@ -393,7 +402,7 @@ class VatStatement(models.Model):
         self.ensure_one()
 
         if self.state in ["posted", "final"]:
-            raise UserError(_("You cannot modify a posted statement!"))
+            raise UserError(self.env._("You cannot modify a posted statement!"))
 
         if self.parent_id:
             return
@@ -453,10 +462,9 @@ class VatStatement(models.Model):
         self.ensure_one()
         domain = self._domain_check_prev_open_statements()
         prev_open_statements = self.search(domain, limit=1)
-
         if prev_open_statements:
             raise UserError(
-                _(
+                self.env._(
                     "You cannot post a statement if all the previous "
                     "statements are not yet posted! "
                     "Please Post all the other statements first."
@@ -465,11 +473,11 @@ class VatStatement(models.Model):
 
     def _domain_check_prev_open_statements(self):
         self.ensure_one()
-        return [
-            ("company_id", "=", self.company_id.id),
-            ("state", "=", "draft"),
-            ("id", "<", self.id),
-        ]
+        return (
+            Domain("company_id", "=", self.company_id.id)
+            & Domain("state", "=", "draft")
+            & Domain("id", "<", self.id)
+        )
 
     def post(self):
         self.ensure_one()
@@ -487,22 +495,20 @@ class VatStatement(models.Model):
     def _get_move_lines_domain(self):
         domain = self._init_move_line_domain()
         if self.is_invoice_basis:
-            domain += [
-                "|",
-                "&",
-                "&",
-                ("move_id.invoice_date", "=", False),
-                ("date", "<=", self.to_date),
-                ("date", ">=", self.from_date),
-                "&",
-                "&",
-                ("move_id.invoice_date", "!=", False),
-                ("move_id.invoice_date", "<=", self.to_date),
-                ("move_id.invoice_date", ">=", self.from_date),
-            ]
+            extra_domain = (
+                Domain("move_id.invoice_date", "=", False)
+                & Domain("date", "<=", self.to_date)
+                & Domain("date", ">=", self.from_date)
+            ) | (
+                Domain("move_id.invoice_date", "!=", False)
+                & Domain("move_id.invoice_date", "<=", self.to_date)
+                & Domain("move_id.invoice_date", ">=", self.from_date)
+            )
         else:
-            domain += [("date", "<=", self.to_date), ("date", ">=", self.from_date)]
-        return domain
+            extra_domain = Domain("date", "<=", self.to_date) & Domain(
+                "date", ">=", self.from_date
+            )
+        return domain & extra_domain
 
     def reset(self):
         self.write({"state": "draft", "date_posted": None})
@@ -520,31 +526,35 @@ class VatStatement(models.Model):
     def write(self, values):
         for statement in self:
             if statement.state == "final":
-                raise UserError(_("You cannot modify a statement set as final!"))
+                raise UserError(
+                    self.env._("You cannot modify a statement set as final!")
+                )
             if "state" not in values or values["state"] != "draft":
                 if statement.state == "posted":
                     for val in values:
                         if val not in self._modifiable_values_when_posted():
                             raise UserError(
-                                _(
+                                self.env._(
                                     "You cannot modify a posted statement! "
                                     "Reset the statement to draft first."
                                 )
                             )
         return super().write(values)
 
-    def unlink(self):
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_posted_or_final(self):
         for statement in self:
             if statement.state == "posted":
                 raise UserError(
-                    _(
+                    self.env._(
                         "You cannot delete a posted statement! "
                         "Reset the statement to draft first."
                     )
                 )
             if statement.state == "final":
-                raise UserError(_("You cannot delete a statement set as final!"))
-        return super().unlink()
+                raise UserError(
+                    self.env._("You cannot delete a statement set as final!")
+                )
 
     @api.depends("line_ids.btw")
     def _compute_btw_total(self):
@@ -560,7 +570,7 @@ class VatStatement(models.Model):
             country_nl = self.env.ref("base.nl")
             if any(u.country_id != country_nl for u in unit_companies):
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "The Companies belonging to a fiscal unit "
                         "must be in The Netherlands."
                     )

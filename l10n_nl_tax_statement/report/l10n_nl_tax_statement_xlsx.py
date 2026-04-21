@@ -1,7 +1,7 @@
 # Copyright 2023 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import models
 
 
 class NLTaxStatementXlsx(models.AbstractModel):
@@ -34,8 +34,8 @@ class NLTaxStatementXlsx(models.AbstractModel):
 
     def _get_report_filters(self, report):
         return [
-            [_("Date from"), report.from_date.strftime("%d/%m/%Y")],
-            [_("Date to"), report.to_date.strftime("%d/%m/%Y")],
+            [self.env._("Date from"), report.from_date.strftime("%d/%m/%Y")],
+            [self.env._("Date to"), report.to_date.strftime("%d/%m/%Y")],
         ]
 
     def _set_column_width(self, report_data):
@@ -99,10 +99,10 @@ class NLTaxStatementXlsx(models.AbstractModel):
     def _get_report_columns(self):
         """Define the report columns used to generate report"""
         return {
-            0: {"header": _("Code"), "field": "code", "width": 5},
-            1: {"header": _("Name"), "field": "name", "width": 60},
-            2: {"header": _("Turnover"), "field": "omzet", "width": 14},
-            3: {"header": _("VAT"), "field": "btw", "width": 14},
+            0: {"header": self.env._("Code"), "field": "code", "width": 5},
+            1: {"header": self.env._("Name"), "field": "name", "width": 60},
+            2: {"header": self.env._("Turnover"), "field": "omzet", "width": 14},
+            3: {"header": self.env._("VAT"), "field": "btw", "width": 14},
         }
 
     def _write_report_title(self, title, report_data):

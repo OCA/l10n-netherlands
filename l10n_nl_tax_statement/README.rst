@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =========================
 Netherlands BTW Statement
 =========================
@@ -13,17 +17,17 @@ Netherlands BTW Statement
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-netherlands/tree/18.0/l10n_nl_tax_statement
+    :target: https://github.com/OCA/l10n-netherlands/tree/19.0/l10n_nl_tax_statement
     :alt: OCA/l10n-netherlands
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-netherlands-18-0/l10n-netherlands-18-0-l10n_nl_tax_statement
+    :target: https://translation.odoo-community.org/projects/l10n-netherlands-19-0/l10n-netherlands-19-0-l10n_nl_tax_statement
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-netherlands&target_branch=18.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-netherlands&target_branch=19.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -33,8 +37,8 @@ This module provides you with the Tax Statement in the Dutch format.
 The Tax Statement can be generated in two ways, according to the chosen
 Dutch accounting system:
 
-- Kasstelsel
-- Factuurstelsel
+-  Kasstelsel
+-  Factuurstelsel
 
 By default the Tax Statement is generated according to the
 *Factuurstelsel* system. It means that, when validating an invoice, the
@@ -146,11 +150,11 @@ Multicompany fiscal unit:
 Known issues / Roadmap
 ======================
 
-- Exporting in SBR/XBLR format not yet available
-- Limit invoices to last 5 year based on fiscal year end date (legal
-  requirement)
-- The unreported from date is calculate as 1 quarter, it should take 1
-  fiscal year based on fiscal year end date
+-  Exporting in SBR/XBLR format not yet available
+-  Limit invoices to last 5 year based on fiscal year end date (legal
+   requirement)
+-  The unreported from date is calculate as 1 quarter, it should take 1
+   fiscal year based on fiscal year end date
 
 Bug Tracker
 ===========
@@ -158,7 +162,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-netherlands/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_tax_statement%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-netherlands/issues/new?body=module:%20l10n_nl_tax_statement%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -173,8 +177,9 @@ Authors
 Contributors
 ------------
 
-- Andrea Stirpe <a.stirpe@onestein.nl>
-- Antonio Esposito <a.esposito@onestein.nl>
+-  Andrea Stirpe <a.stirpe@onestein.nl>
+-  Antonio Esposito <a.esposito@onestein.nl>
+-  Ronald Portier <ronald@therp.nl>
 
 Maintainers
 -----------
@@ -189,6 +194,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/18.0/l10n_nl_tax_statement>`_ project on GitHub.
+This module is part of the `OCA/l10n-netherlands <https://github.com/OCA/l10n-netherlands/tree/19.0/l10n_nl_tax_statement>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

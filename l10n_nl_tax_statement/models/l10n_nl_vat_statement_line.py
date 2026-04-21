@@ -1,8 +1,9 @@
 # Copyright 2017-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.fields import Domain
 from odoo.tools.misc import formatLang
 
 OMZET_DISPLAY = ("1a", "1b", "1c", "1d", "1e", "2a", "3a", "3b", "3c", "4a", "4b")
@@ -79,20 +80,20 @@ class VatStatementLine(models.Model):
             else:
                 line.is_readonly = True
 
-    def unlink(self):
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_posted_or_final(self):
         for line in self:
             if line.statement_id.state == "posted":
                 raise UserError(
-                    _(
+                    self.env._(
                         "You cannot delete lines of a posted statement! "
                         "Reset the statement to draft first."
                     )
                 )
             if line.statement_id.state == "final":
                 raise UserError(
-                    _("You cannot delete lines of a statement set as final!")
+                    self.env._("You cannot delete lines of a statement set as final!")
                 )
-        return super().unlink()
 
     def view_tax_lines(self):
         self.ensure_one()
@@ -124,4 +125,4 @@ class VatStatementLine(models.Model):
                         tax_or_base == "base" and column == "omzet"
                     ):
                         domain_lines_ids += [line.id]
-        return [("id", "in", domain_lines_ids)]
+        return Domain("id", "in", domain_lines_ids)
