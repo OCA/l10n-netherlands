@@ -1,9 +1,10 @@
 [project]
 name = "odoo-addons-oca-l10n-netherlands"
-version = "17.0.20250808.0"
+version = "17.0.20260423.0"
 dependencies = [
     "odoo-addon-l10n_nl_bank>=17.0dev,<17.1dev",
     "odoo-addon-l10n_nl_partner_name>=17.0dev,<17.1dev",
+    "odoo-addon-l10n_nl_tax_statement>=17.0dev,<17.1dev",
     "odoo-addon-l10n_nl_xaf_auditfile_export>=17.0dev,<17.1dev",
 ]
 classifiers=[
