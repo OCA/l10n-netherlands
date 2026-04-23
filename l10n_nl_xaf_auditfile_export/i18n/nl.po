@@ -206,6 +206,11 @@ msgid "Starting date must be anterior ending date!"
 msgstr "Startdatum moet liggen voor de einddatum!"
 
 #. module: l10n_nl_xaf_auditfile_export
+#: model_terms:ir.ui.view,arch_db:l10n_nl_xaf_auditfile_export.auditfile_template
+msgid "T"
+msgstr ""
+
+#. module: l10n_nl_xaf_auditfile_export
 #: model:ir.model.fields,help:l10n_nl_xaf_auditfile_export.field_xaf_auditfile_export__unit4
 msgid ""
 "The Unit4 system expects a value for `<xsd:element name=\"docRef\" ..>` of "
@@ -217,12 +222,12 @@ msgid ""
 "If you want to export an auditfile with the official standard (missing the "
 "Unit4 compatibility) just set this flag to False."
 msgstr ""
-"Het Unit4 systeem verwacht een waarde voor `<xsd:element name=\"docRef\" .."
-">` van maximaal 35 tekens, in strijd met de officiële standaard. Als de "
-"waarde groter is dan 35 tekens, geeft Unit4 een foutmelding tijdens het "
-"importeren van het auditbestand. Door deze vlag op WAAR te zetten wordt de "
-"`docRef` waarde eenvoudigweg ingekort tot 35 karakters zodat de auditfile "
-"succesvol kan worden geïmporteerd in Unit4.\n"
+"Het Unit4 systeem verwacht een waarde voor `<xsd:element "
+"name=\"docRef\" ..>` van maximaal 35 tekens, in strijd met de officiële "
+"standaard. Als de waarde groter is dan 35 tekens, geeft Unit4 een "
+"foutmelding tijdens het importeren van het auditbestand. Door deze vlag op "
+"WAAR te zetten wordt de `docRef` waarde eenvoudigweg ingekort tot 35 "
+"karakters zodat de auditfile succesvol kan worden geïmporteerd in Unit4.\n"
 "Als je een auditfile wilt exporteren met de officiële standaard (zonder de "
 "Unit4 compatibiliteit) zet je deze vlag gewoon op ONWAAR."
 
