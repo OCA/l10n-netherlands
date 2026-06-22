@@ -1,17 +1,15 @@
 # Copyright 2015 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-import base64
 import collections
 import logging
 import os
 import shutil
+import subprocess
 import sys
 import time
 import traceback
-import zipfile
 from datetime import datetime, timedelta
-from io import BytesIO
 from tempfile import mkdtemp
 
 import psutil
@@ -82,9 +80,8 @@ class XafAuditfileExport(models.Model):
         for item in self:
             item.auditfile_name = "%s.xaf" % item.name
             if item.auditfile:
-                auditfile = base64.b64decode(item.auditfile)
-                zf = BytesIO(auditfile)
-                if zipfile.is_zipfile(zf):
+                attachment = item._get_auditfile_attachment(create=False)
+                if (attachment.mimetype or "").endswith("zip"):
                     item.auditfile_name += ".zip"
 
     def _compute_fiscalyear_name(self):
@@ -98,7 +95,7 @@ class XafAuditfileExport(models.Model):
     fiscalyear_name = fields.Char(compute="_compute_fiscalyear_name")
     auditfile = fields.Binary(readonly=True, copy=False)
     auditfile_name = fields.Char(
-        "Auditfile filename", compute="_compute_auditfile_name", store=True
+        "Auditfile filename", compute="_compute_auditfile_name"
     )
     date_generated = fields.Datetime(readonly=True, copy=False)
     company_id = fields.Many2one("res.company", required=True)
@@ -114,7 +111,7 @@ class XafAuditfileExport(models.Model):
         "If you want to export an auditfile with the official standard "
         "(missing the Unit4 compatibility) just set this flag to False."
     )
-    auditfile_success = fields.Boolean(copy=False)
+    auditfile_success = fields.Boolean(copy=False, readonly=True)
     date_generated = fields.Datetime("Date generated", readonly=True, copy=False)
     company_id = fields.Many2one("res.company", "Company", required=True)
 
@@ -150,28 +147,49 @@ class XafAuditfileExport(models.Model):
         """return the qweb template to be rendered"""
         return "l10n_nl_xaf_auditfile_export.auditfile_template"
 
+    @api.model
+    def _render_qweb_iterator(self, template, values=None, **options):
+        """
+        This is a near-copy of ir.qweb#_render up until joining the generated fragments
+        to one big string.
+        """
+        irQweb = (
+            self.env["ir.qweb"].with_context(**options)._prepare_environment(values)
+        )
+        template_functions, def_name = irQweb._compile(template)
+        render_template = template_functions[def_name]
+        return render_template(irQweb, values)
+
+    def _get_auditfile_attachment(self, create=True):
+        self.ensure_one()
+        IrAttachment = self.env["ir.attachment"]
+        return IrAttachment.search(
+            [
+                ("res_model", "=", self._name),
+                ("res_id", "=", self.id),
+                ("res_field", "=", "auditfile"),
+            ]
+        ) or (
+            create
+            and IrAttachment.create(
+                {
+                    "name": "auditfile",
+                    "res_model": self._name,
+                    "res_id": self.id,
+                    "res_field": "auditfile",
+                }
+            )
+            or IrAttachment
+        )
+
     def button_generate(self):
         t0 = time.time()
         m0 = memory_info()
         self.date_generated = fields.Datetime.now()
         auditfile_template = self._get_auditfile_template()
-        xml = self.env["ir.qweb"]._render(
+        xml_iterator = self._render_qweb_iterator(
             auditfile_template, {"self": self}, minimal_qcontext=True
         )
-        # convert to string and prepend XML encoding declaration
-        xml = (
-            str(xml)
-            .strip()
-            .replace(
-                "<auditfile ",
-                '<?xml version="1.0" encoding="UTF-8"?>\n<auditfile ',
-                1,
-            )
-        )
-        # removes invalid characters from xml
-        if not self.env.context.get("dont_sanitize_xml"):
-            xml = xml.translate(UNICODE_SANITIZE_TRANSLATION)
-
         filename = self.name + ".xaf"
         filename = filename.replace(os.sep, " ")
         tmpdir = mkdtemp()
@@ -181,8 +199,16 @@ class XafAuditfileExport(models.Model):
         self.auditfile_success = False
         try:
             with open(auditfile, "w+") as tmphandle:
-                tmphandle.write(xml)
-            del xml
+                # prepend XML encoding declaration
+                tmphandle.write('<?xml version="1.0" encoding="UTF-8"?>')
+                # remove invalid characters from xml if not asked not to
+                sanitize = not self.env.context.get("dont_sanitize_xml")
+                for fragment in xml_iterator:
+                    tmphandle.write(
+                        fragment.translate(UNICODE_SANITIZE_TRANSLATION)
+                        if sanitize
+                        else fragment
+                    )
 
             logging.getLogger(__name__).debug(
                 "Created an auditfile in %ss, using %sk memory",
@@ -192,32 +218,67 @@ class XafAuditfileExport(models.Model):
 
             # Store in compressed format on the auditfile record
             zip_path = shutil.make_archive(archive, "zip", tmpdir, verbose=True)
-            with open(zip_path, "rb") as auditfile_zip:
-                self.auditfile = base64.b64encode(auditfile_zip.read())
+            attachment = self._get_auditfile_attachment()
+            attachment.write(
+                {
+                    "raw": open(zip_path, "rb").read(),
+                    "mimetype": "application/zip",
+                }
+            )
+            self.invalidate_recordset(["auditfile"])
             logging.getLogger(__name__).debug(
-                "Created an auditfile in %ss, using %sk memory",
+                "Created an auditfile archive in %ss, using %sk memory",
                 int(time.time() - t0),
                 (memory_info() - m0) / 1024,
             )
 
             # Validate the generated XML
-            xsd = etree.XMLSchema(
-                etree.parse(
-                    open(
-                        modules.get_resource_path(
-                            "l10n_nl_xaf_auditfile_export",
-                            "data",
-                            "XmlAuditfileFinancieel3.2.xsd",
-                        )
-                    )
-                )
+            schema_file = modules.get_resource_path(
+                "l10n_nl_xaf_auditfile_export",
+                "data",
+                "XmlAuditfileFinancieel3.2.xsd",
             )
-            xsd.assertValid(etree.parse(auditfile))
-            del xsd
+            xmllint = shutil.which("xmllint")
+            if xmllint:
+                subprocess.run(
+                    [
+                        xmllint,
+                        "--noout",
+                        "--stream",
+                        "--schema",
+                        schema_file,
+                        auditfile,
+                    ],
+                    capture_output=True,
+                    check=True,
+                )
+                logging.getLogger(__name__).debug(
+                    "schema validation done with %sk memory",
+                    (memory_info() - m0) / 1024,
+                )
+            else:
+                logging.getLogger(__name__).info(
+                    "using built in xml schema validation. "
+                    "if you run into out of memory issues, install xmllint"
+                )
+                xsd = etree.XMLSchema(etree.parse(open(schema_file)))
+                for event, element in etree.iterparse(
+                    open(auditfile, "rb"), schema=xsd
+                ):
+                    del event
+                    del element
+                logging.getLogger(__name__).debug(
+                    "schema validation (iter) done with %sk memory",
+                    (memory_info() - m0) / 1024,
+                )
 
             self.auditfile_success = True
 
-        except (etree.XMLSyntaxError, etree.DocumentInvalid) as e:
+        except (
+            etree.XMLSyntaxError,
+            etree.DocumentInvalid,
+            subprocess.CalledProcessError,
+        ) as e:
             logging.getLogger(__name__).error(e)
             logging.getLogger(__name__).info(traceback.format_exc())
             self.message_post(body=e)
@@ -396,10 +457,13 @@ class XafAuditfileExport(models.Model):
             .ids
         )
         self.env["account.move"].invalidate_model()
+        # the template accesses account.move#line_ids so it's crucial to reset those too
+        self.env["account.move.line"].invalidate_model()
         for chunk in chunks(move_ids):
             for move in self.env["account.move"].browse(chunk):
                 yield move
             self.env["account.move"].invalidate_model()
+            self.env["account.move.line"].invalidate_model()
 
     @api.model
     def get_move_period_number(self, move):

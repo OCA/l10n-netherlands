@@ -39,6 +39,13 @@ An option allows to export the XAF audit files in a format that is accepted by U
 .. contents::
    :local:
 
+Installation
+============
+
+In order to reduce the memory footprint of the validation step, you can install the xmllint tool, which is part of the `libxml2 <https://gitlab.gnome.org/GNOME/libxml2>`_ package:
+
+    sudo apt install libxml2-utils
+
 Configuration
 =============
 
