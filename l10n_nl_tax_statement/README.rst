@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =========================
 Netherlands BTW Statement
 =========================
@@ -13,7 +17,7 @@ Netherlands BTW Statement
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
@@ -76,6 +80,12 @@ To disable the *Invoice basis* for a company, you need to:
 #. Open your Company form and verify that Country is set to ``Netherlands``.
 #. Go to ``Invoicing -> Configuration -> Settings``, enable/disable ``NL Tax Invoice Basis (Factuurstelsel)`` and ``Apply``.
 
+Optionally, you can let Odoo make a matching journal entry when posting the
+VAT statement. To allow this, configure a journal and a ledger account for the
+rounding differences under heading "NL Tax Statement Posting" in the Accounting
+settings. You can also configure a tax authority partner that will be linked to
+the payable/receivable line of the entry.
+
 Usage
 =====
 
@@ -84,9 +94,12 @@ To create a statement you need to:
 #. Verify that you have enough permits. You need to belong at least to the *Billing Manager* or the *Accountant* group.
 #. Go to the menu: `Invoicing -> Reporting > NL BTW Statement`
 #. Create a statement, providing a name and specifying start date and end date
-#. Press the Update button to calculate the report: the report lines will be displayed in the tab `Statement`
+#. Press the Update button to calculate the report: the report lines will be displayed in the tab `Statement`.
+   If the company is configured to post a journal entry for each statement, a draft entry will be created.
 #. Manually enter the BTW amounts of lines '5d', '5e', '5f' (in Edit mode, click on the amount of the line to be able to change it)
-#. Press the Post button to set the status of the statement to Posted; the statements set to this state cannot be modified
+#. Press the Post button to set the status of the statement to Posted; the statements set to this state can still be reset.
+   If the statement contains a journal entry, this entry will be posted.
+#. Press the Finalize button to prevent the statement from being reset.
 
 To add past undeclared invoices/moves:
 
@@ -125,6 +138,8 @@ Known issues / Roadmap
 * Exporting in SBR/XBLR format not yet available
 * Limit invoices to last 5 year based on fiscal year end date (legal requirement)
 * The unreported from date is calculate as 1 quarter, it should take 1 fiscal year based on fiscal year end date
+* Posting a matching journal entry for the statement is not supported yet for
+  fiscal units.
 
 Bug Tracker
 ===========
