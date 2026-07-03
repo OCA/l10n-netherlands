@@ -22,3 +22,9 @@ To disable the *Invoice basis* for a company, you need to:
 
 #. Open your Company form and verify that Country is set to ``Netherlands``.
 #. Go to ``Invoicing -> Configuration -> Settings``, enable/disable ``NL Tax Invoice Basis (Factuurstelsel)`` and ``Apply``.
+
+Optionally, you can let Odoo make a matching journal entry when posting the
+VAT statement. To allow this, configure a journal and a ledger account for the
+rounding differences under heading "NL Tax Statement Posting" in the Accounting
+settings. You can also configure a tax authority partner that will be linked to
+the payable/receivable line of the entry.

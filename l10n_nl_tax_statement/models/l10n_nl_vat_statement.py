@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import re
+from collections import defaultdict
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -55,6 +56,12 @@ class VatStatement(models.Model):
         "l10n_nl_vat_statement_id",
         string="Entry Lines",
         readonly=True,
+    )
+    post_move_id = fields.Many2one(
+        comodel_name="account.move",
+        string="Posting Entry",
+        readonly=True,
+        copy=False,
     )
     multicompany_fiscal_unit = fields.Boolean()
     display_multicompany_fiscal_unit = fields.Boolean(
@@ -398,6 +405,9 @@ class VatStatement(models.Model):
         if self.parent_id:
             return
 
+        # prepare the journal entry that posts the statement balance
+        self._prepare_post_move()
+
         # clean old lines
         self.line_ids.unlink()
 
@@ -416,6 +426,44 @@ class VatStatement(models.Model):
                 "date_update": fields.Datetime.now(),
             }
         )
+
+    def _should_create_post_move(self):
+        """Determine if a journal entry can be created for this statement"""
+        self.ensure_one()
+        return (
+            not self.multicompany_fiscal_unit
+            and self.company_id.l10n_nl_tax_statement_journal_id
+            and self.company_id.l10n_nl_tax_statement_rounding_account_id
+        )
+
+    def _prepare_post_move_vals(self):
+        """Collect values for the journal entry that posts the statement balance."""
+        self.ensure_one()
+        return {
+            "company_id": self.company_id.id,
+            "journal_id": self.company_id.l10n_nl_tax_statement_journal_id.id,
+            "date": self.to_date,
+            "ref": self.name,
+        }
+
+    def _prepare_post_move(self):
+        """Create and/or reset the journal entry that posts the statement balance."""
+        self.ensure_one()
+        if self.post_move_id:
+            if self.post_move_id.state == "cancel":
+                self.post_move_id.button_draft()
+            self.post_move_id.line_ids.unlink()
+            self.post_move_id.date = self.to_date
+            self.post_move_id.ref = self.name
+            self.post_move_id.company_id = self.company_id
+        if not self._should_create_post_move():
+            if self.post_move_id and self.post_move_id.state != "cancel":
+                self.post_move_id.button_cancel()
+            return
+        elif not self.post_move_id:
+            self.post_move_id = self.env["account.move"].create(
+                self._prepare_post_move_vals()
+            )
 
     def _compute_past_invoices_move_lines(self):
         self.ensure_one()
@@ -444,6 +492,97 @@ class VatStatement(models.Model):
                         else:
                             column = "base"
                     lines[code][column] -= line.balance
+        self._set_post_move_lines(lines, move_lines)
+
+    def _get_destination_account(self, field):
+        """Hook to determine the payable/receivable account of the posting move"""
+        assert field in (
+            "property_account_payable_id",
+            "property_account_receivable_id",
+        )
+        partner = self.company_id.l10n_nl_tax_statement_partner_id
+        if partner:
+            return partner.with_company(self.company_id)[field]
+        return (
+            self.env["ir.property"]
+            .with_company(self.company_id)
+            ._get(field, "res.partner")
+        )
+
+    def _set_post_move_lines(self, lines, move_lines):
+        """Create the move lines for the statement journal entry"""
+        self.ensure_one()
+        if not self.post_move_id:
+            return
+        tags_map = self._get_tags_map()
+        accounts = defaultdict(float)
+        codes = defaultdict(float)
+        for line in move_lines:
+            for tag in line.tax_tag_ids:
+                tag_map = tags_map.get(tag.id)
+                if tag_map:
+                    code, column = tag_map
+                    code = self._strip_sign_in_tag_code(code)
+                    if not column:
+                        if "tax" in lines[code]:
+                            column = "tax"
+                    if column == "btw":
+                        accounts[line.account_id] -= line.balance
+                        codes[code] -= line.balance
+        balance = 0
+        rounding = 0
+        line_vals = []
+        # The Dutch VAT statement only accepts whole numbers, so keep track of
+        # the rounding difference after rounding down amounts.
+        for _code, amount in codes.items():
+            rounding -= amount - int(amount)
+        for account, amount in accounts.items():
+            balance -= amount
+            line_vals.append(
+                {
+                    "name": "VAT Statement",
+                    "debit": amount if amount > 0 else 0,
+                    "credit": -amount if amount < 0 else 0,
+                    "account_id": account.id,
+                    "move_id": self.post_move_id.id,
+                },
+            )
+        if balance:
+            # Add a rounding line if necessary
+            if not self.company_id.currency_id.is_zero(rounding):
+                rounding_account = (
+                    self.company_id.l10n_nl_tax_statement_rounding_account_id
+                )
+                line_vals.append(
+                    {
+                        "name": _("Rounding"),
+                        "debit": rounding if rounding > 0 else 0,
+                        "credit": -rounding if rounding < 0 else 0,
+                        "account_id": rounding_account.id,
+                        "move_id": self.post_move_id.id,
+                    },
+                )
+            balance -= rounding
+            # Determine payable/receivable account
+            if balance < 0:
+                field = "property_account_payable_id"
+                label = _("VAT to pay")
+            else:
+                field = "property_account_receivable_id"
+                label = _("VAT to receive")
+            account = self._get_destination_account(field)
+            line_vals.append(
+                {
+                    "name": label,
+                    "debit": balance if balance > 0 else 0,
+                    "credit": -balance if balance < 0 else 0,
+                    "account_id": account.id,
+                    "partner_id": self.company_id.l10n_nl_tax_statement_partner_id.id,
+                    "move_id": self.post_move_id.id,
+                },
+            )
+        if line_vals:
+            self.env["account.move.line"].create(line_vals)
 
     def finalize(self):
         self.ensure_one()
@@ -474,7 +613,12 @@ class VatStatement(models.Model):
     def post(self):
         self.ensure_one()
         self._check_prev_open_statements()
-
+        if self.post_move_id.state == "draft":
+            if self.post_move_id.line_ids:
+                self.post_move_id.action_post()
+            else:
+                # Nothing to report
+                self.post_move_id.button_cancel()
         self.write({"state": "posted", "date_posted": fields.Datetime.now()})
         self.unreported_move_ids.filtered(
             lambda m: m.l10n_nl_vat_statement_include
@@ -513,6 +657,8 @@ class VatStatement(models.Model):
               l10n_nl_vat_statement_id = %s
         """
         self.env.cr.execute(req, (self.id,))
+        if self.post_move_id and self.post_move_id.state in ("cancel", "posted"):
+            self.post_move_id.button_draft()
 
     def _modifiable_values_when_posted(self):
         return ["state"]
