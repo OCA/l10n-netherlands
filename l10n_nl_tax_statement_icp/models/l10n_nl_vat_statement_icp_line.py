@@ -1,7 +1,7 @@
 # Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import formatLang
 
@@ -55,12 +55,12 @@ class VatStatementIcpLine(models.Model):
     def _check_country_code(self):
         country_codes = self.mapped("country_code")
         if self.env.ref("base.nl").code in country_codes:
-            raise ValidationError(_("Wrong country code (NL) for ICP report."))
+            raise ValidationError(self.env._("Wrong country code (NL) for ICP report."))
         europe_codes = self.env.ref("base.europe").country_ids.mapped("code")
         for code in country_codes:
             if code not in europe_codes:
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "Wrong country code (%s) for ICP report. "
                         "Please check your configuration."
                     )

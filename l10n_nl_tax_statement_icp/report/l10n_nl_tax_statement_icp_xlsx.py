@@ -1,7 +1,7 @@
 # Copyright 2023 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import models
 
 
 class NLTaxStatementIcpXlsx(models.AbstractModel):
@@ -34,8 +34,8 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
 
     def _get_report_filters(self, report):
         return [
-            [_("Date from"), report.from_date.strftime("%d/%m/%Y")],
-            [_("Date to"), report.to_date.strftime("%d/%m/%Y")],
+            [self.env._("Date from"), report.from_date.strftime("%d/%m/%Y")],
+            [self.env._("Date to"), report.to_date.strftime("%d/%m/%Y")],
         ]
 
     def _set_column_width(self, report_data):
@@ -101,12 +101,28 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
     def _get_report_columns(self):
         """Define the report columns used to generate report"""
         return {
-            0: {"header": _("Partner"), "field": "partner_name", "width": 60},
-            1: {"header": _("Country Code"), "field": "country_code", "width": 14},
-            2: {"header": _("VAT"), "field": "format_vat", "width": 50},
-            3: {"header": _("Currency"), "field": "currency_name", "width": 14},
-            4: {"header": _("Amount Product"), "field": "amount_products", "width": 20},
-            5: {"header": _("Amount Service"), "field": "amount_services", "width": 20},
+            0: {"header": self.env._("Partner"), "field": "partner_name", "width": 60},
+            1: {
+                "header": self.env._("Country Code"),
+                "field": "country_code",
+                "width": 14,
+            },
+            2: {"header": self.env._("VAT"), "field": "format_vat", "width": 50},
+            3: {
+                "header": self.env._("Currency"),
+                "field": "currency_name",
+                "width": 14,
+            },
+            4: {
+                "header": self.env._("Amount Product"),
+                "field": "amount_products",
+                "width": 20,
+            },
+            5: {
+                "header": self.env._("Amount Service"),
+                "field": "amount_services",
+                "width": 20,
+            },
         }
 
     def _write_report_title(self, title, report_data):
@@ -188,13 +204,13 @@ class NLTaxStatementIcpXlsx(models.AbstractModel):
         report_data["sheet"].write_string(
             report_data["row_pos"],
             3,
-            _("Total amount"),
+            self.env._("Total amount"),
             report_data["formats"]["header_left"],
         )
         report_data["sheet"].write_string(
             report_data["row_pos"],
             4,
-            _("(product + service)"),
+            self.env._("(product + service)"),
             report_data["formats"]["header_left"],
         )
         report_data["sheet"].write_number(
