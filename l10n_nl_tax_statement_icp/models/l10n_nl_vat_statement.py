@@ -1,7 +1,7 @@
 # Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -139,7 +139,7 @@ class VatStatement(models.Model):
 
     def reset(self):
         """Removes ICP lines if reset to draft"""
-        self.mapped("icp_line_ids").unlink()
+        self.icp_line_ids.unlink()
         return super().reset()
 
     def post(self):
@@ -162,7 +162,7 @@ class VatStatement(models.Model):
         self.ensure_one()
 
         if self.state in ["final"]:
-            raise UserError(_("You cannot modify a final statement!"))
+            raise UserError(self.env._("You cannot modify a final statement!"))
 
         # recreate lines
         self._create_icp_lines()
