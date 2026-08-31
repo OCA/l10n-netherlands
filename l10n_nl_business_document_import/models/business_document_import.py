@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
+from odoo.osv import expression
 
 
 class BusinessDocumentImport(models.AbstractModel):
@@ -11,25 +12,30 @@ class BusinessDocumentImport(models.AbstractModel):
     @api.model
     def _hook_match_partner(self, partner_dict, chatter_msg, domain, order):
         rpo = self.env["res.partner"]
-        if partner_dict.get("coc_registration_number"):
-            partner_coc = partner_dict["coc_registration_number"]
+        if partner_dict.get("company_registry"):
+            company_registry = partner_dict["company_registry"]
             partner = rpo.search(
-                domain + [("coc_registration_number", "=", partner_coc)],
+                expression.AND([domain, [("company_registry", "=", company_registry)]]),
                 order=order,
                 limit=1,
             )
             if partner:
                 return partner
-        if partner_dict.get("nl_oin"):
-            nl_oin = partner_dict["nl_oin"]
+        # l10n_nl_oin is an optional dependency: only match on the OIN when
+        # that module happens to be installed.
+        if "l10n_nl_oin" in rpo._fields and partner_dict.get("l10n_nl_oin"):
             partner = rpo.search(
-                domain
-                + [
-                    ("parent_id", "=", False),
-                    ("nl_oin", "=", nl_oin),
-                ],
-                limit=1,
+                expression.AND(
+                    [
+                        domain,
+                        [
+                            ("parent_id", "=", False),
+                            ("l10n_nl_oin", "=", partner_dict["l10n_nl_oin"]),
+                        ],
+                    ]
+                ),
                 order=order,
+                limit=1,
             )
             if partner:
                 return partner

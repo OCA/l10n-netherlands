@@ -1,4 +1,8 @@
-This small module adds support for partner matching based on chamber of commerce number (kvk) or OIN when importing a business document (invoice, customer order, etc), in Odoo. It depends on the module *base_business_document_import* from the `edi OCA project <https://github.com/OCA/edi>`_. This module is the base module for:
+This small module adds support for partner matching based on the Dutch chamber
+of commerce number (KvK) or the OIN when importing a business document
+(invoice, customer order, etc), in Odoo. It depends on the module
+*base_business_document_import* from the `edi OCA project
+<https://github.com/OCA/edi>`_. That module is the base module for:
 
 * *account_invoice_import* which imports supplier invoices as PDF or XML files (this module also requires some additionnal modules such as *account_invoice_import_invoice2data*, *account_invoice_import_ubl*, *account_invoice_import_facturx*, etc... to support specific invoice formats),
 
