@@ -4,7 +4,7 @@
 
 {
     "name": "l10n NL Business Document Import",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "development_status": "Beta",
     "category": "Localization/Netherlands",
     "license": "AGPL-3",
@@ -15,6 +15,7 @@
     "depends": [
         # OCA/edi
         "base_business_document_import",
+        "account_edi_ubl_cii",
         "l10n_nl",
     ],
     "installable": True,
