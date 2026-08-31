@@ -6,41 +6,77 @@ from odoo.tests.common import TransactionCase
 
 
 class Testl10nNLBusinessDocumentImport(TransactionCase):
-    def test_match_partner_coc_oin(self):
-        partner1 = self.env["res.partner"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.bdio = cls.env["business.document.import"]
+        cls.partner = cls.env["res.partner"].create(
             {
                 "name": "Onestein",
                 "supplier_rank": 1,
                 "is_company": True,
-                "coc_registration_number": "56048785",
+                "company_registry": "56048785",
             }
         )
-        partner2 = self.env["res.partner"].create(
+
+    def _skip_without_oin(self):
+        if "l10n_nl_oin" not in self.env["res.partner"]._fields:  # pragma: no cover
+            self.skipTest("l10n_nl_oin is not installed")
+
+    def _create_oin_partner(self):
+        return self.env["res.partner"].create(
             {
                 "name": "Partner with OIN",
                 "supplier_rank": 1,
                 "is_company": True,
-                "nl_oin": "12345678901234567890",
+                "l10n_nl_oin": "12345678901234567890",
             }
         )
-        bdio = self.env["business.document.import"]
-        partner_dict = {"coc_registration_number": "56048785"}
-        res = bdio._match_partner(partner_dict, [])
-        self.assertIn(res, [partner1, partner2])
-        partner_dict = {"coc_registration_number": "56048785"}
-        res = bdio._match_partner(partner_dict, [])
-        self.assertEqual(res, partner1)
-        partner_dict = {"nl_oin": "12345678901234567890"}
-        res = bdio._match_partner(partner_dict, [])
-        self.assertIn(res, [partner1, partner2])
+
+    def test_match_partner_coc(self):
+        res = self.bdio._match_partner({"company_registry": "56048785"}, [])
+        self.assertEqual(res, self.partner)
+
+    def test_match_partner_oin(self):
+        self._skip_without_oin()
+        partner_oin = self._create_oin_partner()
+        res = self.bdio._match_partner({"l10n_nl_oin": "12345678901234567890"}, [])
+        self.assertEqual(res, partner_oin)
+
+    def test_match_partner_coc_wins_over_oin(self):
+        """The CoC number is matched before the OIN."""
+        self._skip_without_oin()
+        self._create_oin_partner()
+        res = self.bdio._match_partner(
+            {
+                "company_registry": "56048785",
+                "l10n_nl_oin": "12345678901234567890",
+            },
+            [],
+        )
+        self.assertEqual(res, self.partner)
+
+    def test_match_partner_unknown_coc(self):
+        """An unknown CoC number falls through to the standard matching."""
+        res = self.bdio._match_partner(
+            {"name": "Onestein", "company_registry": "99999999"}, []
+        )
+        self.assertEqual(res, self.partner)
+
+    def test_match_partner_unknown_oin(self):
+        """An unknown OIN falls through to the standard matching."""
+        self._skip_without_oin()
+        res = self.bdio._match_partner(
+            {"name": "Onestein", "l10n_nl_oin": "99999999999999999999"}, []
+        )
+        self.assertEqual(res, self.partner)
 
     def test_nomatch_partner_coc_oin(self):
-        bdio = self.env["business.document.import"]
+        """Empty CoC/OIN values fall through to the regular name matching."""
         partner_dict = {
-            "name": "ready mat ",
-            "nl_oin": "",
-            "coc_registration_number": "",
+            "name": "onestein ",
+            "l10n_nl_oin": "",
+            "company_registry": "",
         }
-        partner_ready_mat = self.env.ref("base.res_partner_4")
-        res = bdio._match_partner(partner_dict, [])
-        self.assertEqual(res, partner_ready_mat)
+        res = self.bdio._match_partner(partner_dict, [])
+        self.assertEqual(res, self.partner)
