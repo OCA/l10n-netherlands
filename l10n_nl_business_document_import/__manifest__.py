@@ -4,7 +4,7 @@
 
 {
     "name": "l10n NL Business Document Import",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "development_status": "Beta",
     "category": "Localization/Netherlands",
     "license": "AGPL-3",
