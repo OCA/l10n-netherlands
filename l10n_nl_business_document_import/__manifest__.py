@@ -4,7 +4,7 @@
 
 {
     "name": "l10n NL Business Document Import",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "development_status": "Beta",
     "category": "Localization/Netherlands",
     "license": "AGPL-3",
@@ -12,7 +12,11 @@
     "author": "bosd,Odoo Community Association (OCA)",
     "maintainers": ["bosd"],
     "website": "https://github.com/OCA/l10n-netherlands",
-    "depends": ["partner_coc", "l10n_nl_oin", "base_business_document_import"],
+    "depends": [
+        # OCA/edi
+        "base_business_document_import",
+        "l10n_nl",
+    ],
     "installable": True,
     "auto_install": True,
 }
