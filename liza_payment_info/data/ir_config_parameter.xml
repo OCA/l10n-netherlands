@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <!-- Liza AutoPayex V4.0 SOAP WSDL endpoint -->
+    <record id="liza_payex" model="ir.config_parameter">
+        <field name="key">liza.payex.url</field>
+        <field name="value">https://autopayex.liza.nl/V4.0/AutoPayex.asmx</field>
+    </record>
+</odoo>
