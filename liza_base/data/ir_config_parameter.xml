@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <!-- Liza A-la-carte V2.0 SOAP WSDL endpoint -->
+    <record id="liza_alacarte" model="ir.config_parameter">
+        <field name="key">liza.alacarte</field>
+        <field name="value">https://connect.liza.nl/V2.0/alacarteservice.asmx</field>
+    </record>
+</odoo>
