@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.liza.payment.info</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="liza_base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='liza_followup_settings']" position="after">
+                <block title="Payment Info" name="liza_payment_info_settings">
+                    <setting
+                        id="liza_payment_info_enable"
+                        help="Automatically send all open customer invoices to Liza once per day."
+                        company_dependent="1"
+                    >
+                        <field
+                            name="liza_payment_info_enable"
+                            string="Send Open Invoices to Liza"
+                        />
+                        <small class="text-muted">
+                            Shared company data: VAT/registry number, country.<br />
+                            Shared per invoice: customer VAT/registry, country, invoice number, date, amount due.
+                        </small>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

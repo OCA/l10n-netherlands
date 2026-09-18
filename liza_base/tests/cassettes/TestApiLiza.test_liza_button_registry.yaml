@@ -1,0 +1,1104 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Zeep/4.3.2 (www.python-zeep.org)
+    method: GET
+    uri: https://connect.liza.nl/V2.0/alacarteservice.asmx
+  response:
+    body:
+      string: "<wsdl:definitions xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\"
+        xmlns:tns=\"ALaCarte\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:http=\"http://schemas.microsoft.com/ws/06/2004/policy/http\"
+        xmlns:msc=\"http://schemas.microsoft.com/ws/2005/12/wsdl/contract\" xmlns:wsp=\"http://schemas.xmlsoap.org/ws/2004/09/policy\"
+        xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"
+        xmlns:wsam=\"http://www.w3.org/2007/05/addressing/metadata\" targetNamespace=\"ALaCarte\"
+        name=\"AlacarteServiceV2_0\" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\">\r\n
+        \ <wsdl:types>\r\n    <xsd:schema elementFormDefault=\"qualified\" targetNamespace=\"ALaCarte\">\r\n
+        \     <xsd:element name=\"GetCompanyByRegistrationNumber\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestCompanyByRegistrationNumber\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"GetCompanyByRegistrationNumberResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"GetCompanyByRegistrationNumberResult\"
+        type=\"tns:ResponseCompanyV2_0\" />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n
+        \     </xsd:element>\r\n      <xsd:element name=\"GetCompanyByVat\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestCompanyByVat\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"GetCompanyByVatResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"GetCompanyByVatResult\" type=\"tns:ResponseCompanyV2_0\"
+        />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n
+        \     <xsd:element name=\"SearchCompanies\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestSearch\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"SearchCompaniesResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SearchCompaniesResult\" type=\"tns:ResponseSearch\"
+        />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n
+        \     <xsd:element name=\"Alerts_AddCompany\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestAddToAlerts\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"Alerts_AddCompanyResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Alerts_AddCompanyResult\" type=\"tns:ResponseAddToAlerts\"
+        />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n
+        \     <xsd:element name=\"Alerts_AddListOfCompanies\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestAddListToAlerts\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"Alerts_AddListOfCompaniesResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Alerts_AddListOfCompaniesResult\" type=\"tns:ResponseAddListToAlerts\"
+        />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n
+        \     <xsd:element name=\"Alerts_FetchBulk\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestFetchBulkAlerts\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"Alerts_FetchBulkResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Alerts_FetchBulkResult\" type=\"tns:ResponseFetchBulkAlerts\"
+        />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n
+        \     <xsd:complexType name=\"RequestCompanyByRegistrationNumber\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"RegistrationNumber\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Login\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Password\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ServiceIntegrator\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"LoginHash\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Language\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ResponseCompanyV2_0\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"StatusCode\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"StatusMessage\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyResponse\" type=\"tns:CompanyResponseV2_0\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"RequestCompanyByVat\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"VatNumber\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Login\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Password\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"ServiceIntegrator\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"LoginHash\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Language\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"RequestSearch\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"SearchTerm\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"PostalCodeOrCityName\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Login\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Password\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ServiceIntegrator\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"LoginHash\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Language\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ResponseSearch\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"StatusCode\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"StatusMessage\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SearchResponseList\" nillable=\"true\"
+        type=\"tns:ArrayOfSearchResponseItem\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"RequestAddToAlerts\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Company\" type=\"tns:AlertCompany\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Login\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Password\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"ServiceIntegrator\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"LoginHash\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Language\" type=\"xsd:string\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ResponseAddToAlerts\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"StatusCode\" type=\"xsd:int\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"StatusMessage\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"RequestAddListToAlerts\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Companies\"
+        nillable=\"true\" type=\"tns:ArrayOfAlertCompany\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Login\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Password\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ServiceIntegrator\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"LoginHash\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Language\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ResponseAddListToAlerts\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"StatusCode\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"StatusMessage\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"NumberOfAlertsAddedOrUpdated\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"InvalidCompanies\"
+        nillable=\"true\" type=\"tns:ArrayOfInvalidAlertCompany\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"RequestFetchBulkAlerts\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"PageSize\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"ConfirmedCompanies\" nillable=\"true\" type=\"tns:ArrayOfConfirmedCompany\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Login\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Password\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"ServiceIntegrator\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"LoginHash\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Language\" type=\"xsd:string\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ResponseFetchBulkAlerts\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"StatusCode\" type=\"xsd:int\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"StatusMessage\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"RemainingChanges\" type=\"tns:RemainingChanges\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyResponses\" nillable=\"true\"
+        type=\"tns:ArrayOfCompanyResponseV2_0\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"CompanyResponseV2_0\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"PreferredLanguages\" type=\"tns:PreferredLanguagesResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"RegistrationNumber\" type=\"tns:StringResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"VatNumber\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"VatEnabled\" type=\"tns:BooleanResponseFragment\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"RsinNumber\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"IsInFollowUp\" type=\"tns:BooleanResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"FollowUpReference\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"CompanyName\" type=\"tns:StringResponseFragment\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyNameAndForm\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"CommercialName\" type=\"tns:StringResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ShortName\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"LegalForm\" type=\"tns:LegalFormResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Address\"
+        type=\"tns:AddressResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"TelephoneNumber\" type=\"tns:StringResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"TelephoneNumberAll\"
+        type=\"tns:StringListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"EmailAddress\" type=\"tns:StringResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"EmailAddressAll\"
+        type=\"tns:StringListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Website\" type=\"tns:StringResponseFragment\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"WebsiteAll\"
+        type=\"tns:StringListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"CompanyStatus\" type=\"tns:CompanyStatusResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"StartDate\"
+        type=\"tns:IntegerResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"EndDate\" type=\"tns:IntegerResponseFragment\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Score\" type=\"tns:ScoreResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CreditLimit\"
+        type=\"tns:CreditLimitResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"PaymentExperience\" type=\"tns:PaymentExperienceResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"WarningsOverview\"
+        type=\"tns:WarningsOverviewResponseFragment\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CurrentManagement\" type=\"tns:ManagementListResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ExternalManagement\"
+        type=\"tns:ManagementListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"MainActivity\" type=\"tns:ActivityResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Activities\"
+        type=\"tns:ActivityListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Establishments\" type=\"tns:EstablishmentsListResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"JointCommitees\"
+        type=\"tns:JointCommiteesListResponseFragment\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SocialSecurityInformation\" type=\"tns:SocialSecurityResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ParentCompanies\"
+        type=\"tns:ParticipationsListResponseFragment\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SubsidiaryCompanies\" type=\"tns:ParticipationsListResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"SocialSecuritySummons\"
+        type=\"tns:SocialSecuritySummonsListResponseFragment\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"JudicialAgreements\" type=\"tns:JudicialAgreementsListResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Curators\"
+        type=\"tns:CuratorListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"BankruptcyOpen\" type=\"tns:BankruptcyResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"BankruptcyClose\"
+        type=\"tns:BankruptcyResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"DetailUrl\" type=\"tns:StringResponseFragment\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ReportUrl\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"CustomReportUrl\" type=\"tns:StringResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"BalanceUrl\"
+        type=\"tns:StringResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Publications\" type=\"tns:PublicationsListResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Balances\"
+        type=\"tns:FiscalYearListResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"DeclarationsOfLiability\" type=\"tns:DeclarationsOfLiabilityResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"KycLinkedEntities\"
+        type=\"tns:KycLinkedEntitiesResponseFragment\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"KycReportUrl\" type=\"tns:StringResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Peppol\"
+        type=\"tns:PeppolResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"LeiRecords\" type=\"tns:LeiRecordsResponseFragment\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CustomValues\"
+        type=\"tns:CustomValuesResponseFragment\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Radar\" type=\"tns:RadarResponseFragment\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfSearchResponseItem\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"SearchResponseItem\" type=\"tns:SearchResponseItem\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"AlertCompany\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"IdentifierType\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Identifier\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Reference\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfAlertCompany\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"AlertCompany\" type=\"tns:AlertCompany\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfInvalidAlertCompany\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"InvalidAlertCompany\" type=\"tns:InvalidAlertCompany\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfConfirmedCompany\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"ConfirmedCompany\"
+        type=\"tns:ConfirmedCompany\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"RemainingChanges\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"MoreAvailable\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"RemainingChangesCount\" type=\"xsd:int\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfCompanyResponseV2_0\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"CompanyResponseV2_0\" type=\"tns:CompanyResponseV2_0\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"PreferredLanguagesResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" type=\"tns:PreferredLanguages\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"StringResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"BooleanResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"Value\" type=\"xsd:boolean\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"LegalFormResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:LegalForm\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"AddressResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:Address\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"StringListResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfString\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"CompanyStatusResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" type=\"tns:Status\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"IntegerResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Value\" type=\"xsd:int\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ScoreResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" type=\"tns:Score\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"CreditLimitResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" type=\"tns:CreditLimit\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"PaymentExperienceResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" type=\"tns:PaymentExperience\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"WarningsOverviewResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:WarningsOverview\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ManagementListResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:ManagementList\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ActivityResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:Activity\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ActivityListResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfActivity\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"EstablishmentsListResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfEstablishment\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"JointCommiteesListResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfJointCommitee\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"SocialSecurityResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" type=\"tns:SocialSecurityInformation\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ParticipationsListResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfParticipation\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"SocialSecuritySummonsListResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfRszPublication\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"JudicialAgreementsListResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfJudicialAgreement\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"CuratorListResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" nillable=\"true\"
+        type=\"tns:ArrayOfCurator\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"BankruptcyResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" type=\"tns:BankrupcyPublication\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"PublicationsListResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfPublication\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"FiscalYearListResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" nillable=\"true\"
+        type=\"tns:ArrayOfBalance\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"DeclarationsOfLiabilityResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:DeclarationsOfLiability\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"KycLinkedEntitiesResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" type=\"tns:KycLinkedEntities\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"PeppolResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfPeppolBusinessCard\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"LeiRecordsResponseFragment\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" nillable=\"true\"
+        type=\"tns:ArrayOfLeiRecord\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"CustomValuesResponseFragment\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsEnabled\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Value\" nillable=\"true\" type=\"tns:ArrayOfCustomValue\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"RadarResponseFragment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsEnabled\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Value\" type=\"tns:Radar\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"SearchResponseItem\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"CountryCode\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"RegistrationNumber\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyName\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Country\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Street\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"City\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"IsActive\" type=\"xsd:boolean\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"InvalidAlertCompany\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"Code\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Message\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Company\" type=\"tns:AlertCompany\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ConfirmedCompany\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"RegistrationNumber\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"PreferredLanguages\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"UsesDutch\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"UsesFrench\" type=\"xsd:boolean\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"UsesGerman\" type=\"xsd:boolean\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"LanguageString\" type=\"xsd:string\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"LegalForm\">\r\n        <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Abbreviation\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"Code\" type=\"xsd:int\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Address\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Street\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"HouseNumber\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Box\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"HouseNumberAndBox\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"PostalCode\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"City\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Country\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"CountryCode\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Line1\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Line2\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Line3\" type=\"xsd:string\"
+        />\r\n          <xsd:element nillable=\"true\" minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"BeStAddId\" type=\"xsd:long\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfString\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"string\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"Status\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"Code\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Info\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Score\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Info\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ScoreImage\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"ScoreAsInt\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"ScoreAsDecimal\" type=\"xsd:decimal\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"CreditLimit\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"Limit\" type=\"xsd:decimal\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"Code\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Info\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"PaymentExperience\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"PercentagePayedAfter0To30Days\" type=\"xsd:decimal\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"PercentagePayedAfter30To60Days\" type=\"xsd:decimal\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"PercentagePayedAfter60To90Days\"
+        type=\"xsd:decimal\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"PercentagePayedAfter90To120Days\" type=\"xsd:decimal\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"PercentagePayedAfter120To160Days\"
+        type=\"xsd:decimal\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"PercentagePayedAfter160DaysOrMore\" type=\"xsd:decimal\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Warning\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ReportUrl\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"WarningsOverview\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Warnings\" nillable=\"true\"
+        type=\"tns:ArrayOfString\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Url\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ManagementList\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Management\"
+        nillable=\"true\" type=\"tns:ArrayOfManagement\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Url\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Activity\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Source\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Code\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Description\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsMainCategory\"
+        type=\"xsd:boolean\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfActivity\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"Activity\" type=\"tns:Activity\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfEstablishment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"Establishment\" type=\"tns:Establishment\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfJointCommitee\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"JointCommitee\"
+        type=\"tns:JointCommitee\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"SocialSecurityInformation\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"RegistrationId\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfParticipation\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"Participation\" type=\"tns:Participation\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfRszPublication\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"RszPublication\" type=\"tns:RszPublication\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfJudicialAgreement\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"JudicialAgreement\"
+        type=\"tns:JudicialAgreement\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfCurator\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"Curator\" type=\"tns:Curator\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"BankrupcyPublication\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Griffie\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Date\"
+        type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Reason\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"ClaimsDate\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Info\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfPublication\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"Publication\" type=\"tns:Publication\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfBalance\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"Balance\" type=\"tns:Balance\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"DeclarationsOfLiability\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"LiableParty\" type=\"tns:DeclarationOfLiabilityParty\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"BeneficiaryParties\" nillable=\"true\"
+        type=\"tns:ArrayOfDeclarationOfLiabilityParty\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"KycLinkedEntities\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Root\" type=\"tns:KycLinkedCompany\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"LinkedCompanies\" nillable=\"true\" type=\"tns:ArrayOfKycLinkedCompany\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"LinkedPersons\"
+        nillable=\"true\" type=\"tns:ArrayOfKycLinkedPerson\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfPeppolBusinessCard\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"PeppolBusinessCard\" type=\"tns:PeppolBusinessCard\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfLeiRecord\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"LeiRecord\"
+        type=\"tns:LeiRecord\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfCustomValue\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"CustomValue\" type=\"tns:CustomValue\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Radar\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Score\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Categories\"
+        nillable=\"true\" type=\"tns:ArrayOfRadarCategory\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfManagement\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"Management\" type=\"tns:Management\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Establishment\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"EstablishmentNumber\" type=\"xsd:long\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Name\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Address\" type=\"tns:Address\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Activities\"
+        type=\"tns:ActivityListResponseFragment\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"StartDate\" type=\"xsd:int\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"JointCommitee\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"Code\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Description\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Participation\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"RegistrationNumber\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"VatNumber\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Name\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CountryCode\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"NumberOfShares\" type=\"xsd:long\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"SharesPercentage\" type=\"xsd:decimal\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Subsidiaries\" nillable=\"true\" type=\"tns:ArrayOfParticipation\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"RszPublication\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"PublicationDate\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Title\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"JudicialAgreement\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Status\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"StartDate\"
+        type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"EndDate\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Griffie\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Curator\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"AppointedDate\"
+        type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Name\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"FirstName\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Address\" type=\"tns:Address\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Fax\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Telephone\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Email\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"Publication\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Id\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Type\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"PublicationDate\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Title\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Language\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"PdfNumber\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Url\" type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"Balance\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"FiscalYear\" type=\"xsd:int\" />\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"FromDate\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"ToDate\"
+        type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"DepositDate\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"Currency\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"BalanceData\" nillable=\"true\" type=\"tns:ArrayOfBalanceData\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"DeclarationOfLiabilityParty\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"RegistrationNumber\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"VatNumber\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Name\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"CountryCode\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"StartDate\" type=\"xsd:int\" />\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"EndDate\" type=\"xsd:int\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfDeclarationOfLiabilityParty\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"DeclarationOfLiabilityParty\" type=\"tns:DeclarationOfLiabilityParty\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"KycLinkedCompany\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"Vat\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Name\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"LegalForm\" type=\"tns:LegalForm\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"LinkType\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"SharesPercentage\" type=\"tns:KycSharesPercentage\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SharesDate\" type=\"tns:KycSharesDate\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfKycLinkedCompany\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"KycLinkedCompany\"
+        type=\"tns:KycLinkedCompany\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfKycLinkedPerson\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"KycLinkedPerson\" type=\"tns:KycLinkedPerson\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"PeppolBusinessCard\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"ParticipantId\" type=\"tns:PeppolId\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"RegistrationDate\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"DocumentTypes\"
+        nillable=\"true\" type=\"tns:ArrayOfPeppolDocumentType\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"LeiRecord\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Lei\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"RegistrationDate\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"EntityCategory\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Status\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"CustomValue\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Key\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfRadarCategory\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"RadarCategory\" type=\"tns:RadarCategory\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"Management\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"FunctionCode\" type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"FunctionDescription\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"StartDate\" type=\"xsd:int\" />\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"EndDate\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyCountryCode\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"CompanyRegistrationNumber\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyVatNumber\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyRepresentedBy\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"CompanyRepresentative\" type=\"tns:PersonName\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"PersonName\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Person\" type=\"tns:PersonName\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CompanyName\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Type\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"AmountOfActiveMandates\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"AmountOfPastMandates\" type=\"xsd:int\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfBalanceData\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"BalanceData\"
+        type=\"tns:BalanceData\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"KycSharesPercentage\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsAvailable\"
+        type=\"xsd:boolean\" />\r\n          <xsd:element nillable=\"true\" minOccurs=\"1\"
+        maxOccurs=\"1\" name=\"Value\" type=\"xsd:decimal\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"KycSharesDate\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsAvailable\" type=\"xsd:boolean\" />\r\n          <xsd:element nillable=\"true\"
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"Value\" type=\"xsd:int\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"KycLinkedPerson\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Chain\" nillable=\"true\" type=\"tns:ArrayOfKycLink\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Firstname\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Lastname\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"IsDuplicatePath\"
+        type=\"xsd:boolean\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"PeppolId\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"Scheme\" type=\"xsd:string\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Value\" type=\"xsd:string\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ArrayOfPeppolDocumentType\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\" name=\"PeppolDocumentType\"
+        type=\"tns:PeppolDocumentType\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"RadarCategory\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Code\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Name\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"Score\" type=\"xsd:int\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"PersonName\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Lastname\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Firstname\"
+        type=\"xsd:string\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"BalanceData\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Key\" type=\"xsd:string\"
+        />\r\n          <xsd:element nillable=\"true\" minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"Value\" type=\"xsd:decimal\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"ArrayOfKycLink\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\" nillable=\"true\"
+        name=\"KycLink\" type=\"tns:KycLink\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \     <xsd:complexType name=\"PeppolDocumentType\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Id\" type=\"tns:PeppolId\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"DisplayName\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"IsDeprecated\" type=\"xsd:boolean\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"KycLink\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Vat\" type=\"xsd:int\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n    </xsd:schema>\r\n
+        \ </wsdl:types>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_GetCompanyByRegistrationNumber_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:GetCompanyByRegistrationNumber\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_GetCompanyByRegistrationNumber_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:GetCompanyByRegistrationNumberResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_GetCompanyByVat_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:GetCompanyByVat\" />\r\n
+        \ </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_GetCompanyByVat_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:GetCompanyByVatResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_SearchCompanies_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:SearchCompanies\" />\r\n
+        \ </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_SearchCompanies_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:SearchCompaniesResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_Alerts_AddCompany_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:Alerts_AddCompany\" />\r\n
+        \ </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_Alerts_AddCompany_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:Alerts_AddCompanyResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_Alerts_AddListOfCompanies_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:Alerts_AddListOfCompanies\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_Alerts_AddListOfCompanies_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:Alerts_AddListOfCompaniesResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_Alerts_FetchBulk_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:Alerts_FetchBulk\" />\r\n
+        \ </wsdl:message>\r\n  <wsdl:message name=\"AlacarteServiceV2_0_Alerts_FetchBulk_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:Alerts_FetchBulkResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:portType name=\"AlacarteServiceV2_0\">\r\n
+        \   <wsdl:operation name=\"GetCompanyByRegistrationNumber\">\r\n      <wsdl:input
+        message=\"tns:AlacarteServiceV2_0_GetCompanyByRegistrationNumber_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AlacarteServiceV2_0_GetCompanyByRegistrationNumber_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n    <wsdl:operation name=\"GetCompanyByVat\">\r\n
+        \     <wsdl:input message=\"tns:AlacarteServiceV2_0_GetCompanyByVat_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AlacarteServiceV2_0_GetCompanyByVat_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n    <wsdl:operation name=\"SearchCompanies\">\r\n
+        \     <wsdl:input message=\"tns:AlacarteServiceV2_0_SearchCompanies_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AlacarteServiceV2_0_SearchCompanies_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n    <wsdl:operation name=\"Alerts_AddCompany\">\r\n
+        \     <wsdl:input message=\"tns:AlacarteServiceV2_0_Alerts_AddCompany_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AlacarteServiceV2_0_Alerts_AddCompany_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n    <wsdl:operation name=\"Alerts_AddListOfCompanies\">\r\n
+        \     <wsdl:input message=\"tns:AlacarteServiceV2_0_Alerts_AddListOfCompanies_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AlacarteServiceV2_0_Alerts_AddListOfCompanies_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n    <wsdl:operation name=\"Alerts_FetchBulk\">\r\n
+        \     <wsdl:input message=\"tns:AlacarteServiceV2_0_Alerts_FetchBulk_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AlacarteServiceV2_0_Alerts_FetchBulk_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n  </wsdl:portType>\r\n  <wsdl:binding name=\"BasicHttpBinding_AlacarteServiceV2_0_soap\"
+        type=\"tns:AlacarteServiceV2_0\">\r\n    <soap:binding transport=\"http://schemas.xmlsoap.org/soap/http\"
+        />\r\n    <wsdl:operation name=\"GetCompanyByRegistrationNumber\">\r\n      <soap:operation
+        soapAction=\"ALaCarte/AlacarteServiceV2_0/GetCompanyByRegistrationNumber\"
+        style=\"document\" />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:input>\r\n      <wsdl:output>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:output>\r\n    </wsdl:operation>\r\n    <wsdl:operation
+        name=\"GetCompanyByVat\">\r\n      <soap:operation soapAction=\"ALaCarte/AlacarteServiceV2_0/GetCompanyByVat\"
+        style=\"document\" />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:input>\r\n      <wsdl:output>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:output>\r\n    </wsdl:operation>\r\n    <wsdl:operation
+        name=\"SearchCompanies\">\r\n      <soap:operation soapAction=\"ALaCarte/AlacarteServiceV2_0/SearchCompanies\"
+        style=\"document\" />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:input>\r\n      <wsdl:output>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:output>\r\n    </wsdl:operation>\r\n    <wsdl:operation
+        name=\"Alerts_AddCompany\">\r\n      <soap:operation soapAction=\"ALaCarte/AlacarteServiceV2_0/Alerts_AddCompany\"
+        style=\"document\" />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:input>\r\n      <wsdl:output>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:output>\r\n    </wsdl:operation>\r\n    <wsdl:operation
+        name=\"Alerts_AddListOfCompanies\">\r\n      <soap:operation soapAction=\"ALaCarte/AlacarteServiceV2_0/Alerts_AddListOfCompanies\"
+        style=\"document\" />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:input>\r\n      <wsdl:output>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:output>\r\n    </wsdl:operation>\r\n    <wsdl:operation
+        name=\"Alerts_FetchBulk\">\r\n      <soap:operation soapAction=\"ALaCarte/AlacarteServiceV2_0/Alerts_FetchBulk\"
+        style=\"document\" />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:input>\r\n      <wsdl:output>\r\n        <soap:body use=\"literal\"
+        />\r\n      </wsdl:output>\r\n    </wsdl:operation>\r\n  </wsdl:binding>\r\n
+        \ <wsdl:service name=\"AlacarteServiceV2_0\">\r\n    <wsdl:port name=\"BasicHttpBinding_AlacarteServiceV2_0_soap\"
+        binding=\"tns:BasicHttpBinding_AlacarteServiceV2_0_soap\">\r\n      <soap:address
+        location=\"https://connect.liza.nl/V2.0/alacarteservice.asmx\"/>\r\n
+        \   </wsdl:port>\r\n  </wsdl:service>\r\n</wsdl:definitions>"
+    headers:
+      content-length:
+      - '61560'
+      content-type:
+      - text/xml;charset=UTF-8
+      date:
+      - Thu, 29 Jan 2026 20:39:22 GMT
+      server:
+      - Microsoft-IIS/10.0
+      x-powered-by:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '<?xml version=''1.0'' encoding=''utf-8''?>
+
+      <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Body><ns0:GetCompanyByRegistrationNumber
+      xmlns:ns0="ALaCarte"><ns0:request><ns0:CountryCode>BE</ns0:CountryCode><ns0:RegistrationNumber>0405056855</ns0:RegistrationNumber><ns0:Login>lizatestlogin</ns0:Login><ns0:Password>lizatestpassword</ns0:Password><ns0:ServiceIntegrator>acsone</ns0:ServiceIntegrator><ns0:LoginHash>5d8116241ce7c76e8365d6ab5b250c23b8ef5fbf</ns0:LoginHash><ns0:Language>FR</ns0:Language></ns0:request></ns0:GetCompanyByRegistrationNumber></soap-env:Body></soap-env:Envelope>'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '608'
+      Content-Type:
+      - text/xml; charset=utf-8
+      SOAPAction:
+      - '"ALaCarte/AlacarteServiceV2_0/GetCompanyByRegistrationNumber"'
+      User-Agent:
+      - Zeep/4.3.2 (www.python-zeep.org)
+    method: POST
+    uri: https://connect.liza.nl/V2.0/alacarteservice.asmx
+  response:
+    body:
+      string: "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n  <s:Body>\r\n
+        \   <GetCompanyByRegistrationNumberResponse xmlns=\"ALaCarte\">\r\n      <GetCompanyByRegistrationNumberResult>\r\n
+        \       <StatusCode>0</StatusCode>\r\n        <StatusMessage>Success</StatusMessage>\r\n
+        \       <CompanyResponse>\r\n          <PreferredLanguages>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <UsesDutch>true</UsesDutch>\r\n              <UsesFrench>false</UsesFrench>\r\n
+        \             <UsesGerman>false</UsesGerman>\r\n              <LanguageString>nl</LanguageString>\r\n
+        \           </Value>\r\n          </PreferredLanguages>\r\n          <CountryCode>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>BE</Value>\r\n
+        \         </CountryCode>\r\n          <RegistrationNumber>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>0405056855</Value>\r\n          </RegistrationNumber>\r\n
+        \         <VatNumber>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value>BE
+        0405.056.855</Value>\r\n          </VatNumber>\r\n          <VatEnabled>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>true</Value>\r\n
+        \         </VatEnabled>\r\n          <RsinNumber>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </RsinNumber>\r\n          <IsInFollowUp>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>true</Value>\r\n          </IsInFollowUp>\r\n          <FollowUpReference>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value />\r\n          </FollowUpReference>\r\n
+        \         <CompanyName>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value>Scheerders
+        van Kerchove's Verenigde Fabrieken</Value>\r\n          </CompanyName>\r\n
+        \         <CompanyNameAndForm>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>Scheerders van Kerchove's Verenigde Fabrieken SA</Value>\r\n
+        \         </CompanyNameAndForm>\r\n          <CommercialName>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value />\r\n          </CommercialName>\r\n          <ShortName>\r\n
+        \           <IsEnabled>false</IsEnabled>\r\n            <Value />\r\n          </ShortName>\r\n
+        \         <LegalForm>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n
+        \             <Abbreviation>SA</Abbreviation>\r\n              <Code>14</Code>\r\n
+        \           </Value>\r\n          </LegalForm>\r\n          <Address>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Street>Aerschotstraat</Street>\r\n
+        \             <HouseNumber>114</HouseNumber>\r\n              <Box />\r\n
+        \             <HouseNumberAndBox>114</HouseNumberAndBox>\r\n              <PostalCode>9100</PostalCode>\r\n
+        \             <City>Sint-Niklaas</City>\r\n              <Country>Belgique</Country>\r\n
+        \             <CountryCode>BE</CountryCode>\r\n              <Line1>Aerschotstraat
+        114</Line1>\r\n              <Line2>9100 Sint-Niklaas</Line2>\r\n              <Line3>Belgique</Line3>\r\n
+        \             <BeStAddId>20001200962</BeStAddId>\r\n            </Value>\r\n
+        \         </Address>\r\n          <TelephoneNumber>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>037604900</Value>\r\n          </TelephoneNumber>\r\n          <TelephoneNumberAll>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <string>037604900</string>\r\n
+        \           </Value>\r\n          </TelephoneNumberAll>\r\n          <EmailAddress>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>info@svk.be</Value>\r\n
+        \         </EmailAddress>\r\n          <EmailAddressAll>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <string>info@svk.be</string>\r\n            </Value>\r\n
+        \         </EmailAddressAll>\r\n          <Website>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>https://svk.be</Value>\r\n          </Website>\r\n          <WebsiteAll>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <string>https://svk.be</string>\r\n
+        \           </Value>\r\n          </WebsiteAll>\r\n          <CompanyStatus>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Code>0</Code>\r\n
+        \             <Info>Actif</Info>\r\n            </Value>\r\n          </CompanyStatus>\r\n
+        \         <StartDate>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value>19280929</Value>\r\n
+        \         </StartDate>\r\n          <EndDate>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>0</Value>\r\n          </EndDate>\r\n          <Score>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Info>score</Info>\r\n
+        \             <ScoreImage>neg-34.png</ScoreImage>\r\n              <ScoreAsInt>-34</ScoreAsInt>\r\n
+        \             <ScoreAsDecimal>-3.4</ScoreAsDecimal>\r\n            </Value>\r\n
+        \         </Score>\r\n          <CreditLimit>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <Limit>0</Limit>\r\n              <Code>3</Code>\r\n
+        \             <Info>R\xE9sultat tr\xE8s n\xE9gatif</Info>\r\n            </Value>\r\n
+        \         </CreditLimit>\r\n          <PaymentExperience>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <PercentagePayedAfter0To30Days>99.93</PercentagePayedAfter0To30Days>\r\n
+        \             <PercentagePayedAfter30To60Days>0.04</PercentagePayedAfter30To60Days>\r\n
+        \             <PercentagePayedAfter60To90Days>0</PercentagePayedAfter60To90Days>\r\n
+        \             <PercentagePayedAfter90To120Days>0</PercentagePayedAfter90To120Days>\r\n
+        \             <PercentagePayedAfter120To160Days>0</PercentagePayedAfter120To160Days>\r\n
+        \             <PercentagePayedAfter160DaysOrMore>0.04</PercentagePayedAfter160DaysOrMore>\r\n
+        \             <Warning />\r\n              <ReportUrl>https://www.liza.nl/fr/c/0405056855/svk#payment_experience</ReportUrl>\r\n
+        \           </Value>\r\n          </PaymentExperience>\r\n          <WarningsOverview>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Warnings>\r\n
+        \               <string>Dettes \xE9chues envers l'ONSS (\xB02024 53.929 \u20AC)</string>\r\n
+        \               <string>Rendement n\xE9gatif sur le total de l'actif durant
+        au moins les deux derni\xE8res ann\xE9es (\xB02024)</string>\r\n                <string>Liquidit\xE9
+        au sens strict &lt; 0.65 (\xB02022) (\xB02023) (\xB02024)</string>\r\n              </Warnings>\r\n
+        \             <Url>https://www.liza.nl/fr/c/0405056855/svk#warning_detail</Url>\r\n
+        \           </Value>\r\n          </WarningsOverview>\r\n          <CurrentManagement>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Management>\r\n
+        \               <Management>\r\n                  <FunctionCode>10002</FunctionCode>\r\n
+        \                 <FunctionDescription>Administrateur</FunctionDescription>\r\n
+        \                 <StartDate>20241002</StartDate>\r\n                  <EndDate>20311231</EndDate>\r\n
+        \                 <CompanyCountryCode />\r\n                  <CompanyRegistrationNumber
+        />\r\n                  <CompanyVatNumber />\r\n                  <CompanyRepresentedBy
+        />\r\n                  <CompanyRepresentative>\r\n                    <Lastname
+        />\r\n                    <Firstname />\r\n                  </CompanyRepresentative>\r\n
+        \                 <PersonName>Aertssen Saskia</PersonName>\r\n                  <Person>\r\n
+        \                   <Lastname>Aertssen</Lastname>\r\n                    <Firstname>Saskia</Firstname>\r\n
+        \                 </Person>\r\n                  <CompanyName />\r\n                  <Type>PersonName</Type>\r\n
+        \                 <AmountOfActiveMandates>0</AmountOfActiveMandates>\r\n                  <AmountOfPastMandates>0</AmountOfPastMandates>\r\n
+        \               </Management>\r\n                <Management>\r\n                  <FunctionCode>10002</FunctionCode>\r\n
+        \                 <FunctionDescription>Administrateur</FunctionDescription>\r\n
+        \                 <StartDate>20241002</StartDate>\r\n                  <EndDate>20311231</EndDate>\r\n
+        \                 <CompanyCountryCode />\r\n                  <CompanyRegistrationNumber
+        />\r\n                  <CompanyVatNumber />\r\n                  <CompanyRepresentedBy
+        />\r\n                  <CompanyRepresentative>\r\n                    <Lastname
+        />\r\n                    <Firstname />\r\n                  </CompanyRepresentative>\r\n
+        \                 <PersonName>Wesenbeek Walter</PersonName>\r\n                  <Person>\r\n
+        \                   <Lastname>Wesenbeek</Lastname>\r\n                    <Firstname>Walter</Firstname>\r\n
+        \                 </Person>\r\n                  <CompanyName />\r\n                  <Type>PersonName</Type>\r\n
+        \                 <AmountOfActiveMandates>0</AmountOfActiveMandates>\r\n                  <AmountOfPastMandates>0</AmountOfPastMandates>\r\n
+        \               </Management>\r\n                <Management>\r\n                  <FunctionCode>10002</FunctionCode>\r\n
+        \                 <FunctionDescription>Administrateur</FunctionDescription>\r\n
+        \                 <StartDate>20241002</StartDate>\r\n                  <EndDate>20311231</EndDate>\r\n
+        \                 <CompanyCountryCode>BE</CompanyCountryCode>\r\n                  <CompanyRegistrationNumber>BE
+        0400.632.566</CompanyRegistrationNumber>\r\n                  <CompanyVatNumber>BE
+        0400.632.566</CompanyVatNumber>\r\n                  <CompanyRepresentedBy>Beerens
+        Erwin</CompanyRepresentedBy>\r\n                  <CompanyRepresentative>\r\n
+        \                   <Lastname>Beerens</Lastname>\r\n                    <Firstname>Erwin</Firstname>\r\n
+        \                 </CompanyRepresentative>\r\n                  <PersonName
+        />\r\n                  <Person>\r\n                    <Lastname />\r\n                    <Firstname
+        />\r\n                  </Person>\r\n                  <CompanyName>Beerens
+        Groep</CompanyName>\r\n                  <Type>RegistrationNumber</Type>\r\n
+        \                 <AmountOfActiveMandates>0</AmountOfActiveMandates>\r\n                  <AmountOfPastMandates>0</AmountOfPastMandates>\r\n
+        \               </Management>\r\n                <Management>\r\n                  <FunctionCode>10002</FunctionCode>\r\n
+        \                 <FunctionDescription>Administrateur</FunctionDescription>\r\n
+        \                 <StartDate>20241002</StartDate>\r\n                  <EndDate>20311231</EndDate>\r\n
+        \                 <CompanyCountryCode>BE</CompanyCountryCode>\r\n                  <CompanyRegistrationNumber>BE
+        0478.178.623</CompanyRegistrationNumber>\r\n                  <CompanyVatNumber>BE
+        0478.178.623</CompanyVatNumber>\r\n                  <CompanyRepresentedBy>Van
+        den Bergh Koen</CompanyRepresentedBy>\r\n                  <CompanyRepresentative>\r\n
+        \                   <Lastname>Van den Bergh</Lastname>\r\n                    <Firstname>Koen</Firstname>\r\n
+        \                 </CompanyRepresentative>\r\n                  <PersonName
+        />\r\n                  <Person>\r\n                    <Lastname />\r\n                    <Firstname
+        />\r\n                  </Person>\r\n                  <CompanyName>Koen Van
+        Den Bergh</CompanyName>\r\n                  <Type>RegistrationNumber</Type>\r\n
+        \                 <AmountOfActiveMandates>0</AmountOfActiveMandates>\r\n                  <AmountOfPastMandates>0</AmountOfPastMandates>\r\n
+        \               </Management>\r\n              </Management>\r\n              <Url>https://www.liza.nl/fr/c/0405056855/svk/directors</Url>\r\n
+        \           </Value>\r\n          </CurrentManagement>\r\n          <ExternalManagement>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Management>\r\n
+        \               <Management>\r\n                  <FunctionCode>10020</FunctionCode>\r\n
+        \                 <FunctionDescription>Commissaire</FunctionDescription>\r\n
+        \                 <StartDate>20240101</StartDate>\r\n                  <EndDate>0</EndDate>\r\n
+        \                 <CompanyCountryCode>BE</CompanyCountryCode>\r\n                  <CompanyRegistrationNumber>BE
+        0429.053.863</CompanyRegistrationNumber>\r\n                  <CompanyVatNumber>BE
+        0429.053.863</CompanyVatNumber>\r\n                  <CompanyRepresentedBy>Vandeweyer
+        Ben</CompanyRepresentedBy>\r\n                  <CompanyRepresentative>\r\n
+        \                   <Lastname>Vandeweyer</Lastname>\r\n                    <Firstname>Ben</Firstname>\r\n
+        \                 </CompanyRepresentative>\r\n                  <PersonName
+        />\r\n                  <Person>\r\n                    <Lastname />\r\n                    <Firstname
+        />\r\n                  </Person>\r\n                  <CompanyName>Deloitte
+        Bedrijfsrevisoren/R\xE9viseurs d'Entreprises</CompanyName>\r\n                  <Type>RegistrationNumber</Type>\r\n
+        \                 <AmountOfActiveMandates>0</AmountOfActiveMandates>\r\n                  <AmountOfPastMandates>0</AmountOfPastMandates>\r\n
+        \               </Management>\r\n              </Management>\r\n              <Url>https://www.liza.nl/fr/c/0405056855/svk/directors</Url>\r\n
+        \           </Value>\r\n          </ExternalManagement>\r\n          <MainActivity>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Source>CWB</Source>\r\n
+        \             <Code>23650</Code>\r\n              <Description>Fabrication
+        d\u2019ouvrages en fibre-ciment</Description>\r\n              <IsMainCategory>true</IsMainCategory>\r\n
+        \           </Value>\r\n          </MainActivity>\r\n          <Activities>\r\n
+        \           <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n              <Activity>\r\n
+        \               <Source>BTW</Source>\r\n                <Code>23650</Code>\r\n
+        \               <Description>Fabrication d\u2019ouvrages en fibre-ciment</Description>\r\n
+        \               <IsMainCategory>true</IsMainCategory>\r\n              </Activity>\r\n
+        \             <Activity>\r\n                <Source>RSZ</Source>\r\n                <Code>23650</Code>\r\n
+        \               <Description>Fabrication d\u2019ouvrages en fibre-ciment</Description>\r\n
+        \               <IsMainCategory>true</IsMainCategory>\r\n              </Activity>\r\n
+        \             <Activity>\r\n                <Source>BTW</Source>\r\n                <Code>18120</Code>\r\n
+        \               <Description>Autres activit\xE9s d\u2019imprimerie</Description>\r\n
+        \               <IsMainCategory>false</IsMainCategory>\r\n              </Activity>\r\n
+        \             <Activity>\r\n                <Source>BTW</Source>\r\n                <Code>23321</Code>\r\n
+        \               <Description>Fabrication de briques</Description>\r\n                <IsMainCategory>false</IsMainCategory>\r\n
+        \             </Activity>\r\n            </Value>\r\n          </Activities>\r\n
+        \         <Establishments>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </Establishments>\r\n          <JointCommitees>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <JointCommitee>\r\n                <Code>106</Code>\r\n
+        \               <Description>Commission paritaire des industries du ciment</Description>\r\n
+        \             </JointCommitee>\r\n              <JointCommitee>\r\n                <Code>200</Code>\r\n
+        \               <Description>Commission paritaire auxiliaire pour employ\xE9s
+        (non constitu\xE9e)</Description>\r\n              </JointCommitee>\r\n            </Value>\r\n
+        \         </JointCommitees>\r\n          <SocialSecurityInformation>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </SocialSecurityInformation>\r\n          <ParentCompanies>\r\n
+        \           <IsEnabled>false</IsEnabled>\r\n          </ParentCompanies>\r\n
+        \         <SubsidiaryCompanies>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </SubsidiaryCompanies>\r\n          <SocialSecuritySummons>\r\n
+        \           <IsEnabled>false</IsEnabled>\r\n          </SocialSecuritySummons>\r\n
+        \         <JudicialAgreements>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </JudicialAgreements>\r\n          <Curators>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </Curators>\r\n          <BankruptcyOpen>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </BankruptcyOpen>\r\n          <BankruptcyClose>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </BankruptcyClose>\r\n          <DetailUrl>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>https://www.liza.nl/fr/c/0405056855/svk</Value>\r\n
+        \         </DetailUrl>\r\n          <ReportUrl>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>https://www.liza.nl/fr/c/0405056855/svk/report/trade?ApiUrlKey=L3dxGfJXAntgUdn7-QFwqET71u8s59NTVdoLR6zS3ws_&amp;mode=embedded</Value>\r\n
+        \         </ReportUrl>\r\n          <CustomReportUrl>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>https://www.liza.nl/fr/c/0405056855/svk/report/trade?ApiUrlKey=L3dxGfJXAntgUdn7-QFwqET71u8s59NTVdoLR6zS3ws_&amp;documentname=Rapport+commercial+de+Scheerders+van+Kerchove%27s+Verenigde+Fabrieken+(BE+0405.056.855)&amp;format=pdf&amp;mode=embedded</Value>\r\n
+        \         </CustomReportUrl>\r\n          <BalanceUrl>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \           <Value />\r\n          </BalanceUrl>\r\n          <Publications>\r\n
+        \           <IsEnabled>false</IsEnabled>\r\n          </Publications>\r\n
+        \         <Balances>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value>\r\n
+        \             <Balance>\r\n                <FiscalYear>2024</FiscalYear>\r\n
+        \               <FromDate>20240101</FromDate>\r\n                <ToDate>20241231</ToDate>\r\n
+        \               <DepositDate>20250711</DepositDate>\r\n                <Currency>EUR</Currency>\r\n
+        \               <BalanceData>\r\n                  <BalanceData>\r\n                    <Key>UNIFIED_Employees</Key>\r\n
+        \                   <Value>128.7</Value>\r\n                  </BalanceData>\r\n
+        \                 <BalanceData>\r\n                    <Key>UNIFIED_Equity</Key>\r\n
+        \                   <Value>7533441.94</Value>\r\n                  </BalanceData>\r\n
+        \                 <BalanceData>\r\n                    <Key>UNIFIED_GrossMargin</Key>\r\n
+        \                   <Value>8485555.32</Value>\r\n                  </BalanceData>\r\n
+        \                 <BalanceData>\r\n                    <Key>UNIFIED_ProfitLoss</Key>\r\n
+        \                   <Value>-20251636.08</Value>\r\n                  </BalanceData>\r\n
+        \                 <BalanceData>\r\n                    <Key>UNIFIED_Turnover</Key>\r\n
+        \                   <Value>27246603.74</Value>\r\n                  </BalanceData>\r\n
+        \               </BalanceData>\r\n              </Balance>\r\n            </Value>\r\n
+        \         </Balances>\r\n          <DeclarationsOfLiability>\r\n            <IsEnabled>false</IsEnabled>\r\n
+        \         </DeclarationsOfLiability>\r\n          <KycLinkedEntities>\r\n
+        \           <IsEnabled>false</IsEnabled>\r\n          </KycLinkedEntities>\r\n
+        \         <KycReportUrl>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value>https://www.liza.nl/fr/c/0405056855/svk/kyc</Value>\r\n
+        \         </KycReportUrl>\r\n          <Peppol>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <PeppolBusinessCard>\r\n                <ParticipantId>\r\n
+        \                 <Scheme>iso6523-actorid-upis</Scheme>\r\n                  <Value>0208:0405056855</Value>\r\n
+        \               </ParticipantId>\r\n                <RegistrationDate>0</RegistrationDate>\r\n
+        \               <DocumentTypes>\r\n                  <PeppolDocumentType>\r\n
+        \                   <Id>\r\n                      <Scheme>busdox-docid-qns</Scheme>\r\n
+        \                     <Value>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</Value>\r\n
+        \                   </Id>\r\n                    <DisplayName>Peppol BIS Billing
+        UBL Credit Note V3</DisplayName>\r\n                    <IsDeprecated>false</IsDeprecated>\r\n
+        \                 </PeppolDocumentType>\r\n                  <PeppolDocumentType>\r\n
+        \                   <Id>\r\n                      <Scheme>busdox-docid-qns</Scheme>\r\n
+        \                     <Value>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</Value>\r\n
+        \                   </Id>\r\n                    <DisplayName>Peppol BIS Billing
+        UBL Invoice V3</DisplayName>\r\n                    <IsDeprecated>false</IsDeprecated>\r\n
+        \                 </PeppolDocumentType>\r\n                </DocumentTypes>\r\n
+        \             </PeppolBusinessCard>\r\n              <PeppolBusinessCard>\r\n
+        \               <ParticipantId>\r\n                  <Scheme>iso6523-actorid-upis</Scheme>\r\n
+        \                 <Value>9925:be0405056855</Value>\r\n                </ParticipantId>\r\n
+        \               <RegistrationDate>0</RegistrationDate>\r\n                <DocumentTypes>\r\n
+        \                 <PeppolDocumentType>\r\n                    <Id>\r\n                      <Scheme>busdox-docid-qns</Scheme>\r\n
+        \                     <Value>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</Value>\r\n
+        \                   </Id>\r\n                    <DisplayName>Peppol BIS Billing
+        UBL Credit Note V3</DisplayName>\r\n                    <IsDeprecated>false</IsDeprecated>\r\n
+        \                 </PeppolDocumentType>\r\n                  <PeppolDocumentType>\r\n
+        \                   <Id>\r\n                      <Scheme>busdox-docid-qns</Scheme>\r\n
+        \                     <Value>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</Value>\r\n
+        \                   </Id>\r\n                    <DisplayName>Peppol BIS Billing
+        UBL Invoice V3</DisplayName>\r\n                    <IsDeprecated>false</IsDeprecated>\r\n
+        \                 </PeppolDocumentType>\r\n                </DocumentTypes>\r\n
+        \             </PeppolBusinessCard>\r\n            </Value>\r\n          </Peppol>\r\n
+        \         <LeiRecords>\r\n            <IsEnabled>true</IsEnabled>\r\n            <Value
+        />\r\n          </LeiRecords>\r\n          <CustomValues>\r\n            <IsEnabled>true</IsEnabled>\r\n
+        \           <Value>\r\n              <CustomValue>\r\n                <Key>VatCleaned</Key>\r\n
+        \               <Value>BE0405056855</Value>\r\n              </CustomValue>\r\n
+        \           </Value>\r\n          </CustomValues>\r\n          <Radar>\r\n
+        \           <IsEnabled>false</IsEnabled>\r\n          </Radar>\r\n        </CompanyResponse>\r\n
+        \     </GetCompanyByRegistrationNumberResult>\r\n    </GetCompanyByRegistrationNumberResponse>\r\n
+        \ </s:Body>\r\n</s:Envelope>"
+    headers:
+      content-length:
+      - '21913'
+      content-type:
+      - text/xml; charset=utf-8
+      date:
+      - Thu, 29 Jan 2026 20:39:22 GMT
+      server:
+      - Microsoft-IIS/10.0
+      x-powered-by:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+version: 1

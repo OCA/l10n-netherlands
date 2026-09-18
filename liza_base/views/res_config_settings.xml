@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.liza</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app
+                    data-string="Liza"
+                    string="Liza"
+                    name="liza_base"
+                    groups="liza_base.liza_download"
+                >
+                    <block title="Credentials" name="liza_credentials">
+                        <setting
+                            id="liza_credentials"
+                            help="Get a subscription from Liza and fill in your credentials."
+                            company_dependent="1"
+                        >
+                            <group>
+                                <field name="liza_login" string="Login" />
+                                <field
+                                    name="liza_password"
+                                    string="Password"
+                                    password="True"
+                                />
+                            </group>
+                        </setting>
+                    </block>
+                    <block title="Data" name="liza_data_settings">
+                        <setting
+                            string="Copy Data"
+                            help="Choose which contact fields should be filled with Liza data."
+                            company_dependent="1"
+                        >
+                            <group>
+                                <group>
+                                    <field name="fill_liza_name" string="Name" />
+                                    <field
+                                        name="fill_liza_commercial_name"
+                                        string="Commercial Name"
+                                    />
+                                    <field name="fill_liza_street" string="Street" />
+                                    <field name="fill_liza_zip" string="ZIP" />
+                                    <field name="fill_liza_city" string="City" />
+                                    <field
+                                        name="fill_liza_country_id"
+                                        string="Country"
+                                    />
+                                </group>
+                                <group>
+                                    <field name="fill_liza_email" string="Email" />
+                                    <field name="fill_liza_phone" string="Phone" />
+                                    <field name="fill_liza_website" string="Website" />
+                                    <field name="fill_liza_vat" string="VAT" />
+                                    <field
+                                        name="fill_liza_registry"
+                                        string="Company ID"
+                                    />
+                                </group>
+                            </group>
+                        </setting>
+                    </block>
+                    <block title="Followup" name="liza_followup_settings">
+                        <setting
+                            id="liza_followup_enable"
+                            help="Keep your contact data in sync with Liza. Click 'Add to Liza Alerts' on Partner's Liza tab or in contacts action menu."
+                            company_dependent="1"
+                        >
+                            <field name="liza_followup_enable" />
+                            <div
+                                class="alert alert-warning mt-3"
+                                role="alert"
+                                invisible="not liza_followup_enable"
+                            >
+                                <i class="fa fa-warning me-2" />
+                                <span
+                                >Once a contact is added to the watch list, it cannot be removed again. Approach Liza for removal.</span>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_liza_config" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">main</field>
+        <field name="context">{'module' : 'liza_base', 'bin_size': False}</field>
+    </record>
+
+    <menuitem
+        id="menu_liza_settings"
+        parent="contacts.res_partner_menu_config"
+        name="Liza"
+        action="action_liza_config"
+        groups="liza_base.liza_download"
+        sequence="0"
+    />
+</odoo>

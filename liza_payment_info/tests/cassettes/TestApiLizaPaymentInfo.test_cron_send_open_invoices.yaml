@@ -1,0 +1,151 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Zeep/4.3.2 (www.python-zeep.org)
+    method: GET
+    uri: https://autopayex.liza.nl/V4.0/AutoPayex.asmx
+  response:
+    body:
+      string: "<wsdl:definitions xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\"
+        xmlns:tns=\"AutoPayex\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:http=\"http://schemas.microsoft.com/ws/06/2004/policy/http\"
+        xmlns:msc=\"http://schemas.microsoft.com/ws/2005/12/wsdl/contract\" xmlns:wsp=\"http://schemas.xmlsoap.org/ws/2004/09/policy\"
+        xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"
+        xmlns:wsam=\"http://www.w3.org/2007/05/addressing/metadata\" targetNamespace=\"AutoPayex\"
+        name=\"AutoPayexV4_0\" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\">\r\n
+        \ <wsdl:types>\r\n    <xsd:schema elementFormDefault=\"qualified\" targetNamespace=\"AutoPayex\">\r\n
+        \     <xsd:import namespace=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\"
+        />\r\n      <xsd:import namespace=\"http://schemas.datacontract.org/2004/07/System\"
+        />\r\n      <xsd:element name=\"SendOpenInvoices\">\r\n        <xsd:complexType>\r\n
+        \         <xsd:sequence>\r\n            <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"request\" type=\"tns:RequestSendOpenInvoices\" />\r\n          </xsd:sequence>\r\n
+        \       </xsd:complexType>\r\n      </xsd:element>\r\n      <xsd:element name=\"SendOpenInvoicesResponse\">\r\n
+        \       <xsd:complexType>\r\n          <xsd:sequence>\r\n            <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SendOpenInvoicesResult\" type=\"tns:ResponseSendOpenInvoices\"
+        />\r\n          </xsd:sequence>\r\n        </xsd:complexType>\r\n      </xsd:element>\r\n
+        \     <xsd:complexType name=\"RequestSendOpenInvoices\">\r\n        <xsd:sequence>\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"PackageVersion\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"SupplierCountry\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"SupplierIdentifierType\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"SupplierIdentifier\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Language\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"InvoicesList\" nillable=\"true\" type=\"tns:ArrayOfInvoiceRequest\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Login\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"Password\" type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\"
+        maxOccurs=\"1\" name=\"ServiceIntegrator\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"LoginHash\" type=\"xsd:string\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"ResponseSendOpenInvoices\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"StatusCode\" type=\"xsd:int\" />\r\n
+        \         <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"StatusMessage\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"InvoicesSummary\" type=\"tns:InvoicesSummary\" />\r\n        </xsd:sequence>\r\n
+        \     </xsd:complexType>\r\n      <xsd:complexType name=\"ArrayOfInvoiceRequest\">\r\n
+        \       <xsd:sequence>\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"unbounded\"
+        nillable=\"true\" name=\"InvoiceRequest\" type=\"tns:InvoiceRequest\" />\r\n
+        \       </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"InvoicesSummary\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"NumberOfValidInvoices\" type=\"xsd:int\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"NumberOfInvalidInvoices\"
+        type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"NumberOfUniqueCustomers\" type=\"xsd:int\" />\r\n          <xsd:element
+        minOccurs=\"1\" maxOccurs=\"1\" name=\"TotalOpenAmountOfValidInvoices\" type=\"xsd:int\"
+        />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n      <xsd:complexType
+        name=\"InvoiceRequest\">\r\n        <xsd:sequence>\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"InvoiceNumber\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\" name=\"CustomerCountry\"
+        type=\"xsd:string\" />\r\n          <xsd:element minOccurs=\"0\" maxOccurs=\"1\"
+        name=\"CustomerIdentifierType\" type=\"xsd:string\" />\r\n          <xsd:element
+        minOccurs=\"0\" maxOccurs=\"1\" name=\"CustomerIdentifier\" type=\"xsd:string\"
+        />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\" name=\"OpenAmountWhole\"
+        type=\"xsd:int\" />\r\n          <xsd:element minOccurs=\"1\" maxOccurs=\"1\"
+        name=\"InvoiceDate\" type=\"xsd:int\" />\r\n        </xsd:sequence>\r\n      </xsd:complexType>\r\n
+        \   </xsd:schema>\r\n  </wsdl:types>\r\n  <wsdl:message name=\"AutoPayexV4_0_SendOpenInvoices_InputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:SendOpenInvoices\" />\r\n
+        \ </wsdl:message>\r\n  <wsdl:message name=\"AutoPayexV4_0_SendOpenInvoices_OutputMessage\">\r\n
+        \   <wsdl:part name=\"parameters\" element=\"tns:SendOpenInvoicesResponse\"
+        />\r\n  </wsdl:message>\r\n  <wsdl:portType name=\"AutoPayexV4_0\">\r\n    <wsdl:operation
+        name=\"SendOpenInvoices\">\r\n      <wsdl:input message=\"tns:AutoPayexV4_0_SendOpenInvoices_InputMessage\"
+        />\r\n      <wsdl:output message=\"tns:AutoPayexV4_0_SendOpenInvoices_OutputMessage\"
+        />\r\n    </wsdl:operation>\r\n  </wsdl:portType>\r\n  <wsdl:binding name=\"BasicHttpBinding_AutoPayexV4_0_soap\"
+        type=\"tns:AutoPayexV4_0\" style=\"document\">\r\n    <soap:binding transport=\"http://schemas.xmlsoap.org/soap/http\"
+        />\r\n    <wsdl:operation name=\"SendOpenInvoices\">\r\n      <soap:operation
+        soapAction=\"AutoPayex/AutoPayexV4_0/SendOpenInvoices\" style=\"document\"
+        />\r\n      <wsdl:input>\r\n        <soap:body use=\"literal\" />\r\n      </wsdl:input>\r\n
+        \     <wsdl:output>\r\n        <soap:body use=\"literal\" />\r\n      </wsdl:output>\r\n
+        \   </wsdl:operation>\r\n  </wsdl:binding>\r\n  <wsdl:service name=\"AutoPayexV4_0\">\r\n
+        \   <wsdl:port name=\"BasicHttpBinding_AutoPayexV4_0_soap\" binding=\"tns:BasicHttpBinding_AutoPayexV4_0_soap\">\r\n
+        \     <soap:address location=\"https://autopayex.liza.nl/V4.0/AutoPayex.asmx\"/>\r\n
+        \   </wsdl:port>\r\n  </wsdl:service>\r\n</wsdl:definitions>"
+    headers:
+      content-length:
+      - '5888'
+      content-type:
+      - text/xml;charset=UTF-8
+      date:
+      - Fri, 03 Jul 2026 10:02:09 GMT
+      server:
+      - Microsoft-IIS/10.0
+      x-powered-by:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '<?xml version=''1.0'' encoding=''utf-8''?>
+
+      <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Body><ns0:SendOpenInvoices
+      xmlns:ns0="AutoPayex"><ns0:request><ns0:PackageVersion>19.0.1.0.0</ns0:PackageVersion><ns0:SupplierCountry>BE</ns0:SupplierCountry><ns0:SupplierIdentifierType>RegistrationNumber</ns0:SupplierIdentifierType><ns0:SupplierIdentifier>0869703978</ns0:SupplierIdentifier><ns0:Language>EN</ns0:Language><ns0:InvoicesList><ns0:InvoiceRequest><ns0:InvoiceNumber>INV/2026/00010</ns0:InvoiceNumber><ns0:CustomerCountry>BE</ns0:CustomerCountry><ns0:CustomerIdentifierType>RegistrationNumber</ns0:CustomerIdentifierType><ns0:CustomerIdentifier>0405056855</ns0:CustomerIdentifier><ns0:OpenAmountWhole>1000</ns0:OpenAmountWhole><ns0:InvoiceDate>20260601</ns0:InvoiceDate></ns0:InvoiceRequest></ns0:InvoicesList><ns0:Login>lizatestlogin</ns0:Login><ns0:Password>lizatestpassword</ns0:Password><ns0:ServiceIntegrator>acsone</ns0:ServiceIntegrator><ns0:LoginHash>1c6a15155c96d0a8ac3adf2f08e92f363c4586f0</ns0:LoginHash></ns0:request></ns0:SendOpenInvoices></soap-env:Body></soap-env:Envelope>'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1115'
+      Content-Type:
+      - text/xml; charset=utf-8
+      SOAPAction:
+      - '"AutoPayex/AutoPayexV4_0/SendOpenInvoices"'
+      User-Agent:
+      - Zeep/4.3.2 (www.python-zeep.org)
+    method: POST
+    uri: https://autopayex.liza.nl/V4.0/AutoPayex.asmx
+  response:
+    body:
+      string: "\uFEFF<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"
+        xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n
+        \ <s:Body>\r\n    <SendOpenInvoicesResponse xmlns=\"AutoPayex\">\r\n      <SendOpenInvoicesResult>\r\n
+        \       <StatusCode>0</StatusCode>\r\n        <StatusMessage>Success</StatusMessage>\r\n
+        \       <InvoicesSummary>\r\n          <NumberOfValidInvoices>1</NumberOfValidInvoices>\r\n
+        \         <NumberOfInvalidInvoices>0</NumberOfInvalidInvoices>\r\n          <NumberOfUniqueCustomers>1</NumberOfUniqueCustomers>\r\n
+        \         <TotalOpenAmountOfValidInvoices>1000</TotalOpenAmountOfValidInvoices>\r\n
+        \       </InvoicesSummary>\r\n      </SendOpenInvoicesResult>\r\n    </SendOpenInvoicesResponse>\r\n
+        \ </s:Body>\r\n</s:Envelope>"
+    headers:
+      content-type:
+      - text/xml; charset=utf-8
+      date:
+      - Fri, 03 Jul 2026 10:02:09 GMT
+      server:
+      - Microsoft-IIS/10.0
+      transfer-encoding:
+      - chunked
+      x-powered-by:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+version: 1

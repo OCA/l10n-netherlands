@@ -1,0 +1,24 @@
+<odoo>
+    <record model="res.groups.privilege" id="res_groups_privilege_liza">
+        <field name="name">Liza</field>
+        <field name="category_id" ref="base.module_category_master_data" />
+        <field name="sequence">15</field>
+    </record>
+    <record id="liza_view" model="res.groups">
+        <field name="name">View Liza Data</field>
+        <field name="privilege_id" ref="res_groups_privilege_liza" />
+        <field name="implied_ids" eval="[Command.link(ref('base.group_user'))]" />
+    </record>
+    <record id="liza_download" model="res.groups">
+        <field name="name">Download Liza Data</field>
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('liza_view')), Command.link(ref('base.group_partner_manager'))]"
+        />
+        <field name="privilege_id" ref="res_groups_privilege_liza" />
+        <field
+            name="user_ids"
+            eval="[Command.link(ref('base.user_root')), Command.link(ref('base.user_admin'))]"
+        />
+    </record>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_liza_credential_wizard_base,access_liza_credential_wizard_base,model_liza_base_credential_wizard_base,liza_base.liza_download,1,1,1,1
+access_liza_search_wizard,access_liza_search_wizard,model_liza_search_wizard,liza_base.liza_download,1,1,1,1
+access_liza_search_wizard_line,access_liza_search_wizard_line,model_liza_search_wizard_line,liza_base.liza_download,1,0,1,1
