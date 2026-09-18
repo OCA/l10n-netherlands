@@ -1,0 +1,1348 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* liza_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid " to Liza Alerts."
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_credential_wizard
+msgid ""
+"<br/>\n"
+"                <span>Click here to create your login information: </span>"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                                <span>Once a contact is added to the watch list, it cannot be removed again. Approach Liza for removal.</span>"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_liable_party
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_liable_party
+msgid ""
+"A 403 declaration is a liability statement in which the parent company "
+"accepts joint and several liability for the debts of its subsidiary. As a "
+"result, the subsidiary is not required; to publish its own annual accounts "
+"its figures are included in the consolidated financial statements of the "
+"parent company. (Netherlands only)"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_peppol
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_peppol
+msgid ""
+"A PEPPOL ID is a unique identification code used within the PEPPOL network "
+"for electronic communication, enabling standardized invoicing, ordering, and"
+" reporting in compliance with EU regulations."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_url_payment_experience
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_url_payment_experience
+msgid "A link to the payment experience report on liza.nl"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_industries
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_industries
+msgid "A list of the declared activities (NACE)"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__is_active
+#: model:ir.model.fields.selection,name:liza_base.selection__res_partner__liza_sync_status__active
+msgid "Active"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.actions.server,name:liza_base.action_liza_push_partner
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Add to Liza Alerts"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Added %(num_partner)i contact(s)"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Address & Registry"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_country_code_address
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_country_code_address
+msgid "Address Country Code"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_street
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_street
+msgid "Address of the registered office or headquarters"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_sync_status
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_sync_status
+msgid "Alert Status"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model,name:liza_base.model_liza_base_credential_wizard_abstract
+#: model:ir.model,name:liza_base.model_liza_base_credential_wizard_base
+msgid "Ask for Liza login & password"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_average_fte
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_average_fte
+msgid "Average number of staff in FTE"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields.selection,name:liza_base.selection__liza_search_wizard__country_code__be
+msgid "Belgium"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_balance_year
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_balance_year
+msgid "Book Year"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_credential_wizard
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_line_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Choose which contact fields should be filled with Liza data."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__city
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__city
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "City"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Commercial Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_url_report
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_url_report
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Commercial Report"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_commercial_name
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_commercial_name
+msgid "Commercial company name, for example 'Plopsa Coo'"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model,name:liza_base.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__company_registry
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Company ID"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_registry
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_registry
+msgid "Company Registry"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_vat
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_vat
+msgid "Company VAT number"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.ui.menu,name:liza_base.menu_liza_settings
+#: model:res.groups.privilege,name:liza_base.res_groups_privilege_liza
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Liza"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_partner_view_search_liza
+msgid "Liza Alerts Pending"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_average_fte_unset
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_average_fte_unset
+msgid "Liza Average number of staff in FTE Unset"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_image
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_image
+msgid "Liza Barometer Image"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_show_button_address
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_show_button_address
+msgid "Liza Button Address Enabled"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_show_button_enhance
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_show_button_enhance
+msgid "Liza Button Enhance Enabled"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_city
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_city
+msgid "Liza City"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_commercial_name
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_commercial_name
+msgid "Liza Commercial Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_companystatus_code
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_companystatus_code
+msgid "Liza Company StatusCode"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_country_id
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_country_id
+msgid "Liza Country"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_country_code
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_country_code
+msgid "Liza Country Code"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_creditLimit
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_creditLimit
+msgid "Liza Credit Limit"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_creditLimit_unset
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_creditLimit_unset
+msgid "Liza Credit Limit Unset"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_currency_id
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_currency_id
+msgid "Liza Currency"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_email
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_email
+msgid "Liza Email"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_equityCapital_unset
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_equityCapital_unset
+msgid "Liza Equity Capital Unset"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Liza Error"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_partner_view_search_liza
+msgid "Liza Errors"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_followup_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_followup_enable
+msgid "Liza Followup Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_addedValue_unset
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_addedValue_unset
+msgid "Liza Gross Margin (+/-) Unset"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__liza_login
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__liza_login
+msgid "Liza Login"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_name
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_name
+msgid "Liza Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__liza_password
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__liza_password
+msgid "Liza Password"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_phone
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_phone
+msgid "Liza Phone"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_zip
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_zip
+msgid "Liza Postal code"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_rsin_number
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_rsin_number
+msgid "Liza RSIN"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_score
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_score
+msgid "Liza Score"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.actions.act_window,name:liza_base.liza_search_wizard_act_window
+#: model:ir.model,name:liza_base.model_liza_search_wizard
+msgid "Liza Search Wizard"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model,name:liza_base.model_liza_search_wizard_line
+msgid "Liza Search Wizard Line"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_companystatus
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_companystatus
+msgid "Liza Status"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_street
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_street
+msgid "Liza Street"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_show_tab
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_show_tab
+msgid "Liza Tab Enabled"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_turnover_unset
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_turnover_unset
+msgid "Liza Turnover Unset"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_vat
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_vat
+msgid "Liza VAT"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_website
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_website
+msgid "Liza Website"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza error %(status)i while syncing: %(message)s"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza error %(status)i: %(message)s"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza only supports companies based in %(country_codes)s"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza status %(status)i: %(message)s"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.actions.server,name:liza_base.ir_cron_liza_followup_ir_actions_server
+msgid "Liza: Followup - get changed data"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza: Please use the address for API V2.0"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza: You don't have access"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Liza: You don't have access to download data"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model,name:liza_base.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model,name:liza_base.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Copied Liza data to Contact"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Copy Data"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__country_code
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__country
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Country"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__country_code
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Country Code"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__create_uid
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__create_uid
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__create_date
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__create_date
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Credentials"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Credit Limit"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_creditLimit_info
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_creditLimit_info
+msgid "Credit Limit Info"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_address_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_address_enable
+msgid "Liza Address Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_balance_data_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_balance_data_enable
+msgid "Liza Balance Data Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_commercial_name_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_commercial_name_enable
+msgid "Liza Commercial Name Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_companystatus_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_companystatus_enable
+msgid "Liza Companystatus Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_country_code_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_country_code_enable
+msgid "Liza Country Code Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_creditLimit_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_creditLimit_enable
+msgid "Liza Creditlimit Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_email_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_email_enable
+msgid "Liza Email Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_endDate_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_endDate_enable
+msgid "Liza Enddate Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_industries_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_industries_enable
+msgid "Liza Industries Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_jur_form_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_jur_form_enable
+msgid "Liza Jur Form Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_liable_party_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_liable_party_enable
+msgid "Liza Liable Party Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_main_industry_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_main_industry_enable
+msgid "Liza Main Industry Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_name_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_name_enable
+msgid "Liza Name Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_peppol_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_peppol_enable
+msgid "Liza Peppol Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_phone_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_phone_enable
+msgid "Liza Phone Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_prefLang_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_prefLang_enable
+msgid "Liza Preflang Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_registry_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_registry_enable
+msgid "Liza Registry Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_rsin_number_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_rsin_number_enable
+msgid "Liza Rsin Number Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_score_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_score_enable
+msgid "Liza Score Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_startDate_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_startDate_enable
+msgid "Liza Startdate Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_sync_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_sync_enable
+msgid "Liza Sync Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_sync_reference
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_sync_reference
+msgid "Liza Sync Reference"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_url_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_url_enable
+msgid "Liza Url Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_url_payment_experience_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_url_payment_experience_enable
+msgid "Liza Url Payment Experience Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_url_report_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_url_report_enable
+msgid "Liza Url Report Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_vat_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_vat_enable
+msgid "Liza Vat Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_vat_liable_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_vat_liable_enable
+msgid "Liza Vat Liable Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_warnings_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_warnings_enable
+msgid "Liza Warnings Enable"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_website_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_website_enable
+msgid "Liza Website Enable"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Data"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_endDate
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_endDate
+msgid "Date at which the company stopped its activity"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_startDate
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_startDate
+msgid "Date of establishment of the company"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_url_report
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_url_report
+msgid "Detailed report about this company on liza.nl"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_url
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_url
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Details"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_abstract__display_name
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__display_name
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__display_name
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__display_name
+#: model:ir.model.fields,field_description:liza_base.field_res_company__display_name
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__display_search_button
+msgid "Display Search Button"
+msgstr ""
+
+#. module: liza_base
+#: model:res.groups,name:liza_base.liza_download
+msgid "Download Liza Data"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Email"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__liza_followup_enable
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__liza_followup_enable
+msgid "Enable Contact Data Followup"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_endDate
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_endDate
+msgid "End Date"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Enhance"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Enhance Contact Data"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_equityCapital
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_equityCapital
+msgid "Equity"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_error
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_error
+msgid "Error"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_error
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_error
+msgid "Error when enhancing contact with Liza"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_startDate
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_startDate
+msgid "Established"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Failed to push %(num_partner_errors)i contact(s)"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_city
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_city
+msgid "Fill Liza City"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_commercial_name
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_commercial_name
+msgid "Fill Liza Commercial Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_country_id
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_country_id
+msgid "Fill Liza Country"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_email
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_email
+msgid "Fill Liza Email"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_name
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_name
+msgid "Fill Liza Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_phone
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_phone
+msgid "Fill Liza Phone"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_registry
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_registry
+msgid "Fill Liza Registry"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_street
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_street
+msgid "Fill Liza Street"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_vat
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_vat
+msgid "Fill Liza Vat"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_website
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_website
+msgid "Fill Liza Website"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_company__fill_liza_zip
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__fill_liza_zip
+msgid "Fill Liza Zip"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Fill Data"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Financial"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_warnings
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_warnings
+msgid "Financial warning signs about the company"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_credential_wizard
+msgid "Follow this link"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Followup"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields.selection,name:liza_base.selection__liza_search_wizard__country_code__fr
+msgid "France"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_url
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_url
+msgid "Further details about this company on liza.nl"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Get a subscription from Liza and fill in your credentials."
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Global"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_result
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_result
+msgid "Gross Margin"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_result_unset
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_result_unset
+msgid "Gross Margin Unset"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Health"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_image_tag
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_image_tag
+msgid "Health Barometer"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_abstract__id
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__id
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__id
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__id
+#: model:ir.model.fields,field_description:liza_base.field_res_company__id
+#: model:ir.model.fields,field_description:liza_base.field_res_config_settings__id
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_sync_reference
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_sync_reference
+msgid ""
+"Identifies the record from Odoo with the one saved in the Alerts list at "
+"Liza"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_sync
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_sync
+msgid "In Alerts"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_partner_view_search_liza
+msgid "In Liza Alerts"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Invalid country. Countries supported: %(countries)s."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_vat_liable
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_vat_liable
+msgid "Is the company subject to VAT or not"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid ""
+"Keep your contact data in sync with Liza. Click 'Add to Liza "
+"Alerts' on Partner's Liza tab or in contacts action menu."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_lastupdate
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_lastupdate
+msgid "Last Update"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__write_uid
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__write_uid
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__write_date
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__write_date
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_jur_form
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_jur_form
+msgid "Legal Form"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_jur_form
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_jur_form
+msgid "Legal form of the company, such as 'NV', 'SA', 'NP' etc."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_liable_party
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_liable_party
+msgid "Liable Party"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_abstract__liza_login
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__liza_login
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Login"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields.selection,name:liza_base.selection__liza_search_wizard__country_code__lu
+msgid "Luxembourg"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_main_industry
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_main_industry
+msgid "Main Industry"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Missing Liza credentials on company %(company)s"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Missing VAT or Company Registry."
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Missing liza credentials on company %(company)s"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Missing country."
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Missing values for company search: %(message)s"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__name
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Name"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields.selection,name:liza_base.selection__liza_search_wizard__country_code__nl
+msgid "Netherlands"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields.selection,name:liza_base.selection__res_partner__liza_sync_status__none
+msgid "None"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_partner_view_search_liza
+msgid "Not in Liza Alerts"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_industries
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_industries
+msgid "Other Activities"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_sync
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_sync
+msgid ""
+"Partner is being synchronized with Liza. To remove from alerts, please"
+" contact Liza."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_abstract__liza_password
+#: model:ir.model.fields,field_description:liza_base.field_liza_base_credential_wizard_base__liza_password
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Password"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_url_payment_experience
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_url_payment_experience
+msgid "Payment Experience"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Payment Experience Report"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields.selection,name:liza_base.selection__res_partner__liza_sync_status__pending
+msgid "Pending"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Phone"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_prefLang_id
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_prefLang_id
+msgid "Preferred Language"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_prefLang_id
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_prefLang_id
+msgid ""
+"Preferred languages for communication, based on publication languages, among"
+" other factors."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_addedValue
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_addedValue
+msgid "Profit/Loss of the Book Year"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_rsin_number
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_rsin_number
+msgid ""
+"RSIN: 'Rechtspersonen en Samenwerkingsverbanden Informatienummer' is used to"
+" exchange data with other government organisations, such as the Netherlands "
+"Tax Administration. (Netherlands only)"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_peppol
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_peppol
+msgid "Registered on Peppol"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__registry
+msgid "Registry"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Reports"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_credential_wizard
+msgid "Save"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_form_view
+msgid "Search"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_form_view
+msgid "Search Liza"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__line_ids
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_form_view
+msgid "Search Results"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__search_term
+msgid "Search Term"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Seat"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_line_form_view
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_search_wizard_line_list_view
+msgid "Select & Fill"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.actions.act_window,name:liza_base.action_liza_config
+msgid "Settings"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+msgid "Status"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__street
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Street"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_vat_liable
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_vat_liable
+msgid "Subject to VAT"
+msgstr ""
+
+#. module: liza_base
+#. odoo-python
+#: code:addons/liza_base/models/res_partner.py:0
+msgid "Successfully fetched Liza data"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_score
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_score
+msgid "The Liza health barometer"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_main_industry
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_main_industry
+msgid "The main activity of this company (NACE)"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_country_code
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_country_code
+msgid "The official code of Belgium, The Netherlands, Luxembourg and France"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_name
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_name
+msgid ""
+"The official company name, for example 'Nationale Maatschappij Der Belgisch "
+"Spoorwegen' or 'Plopsa'."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_registry
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_registry
+msgid ""
+"The official registration number of a company. \n"
+"• Belgium: KBO, BCE, CBE\n"
+"• Netherlands: KvK\n"
+"• Luxembourg: RCS\n"
+"• France: SIREN"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.constraint,message:liza_base.constraint_res_company_liza_login_unique
+msgid "These credentials are already in use, please contact Liza."
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_closed_date
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_closed_date
+msgid "To Date"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_turnover
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_turnover
+msgid "Turnover"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__vat
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "VAT"
+msgstr ""
+
+#. module: liza_base
+#: model:res.groups,name:liza_base.liza_view
+msgid "View Liza Data"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_res_partner__liza_warnings
+#: model:ir.model.fields,field_description:liza_base.field_res_users__liza_warnings
+msgid "Warnings"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_partner_view
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "Website"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,help:liza_base.field_res_partner__liza_companystatus
+#: model:ir.model.fields,help:liza_base.field_res_users__liza_companystatus
+msgid "Whether a company is active or not"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.res_config_settings_view_form
+msgid "ZIP"
+msgstr ""
+
+#. module: liza_base
+#: model:ir.model.fields,field_description:liza_base.field_liza_search_wizard__zip
+msgid "ZIP Code"
+msgstr ""
+
+#. module: liza_base
+#: model_terms:ir.ui.view,arch_db:liza_base.liza_credential_wizard
+msgid "https://www.liza.nl"
+msgstr ""
