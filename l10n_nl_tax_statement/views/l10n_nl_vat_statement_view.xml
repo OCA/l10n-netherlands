@@ -111,6 +111,7 @@
                             <field name="date_posted" />
                             <field name="date_update" />
                             <field name="currency_id" />
+                            <field name="post_move_id" readonly="1" />
                         </group>
                     </group>
                     <notebook name="notebook">
