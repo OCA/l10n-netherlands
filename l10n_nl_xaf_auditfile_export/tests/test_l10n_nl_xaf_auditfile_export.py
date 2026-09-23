@@ -3,8 +3,10 @@
 
 import base64
 import os
+import subprocess
 from datetime import timedelta
 from io import BytesIO
+from unittest import mock
 from zipfile import ZipFile
 
 from lxml import etree
@@ -106,7 +108,9 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
         with ZipFile(zf, "r") as archive:
             filelist = archive.filelist
             contents = archive.read(filelist[-1]).decode()
-        self.assertTrue(contents.startswith("<?xml "))
+        self.assertTrue(
+            contents.startswith('<?xml version="1.0" encoding="UTF-8"?>\n<auditfile ')
+        )
 
     @mute_logger("odoo.addons.l10n_nl_xaf_auditfile_export.models.xaf_auditfile_export")
     def test_03_export_error(self):
@@ -137,6 +141,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
         self.assertTrue(record.name)
         self.assertTrue(record.auditfile)
         self.assertTrue(record.auditfile_name)
+        self.assertTrue(record.auditfile_success)
         self.assertTrue(record.company_id)
         self.assertTrue(record.date_start)
         self.assertTrue(record.date_end)
@@ -149,20 +154,24 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
             with ZipFile(zf, "r") as archive:
                 filelist = archive.filelist
                 contents = archive.read(filelist[-1]).decode()
-            self.assertTrue(contents.startswith("<?xml "))
+            self.assertTrue(
+                contents.startswith(
+                    '<?xml version="1.0" encoding="UTF-8"?>\n<auditfile '
+                )
+            )
 
     def test_05_export_success(self):
         """Export auditfile with / character in filename"""
         record = self.env["xaf.auditfile.export"].create({})
         record.name += f"{os.sep}01"
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
     def test_06_include_moves_from_inactive_journals(self):
         """Include moves off of inactive journals"""
         record = self.env["xaf.auditfile.export"].create({})
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
@@ -175,7 +184,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
 
         record_after = self.env["xaf.auditfile.export"].create({})
         record_after.button_generate()
-        self.assertTrue(record_after)
+        self.assertTrue(record_after.auditfile_success)
 
         line_count_after = record_after.get_move_line_count()
         parsed_count_after = get_transaction_line_count_from_xml(record_after.auditfile)
@@ -199,7 +208,7 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
         )
         record = self.env["xaf.auditfile.export"].create({})
         record.button_generate()
-        self.assertTrue(record)
+        self.assertTrue(record.auditfile_success)
 
         line_count = record.get_move_line_count()
         parsed_line_count = get_transaction_line_count_from_xml(record.auditfile)
@@ -314,3 +323,25 @@ class TestXafAuditfileExport(AccountTestInvoicingCommon):
             record.auditfile, "//a:openingBalance/a:linesCount/text()"
         )
         self.assertEqual(lines_count, 2)
+
+    def test_10_ampersand_in_name(self):
+        """Error because of invalid characters in an auditfile"""
+        record = (
+            self.env["xaf.auditfile.export"]
+            .with_context(dont_sanitize_xml=True)
+            .create({})
+        )
+        # add an ampersand
+        record.company_id.name += " & OCA"
+        record.button_generate()
+        self.assertTrue(record.auditfile_success)
+
+    def test_11_xmllint(self):
+        """
+        Test behavior with xmllint available
+        """
+        with mock.patch("shutil.which") as which, mock.patch("subprocess.run") as run:
+            which.return_value = "/mock/xmllint"
+            self.test_02_export_success()
+            run.side_effect = subprocess.CalledProcessError(-1, "xmllint")
+            self.test_03_export_error()
