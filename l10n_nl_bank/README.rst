@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ================
 Dutch banks list
 ================
@@ -17,7 +13,7 @@ Dutch banks list
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
@@ -34,8 +30,13 @@ Dutch banks list
 
 This module will import all the Dutch banks with their name and BIC code
 to ease the input of bank accounts. The module contains the newest bank
-data (23.07.2020) Data Source:
+data Data Source:
 https://www.betaalvereniging.nl/betalingsverkeer/giraal-betalingsverkeer/bic-sepa-transacties/
+
+The data file in this module can be auto generated/update by the
+``generate_bank_data.py`` script located in the scripts directory. To
+update the data file, just run ``generate_bank_data.py`` and a refreshed
+data file is generated. (Make sure to install the dependencies first).
 
 **Table of contents**
 
@@ -65,6 +66,7 @@ Contributors
 
 - Erwin van der Ploeg <erwin@odooexperts.nl>
 - Andrea Stirpe <a.stirpe@onestein.nl>
+- bosd <emiel.vanbokhoven@obs-solutions.com>
 
 Other credits
 -------------
