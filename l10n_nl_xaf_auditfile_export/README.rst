@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ====================
 XAF auditfile export
 ====================
@@ -17,7 +13,7 @@ XAF auditfile export
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
@@ -44,6 +40,17 @@ accepted by Unit4.
 
 .. contents::
    :local:
+
+Installation
+============
+
+In order to reduce the memory footprint of the validation step, you can
+install the xmllint tool, which is part of the
+``libxml2 <https://gitlab.gnome.org/GNOME/libxml2>``\ \_ package:
+
+::
+
+   sudo apt install libxml2-utils
 
 Configuration
 =============
