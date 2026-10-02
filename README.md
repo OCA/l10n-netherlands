@@ -28,10 +28,10 @@ addon | version | maintainers | summary
 [l10n_nl_oin](l10n_nl_oin/) | 16.0.1.0.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Adds Dutch OIN field
 [l10n_nl_partner_name](l10n_nl_partner_name/) | 16.0.1.0.1 |  | Adapt parter names to Dutch conventions (support infix)
 [l10n_nl_postcode](l10n_nl_postcode/) | 16.0.1.0.0 | <a href='https://github.com/astirpe'><img src='https://github.com/astirpe.png' width='32' height='32' style='border-radius:50%;' alt='astirpe'/></a> | Dutch postcode validation for Partners
-[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 16.0.1.0.2 |  | Netherlands BTW Statement
+[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 16.0.1.0.3 |  | Netherlands BTW Statement
 [l10n_nl_tax_statement_date_range](l10n_nl_tax_statement_date_range/) | 16.0.1.0.0 |  | Netherlands BTW Statement - Date range
-[l10n_nl_tax_statement_icp](l10n_nl_tax_statement_icp/) | 16.0.1.1.0 |  | Netherlands ICP Statement
-[l10n_nl_tax_statement_icp_split](l10n_nl_tax_statement_icp_split/) | 16.0.1.0.0 | <a href='https://github.com/hbrunn'><img src='https://github.com/hbrunn.png' width='32' height='32' style='border-radius:50%;' alt='hbrunn'/></a> | Manage your BTW and ICP statements separately
+[l10n_nl_tax_statement_icp](l10n_nl_tax_statement_icp/) | 16.0.1.1.1 |  | Netherlands ICP Statement
+[l10n_nl_tax_statement_icp_split](l10n_nl_tax_statement_icp_split/) | 16.0.1.0.1 | <a href='https://github.com/hbrunn'><img src='https://github.com/hbrunn.png' width='32' height='32' style='border-radius:50%;' alt='hbrunn'/></a> | Manage your BTW and ICP statements separately
 [l10n_nl_xaf_auditfile_export](l10n_nl_xaf_auditfile_export/) | 16.0.2.0.0 |  | Export XAF auditfiles for Dutch tax authorities
 
 [//]: # (end addons)

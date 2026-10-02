@@ -4,7 +4,7 @@
 {
     "name": "Netherlands ICP Statement (apart from BTW)",
     "summary": "Manage your BTW and ICP statements separately",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "development_status": "Alpha",
     "category": "Localization",
     "website": "https://github.com/OCA/l10n-netherlands",

@@ -3,7 +3,7 @@
 
 {
     "name": "Netherlands ICP Statement",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.1.1",
     "category": "Localization",
     "license": "AGPL-3",
     "author": "Onestein, Odoo Community Association (OCA)",
