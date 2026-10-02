@@ -71,6 +71,15 @@ msgstr ""
 "are company-specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">NL Tax Statement Posting</span>\n"
+"                        <span class=\"fa fa-lg fa-building-o\" "
+"title=\"Values set here are company-specific.\" aria-label=\"Values set here "
+"are company-specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.report_tax_statement
 msgid "Aangifte omzetbelasting"
 msgstr "Aangifte omzetbelasting"
@@ -355,6 +364,11 @@ msgid "Is Total"
 msgstr "5g - Totaal"
 
 #. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid "Journal"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move
 msgid "Journal Entry"
 msgstr "Boeking"
@@ -363,6 +377,47 @@ msgstr "Boeking"
 #: model:ir.model,name:l10n_nl_tax_statement.model_account_move_line
 msgid "Journal Item"
 msgstr "Journaal Post"
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid ""
+"Journal and account used to post the entry that balances the NL VAT "
+"statement."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid ""
+"Journal and rounding account used to post the NL VAT statement journal "
+"entry.\n"
+"                            Optionally, you can also configure a partner to "
+"link to the payable/receivable\n"
+"                            amount."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_statement_journal_id
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_statement_journal_id
+msgid "Journal used to post the journal entry for the NL VAT statement."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_statement_journal_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_statement_journal_id
+msgid "L10N Nl Tax Statement Journal"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_statement_partner_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_statement_partner_id
+msgid "L10N Nl Tax Statement Partner"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_statement_rounding_account_id
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_statement_rounding_account_id
+msgid "L10N Nl Tax Statement Rounding Account"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_account_bank_statement_line__l10n_nl_vat_statement_id
@@ -559,6 +614,14 @@ msgid "Parent Statement"
 msgstr "Bovenliggende Aangifte"
 
 #. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_statement_partner_id
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_statement_partner_id
+msgid ""
+"Partner used on the payable/receivable line of the NL VAT statement journal "
+"entry. Its payable/receivable account is used for that line."
+msgstr ""
+
+#. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Past Undeclared Moves"
 msgstr "Historische niet aangegeven mutaties"
@@ -573,6 +636,11 @@ msgstr "Versturen"
 #: model:ir.model.fields.selection,name:l10n_nl_tax_statement.selection__l10n_nl_vat_statement__state__posted
 msgid "Posted"
 msgstr "Ingezonden"
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__post_move_id
+msgid "Posting Entry"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
@@ -593,6 +661,18 @@ msgstr "verwijder mutatie"
 #: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.view_l10n_nl_vat_report_form
 msgid "Reset to Draft"
 msgstr "Terugzetten naar concept"
+
+#. module: l10n_nl_tax_statement
+#. odoo-python
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "Rounding"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid "Rounding Account"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
@@ -635,6 +715,11 @@ msgid ""
 msgstr ""
 "BTW-toewijzing is niet geconfigureerd voor het Nederlandse grootboekschema! "
 "Controleer de Nederlandse BTW labels instellingen."
+
+#. module: l10n_nl_tax_statement
+#: model_terms:ir.ui.view,arch_db:l10n_nl_tax_statement.res_config_settings_view_form
+msgid "Tax Authority Partner"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement.field_l10n_nl_vat_statement__name
@@ -696,6 +781,20 @@ msgstr "Hulpveld om de valuta uit te drukken"
 #, python-format
 msgid "VAT"
 msgstr "BTW"
+
+#. module: l10n_nl_tax_statement
+#. odoo-python
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "VAT to pay"
+msgstr ""
+
+#. module: l10n_nl_tax_statement
+#. odoo-python
+#: code:addons/l10n_nl_tax_statement/models/l10n_nl_vat_statement.py:0
+#, python-format
+msgid "VAT to receive"
+msgstr ""
 
 #. module: l10n_nl_tax_statement
 #. odoo-python
@@ -843,6 +942,14 @@ msgid ""
 msgstr ""
 "U kunt geen aangifte indienen indien wanneer niet alle voorgaande aangiftes "
 "zijn ingedient. Dien eerst de voorgaande aangiftes in."
+
+#. module: l10n_nl_tax_statement
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_res_company__l10n_nl_tax_statement_rounding_account_id
+#: model:ir.model.fields,help:l10n_nl_tax_statement.field_res_config_settings__l10n_nl_tax_statement_rounding_account_id
+msgid ""
+"[\"Account used to book the rounding difference of the NL VAT statement "
+"journal entry.\"]"
+msgstr ""
 
 #~ msgid ""
 #~ "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are "
