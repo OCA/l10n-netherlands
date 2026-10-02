@@ -286,6 +286,11 @@ msgid "Partner"
 msgstr ""
 
 #. module: l10n_nl_tax_statement_icp_split
+#: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp_split.field_l10n_nl_icp_statement__post_move_id
+msgid "Posting Entry"
+msgstr ""
+
+#. module: l10n_nl_tax_statement_icp_split
 #: model:ir.model.fields,field_description:l10n_nl_tax_statement_icp_split.field_l10n_nl_icp_statement__state
 msgid "Status"
 msgstr ""
