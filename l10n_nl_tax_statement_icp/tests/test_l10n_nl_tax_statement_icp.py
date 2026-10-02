@@ -9,10 +9,8 @@ from odoo.addons.l10n_nl_tax_statement.tests.test_l10n_nl_vat_statement import (
 
 
 class TestTaxStatementIcp(TestVatStatement):
-    def _prepare_icp_invoice(self):
-
-        self.invoice_1._post()
-        for invoice_line in self.invoice_1.invoice_line_ids:
+    def _prepare_icp_invoice(self, invoice):
+        for invoice_line in invoice.invoice_line_ids:
             invoice_line.tax_tag_ids = self.tag_5
         self.statement_with_icp.statement_update()
 
@@ -70,15 +68,16 @@ class TestTaxStatementIcp(TestVatStatement):
         self._check_export_xls(self.statement_with_icp)
 
     def test_04_icp_invoice(self):
-        self._create_test_invoice()
-        self.invoice_1.partner_id.country_id = self.env.ref("base.be")
-        self.invoice_1.partner_id.vat = "BE0477472701"
+        invoice_1 = self._create_test_invoice(post=False)
+        invoice_1.partner_id.country_id = self.env.ref("base.be")
+        invoice_1.partner_id.vat = "BE0477472701"
         self.statement_1.post()
         self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
         )
 
-        self._prepare_icp_invoice()
+        invoice_1.action_post()
+        self._prepare_icp_invoice(invoice_1)
 
         self.statement_with_icp.post()
         self.assertTrue(self.statement_with_icp.icp_line_ids)
@@ -100,15 +99,15 @@ class TestTaxStatementIcp(TestVatStatement):
     def test_05_icp_invoice_service(self):
         self.tax_1.name = self.tax_1.name + " dienst"
         self.tax_2.name = self.tax_2.name + " dienst"
-        self._create_test_invoice()
+        invoice_1 = self._create_test_invoice(post=False)
         self.statement_1.post()
         self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
         )
 
-        self.invoice_1.partner_id.country_id = self.env.ref("base.be")
-        self.invoice_1._post()
-        for invoice_line in self.invoice_1.invoice_line_ids:
+        invoice_1.partner_id.country_id = self.env.ref("base.be")
+        invoice_1.action_post()
+        for invoice_line in invoice_1.invoice_line_ids:
             invoice_line.tax_tag_ids = self.tag_6
         self.statement_with_icp.statement_update()
 
@@ -130,14 +129,15 @@ class TestTaxStatementIcp(TestVatStatement):
         self._check_export_xls(self.statement_with_icp)
 
     def test_06_icp_invoice_nl(self):
-        self._create_test_invoice()
+        invoice_1 = self._create_test_invoice(post=False)
         self.statement_1.post()
         self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
         )
 
-        self.invoice_1.partner_id.country_id = self.env.ref("base.nl")
-        self._prepare_icp_invoice()
+        invoice_1.partner_id.country_id = self.env.ref("base.nl")
+        invoice_1.action_post()
+        self._prepare_icp_invoice(invoice_1)
 
         with self.assertRaises(ValidationError):
             self.statement_with_icp.post()
@@ -146,14 +146,15 @@ class TestTaxStatementIcp(TestVatStatement):
         self._check_export_xls(self.statement_with_icp)
 
     def test_07_icp_invoice_outside_europe(self):
-        self._create_test_invoice()
+        invoice_1 = self._create_test_invoice(post=False)
         self.statement_1.post()
         self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
         )
 
-        self.invoice_1.partner_id.country_id = self.env.ref("base.us")
-        self._prepare_icp_invoice()
+        invoice_1.partner_id.country_id = self.env.ref("base.us")
+        invoice_1.action_post()
+        self._prepare_icp_invoice(invoice_1)
 
         with self.assertRaises(ValidationError):
             self.statement_with_icp.post()

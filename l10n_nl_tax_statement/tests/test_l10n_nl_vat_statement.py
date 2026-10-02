@@ -46,6 +46,12 @@ class TestVatStatement(TransactionCase):
         )
         cls.env.user.company_id = cls.company_parent
         cls.coa.try_loading(company=cls.company_parent, install_demo=False)
+        cls.journal_misc = cls.env["account.journal"].search(
+            [
+                ("type", "=", "general"),
+                ("company_id", "=", cls.env.company.id),
+            ],
+        )[0]
 
         cls.env["l10n.nl.vat.statement"].search([]).unlink()
 
@@ -91,6 +97,13 @@ class TestVatStatement(TransactionCase):
                 "country_id": cls.env.ref("base.nl").id,
             }
         )
+        cls.tag_7 = cls.env["account.account.tag"].create(
+            {
+                "name": "+5b btw",
+                "applicability": "taxes",
+                "country_id": cls.env.ref("base.nl").id,
+            },
+        )
 
         cls.tax_1 = cls.env["account.tax"].create(
             {"name": "Tax 1", "amount": 21, "country_id": cls.env.ref("base.nl").id}
@@ -104,40 +117,53 @@ class TestVatStatement(TransactionCase):
         cls.tax_2.invoice_repartition_line_ids[0].tag_ids = cls.tag_3
         cls.tax_2.invoice_repartition_line_ids[1].tag_ids = cls.tag_4
 
+        cls.tax_3 = cls.env["account.tax"].create(
+            {
+                "name": "Purchase Tax",
+                "amount": 21,
+                "country_id": cls.env.ref("base.nl").id,
+                "type_tax_use": "purchase",
+            }
+        )
+        cls.tax_3.invoice_repartition_line_ids[1].tag_ids = cls.tag_7
+
         cls.statement_1 = cls.env["l10n.nl.vat.statement"].create(
             {"name": "Statement 1"}
         )
 
-    def _create_test_invoice(self):
+    def _create_test_invoice(self, lines=None, post=True, move_type="out_invoice"):
+        if lines is None:
+            lines = [
+                {
+                    "price_unit": 100,
+                    "tax_ids": self.tax_1,
+                },
+                {
+                    "price_unit": 50,
+                    "tax_ids": self.tax_2,
+                },
+            ]
         self.company_parent.compute_account_tax_fiscal_country()
 
         partner = self.env["res.partner"].create({"name": "Test partner"})
-        self.env["account.account"].create(
-            {
-                "account_type": "expense",
-                "code": "EXPTEST",
-                "name": "Test expense account",
-            }
-        )
         invoice_form = Form(
-            self.env["account.move"].with_context(default_move_type="out_invoice")
+            self.env["account.move"].with_context(default_move_type=move_type)
         )
         invoice_form.partner_id = partner
+        invoice_form.invoice_date = invoice_form.date
 
-        with invoice_form.invoice_line_ids.new() as line:
-            line.name = "Test line"
-            line.quantity = 1.0
-            line.price_unit = 100.0
-            line.tax_ids.clear()
-            line.tax_ids.add(self.tax_1)
-        with invoice_form.invoice_line_ids.new() as line:
-            line.name = "Test line"
-            line.quantity = 1.0
-            line.price_unit = 50.0
-            line.tax_ids.clear()
-            line.tax_ids.add(self.tax_2)
-        self.invoice_1 = invoice_form.save()
-        self.assertEqual(len(self.invoice_1.line_ids), 5)
+        for line in lines:
+            with invoice_form.invoice_line_ids.new() as line_form:
+                line_form.name = line.get("name", "Test line")
+                line_form.quantity = line.get("quantity", 1.0)
+                line_form.price_unit = line.get("price_unit", 100.0)
+                line_form.tax_ids.clear()
+                for tax in line.get("tax_ids", []):
+                    line_form.tax_ids.add(tax)
+        invoice = invoice_form.save()
+        if post:
+            invoice.action_post()
+        return invoice
 
     def _check_export_xls(self, statement):
         """Generate XLS report from action"""
@@ -257,7 +283,6 @@ class TestVatStatement(TransactionCase):
 
     def test_09_update_working(self):
         self._create_test_invoice()
-        self.invoice_1.action_post()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
 
@@ -288,7 +313,6 @@ class TestVatStatement(TransactionCase):
         self.assertEqual(self.statement_1.btw_total, 0.0)
 
         self._create_test_invoice()
-        self.invoice_1.action_post()
         self.statement_1.statement_update()
         self.statement_1.post()
         with self.assertRaises(UserError):
@@ -304,17 +328,160 @@ class TestVatStatement(TransactionCase):
             with self.assertRaises(UserError):
                 line.unlink()
 
-    def test_12_undeclared_invoice(self):
-        self._create_test_invoice()
-        self.invoice_1.action_post()
+    def _setup_post_move(self):
+        expense_account = self.env["account.account"].search(
+            [
+                ("account_type", "=", "expense"),
+                ("company_id", "=", self.env.company.id),
+            ],
+            limit=1,
+        )
+        self.env.company.l10n_nl_tax_statement_rounding_account_id = (
+            expense_account.copy(
+                {"code": "0" + expense_account.code},
+            )
+        )
+        self.env.company.l10n_nl_tax_statement_journal_id = self.journal_misc
+        self.tax_authority = self.env["res.partner"].create({"name": "Tax Authority"})
+        self.env.company.l10n_nl_tax_statement_partner_id = self.tax_authority
 
-        self.invoice_1.l10n_nl_add_move_in_statement()
-        self.assertTrue(self.invoice_1.line_ids)
-        for line in self.invoice_1.line_ids:
+    def test_11_post_journal_entry(self):
+        """Check the journal entry created for the statement.
+
+        Set up a statement for a period with a sales and a purchase invoice.
+        Configure the company of the statement to create journal entries for VAT
+        statements. The created statement has one line per tax account, plus a
+        liability line and a rounding line.
+        """
+        self._setup_post_move()
+        self._create_test_invoice(
+            lines=[
+                {
+                    "price_unit": 25.25,
+                    "tax_ids": self.tax_1,
+                },
+            ]
+        )
+        self._create_test_invoice(
+            lines=[
+                {
+                    "price_unit": 7,
+                    "tax_ids": self.tax_3,
+                },
+            ],
+            move_type="in_invoice",
+        )
+        self.statement_1.statement_update()
+        move = self.statement_1.post_move_id
+        self.assertTrue(move)
+        self.assertEqual(
+            move.line_ids.sorted(
+                key=lambda aml: (aml.name, aml.debit - aml.credit),
+            ).mapped(
+                lambda aml: (aml.name, aml.debit, aml.credit),
+            ),
+            [
+                ("Rounding", 0.17, 0.0),
+                ("VAT Statement", 0.0, 1.47),  # ~ .21 * 7
+                ("VAT Statement", 5.3, 0.0),  # ~ .21 * 25.25
+                ("VAT to pay", 0.0, 4.0),
+            ],
+        )
+        payable = move.line_ids.filtered(lambda aml: aml.name == "VAT to pay")
+        self.assertEqual(payable.account_id.account_type, "liability_payable")
+        self.assertEqual(payable.partner_id, self.tax_authority)
+
+        # Move is kept aligned on every statement update
+        self.assertEqual(move.ref, "Statement 1")
+        self.statement_1.name = "Statement 2000"
+        self.statement_1.statement_update()
+        self.assertEqual(move.ref, "Statement 2000")
+
+        # Test posting move lifecycle
+        self.assertEqual(move.state, "draft")
+        self.statement_1.post()
+        self.assertEqual(move.state, "posted")
+        self.statement_1.reset()
+        self.assertEqual(move.state, "draft")
+
+    def test_11a_post_journal_entry_no_lines(self):
+        """Check the posted move mechanism if there is nothing to report."""
+        self._setup_post_move()
+        self.statement_1.statement_update()
+        self.assertTrue(self.statement_1.post_move_id)
+        self.assertFalse(self.statement_1.post_move_id.line_ids)
+        self.assertEqual(self.statement_1.post_move_id.state, "draft")
+        self.statement_1.post()
+        self.assertEqual(self.statement_1.post_move_id.state, "cancel")
+        self.statement_1.reset()
+        self.assertEqual(self.statement_1.post_move_id.state, "draft")
+
+    def test_11b_post_journal_entry_to_receive(self):
+        """Check posting entry when there is an amount to receive"""
+        self._setup_post_move()
+        self._create_test_invoice(
+            lines=[
+                {
+                    "price_unit": 7,
+                    "tax_ids": self.tax_1,
+                },
+            ]
+        )
+        self._create_test_invoice(
+            lines=[
+                {
+                    "price_unit": 25.25,
+                    "tax_ids": self.tax_3,
+                },
+            ],
+            move_type="in_invoice",
+        )
+        self.statement_1.statement_update()
+        move = self.statement_1.post_move_id
+        self.assertTrue(move)
+        self.assertEqual(
+            move.line_ids.sorted(
+                key=lambda aml: (aml.name, aml.debit - aml.credit),
+            ).mapped(
+                lambda aml: (aml.name, aml.debit, aml.credit),
+            ),
+            [
+                ("Rounding", 0, 0.17),
+                ("VAT Statement", 0, 5.3),
+                ("VAT Statement", 1.47, 0),
+                ("VAT to receive", 4.0, 0),
+            ],
+        )
+        receivable = move.line_ids.filtered(lambda aml: aml.name == "VAT to receive")
+        self.assertEqual(receivable.account_id.account_type, "asset_receivable")
+
+    def test_11c_post_journal_entry_config(self):
+        """Posting move is created depending on the config"""
+        self._setup_post_move()
+        self.statement_1.statement_update()
+        self.assertTrue(self.statement_1.post_move_id)
+        # Can create posting move without a partner
+        self.env.company.l10n_nl_tax_statement_partner_id = False
+        self.statement_1.statement_update()
+        self.assertTrue(self.statement_1.post_move_id.state, "draft")
+        # But not without a journal
+        self.env.company.l10n_nl_tax_statement_journal_id = False
+        self.statement_1.statement_update()
+        self.assertEqual(self.statement_1.post_move_id.state, "cancel")
+        # restore config
+        self.env.company.l10n_nl_tax_statement_journal_id = self.journal_misc
+        self.statement_1.statement_update()
+        self.assertEqual(self.statement_1.post_move_id.state, "draft")
+
+    def test_12_undeclared_invoice(self):
+        invoice_1 = self._create_test_invoice()
+        invoice_1.l10n_nl_add_move_in_statement()
+        self.assertTrue(invoice_1.line_ids)
+        for line in invoice_1.line_ids:
             self.assertTrue(line.l10n_nl_vat_statement_include)
-        self.invoice_1.l10n_nl_unlink_move_from_statement()
-        self.assertTrue(self.invoice_1.line_ids)
-        for line in self.invoice_1.line_ids:
+        invoice_1.l10n_nl_unlink_move_from_statement()
+        self.assertTrue(invoice_1.line_ids)
+        for line in invoice_1.line_ids:
             self.assertFalse(line.l10n_nl_vat_statement_include)
 
         self.statement_1.statement_update()
@@ -331,7 +498,7 @@ class TestVatStatement(TransactionCase):
         # Export XLS without errors
         self._check_export_xls(self.statement_1)
 
-        invoice2 = self.invoice_1.copy()
+        invoice2 = invoice_1.copy()
         invoice2.action_post()
         statement2 = self.env["l10n.nl.vat.statement"].create({"name": "Statement 2"})
         self.assertTrue(statement2.unreported_move_from_date)
@@ -394,8 +561,7 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.is_readonly)
 
     def test_15_invoice_basis_undeclared_invoice(self):
-        self._create_test_invoice()
-        self.invoice_1.action_post()
+        invoice_1 = self._create_test_invoice()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
 
@@ -412,7 +578,7 @@ class TestVatStatement(TransactionCase):
 
         self.statement_1.company_id.country_id = self.env.ref("base.nl")
 
-        invoice2 = self.invoice_1.copy()
+        invoice2 = invoice_1.copy()
         self.assertFalse(invoice2.l10n_nl_vat_statement_id)
         self.assertFalse(invoice2.l10n_nl_vat_statement_include)
         old_date = fields.Date.from_string("2018-12-07")
@@ -444,8 +610,7 @@ class TestVatStatement(TransactionCase):
             invoice2.date = fields.Date.today()
 
     def test_16_is_not_invoice_unreported_move_from_date(self):
-        self._create_test_invoice()
-        self.invoice_1.action_post()
+        invoice_1 = self._create_test_invoice()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
         self.statement_1.is_invoice_basis = False
@@ -458,7 +623,7 @@ class TestVatStatement(TransactionCase):
         self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
         self.statement_1.company_id.country_id = self.env.ref("base.nl")
 
-        invoice2 = self.invoice_1.copy()
+        invoice2 = invoice_1.copy()
         d_date = fields.Date.from_string("2016-07-07")
         old_date = d_date + relativedelta(months=-4, day=1)
         invoice2.date = invoice2.invoice_date = old_date
@@ -482,8 +647,7 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.is_readonly)
 
     def test_17_is_not_invoice_basis_undeclared_invoice(self):
-        self._create_test_invoice()
-        self.invoice_1.action_post()
+        invoice_1 = self._create_test_invoice()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
         self.statement_1.is_invoice_basis = False
@@ -492,7 +656,7 @@ class TestVatStatement(TransactionCase):
         self.statement_1.company_id.l10n_nl_tax_invoice_basis = False
         self.statement_1.company_id.country_id = self.env.ref("base.nl")
 
-        invoice2 = self.invoice_1.copy()
+        invoice2 = invoice_1.copy()
         d_date = fields.Date.from_string("2016-07-07")
         old_date = d_date + relativedelta(months=-4, day=1)
         invoice2.date = invoice2.invoice_date = old_date
@@ -515,8 +679,8 @@ class TestVatStatement(TransactionCase):
             self.assertTrue(line.is_readonly)
 
     def test_19_skip_invoice_basis_domain(self):
-        self._create_test_invoice()
-        self.invoice_1.with_context(skip_invoice_basis_domain=True).action_post()
+        invoice_1 = self._create_test_invoice(post=False)
+        invoice_1.with_context(skip_invoice_basis_domain=True).action_post()
         self.statement_1.statement_update()
         self.assertEqual(len(self.statement_1.line_ids.ids), 22)
 
