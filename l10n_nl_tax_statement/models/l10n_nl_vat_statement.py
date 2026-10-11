@@ -130,10 +130,11 @@ class VatStatement(models.Model):
                 statement.parent_id = parent
 
     def _init_move_line_domain(self):
-        return Domain("company_id", "in", self._get_company_ids_full_list()) & Domain(
-            "l10n_nl_vat_statement_id", "=", False
-        ) & Domain("parent_state", "=", "posted") | (
-            Domain("tax_ids", "!=", False) & Domain("tax_line_id", "!=", False)
+        return (
+            Domain("company_id", "in", self._get_company_ids_full_list())
+            & Domain("l10n_nl_vat_statement_id", "=", False)
+            & Domain("parent_state", "=", "posted")
+            & (Domain("tax_ids", "!=", False) | Domain("tax_line_id", "!=", False))
         )
 
     def _get_unreported_move_domain(self):
