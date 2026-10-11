@@ -29,3 +29,16 @@ company, you need to:
     `Netherlands`.
 2.  Go to `Invoicing -> Configuration -> Settings`, enable/disable
     `NL Tax Invoice Basis (Factuurstelsel)` and `Apply`.
+
+Optionally, you can let Odoo make a matching journal entry when posting the
+VAT statement. When posting an invoice or a vendor bill, the VAT is posted on
+an account "BTW te vorderen" or "BTW af te dragen". When submitting the periodic
+VAT declaration, this declaration should be reflected in administration as a journal
+entry to counter these entries with an entry reflecting the balance to be paid to or
+received from the tax authority on a payable account from where it can be included
+in a payment order or reconciled when the payment comes in from the bank statement.
+
+To allow this, configure a journal and a ledger account for the
+rounding differences under heading "NL Tax Statement Posting" in the Accounting
+settings. You can also configure a tax authority partner that will be linked to
+the payable/receivable line of the entry.
