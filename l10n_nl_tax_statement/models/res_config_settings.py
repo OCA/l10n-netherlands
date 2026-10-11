@@ -12,3 +12,22 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.l10n_nl_tax_invoice_basis",
         readonly=False,
     )
+    l10n_nl_tax_statement_journal_id = fields.Many2one(
+        check_company=True,
+        comodel_name="account.journal",
+        domain=[("type", "=", "general")],
+        related="company_id.l10n_nl_tax_statement_journal_id",
+        readonly=False,
+    )
+    l10n_nl_tax_statement_rounding_account_id = fields.Many2one(
+        check_company=True,
+        comodel_name="account.account",
+        related="company_id.l10n_nl_tax_statement_rounding_account_id",
+        readonly=False,
+    )
+    l10n_nl_tax_statement_partner_id = fields.Many2one(
+        check_company=True,
+        comodel_name="res.partner",
+        related="company_id.l10n_nl_tax_statement_partner_id",
+        readonly=False,
+    )

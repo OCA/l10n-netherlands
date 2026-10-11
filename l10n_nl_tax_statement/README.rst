@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =========================
 Netherlands BTW Statement
 =========================
@@ -17,7 +13,7 @@ Netherlands BTW Statement
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--netherlands-lightgray.png?logo=github
@@ -89,6 +85,21 @@ company, you need to:
 2. Go to ``Invoicing -> Configuration -> Settings``, enable/disable
    ``NL Tax Invoice Basis (Factuurstelsel)`` and ``Apply``.
 
+Optionally, you can let Odoo make a matching journal entry when posting
+the VAT statement. When posting an invoice or a vendor bill, the VAT is
+posted on an account "BTW te vorderen" or "BTW af te dragen". When
+submitting the periodic VAT declaration, this declaration should be
+reflected in administration as a journal entry to counter these entries
+with an entry reflecting the balance to be paid to or received from the
+tax authority on a payable account from where it can be included in a
+payment order or reconciled when the payment comes in from the bank
+statement.
+
+To allow this, configure a journal and a ledger account for the rounding
+differences under heading "NL Tax Statement Posting" in the Accounting
+settings. You can also configure a tax authority partner that will be
+linked to the payable/receivable line of the entry.
+
 Usage
 =====
 
@@ -100,11 +111,14 @@ To create a statement you need to:
 3. Create a statement, providing a name and specifying start date and
    end date
 4. Press the Update button to calculate the report: the report lines
-   will be displayed in the tab Statement
+   will be displayed in the tab Statement. If the company is configured
+   to post a journal entry for each statement, a draft entry will be
+   created.
 5. Manually enter the BTW amounts of lines '5d', '5e', '5f' (in Edit
    mode, click on the amount of the line to be able to change it)
 6. Press the Post button to set the status of the statement to Posted;
-   the statements set to this state cannot be modified
+   the statements set to this state cannot be modified If the statement
+   contains a journal entry, this entry will be posted.
 
 To add past undeclared invoices/moves:
 
@@ -123,8 +137,8 @@ Extra info about the workflow:
    press the button Reset to Draft
 2. Instead, if you send the statement to the Tax Authority, you may want
    to avoid that the statement is set back to Draft: to avoid this,
-   press the button Final. If you then confirm, it will be not possible
-   to modify this Statement or reset it back to draft anymore.
+   press the button Finalize. If you then confirm, it will be not
+   possible to modify this Statement or reset it back to draft anymore.
 
 Printing a PDF report:
 
@@ -155,6 +169,8 @@ Known issues / Roadmap
   requirement)
 - The unreported from date is calculate as 1 quarter, it should take 1
   fiscal year based on fiscal year end date
+- Posting a matching journal entry for the statement is not supported
+  yet for fiscal units.
 
 Bug Tracker
 ===========

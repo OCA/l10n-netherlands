@@ -3,3 +3,5 @@
   requirement)
 - The unreported from date is calculate as 1 quarter, it should take 1
   fiscal year based on fiscal year end date
+- Posting a matching journal entry for the statement is not supported yet for
+  fiscal units.
