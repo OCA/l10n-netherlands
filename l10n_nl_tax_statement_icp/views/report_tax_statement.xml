@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2020 Onestein (<https://www.onestein.eu>)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="action_report_tax_statement_icp" model="ir.actions.report">
+        <field name="name">NL ICP Statement</field>
+        <field name="model">l10n.nl.vat.statement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >l10n_nl_tax_statement_icp.report_tax_statement_icp</field>
+        <field
+            name="report_file"
+        >l10n_nl_tax_statement_icp.report_tax_statement_icp</field>
+        <field
+            name="binding_model_id"
+            ref="l10n_nl_tax_statement.model_l10n_nl_vat_statement"
+        />
+        <field name="binding_type">report</field>
+        <field
+            name="paperformat_id"
+            ref="l10n_nl_tax_statement.paperformat_nl_tax_statement"
+        />
+    </record>
+
+    <record id="action_report_tax_statement_icp_xls_export" model="ir.actions.report">
+        <field name="name">NL ICP Statement XLS export</field>
+        <field name="model">l10n.nl.vat.statement</field>
+        <field name="report_type">xlsx</field>
+        <field
+            name="report_name"
+        >l10n_nl_tax_statement_icp.report_tax_statement_icp_xlsx</field>
+        <field
+            name="report_file"
+        >l10n_nl_tax_statement_icp.report_tax_statement_icp_xlsx</field>
+        <field
+            name="binding_model_id"
+            ref="l10n_nl_tax_statement.model_l10n_nl_vat_statement"
+        />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
