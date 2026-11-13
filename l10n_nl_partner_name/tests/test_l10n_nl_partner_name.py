@@ -40,3 +40,11 @@ class TestL10nNlPartnerName(TransactionCase):
         self.assertEqual(partner.infix, "von der")
         partner.name = "Willem-Alexander van Oranje Nassau"
         self.assertEqual(partner.lastname, "Oranje Nassau")
+
+    def test_rename_partner_without_lastname(self):
+        """Renaming a partner that only has a firstname"""
+        partner = self.env["res.partner"].create({"firstname": "Piet"})
+        self.assertFalse(partner.lastname)
+        partner.name = "Jansen"
+        self.assertEqual(partner.lastname, "Jansen")
+        self.assertFalse(partner.firstname)

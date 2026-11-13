@@ -23,7 +23,9 @@ class FirstnameMixin(models.AbstractModel):
             result[key] += (result[key] and " " or "") + value
 
         infixes = self._l10n_nl_partner_name_infixes()
-        result = dict.fromkeys(("firstname", "lastname", "initials", "infix"), "")
+        # The lastname comes first: the parts are written one by one, and
+        # writing an empty firstname while there is no lastname yet fails
+        result = dict.fromkeys(("lastname", "firstname", "initials", "infix"), "")
         tokens = (name or "").split()
         while len(tokens) > 1:
             token = tokens.pop(0)
