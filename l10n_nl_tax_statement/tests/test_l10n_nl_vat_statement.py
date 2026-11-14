@@ -37,6 +37,18 @@ class TestVatStatement(TransactionCase):
         )
 
     @classmethod
+    def _get_or_create_tax_tag(cls, tag_name):
+        return cls.env["account.account.tag"].search(
+            [("name", "=", tag_name)],
+        ) or cls.env["account.account.tag"].create(
+            {
+                "name": tag_name,
+                "applicability": "taxes",
+                "country_id": cls.env.ref("base.nl").id,
+            }
+        )
+
+    @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.eur = cls.env.ref("base.EUR")
@@ -54,48 +66,12 @@ class TestVatStatement(TransactionCase):
         cls.company_parent.account_fiscal_country_id = cls.env.ref("base.nl")
         cls.env["l10n.nl.vat.statement"].search([]).unlink()
 
-        cls.tag_1 = cls.env["account.account.tag"].create(
-            {
-                "name": "+1a omzet",
-                "applicability": "taxes",
-                "country_id": cls.env.ref("base.nl").id,
-            }
-        )
-        cls.tag_2 = cls.env["account.account.tag"].create(
-            {
-                "name": "+1a btw",
-                "applicability": "taxes",
-                "country_id": cls.env.ref("base.nl").id,
-            }
-        )
-        cls.tag_3 = cls.env["account.account.tag"].create(
-            {
-                "name": "+2a omzet",
-                "applicability": "taxes",
-                "country_id": cls.env.ref("base.nl").id,
-            }
-        )
-        cls.tag_4 = cls.env["account.account.tag"].create(
-            {
-                "name": "-2a omzet",
-                "applicability": "taxes",
-                "country_id": cls.env.ref("base.nl").id,
-            }
-        )
-        cls.tag_5 = cls.env["account.account.tag"].create(
-            {
-                "name": "+3bg (omzet)",
-                "applicability": "taxes",
-                "country_id": cls.env.ref("base.nl").id,
-            }
-        )
-        cls.tag_6 = cls.env["account.account.tag"].create(
-            {
-                "name": "+3bs (omzet)",
-                "applicability": "taxes",
-                "country_id": cls.env.ref("base.nl").id,
-            }
-        )
+        cls.tag_1 = cls._get_or_create_tax_tag("+1a (omzet)")
+        cls.tag_2 = cls._get_or_create_tax_tag("+1a (BTW)")
+        cls.tag_3 = cls._get_or_create_tax_tag("+2a (omzet)")
+        cls.tag_4 = cls._get_or_create_tax_tag("-2a (omzet)")
+        cls.tag_5 = cls._get_or_create_tax_tag("+3bg (omzet)")
+        cls.tag_6 = cls._get_or_create_tax_tag("+3bs (omzet)")
 
         tax_group = cls.env["account.tax.group"].create(
             {
