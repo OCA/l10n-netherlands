@@ -55,6 +55,11 @@ class VatStatement(models.Model):
         return icp_line_vals
 
     def _is_3b_omzet_line(self, line):
+        """Is this line an intra EU goods revenue line?"""
+        # Specific Odoo 17.0+ tag "3bg" is leading
+        if line.tax_tag_ids.filtered(lambda t: "3bg" in t.name):
+            return True
+        # Fallback on older 3b tag plus product type or tax name
         if line.tax_tag_ids.filtered(lambda t: "3b" in t.name):
             if line.product_id and line.product_id.type != "service":
                 return True
@@ -65,6 +70,10 @@ class VatStatement(models.Model):
         return False
 
     def _is_3b_omzet_diensten_line(self, line):
+        """Is this line an intra EU service revenue line?"""
+        # Specific Odoo 17.0+ tag "3bs" is leading
+        if line.tax_tag_ids.filtered(lambda t: "3bs" in t.name):
+            return True
         if line.tax_tag_ids.filtered(lambda t: "3b" in t.name):
             if line.product_id and line.product_id.type == "service":
                 return True
