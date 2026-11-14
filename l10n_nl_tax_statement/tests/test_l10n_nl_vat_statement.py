@@ -84,14 +84,14 @@ class TestVatStatement(TransactionCase):
         )
         cls.tag_5 = cls.env["account.account.tag"].create(
             {
-                "name": "+3b omzet",
+                "name": "+3bg (omzet)",
                 "applicability": "taxes",
                 "country_id": cls.env.ref("base.nl").id,
             }
         )
         cls.tag_6 = cls.env["account.account.tag"].create(
             {
-                "name": "+3b omzet d",
+                "name": "+3bs (omzet)",
                 "applicability": "taxes",
                 "country_id": cls.env.ref("base.nl").id,
             }
