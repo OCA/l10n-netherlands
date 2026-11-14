@@ -8,10 +8,11 @@ from dateutil.relativedelta import relativedelta
 import odoo
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests import Form
+from odoo.tests import Form, tagged
 from odoo.tests.common import TransactionCase
 
 
+@tagged("-at_install", "post_install")
 class TestVatStatement(TransactionCase):
     def _create_company_children(self):
         self.company_child_1 = self.env["res.company"].create(
