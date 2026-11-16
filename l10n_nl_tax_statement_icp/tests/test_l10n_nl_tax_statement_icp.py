@@ -98,6 +98,44 @@ class TestTaxStatementIcp(TestVatStatement):
         self._check_export_xls(self.statement_with_icp)
 
     def test_05_icp_invoice_service(self):
+        """Services and goods are split by specific tax tags 3bg, 3bs"""
+        self._create_test_invoice()
+        self.statement_1.post()
+        self.statement_with_icp = self.env["l10n.nl.vat.statement"].create(
+            {"name": "Statement 1"}
+        )
+
+        self.invoice_1.partner_id.country_id = self.env.ref("base.be")
+        self.invoice_1._post()
+        for invoice_line in self.invoice_1.invoice_line_ids:
+            invoice_line.tax_tag_ids = self.tag_6
+        self.statement_with_icp.statement_update()
+
+        self.statement_with_icp.post()
+        self.assertTrue(self.statement_with_icp.icp_line_ids)
+        self.assertTrue(self.statement_with_icp.icp_total)
+
+        for icp_line in self.statement_with_icp.icp_line_ids:
+            self.assertFalse(icp_line.amount_products)
+            self.assertTrue(icp_line.amount_services)
+            amount_products = icp_line.format_amount_products
+            self.assertEqual(float(amount_products), icp_line.amount_products)
+            amount_services = icp_line.format_amount_services
+            self.assertEqual(float(amount_services), icp_line.amount_services)
+            self.assertFalse(icp_line.vat)
+            self.assertFalse(icp_line.format_vat)
+
+        # Export XLS without errors
+        self._check_export_xls(self.statement_with_icp)
+
+    def test_05_icp_invoice_service_legacy(self):
+        """On databases created before 16.0, old tags+tax names may remain.
+
+        Goods and services are split by having 'dienst' in the tax name, or
+        the product type (not tested here).
+        """
+        self.tag_5.name = "+3b omzet"
+        self.tag_6.name = "+3b omzet d"
         self.tax_1.name = self.tax_1.name + " dienst"
         self.tax_2.name = self.tax_2.name + " dienst"
         self._create_test_invoice()
