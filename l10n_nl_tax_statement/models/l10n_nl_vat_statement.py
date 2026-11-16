@@ -35,7 +35,6 @@ class VatStatement(models.Model):
     line_ids = fields.One2many("l10n.nl.vat.statement.line", "statement_id", "Lines")
     company_id = fields.Many2one(
         "res.company",
-        "Company",
         required=True,
         readonly=True,
         default=lambda self: self.env.company,
