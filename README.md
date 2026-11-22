@@ -22,7 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 19.0.1.0.0 |  | Netherlands BTW Statement
+[l10n_nl_tax_statement](l10n_nl_tax_statement/) | 19.0.1.1.0 |  | Netherlands BTW Statement
 
 [//]: # (end addons)
 
