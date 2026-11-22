@@ -8,10 +8,11 @@ from dateutil.relativedelta import relativedelta
 import odoo
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests import Form
+from odoo.tests import Form, tagged
 from odoo.tests.common import TransactionCase
 
 
+@tagged("-at_install", "post_install")
 class TestVatStatement(TransactionCase):
     def _create_company_children(self):
         self.company_child_1 = self.env["res.company"].create(
@@ -197,6 +198,11 @@ class TestVatStatement(TransactionCase):
         self._check_export_xls(statement)
 
     def test_02_post_final(self):
+        self._create_test_invoice()
+        no_tax_invoice = self.invoice_1.copy()
+        no_tax_invoice.line_ids.tax_ids = False
+        self.invoice_1.action_post()
+        no_tax_invoice.action_post()
         # in draft
         self.assertEqual(self.statement_1.state, "draft")
         self.statement_1.statement_update()
@@ -213,6 +219,10 @@ class TestVatStatement(TransactionCase):
         for line in self.statement_1.line_ids:
             self.assertTrue(line.view_base_lines())
             self.assertTrue(line.view_tax_lines())
+
+        # The invoice without tax is not linked to the statement
+        self.assertEqual(self.invoice_1.l10n_nl_vat_statement_id, self.statement_1)
+        self.assertFalse(no_tax_invoice.l10n_nl_vat_statement_id)
 
         # then finalize
         self.statement_1.finalize()
@@ -233,7 +243,7 @@ class TestVatStatement(TransactionCase):
             with self.assertRaises(UserError):
                 line.unlink()
 
-        self.assertEqual(self.statement_1.btw_total, 0.0)
+        self.assertEqual(self.statement_1.btw_total, 21.0)
 
         # Export XLS without errors
         self._check_export_xls(self.statement_1)
