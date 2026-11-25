@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="liza_partner_view" model="ir.ui.view">
+        <field name="name">partner.liza_info</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='partner_address_country']" position="after">
+                <button
+                    aria-label="Enhance"
+                    class="btn-sm btn-link p-0"
+                    name="liza_button_enhance"
+                    title="Enhance Contact Data"
+                    type="object"
+                    invisible="not liza_show_button_enhance"
+                    groups="liza_base.liza_download"
+                >
+                    <img
+                        src="/liza_base/static/img/logo-en.resized.png"
+                        style="height: 32px; width: auto;"
+                        alt="Enhance Contact Data"
+                    />
+                </button>
+            </xpath>
+
+            <!-- Changes to standard partner view -->
+            <!-- We use Odoo's company_name for liza_commercial_name: make it visible even if is_company -->
+            <xpath expr="//div[field[@name='company_name']]" position="attributes">
+                <attribute name="invisible" remove="is_company" separator="or" />
+            </xpath>
+            <button name="create_company" position="attributes">
+                <attribute name="invisible">is_company</attribute>
+            </button>
+            <field name="vat" position="after">
+                <!-- Move company_registry under VAT. Target the field in the
+                     Misc group explicitly: l10n_fr adds a second
+                     company_registry ("Siren/Siret") right after VAT, and a
+                     plain name match would grab that one instead. -->
+                <xpath
+                    expr="//group[@name='misc']//field[@name='company_registry']"
+                    position="move"
+                />
+            </field>
+
+            <notebook position="inside">
+                <page
+                    groups="liza_base.liza_view"
+                    invisible="not liza_show_tab"
+                    string="Liza"
+                >
+                    <div
+                        class="alert alert-danger mt-3"
+                        role="alert"
+                        invisible="not liza_error"
+                    >
+                        <div class="o_row align-items-center" title="Liza Error">
+                            <i class="fa fa-warning me-2" />
+                            <field name="liza_error" />
+                        </div>
+                    </div>
+                    <group name="group_liza_top" invisible="liza_error">
+                        <group name="liza_group_data">
+                            <field
+                                invisible="not liza_lastupdate"
+                                name="liza_lastupdate"
+                            />
+                            <field name="liza_sync_status" />
+                            <field
+                                name="liza_sync_reference"
+                                invisible="not liza_sync_reference"
+                                groups="base.group_no_one"
+                            />
+                            <button
+                                class="btn btn-primary"
+                                invisible="not liza_show_button_address"
+                                name="liza_button_copy_address"
+                                string="Fill Data"
+                                type="object"
+                            />
+                            <button
+                                class="btn btn-secondary oe_inline"
+                                invisible="liza_sync_status != 'none' or not liza_followup_enable or not company_registry or not country_id"
+                                name="action_push_followup_partners"
+                                string="Add to Liza Alerts"
+                                type="object"
+                            />
+                        </group>
+                        <group name="liza_group_logo">
+                            <img
+                                alt="Liza"
+                                src="/liza_base/static/img/logo-en.png"
+                                style="height: 60px; width: auto;"
+                            />
+                        </group>
+                    </group>
+                    <group name="liza_group_middle" invisible="liza_error">
+                        <group
+                            name="liza_group_global"
+                            invisible="not liza_name_enable"
+                            string="Global"
+                        >
+                            <field
+                                invisible="not liza_name_enable or not liza_name"
+                                name="liza_name"
+                                string="Name"
+                            />
+                            <field
+                                invisible="not liza_commercial_name_enable or not liza_commercial_name"
+                                name="liza_commercial_name"
+                                string="Commercial Name"
+                            />
+                            <field
+                                invisible="not liza_jur_form_enable or not liza_jur_form"
+                                name="liza_jur_form"
+                            />
+                            <field
+                                name="liza_main_industry"
+                                invisible="not liza_main_industry_enable or not liza_main_industry"
+                            />
+                            <field
+                                name="liza_industries"
+                                invisible="not liza_industries_enable or not liza_industries"
+                            />
+                            <field
+                                invisible="not liza_startDate_enable or not liza_startDate"
+                                name="liza_startDate"
+                            />
+                            <field
+                                invisible="not liza_endDate_enable or not liza_endDate"
+                                name="liza_endDate"
+                            />
+                            <field
+                                invisible="not liza_prefLang_enable or not liza_prefLang_id"
+                                name="liza_prefLang_id"
+                                options="{'no_open': True}"
+                            />
+                            <field
+                                decoration-danger="liza_companystatus_code != '0'"
+                                invisible="not liza_companystatus_enable or not liza_companystatus"
+                                name="liza_companystatus"
+                                string="Status"
+                            />
+                            <field
+                                name="liza_peppol"
+                                invisible="not liza_peppol_enable"
+                            />
+                            <field
+                                name="liza_liable_party"
+                                invisible="not liza_liable_party_enable or not liza_liable_party or liza_country_code != 'NL'"
+                            />
+                        </group>
+                        <group name="liza_address" string="Address &amp; Registry">
+                            <field
+                                groups="base.group_no_one"
+                                invisible="is_company"
+                                name="type"
+                                readonly="user_ids"
+                            />
+                            <label for="liza_street" string="Seat" />
+                            <div class="o_address_format">
+                                <field
+                                    class="o_address_street"
+                                    name="liza_street"
+                                    readonly="type == 'contact' and not parent_id"
+                                />
+                                <field
+                                    class="o_address_zip"
+                                    name="liza_zip"
+                                    readonly="type == 'contact' and not parent_id"
+                                />
+                                <field
+                                    class="o_address_city"
+                                    name="liza_city"
+                                    readonly="type == 'contact' and not parent_id"
+                                />
+                                <field
+                                    class="o_address_country"
+                                    name="liza_country_id"
+                                    options="{'no_open': True}"
+                                    readonly="type == 'contact' and not parent_id"
+                                />
+                            </div>
+                            <field
+                                name="liza_phone"
+                                invisible="not liza_phone_enable or not liza_phone"
+                                string="Phone"
+                            />
+                            <field
+                                name="liza_email"
+                                string="Email"
+                                invisible="not liza_email_enable or not liza_email"
+                            />
+                            <field
+                                name="liza_website"
+                                string="Website"
+                                invisible="not liza_website_enable or not liza_website"
+                            />
+                            <field
+                                name="liza_registry"
+                                invisible="not liza_registry_enable or not liza_registry"
+                            />
+                            <field
+                                invisible="not liza_vat_liable_enable"
+                                name="liza_vat_liable"
+                            />
+                            <field
+                                name="liza_vat"
+                                string="VAT"
+                                invisible="not liza_vat_enable or not liza_vat"
+                            />
+                            <field
+                                name="liza_rsin_number"
+                                invisible="not liza_rsin_number_enable or not liza_rsin_number or liza_country_code != 'NL'"
+                            />
+                            <field name="liza_country_code" string="Country Code" />
+                        </group>
+                    </group>
+                    <group name="liza_group_bottom" invisible="liza_error">
+                        <group name="liza_financial" string="Financial">
+                            <field
+                                invisible="not liza_balance_year"
+                                name="liza_balance_year"
+                            />
+                            <field
+                                invisible="not liza_closed_date"
+                                name="liza_closed_date"
+                            />
+                            <field
+                                invisible="liza_equityCapital_unset"
+                                name="liza_equityCapital"
+                                options="{'currency_field': 'liza_currency_id'}"
+                                widget="monetary"
+                            />
+                            <field
+                                invisible="liza_addedValue_unset"
+                                name="liza_addedValue"
+                                options="{'currency_field': 'liza_currency_id'}"
+                                widget="monetary"
+                            />
+                            <field
+                                invisible="liza_average_fte_unset"
+                                name="liza_average_fte"
+                            />
+                            <field
+                                invisible="liza_turnover_unset"
+                                name="liza_turnover"
+                                options="{'currency_field': 'liza_currency_id', 'digits':'12.0'}"
+                                widget="monetary"
+                            />
+                            <field
+                                invisible="liza_result_unset"
+                                name="liza_result"
+                                options="{'currency_field': 'liza_currency_id'}"
+                                widget="monetary"
+                            />
+                            <field
+                                invisible="not liza_warnings_enable or not liza_warnings"
+                                name="liza_warnings"
+                                class="text-danger"
+                            />
+                            <label for="liza_url" string="Reports" />
+                            <div>
+                                <field
+                                    invisible="not liza_url_enable or not liza_url"
+                                    name="liza_url"
+                                    text="Details"
+                                    widget="url"
+                                />
+                                <field
+                                    invisible="not liza_url_report_enable or not liza_url_report"
+                                    name="liza_url_report"
+                                    text="Commercial Report"
+                                    widget="url"
+                                />
+                                <field
+                                    invisible="not liza_url_payment_experience_enable or not liza_url_payment_experience"
+                                    name="liza_url_payment_experience"
+                                    text="Payment Experience Report"
+                                    widget="url"
+                                />
+                            </div>
+                        </group>
+                        <group name="liza_group_barometer" string="Health">
+                            <field
+                                name="liza_currency_id"
+                                invisible="not liza_currency_id"
+                            />
+                            <field
+                                decoration-danger="liza_creditLimit == 0"
+                                invisible="liza_creditLimit_unset"
+                                name="liza_creditLimit"
+                                string="Credit Limit"
+                                options="{'currency_field': 'liza_currency_id'}"
+                                widget="monetary"
+                            />
+                            <field
+                                decoration-danger="liza_creditLimit == 0"
+                                invisible="not liza_creditLimit_info"
+                                name="liza_creditLimit_info"
+                            />
+                            <field invisible="not liza_image" name="liza_image_tag" />
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="res_partner_view_search_liza" model="ir.ui.view">
+        <field name="name">res.partner.search.liza</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter
+                    string="In Liza Alerts"
+                    name="liza_sync"
+                    domain="[('liza_sync','=', True)]"
+                />
+                <filter
+                    string="Liza Alerts Pending"
+                    name="liza_sync_pending"
+                    domain="[('liza_sync','=', False), ('liza_sync_status', '=', 'pending')]"
+                />
+                <filter
+                    string="Not in Liza Alerts"
+                    name="liza_sync"
+                    domain="[('liza_sync','=', False), ('liza_sync_status', '=', 'none')]"
+                />
+                <filter
+                    string="Liza Errors"
+                    name="liza_errors"
+                    domain="[('liza_error', '!=', False)]"
+                />
+                <separator />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_liza_push_partner" model="ir.actions.server">
+        <field name="name">Add to Liza Alerts</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_push_followup_partners()
+        </field>
+    </record>
+</odoo>
